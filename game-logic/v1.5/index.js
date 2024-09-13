@@ -1,4 +1,7 @@
 const seedrandom = require('seedrandom')
+const Validator = require('jsonschema').Validator
+const v = new Validator()
+const teamSchema = require('../../schemas/team.json')
 
 const { GameError } = require('../../utils/errors')
 
@@ -523,7 +526,8 @@ const prepareTeams = (allAliveGotchis, team1, team2) => {
         x.attack = x.magic > x.physical ? 'magic' : 'physical'
 
         // Add original stats to all gotchis
-        x.originalStats = { ...x }
+        // Do a deep copy of the gotchi object to avoid modifying the original object
+        x.originalStats = JSON.parse(JSON.stringify(x)) 
 
         // Add environmentEffects to all gotchis
         x.environmentEffects = []
@@ -542,9 +546,11 @@ const prepareTeams = (allAliveGotchis, team1, team2) => {
 const getLogGotchis = (allAliveGotchis) => {
     const logGotchis = JSON.parse(JSON.stringify(allAliveGotchis))
 
-    // Change gotchi.special.class to gotchi.special.gotchiClass
     logGotchis.forEach(x => {
+        // Change gotchi.special.class to gotchi.special.gotchiClass to avoid conflicts with class keyword
         x.special.gotchiClass = x.special.class
+
+        // Remove unnecessary properties to reduce log size
         delete x.special.class
         delete x.snapshotBlock
         delete x.onchainId
@@ -558,6 +564,9 @@ const getLogGotchis = (allAliveGotchis) => {
         delete x.kinship
         delete x.xp
         delete x.actionDelay
+        delete x.attack
+        delete x.originalStats
+        delete x.environmentEffects
     })
 
     return logGotchis
@@ -575,6 +584,18 @@ const gameLoop = (team1, team2, seed, debug) => {
     if (!team1) throw new Error("Team 1 not found")
     if (!team2) throw new Error("Team 2 not found")
     if (!seed) throw new Error("Seed not found")
+
+    // Validate team objects
+    const team1Validation = v.validate(team1, teamSchema)
+    if (team1Validation.errors.length) {
+        console.error('Team 1 validation failed: ', JSON.stringify(team1Validation.errors))
+        throw new Error(`Team 1 validation failed`)
+    }
+    const team2Validation = v.validate(team2, teamSchema)
+    if (team2Validation.errors.length) {
+        console.error('Team 2 validation failed: ', team2Validation.errors)
+        throw new Error(`Team 2 validation failed`)
+    }
 
     const rng = seedrandom(seed)
 

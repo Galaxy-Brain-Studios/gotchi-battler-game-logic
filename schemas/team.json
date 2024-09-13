@@ -156,6 +156,9 @@
                         "class": {
                             "type": "string"
                         },
+                        "gotchiClass": {
+                            "type": "string"
+                        },
                         "name": {
                             "type": "string"
                         },
@@ -166,15 +169,20 @@
                             "type": "string"
                         }
                     },
-                    "required": ["id", "class", "name", "cooldown", "leaderPassive"],
+                    "required": ["id", "name", "cooldown", "leaderPassive"],
                     "additionalProperties": false
+                },
+                "statuses": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             },
             "additionalProperties": false,
             "required": [
                 "id",
                 "name",
-                "brs",
                 "speed",
                 "health",
                 "crit",

@@ -1,4 +1,7 @@
 const seedrandom = require('seedrandom')
+const Validator = require('jsonschema').Validator
+const v = new Validator()
+const teamSchema = require('../../schemas/team.json')
 
 const { GameError } = require('../../utils/errors')
 
@@ -581,6 +584,18 @@ const gameLoop = (team1, team2, seed, debug) => {
     if (!team1) throw new Error("Team 1 not found")
     if (!team2) throw new Error("Team 2 not found")
     if (!seed) throw new Error("Seed not found")
+
+    // Validate team objects
+    const team1Validation = v.validate(team1, teamSchema)
+    if (team1Validation.errors.length) {
+        console.error('Team 1 validation failed: ', JSON.stringify(team1Validation.errors))
+        throw new Error(`Team 1 validation failed`)
+    }
+    const team2Validation = v.validate(team2, teamSchema)
+    if (team2Validation.errors.length) {
+        console.error('Team 2 validation failed: ', team2Validation.errors)
+        throw new Error(`Team 2 validation failed`)
+    }
 
     const rng = seedrandom(seed)
 
