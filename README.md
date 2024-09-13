@@ -22,18 +22,29 @@ const game = require('gotchi-battler-game-logic')
 const result = game(team1, team2, seed)
 ```
 The schema for the in-game team object can be found in `/schemas/team.json`
+
 Examples of the in-game team object can be found in `/scripts/data/team1.json` and `/scripts/data/team2.json`
 
 ## Development
 
-To validate the battles from a previous tournament, run the following command:
+### Validate Tournament
+
+The validate tournament script does the following:
+- Fetches the data of a tournament from the Gotchi Battler website
+- Loops through all the battles in the tournament, bracket by bracket, round by round
+- For each battle, the logs are fetched from the Gotchi Battler website
+- The battle is then simulated using the game logic
+- The result of the simulation is compared to the actual result of the battle
+
+To validate the battles from the RF8 100K Tournament, run the following command:
 
 ```bash
-node scripts/validateTournament.js <tournament-id>
+node scripts/validateTournament.js 15
 ```
 
 Get the tournament id from the URL of the tournament page on the Gotchi Battler website.
 
+
 PLEASE NOTE:
-- Currently only the tournaments from Rarity Farming season 9 are supported (Tournament IDs 13-15)
+- Currently, only the tournaments from Rarity Farming season 8 are supported (Tournament IDs 13-15)
 - The script can take a while to run, in local testing it took around 20 minutes
