@@ -1,0 +1,196 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "formation": {
+            "type": "object",
+            "required": ["front", "back"],
+            "properties": {
+                "front": {
+                    "type": "array",
+                    "minItems": 5,
+                    "maxItems": 5,
+                    "items": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/definitions/gotchi"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    }
+                },
+                "back": {
+                    "type": "array",
+                    "minItems": 5,
+                    "maxItems": 5,
+                    "items": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/definitions/gotchi"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "leader": {
+            "type": "integer"
+        },
+        "name": {
+            "type": "string"
+        },
+        "owner": {
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$"
+        }
+    },
+    "required": ["formation", "leader", "name", "owner"],
+    "additionalProperties": false,
+    "definitions": {
+        "gotchi": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "snapshotBlock": {
+                    "type": "integer"
+                },
+                "onchainId": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "brs": {
+                    "type": "integer"
+                },
+                "nrg": {
+                    "type": "integer"
+                },
+                "agg": {
+                    "type": "integer"
+                },
+                "spk": {
+                    "type": "integer"
+                },
+                "brn": {
+                    "type": "integer"
+                },
+                "eyc": {
+                    "type": "integer"
+                },
+                "eys": {
+                    "type": "integer"
+                },
+                "kinship": {
+                    "type": "integer"
+                },
+                "xp": {
+                    "type": "integer"
+                },
+                "speed": {
+                    "type": "integer"
+                },
+                "health": {
+                    "type": "integer"
+                },
+                "crit": {
+                    "type": "integer"
+                },
+                "armor": {
+                    "type": "integer"
+                },
+                "evade": {
+                    "type": "integer"
+                },
+                "resist": {
+                    "type": "integer"
+                },
+                "magic": {
+                    "type": "integer"
+                },
+                "physical": {
+                    "type": "integer"
+                },
+                "accuracy": {
+                    "type": "number"
+                },
+                "attack": {
+                    "type": "string",
+                    "enum": ["physical", "magic"]
+                },
+                "actionDelay": {
+                    "type": "number"
+                },
+                "svgFront": {
+                    "type": "string",
+                    "format": "uri"
+                },
+                "svgBack": {
+                    "type": "string",
+                    "format": "uri"
+                },
+                "svgLeft": {
+                    "type": "string",
+                    "format": "uri"
+                },
+                "svgRight": {
+                    "type": "string",
+                    "format": "uri"
+                },
+                "specialId": {
+                    "type": "integer"
+                },
+                "special": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "integer"
+                        },
+                        "class": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "cooldown": {
+                            "type": "integer"
+                        },
+                        "leaderPassive": {
+                            "type": "string"
+                        }
+                    },
+                    "required": ["id", "class", "name", "cooldown", "leaderPassive"],
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "id",
+                "name",
+                "brs",
+                "speed",
+                "health",
+                "crit",
+                "armor",
+                "evade",
+                "resist",
+                "magic",
+                "physical",
+                "accuracy",
+                "svgFront",
+                "svgBack",
+                "svgLeft",
+                "svgRight",
+                "specialId",
+                "special"
+            ]
+        }
+    }
+}

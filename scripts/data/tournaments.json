@@ -1,0 +1,67 @@
+[
+    {
+        "id": 1,
+        "name": "Test Tournament 1",
+        "gameLogicVersion": "v1.5"
+    },
+    {
+        "id": 2,
+        "name": "Test Tournament 2",
+        "gameLogicVersion": "v1.5"
+    },
+    {
+        "id": 4,
+        "name": "1000 DAI Bounty Tournament",
+        "gameLogicVersion": "v1.5"
+    },
+    {
+        "id": 5,
+        "name": "2000 DAI Bounty Tournament",
+        "gameLogicVersion": "v1.5"
+    },
+    {
+        "id": 7,
+        "name": "10k GHST Rarity Farming Tournament",
+        "gameLogicVersion": "v1.5"
+    },
+    {
+        "id": 8,
+        "name": "30k GHST Rarity Farming Tournament",
+        "gameLogicVersion": "v1.5"
+    },
+    {
+        "id": 9,
+        "name": "60k GHST Rarity Farming Tournament",
+        "gameLogicVersion": "v1.5"
+    },
+    {
+        "id": 10,
+        "name": "Test Tournament 3",
+        "gameLogicVersion": "v1.5"
+    },
+    {
+        "id": 11,
+        "name": "1000 DAI Bounty Tournament",
+        "gameLogicVersion": "v1.4"
+    },
+    {
+        "id": 12,
+        "name": "1000 DAI Bounty Tournament",
+        "gameLogicVersion": "v1.5"
+    },
+    {
+        "id": 13,
+        "name": "RF8 10K GHST Tournament",
+        "gameLogicVersion": "v1.5"
+    },
+    {
+        "id": 14,
+        "name": "RF8 40K GHST Tournament",
+        "gameLogicVersion": "v1.6"
+    },
+    {
+        "id": 15,
+        "name": "RF8 100K GHST Tournament",
+        "gameLogicVersion": "v1.6"
+    }
+]
