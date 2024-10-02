@@ -12,6 +12,7 @@
     "url": "Galaxy-Brain-Studios/gotchi-battler-game-logic"
   },
   "dependencies": {
+    "axios-retry": "^4.5.0",
     "jsonschema": "^1.4.1",
     "seedrandom": "^3.0.5"
   },

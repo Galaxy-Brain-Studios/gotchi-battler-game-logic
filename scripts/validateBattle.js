@@ -1,4 +1,10 @@
 const axios = require('axios')
+const axiosRetry = require('axios-retry').default
+axiosRetry(axios, { 
+    retries: 3, 
+    retryDelay: axiosRetry.exponentialDelay
+})
+
 const { GameError, ValidationError } = require('../utils/errors')
 const { logToInGameTeams } = require('../utils/transforms')
 const { compareLogs } = require('../utils/validations')
