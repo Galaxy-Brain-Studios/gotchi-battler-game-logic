@@ -6,7 +6,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Galaxy Brain Studios",
-  "description": "",
+  "description": "The game logic for the Gotchi Battler game",
+  "repository": {
+    "type": "git",
+    "url": "Galaxy-Brain-Studios/gotchi-battler-game-logic"
+  },
   "dependencies": {
     "jsonschema": "^1.4.1",
     "seedrandom": "^3.0.5"
