@@ -177,6 +177,12 @@
                     "items": {
                         "type": "string"
                     }
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false,

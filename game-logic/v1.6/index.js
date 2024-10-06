@@ -597,6 +597,10 @@ const gameLoop = (team1, team2, seed, debug) => {
         throw new Error(`Team 2 validation failed`)
     }
 
+    // Make deep copy of team objects to avoid modifying the original objects
+    team1 = JSON.parse(JSON.stringify(team1))
+    team2 = JSON.parse(JSON.stringify(team2))
+
     const rng = seedrandom(seed)
 
     const allAliveGotchis = [...getAlive(team1), ...getAlive(team2)]
