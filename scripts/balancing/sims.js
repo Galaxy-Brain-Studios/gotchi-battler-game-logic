@@ -130,6 +130,9 @@ const runSims = async (simsVersion, gameLogicVersion, simsPerMatchup) => {
         drawsRare: 0,
         lossesRare: 0
     }
+
+    console.time(`Sims for ${attackingTeam.name}`)
+
     defendingTeamIndexes.forEach((defendingTeamIndex, i) => {
         const defendingTeam = createTeamFromTeamIndex(defendingTeamIndex, trainingGotchis, setTeamPositions)
         
@@ -175,6 +178,8 @@ const runSims = async (simsVersion, gameLogicVersion, simsPerMatchup) => {
             if (powerLevel === 'R') results.lossesRare++
         }
     })
+
+    console.timeEnd(`Sims for ${attackingTeam.name}`)
 
     // Check total wins, draws, losses to make sure they add up to number of defending teams
     const totalMatchups = results.wins + results.draws + results.losses
@@ -223,9 +228,9 @@ module.exports = runSims
 // 4th argument is the number of sims per matchup
 // node scripts/balancing/sims.js 0 v1.6 v1.6 3
 if (require.main === module) {
-    const simsVersion = process.env.SIMS_VERSION || process.argv[3] || 'v1.6'
+    const simsVersion = process.env.SIMS_VERSION || process.argv[3] || 'v1.7'
     const gameLogicVersion = process.env.GAME_LOGIC_VERSION || process.argv[4] || 'v1.6'
-    const simsPerMatchup = process.env.SIMS_PER_MATCHUP || process.argv[5] || 3
+    const simsPerMatchup = parseInt(process.env.SIMS_PER_MATCHUP) || parseInt(process.argv[5]) || 9
 
     runSims(simsVersion, gameLogicVersion, simsPerMatchup)
         .then(() => {
