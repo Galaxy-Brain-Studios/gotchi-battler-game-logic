@@ -1,5 +1,5 @@
 const fs = require('fs')
-const trainingGotchis = require('./v1.7.1/training_gotchis.json')
+const trainingGotchis = require('./v1.7/training_gotchis.json')
 const specials = [
     {
         "id": 1,
@@ -61,6 +61,8 @@ const specials = [
 
 const classes = ['Ninja','Enlightened','Cleaver','Tank','Cursed','Healer', 'Mage', 'Troll']
 
+// Sort the gotchis by id
+trainingGotchis.sort((a, b) => a.id - b.id)
 
 trainingGotchis.forEach(gotchi => {
     // Add special to gotchi
