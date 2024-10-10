@@ -228,9 +228,9 @@ module.exports = runSims
 // 4th argument is the number of sims per matchup
 // node scripts/balancing/sims.js 0 v1.6 v1.6 3
 if (require.main === module) {
-    const simsVersion = process.env.SIMS_VERSION || process.argv[3] || 'v1.7'
+    const simsVersion = process.env.SIMS_VERSION || process.argv[3] || 'v1.7.1'
     const gameLogicVersion = process.env.GAME_LOGIC_VERSION || process.argv[4] || 'v1.6'
-    const simsPerMatchup = parseInt(process.env.SIMS_PER_MATCHUP) || parseInt(process.argv[5]) || 9
+    const simsPerMatchup = parseInt(process.env.SIMS_PER_MATCHUP) || parseInt(process.argv[5]) || 3
 
     runSims(simsVersion, gameLogicVersion, simsPerMatchup)
         .then(() => {

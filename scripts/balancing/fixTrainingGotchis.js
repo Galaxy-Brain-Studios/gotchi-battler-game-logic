@@ -1,5 +1,5 @@
 const fs = require('fs')
-const trainingGotchis = require('./v1.6/training_gotchis.json')
+const trainingGotchis = require('./v1.7.1/training_gotchis.json')
 const specials = [
     {
         "id": 1,
@@ -75,7 +75,14 @@ trainingGotchis.forEach(gotchi => {
     if (gotchi.name.endsWith('+') || gotchi.name.endsWith('-')) {
         gotchi.name = `${gotchi.name} ${classes[gotchi.specialId - 1]}`
     }
+
+    // Remove extra fields
+    delete gotchi.tier
+    delete gotchi.class
+    delete gotchi.stats_brs
 })
 
 // Write the updated trainingGotchis to a new file
 fs.writeFileSync('./training_gotchis1.json', JSON.stringify(trainingGotchis, null, '\t'))
+
+// node scripts/balancing/fixTrainingGotchis.js
