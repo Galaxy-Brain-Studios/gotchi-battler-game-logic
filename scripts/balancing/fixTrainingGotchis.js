@@ -1,5 +1,5 @@
 const fs = require('fs')
-const trainingGotchis = require('./v1.7.1/training_gotchis.json')
+const trainingGotchis = require('./v1.6/training_gotchis.json')
 
 const specials = [
     {
@@ -61,6 +61,7 @@ const specials = [
 ]
 
 const classes = ['Ninja','Enlightened','Cleaver','Tank','Cursed','Healer', 'Mage', 'Troll']
+const powerLevels = ['Godlike', 'Mythical', 'Legendary', 'Rare', 'Uncommon', 'Common', 'Garbage']
 
 // This is copied/hacked from the mapGotchi function in the backend
 const fixTraits = (gotchi) => {
@@ -167,6 +168,39 @@ const fixTraits = (gotchi) => {
     }
 }
 
+const addAvgGotchs = () => {
+    const statsToOverwrite = ["speed", "health", "crit", "armor", "evade", "resist", "magic", "physical", "accuracy"]
+
+    const avgGotchis = []
+
+    powerLevels.forEach((powerLevel) => {
+        classes.forEach((className) => {
+            // Find all gotchis with the same class and power level
+            // Names are in the format "Godlike ++++ Ninja"
+            const gotchis = trainingGotchis.filter(gotchi => gotchi.name.includes(powerLevel) && gotchi.name.includes(className))
+
+            // Copy over one of the gotchis
+            const avgGotchi = JSON.parse(JSON.stringify(gotchis[0]))
+
+            // Add an id
+            avgGotchi.id = trainingGotchis.length + avgGotchis.length + 1
+
+            // Overwrite the name
+            avgGotchi.name = `${powerLevel} avg ${className}`
+
+            // Overwrite the stats
+            statsToOverwrite.forEach((stat) => {
+                const total = gotchis.reduce((acc, gotchi) => acc + gotchi[stat], 0)
+                avgGotchi[stat] = Math.round(total / gotchis.length)
+            })
+
+            avgGotchis.push(avgGotchi)
+        })
+    })
+
+    trainingGotchis.push(...avgGotchis)
+}
+
 // Sort the gotchis by id
 trainingGotchis.sort((a, b) => a.id - b.id)
 
@@ -192,6 +226,9 @@ trainingGotchis.forEach(gotchi => {
     // Make sure the gotchi has the correct traits
     fixTraits(gotchi)
 })
+
+// Add the average gotchis
+addAvgGotchs()
 
 // Write the updated trainingGotchis to a new file
 fs.writeFileSync('./training_gotchis1.json', JSON.stringify(trainingGotchis, null, '\t'))

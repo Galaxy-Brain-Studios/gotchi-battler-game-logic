@@ -18,21 +18,41 @@ const createTeamIndexes = (classCombos, classTraitCombos, powerLevels, trainingG
 
     classCombos.forEach(classCombo => {
         powerLevels.forEach(powerLevel => {
-            // Loop over how many trait sets there are in the classTraitCombos array
-            classTraitCombos[0].forEach((x, i) => {
-                const team = []
-                classCombo.forEach(classIndex => {
-                    const gotchiName = `${powerLevel} ${classTraitCombos[classIndex - 1][i]} ${classes[classIndex - 1]}`
-                    const gotchi = trainingGotchis.find(gotchi => {
-                        return gotchi.name === gotchiName
-                    })
+            // Loop over each class in the classCombo
+            for(let i = 0; i < classCombo.length; i++) {
+                classTraitCombos[classCombo[i] - 1].forEach(traitSet1 => {
+                    for (let j = i + 1; j < classCombo.length; j++) {
+                        classTraitCombos[classCombo[j] - 1].forEach(traitSet2 => {
+                            for (let k = j + 1; k < classCombo.length; k++) {
+                                classTraitCombos[classCombo[k] - 1].forEach(traitSet3 => {
+                                    for (let l = k + 1; l < classCombo.length; l++) {
+                                        classTraitCombos[classCombo[l] - 1].forEach(traitSet4 => {
+                                            for (let m = l + 1; m < classCombo.length; m++) {
+                                                classTraitCombos[classCombo[m] - 1].forEach(traitSet5 => {
+                                                    const team = [];
 
-                    if (!gotchi) throw new Error(`Gotchi not found: "${gotchiName}"`)
-                    
-                    team.push(gotchi.id)
+                                                    [traitSet1, traitSet2, traitSet3, traitSet4, traitSet5].forEach((traitSet, index) => {
+                                                        const gotchiName = `${powerLevel} ${traitSet} ${classes[classCombo[index] - 1]}`
+                                                        const gotchi = trainingGotchis.find(gotchi => {
+                                                            return gotchi.name === gotchiName
+                                                        })
+
+                                                        if (!gotchi) throw new Error(`Gotchi not found: "${gotchiName}"`)
+
+                                                        team.push(gotchi.id)
+                                                    })
+
+                                                    teams.push(team)
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    }
                 })
-                teams.push(team)
-            })
+            }
         })
     })
 
@@ -88,18 +108,23 @@ const getGotchisSimNameFromTeam = (team) => {
     return names
 }
 
-const runSims = async (simsVersion, gameLogicVersion, simsPerMatchup) => {
+const runSims = async (simsVersion, gameLogicVersion, simsPerMatchup, useAvg) => {
     const trainingGotchis = require(`./${simsVersion}/training_gotchis.json`)
-    const classCombos = require(`./${simsVersion}/class_combos.json`)
-    const classTraitCombos = require(`./${simsVersion}/trait_combos.json`)
+    const classCombos = useAvg ? require('./allClassCombos') : require(`./${simsVersion}/class_combos.json`)
+    const classTraitCombos = useAvg ? require('./avg_trait_combos.json') : require(`./${simsVersion}/trait_combos.json`)
     const setTeamPositions = require(`./${simsVersion}/setTeamPositions`)
     const gameLogic = require("../../game-logic")[gameLogicVersion].gameLoop
 
-    const attackingPowerLevels = ['Mythical']
-    const defendingPowerLevels = ['Mythical', 'Legendary', 'Rare']
+    const attackingPowerLevels = ['Godlike']
+    const defendingPowerLevels = ['Godlike', 'Mythical', 'Legendary']
     
-    const attackingTeamIndexes = createTeamIndexes(classCombos, classTraitCombos, attackingPowerLevels, trainingGotchis)
-    const defendingTeamIndexes = createTeamIndexes(classCombos, classTraitCombos, defendingPowerLevels, trainingGotchis)
+    const attackingTeamIndexes = createTeamIndexes(classCombos, classTraitCombos, attackingPowerLevels, trainingGotchis, useAvg)
+
+    // console.log(`Running sims for ${attackingTeamIndexes.length} attacking teams`)
+
+    const defendingTeamIndexes = createTeamIndexes(classCombos, classTraitCombos, defendingPowerLevels, trainingGotchis, useAvg)
+
+    // console.log(`Against ${defendingTeamIndexes.length} defending teams`)
 
     // Which attacking team are we running the sims on?
     // If running on Cloud Run, use the task index
@@ -226,13 +251,14 @@ module.exports = runSims
 // 2nd argument is the sims version
 // 3rd argument is the game logic version
 // 4th argument is the number of sims per matchup
-// node scripts/balancing/sims.js 0 v1.6 v1.6 3
+// node scripts/balancing/sims.js 0 v1.6 v1.6 3 true
 if (require.main === module) {
     const simsVersion = process.env.SIMS_VERSION || process.argv[3] || 'v1.7.1'
     const gameLogicVersion = process.env.GAME_LOGIC_VERSION || process.argv[4] || 'v1.6'
     const simsPerMatchup = parseInt(process.env.SIMS_PER_MATCHUP) || parseInt(process.argv[5]) || 3
+    const useAvg = process.env.USE_AVG || process.argv[6] === 'true' || false
 
-    runSims(simsVersion, gameLogicVersion, simsPerMatchup)
+    runSims(simsVersion, gameLogicVersion, simsPerMatchup, useAvg)
         .then(() => {
             console.log('Done')
             process.exit(0)
