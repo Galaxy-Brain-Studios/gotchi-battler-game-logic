@@ -144,17 +144,14 @@ const runSims = async (simsVersion, gameLogicVersion, simsPerMatchup, useAvg) =>
         slot5: gotchiSimNames[4],
         wins: 0,
         draws: 0,
-        losses: 0,
-        winsMythical: 0,
-        drawsMythical: 0,
-        lossesMythical: 0,
-        winsLegendary: 0,
-        drawsLegendary: 0,
-        lossesLegendary: 0,
-        winsRare: 0,
-        drawsRare: 0,
-        lossesRare: 0
+        losses: 0
     }
+
+    defendingPowerLevels.forEach(powerLevel => {
+        results[`wins${powerLevel}`] = 0
+        results[`draws${powerLevel}`] = 0
+        results[`losses${powerLevel}`] = 0
+    })
 
     console.time(`Sims for ${attackingTeam.name}`)
 
@@ -180,27 +177,21 @@ const runSims = async (simsVersion, gameLogicVersion, simsPerMatchup, useAvg) =>
         })
 
         // Get first letter of oppeonent team name to determine power level
-        const powerLevel = defendingTeam.name[0]
+        const powerLevel = defendingPowerLevels.find(name => name[0] === defendingTeam.name[0]) 
 
         if (matchupWins >= simsPerMatchup / 2) {
             results.wins++
-            if (powerLevel === 'M') results.winsMythical++
-            if (powerLevel === 'L') results.winsLegendary++
-            if (powerLevel === 'R') results.winsRare++
+            results[`wins${powerLevel}`]++
         }
 
         if (matchupDraws >= simsPerMatchup / 2) {
             results.draws++
-            if (powerLevel === 'M') results.drawsMythical++
-            if (powerLevel === 'L') results.drawsLegendary++
-            if (powerLevel === 'R') results.drawsRare++
+            results[`draws${powerLevel}`]++
         }
 
         if (matchupLosses >= simsPerMatchup / 2) {
             results.losses++
-            if (powerLevel === 'M') results.lossesMythical++
-            if (powerLevel === 'L') results.lossesLegendary++
-            if (powerLevel === 'R') results.lossesRare++
+            results[`losses${powerLevel}`]++
         }
     })
 
@@ -210,15 +201,6 @@ const runSims = async (simsVersion, gameLogicVersion, simsPerMatchup, useAvg) =>
     const totalMatchups = results.wins + results.draws + results.losses
     if (totalMatchups !== defendingTeamIndexes.length) {
         throw new Error(`Total matchups (${totalMatchups}) does not match number of defending teams (${defendingTeamIndexes.length})`)
-    }
-
-    // Check power level wins, draws, losses to make sure they add up to number of defending teams
-    const totalMythicalMatchups = results.winsMythical + results.drawsMythical + results.lossesMythical
-    const totalLegendaryMatchups = results.winsLegendary + results.drawsLegendary + results.lossesLegendary
-    const totalRareMatchups = results.winsRare + results.drawsRare + results.lossesRare
-    const totalPowerLevelMatchups = totalMythicalMatchups + totalLegendaryMatchups + totalRareMatchups
-    if (totalPowerLevelMatchups !== defendingTeamIndexes.length) {
-        throw new Error(`Total power level matchups (${totalPowerLevelMatchups}) does not match number of defending teams (${defendingTeamIndexes.length})`)
     }
 
     if (process.env.CLOUD_RUN_JOB && process.env.SIMS_BUCKET) {

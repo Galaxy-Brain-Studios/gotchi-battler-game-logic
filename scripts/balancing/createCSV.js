@@ -41,81 +41,66 @@ const main = async () => {
         combinedResults.push(JSON.parse(result.toString()))
     }
 
+    const fields = [
+        {
+            name: 'id',
+            label: 'id'
+        },
+        {
+            name: 'slot1',
+            label: 'slot1'
+        },
+        {
+            name: 'slot2',
+            label: 'slot2'
+        },
+        {
+            name: 'slot3',
+            label: 'slot3'
+        },
+        {
+            name: 'slot4',
+            label: 'slot4'
+        },
+        {
+            name: 'slot5',
+            label: 'slot5'
+        },
+        {
+            name: 'wins',
+            label: 'wins'
+        },
+        {
+            name: 'draws',
+            label: 'draws'
+        },
+        {
+            name: 'losses',
+            label: 'losses'
+        }
+    ]
+
+    // Check which powerLevels are present
+    const powerLevels = ['Godlike', 'Mythical', 'Legendary', 'Rare', 'Uncommon', 'Common', 'Garbage']
+    for (const powerLevel of powerLevels) {
+        if (combinedResults[0][`wins${powerLevel}`]) {
+            fields.push({
+                name: `wins${powerLevel}`,
+                label: `wins${powerLevel}`
+            })
+            fields.push({
+                name: `draws${powerLevel}`,
+                label: `draws${powerLevel}`
+            })
+            fields.push({
+                name: `losses${powerLevel}`,
+                label: `losses${powerLevel}`
+            })
+        }
+    }
+
     const csv = await jsoncsv.buffered(combinedResults, {
-        fields: [
-            {
-                name: 'id',
-                label: 'id'
-            },
-            {
-                name: 'slot1',
-                label: 'slot1'
-            },
-            {
-                name: 'slot2',
-                label: 'slot2'
-            },
-            {
-                name: 'slot3',
-                label: 'slot3'
-            },
-            {
-                name: 'slot4',
-                label: 'slot4'
-            },
-            {
-                name: 'slot5',
-                label: 'slot5'
-            },
-            {
-                name: 'wins',
-                label: 'wins'
-            },
-            {
-                name: 'draws',
-                label: 'draws'
-            },
-            {
-                name: 'losses',
-                label: 'losses'
-            },
-            {
-                name: 'winsMythical',
-                label: 'winsMythical'
-            },
-            {
-                name: 'drawsMythical',
-                label: 'drawsMythical'
-            },
-            {
-                name: 'lossesMythical',
-                label: 'lossesMythical'
-            },
-            {
-                name: 'winsLegendary',
-                label: 'winsLegendary'
-            },
-            {
-                name: 'drawsLegendary',
-                label: 'drawsLegendary'
-            },
-            {
-                name: 'lossesLegendary',
-                label: 'lossesLegendary'
-            },
-            {
-                name: 'winsRare',
-                label: 'winsRare'
-            },
-            {
-                name: 'drawsRare',
-                label: 'drawsRare'
-            },
-            {
-                name: 'lossesRare',
-                label: 'lossesRare'
-            }
-        ]
+        fields
     })
 
     await writeFile(path.join(__dirname, `/output/${executionId}.csv`), csv)
