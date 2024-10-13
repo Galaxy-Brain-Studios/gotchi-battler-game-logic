@@ -1,8 +1,8 @@
 const trainingGotchis = require('./training_gotchis.json')
 
-const getFrontRowScore = (gotchiId, leader) => {
+const getFrontRowScore = (gotchiId, leaderId) => {
     const gotchi = trainingGotchis.find(gotchi => gotchi.id === gotchiId)
-    const leader = trainingGotchis.find(gotchi => gotchi.id === leader)
+    const leader = trainingGotchis.find(gotchi => gotchi.id === leaderId)
 
     if (gotchi.name.includes(' avg ')) {
         // Enlightened, Cursed, Healers go up front
