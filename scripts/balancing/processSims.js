@@ -162,7 +162,9 @@ const calculateKpis = (data) => {
     return results
 }
 
-const main = async (executionId, numOfTasks) => {
+const main = async (executionId, numOfTasks, gameLogicVersion) => {
+    const gameLogicConstants = require(`../../game-logic/${gameLogicVersion}/constants.js`)
+
     const data = await downloadAndCombineResults(executionId, numOfTasks)
 
     const availablePowerLevels = {
@@ -180,10 +182,17 @@ const main = async (executionId, numOfTasks) => {
     const powerLevels = Array.from(new Set(data.map(item => item.slot1[0])))
 
     // Calculate KPIs for each power level
-    const results = {}
+    const results = {
+        metadata: {
+            gameLogicVersion: gameLogicVersion,
+            gameLogicConstants: gameLogicConstants,
+            powerLevels: powerLevels.map(powerLevel => availablePowerLevels[powerLevel])
+        },
+        results: {}
+    }
     powerLevels.forEach((powerLevel) => {
         const powerLevelData = data.filter(item => item.slot1[0] === powerLevel)
-        results[availablePowerLevels[powerLevel]] = calculateKpis(powerLevelData)
+        results.results[availablePowerLevels[powerLevel]] = calculateKpis(powerLevelData)
     })
 
     if(process.env.CLOUD_RUN_JOB) {
@@ -203,12 +212,13 @@ const main = async (executionId, numOfTasks) => {
 
 module.exports = main
 
-// node scripts/balancing/processSims.js avg-sims-46x8b 2640
+// node scripts/balancing/processSims.js avg-sims-99hzc 7920 v1.7
 if (require.main === module) {
     const executionId = process.env.EXECUTION_ID || process.argv[2]
     const numOfTasks = process.env.NUM_OF_TASKS || process.argv[3]
+    const gameLogicVersion = process.env.GAME_LOGIC_VERSION || process.argv[4]
 
-    main(executionId, numOfTasks)
+    main(executionId, numOfTasks, gameLogicVersion)
         .then(() => {
             console.log('Done')
             process.exit(0)

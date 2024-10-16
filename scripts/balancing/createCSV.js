@@ -15,7 +15,8 @@ const main = async () => {
         throw new Error('Execution ID required')
     }
     const executionId = process.argv[2]
-    const numOfTasks = 1416
+    // const numOfTasks = 2640
+    const numOfTasks = 9720
 
     const results = []
 
