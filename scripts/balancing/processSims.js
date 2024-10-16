@@ -215,7 +215,7 @@ module.exports = main
 // node scripts/balancing/processSims.js avg-sims-99hzc 7920 v1.7
 if (require.main === module) {
     const executionId = process.env.EXECUTION_ID || process.argv[2]
-    const numOfTasks = process.env.NUM_OF_TASKS || process.argv[3]
+    const numOfTasks = parseInt(process.env.NUM_OF_TASKS) || parseInt(process.argv[3])
     const gameLogicVersion = process.env.GAME_LOGIC_VERSION || process.argv[4]
 
     main(executionId, numOfTasks, gameLogicVersion)
