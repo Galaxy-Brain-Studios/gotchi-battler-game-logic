@@ -16,7 +16,7 @@ const main = async () => {
     }
     const executionId = process.argv[2]
     // const numOfTasks = 2640
-    const numOfTasks = 9720
+    const numOfTasks = 7920
 
     const results = []
 
