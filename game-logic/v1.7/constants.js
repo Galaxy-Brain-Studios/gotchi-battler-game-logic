@@ -17,7 +17,7 @@ const BUFF_MULT_EFFECTS = {
         armor: 2
     },
     taunt: {
-        armor: 1
+        armor: 2
     }
 }
 
@@ -83,8 +83,8 @@ const MULTS = {
     CHANNEL_THE_COVEN_CRIT_MULTIPLIER: 1.4,
     CHANNEL_THE_COVEN_DAMAGE_SLOW: 1.1,
     CHANNEL_THE_COVEN_DAMAGE_FAST: 0.8,
-    THUNDER_DAMAGE_SLOW: 1.15,
-    THUNDER_DAMAGE_FAST: 0.95,
+    THUNDER_DAMAGE_SLOW: 1.1,
+    THUNDER_DAMAGE_FAST: 0.8,
     THUNDER_CRIT_MULTIPLIER: 1.4,
     // Troll
     DEVESTATING_SMASH_DAMAGE: 2.2,
