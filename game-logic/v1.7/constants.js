@@ -8,13 +8,13 @@ const BUFF_MULT_EFFECTS = {
         physical: 0.15
     },
     power_up_2: {
-        crit: 0.5,
-        resist: 0.25,
-        magic: 0.4,
+        crit: 0.3,
+        resist: 0.3,
+        magic: 0.3,
         physical: 0.3
     },
     fortify: {
-        armor: 2.75
+        armor: 3
     },
     taunt: {
         armor: 2
@@ -26,7 +26,7 @@ const BUFF_FLAT_EFFECTS = {
         armor: 100
     },
     frenzy: {
-        crit: 23
+        crit: 15
     }
 }
 
@@ -56,12 +56,12 @@ const MULTS = {
     CRIT_MULTIPLIER_FAST: 1.8,
     CRIT_MULTIPLIER_SLOW: 1.8,
     // Ninja
-    SHARP_BLADES_BLEED_CHANCE: 1,
-    BLEED_DAMAGE: 6,
+    SHARP_BLADES_BLEED_CHANCE: 0.8,
+    BLEED_DAMAGE: 7,
     SPECTRAL_STRIKE_DAMAGE: 1.75,
     // Enlightened
     // Cleaver
-    CLEAVE_DAMAGE: 1.4,
+    CLEAVE_DAMAGE: 1.5,
     // Tank
     COUNTER_CHANCE_MIN: 30,
     COUNTER_DAMAGE: 1.5,
