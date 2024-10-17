@@ -820,19 +820,6 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, defendingTargets,
                 let chanceToCounter = defendingGotchi.speed - 100
 
                 if (chanceToCounter < MULTS.COUNTER_CHANCE_MIN) chanceToCounter = MULTS.COUNTER_CHANCE_MIN
-
-                // Add a higher chance to counter if gotchi has 'fortify' status
-                if (defendingGotchi.statuses.includes('fortify')) {
-                    chanceToCounter += MULTS.FORTIFY_COUNTER_CHANCE
-                    
-                }
-
-                // Add a higher chance to counter if gotchi is fast
-                if (defendingGotchi.speed > 100) {
-                    chanceToCounter += MULTS.COUNTER_SPEED_BONUS
-
-                    
-                }
                 
                 if (rng() < chanceToCounter / 100) {
                     const counterDamage = getDamage(defendingTeam, attackingTeam, defendingGotchi, attackingGotchi, MULTS.COUNTER_DAMAGE, false, 0)

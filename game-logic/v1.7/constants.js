@@ -14,7 +14,7 @@ const BUFF_MULT_EFFECTS = {
         physical: 0.335
     },
     fortify: {
-        armor: 1.5
+        armor: 2
     },
     taunt: {
         armor: 1
@@ -23,7 +23,7 @@ const BUFF_MULT_EFFECTS = {
 
 const BUFF_FLAT_EFFECTS = {
     fortify: {
-        armor: 80
+        armor: 100
     },
     frenzy: {
         crit: 23
@@ -57,16 +57,14 @@ const MULTS = {
     CRIT_MULTIPLIER_SLOW: 1.8,
     // Ninja
     SHARP_BLADES_BLEED_CHANCE: 1,
-    BLEED_DAMAGE: 9,
-    SPECTRAL_STRIKE_DAMAGE: 1.1,
+    BLEED_DAMAGE: 8,
+    SPECTRAL_STRIKE_DAMAGE: 1.5,
     // Enlightened
     // Cleaver
-    CLEAVE_DAMAGE: 1.3,
+    CLEAVE_DAMAGE: 1.5,
     // Tank
-    FORTIFY_COUNTER_CHANCE: 20,
-    COUNTER_CHANCE_MIN: 40,
-    COUNTER_SPEED_BONUS: 20,
-    COUNTER_DAMAGE: 1.4,
+    COUNTER_CHANCE_MIN: 30,
+    COUNTER_DAMAGE: 1.5,
     // Cursed
     SPREAD_THE_FEAR_CHANCE: 0.8,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
@@ -74,8 +72,8 @@ const MULTS = {
     CURSE_HEAL: 0.5,
     CURSE_SPEED_PENALTY: 0,
     // Healer
-    CLEANSING_AURA_REGEN: 0.5,
-    CLEANSING_AURA_NON_HEALER_REGEN: 10,
+    CLEANSING_AURA_REGEN: 0.4,
+    CLEANSING_AURA_NON_HEALER_REGEN: 5,
     CLEANSING_AURA_HEAL: 4,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL: 4,
@@ -91,7 +89,7 @@ const MULTS = {
     // Troll
     DEVESTATING_SMASH_DAMAGE: 2.2,
     DEVESTATING_SMASH_SPEED_PENALTY: 2.5,
-    CLAN_MOMENTUM_DAMAGE: 2.5
+    CLAN_MOMENTUM_DAMAGE: 2.75
 }
 
 const passiveIcons = {
