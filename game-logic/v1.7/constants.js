@@ -10,11 +10,11 @@ const BUFF_MULT_EFFECTS = {
     power_up_2: {
         crit: 0.5,
         resist: 0.25,
-        magic: 0.435,
-        physical: 0.335
+        magic: 0.4,
+        physical: 0.3
     },
     fortify: {
-        armor: 2.5
+        armor: 2.75
     },
     taunt: {
         armor: 2
@@ -26,7 +26,7 @@ const BUFF_FLAT_EFFECTS = {
         armor: 100
     },
     frenzy: {
-        crit: 25
+        crit: 23
     }
 }
 
@@ -57,8 +57,8 @@ const MULTS = {
     CRIT_MULTIPLIER_SLOW: 1.8,
     // Ninja
     SHARP_BLADES_BLEED_CHANCE: 1,
-    BLEED_DAMAGE: 7,
-    SPECTRAL_STRIKE_DAMAGE: 1.6,
+    BLEED_DAMAGE: 6,
+    SPECTRAL_STRIKE_DAMAGE: 1.75,
     // Enlightened
     // Cleaver
     CLEAVE_DAMAGE: 1.4,
@@ -89,7 +89,7 @@ const MULTS = {
     // Troll
     DEVESTATING_SMASH_DAMAGE: 2,
     DEVESTATING_SMASH_SPEED_PENALTY: 2.5,
-    CLAN_MOMENTUM_DAMAGE: 3
+    CLAN_MOMENTUM_DAMAGE: 3.2
 }
 
 const passiveIcons = {
