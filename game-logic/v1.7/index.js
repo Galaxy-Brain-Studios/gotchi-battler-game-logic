@@ -1328,7 +1328,6 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
             // Check if leader passive is 'arcane_thunder' then apply stun status
             if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
                 let stunStatuses = []
-                if  (rng() < MULTS.CHANNEL_THE_COVEN_DAMAGE_CHANCE) stunStatuses.push('stun')
 
                 effects = attack(attackingGotchi, attackingTeam, defendingTeam, thunderTargets, rng, { 
                     multiplier: modifiedAttackingGotchi.speed > 100 ? MULTS.CHANNEL_THE_COVEN_DAMAGE_FAST : MULTS.CHANNEL_THE_COVEN_DAMAGE_SLOW, 
