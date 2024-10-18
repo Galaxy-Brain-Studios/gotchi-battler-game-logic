@@ -43,6 +43,26 @@ const logToInGameTeams = (originalLog) => {
     return teams
 }
 
+const webappTeamToInGameTeam = (webappTeam) => {
+    const inGameTeam = {
+        formation: {
+            front: [front1Gotchi, front2Gotchi, front3Gotchi, front4Gotchi, front5Gotchi],
+            back: [back1Gotchi, back2Gotchi, back3Gotchi, back4Gotchi, back5Gotchi],
+        },
+        leader: webappTeam.leader,
+        name: webappTeam.name,
+        owner: webappTeam.owner
+    }
+
+    inGameTeam.formation.front.forEach(gotchi => {
+        // remove availableSpecials
+        delete gotchi.availableSpecials
+    })
+
+    return inGameTeam
+}
+
 module.exports = {
-    logToInGameTeams
+    logToInGameTeams,
+    webappTeamToInGameTeam
 }   

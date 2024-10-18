@@ -820,6 +820,11 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, defendingTargets,
                 let chanceToCounter = defendingGotchi.speed - 100
 
                 if (chanceToCounter < MULTS.COUNTER_CHANCE_MIN) chanceToCounter = MULTS.COUNTER_CHANCE_MIN
+
+                // Add chance if gotchi has fortify status
+                if (defendingGotchi.statuses.includes('fortify')) {
+                    chanceToCounter += MULTS.FORTIFY_COUNTER_CHANCE
+                }
                 
                 if (rng() < chanceToCounter / 100) {
                     const counterDamage = getDamage(defendingTeam, attackingTeam, defendingGotchi, attackingGotchi, MULTS.COUNTER_DAMAGE, false, 0)
@@ -1357,7 +1362,7 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
                     const target = getTarget(defendingTeam, rng)
 
                     effects.push(...attack(attackingGotchi, attackingTeam, defendingTeam, [target], rng, { 
-                        multiplier: MULTS.DEVESTATING_SMASH_DAMAGE, 
+                        multiplier: MULTS.DEVESTATING_SMASH_X2_DAMAGE, 
                         cannotBeCountered: true,
                         noPassiveStatuses: true
                     }))
