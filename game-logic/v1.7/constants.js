@@ -17,7 +17,7 @@ const BUFF_MULT_EFFECTS = {
         armor: 2.75
     },
     taunt: {
-        armor: 1.8
+        armor: 2
     }
 }
 
@@ -56,8 +56,8 @@ const MULTS = {
     CRIT_MULTIPLIER_FAST: 1.8,
     CRIT_MULTIPLIER_SLOW: 1.8,
     // Ninja
-    SHARP_BLADES_BLEED_CHANCE: 1,
-    BLEED_DAMAGE: 8,
+    SHARP_BLADES_BLEED_CHANCE: 0.8,
+    BLEED_DAMAGE: 9,
     SPECTRAL_STRIKE_DAMAGE: 1.75,
     // Enlightened
     // Cleaver
@@ -66,7 +66,7 @@ const MULTS = {
     COUNTER_CHANCE_MIN: 30,
     COUNTER_DAMAGE: 1.5,
     // Cursed
-    SPREAD_THE_FEAR_CHANCE: 0.8,
+    SPREAD_THE_FEAR_CHANCE: 1,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
     CURSE_DAMAGE: 1,
     CURSE_HEAL: 0.5,
@@ -84,7 +84,7 @@ const MULTS = {
     CHANNEL_THE_COVEN_DAMAGE_SLOW: 1.1,
     CHANNEL_THE_COVEN_DAMAGE_FAST: 0.75,
     THUNDER_DAMAGE_SLOW: 1.1,
-    THUNDER_DAMAGE_FAST: 0.8,
+    THUNDER_DAMAGE_FAST: 0.75,
     THUNDER_CRIT_MULTIPLIER: 1.4,
     // Troll
     DEVESTATING_SMASH_DAMAGE: 2,
