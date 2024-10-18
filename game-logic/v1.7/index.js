@@ -402,15 +402,15 @@ const addLeaderToTeam = (team) => {
             })
             break
         case 7:
-            // Arcane thunder - every mage ally gets 'arcane_thunder' status
+            // All allies get 'channel_the_coven' status
             getAlive(team).forEach(x => {
-                if (x.special.id === 7) x.statuses.push(PASSIVES[team.leaderPassive - 1])
+                x.statuses.push(PASSIVES[team.leaderPassive - 1])
             })
             break
         case 8:
-            // Clan momentum - every Troll ally gets 'clan_momentum' status
+            // All allies get 'clan_momentum' status
             getAlive(team).forEach(x => {
-                if (x.special.id === 8) x.statuses.push(PASSIVES[team.leaderPassive - 1])
+                x.statuses.push(PASSIVES[team.leaderPassive - 1])
             })
             break
     }
@@ -1242,7 +1242,8 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
             // Blessing - Heal all non-healer allies and remove all debuffs
 
             // Get all alive non-healer allies on the attacking team
-            const gotchisToHeal = getAlive(attackingTeam).filter(x => x.special.id !== 6)
+            // const gotchisToHeal = getAlive(attackingTeam).filter(x => x.special.id !== 6)
+            const gotchisToHeal = getAlive(attackingTeam)
 
             // Heal all allies for multiple of healers resistance
             gotchisToHeal.forEach((gotchi) => {
@@ -1312,25 +1313,21 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
 
             const thunderTargets = getAlive(defendingTeam)
 
-            // Check if leader passive is 'arcane_thunder' then apply stun status
+            let stunStatuses = []
+            // Check if leader passive is 'channel_the_coven' then apply stun status
             if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
-                let stunStatuses = ['stun']
-
-                effects = attack(attackingGotchi, attackingTeam, defendingTeam, thunderTargets, rng, { 
-                    multiplier: modifiedAttackingGotchi.speed > 100 ? MULTS.CHANNEL_THE_COVEN_DAMAGE_FAST : MULTS.CHANNEL_THE_COVEN_DAMAGE_SLOW, 
-                    statuses: stunStatuses, 
-                    cannotBeCountered: true, 
-                    noPassiveStatuses: true,
-                    critMultiplier: MULTS.CHANNEL_THE_COVEN_CRIT_MULTIPLIER
-                })
+                if (rng() < MULTS.CHANNEL_THE_COVEN_STUN_CHANCE) stunStatuses.push('stun')
             } else {
-                effects = attack(attackingGotchi, attackingTeam, defendingTeam, thunderTargets, rng, { 
-                    multiplier: modifiedAttackingGotchi.speed > 100 ? MULTS.THUNDER_DAMAGE_FAST : MULTS.THUNDER_DAMAGE_SLOW, 
-                    cannotBeCountered: true, 
-                    noPassiveStatuses: true,
-                    critMultiplier: MULTS.THUNDER_CRIT_MULTIPLIER
-                })
+                if (rng() < MULTS.THUNDER_STUN_CHANCE) stunStatuses.push('stun')
             }
+
+            effects = attack(attackingGotchi, attackingTeam, defendingTeam, thunderTargets, rng, { 
+                multiplier: MULTS.THUNDER_DAMAGE, 
+                statuses: stunStatuses,
+                cannotBeCountered: true, 
+                noPassiveStatuses: true,
+                critMultiplier: MULTS.THUNDER_CRIT_MULTIPLIER
+            })
 
             break
         case 8:
@@ -1344,23 +1341,14 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
                 noPassiveStatuses: true
             })
 
-            // If crit then attack again
-            // if (effects[0].outcome === 'critical') {
-            //     const aliveEnemies = getAlive(defendingTeam)
-
-            //     if (aliveEnemies.length) {
-            //         const target = getTarget(defendingTeam, rng)
-
-            //         effects.push(...attack(attackingGotchi, attackingTeam, defendingTeam, [target], rng, { 
-            //             multiplier: MULTS.DEVESTATING_SMASH_DAMAGE, 
-            //             cannotBeCountered: true,
-            //             noPassiveStatuses: true
-            //         }))
-            //     }
-            // }
-
-            // If leader passive is 'Clan momentum', attack again
+            let anotherAttack = false
             if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
+                if (rng() < MULTS.CLAN_MOMENTUM_CHANCE) anotherAttack = true
+            } else {
+                if (rng() < MULTS.DEVESTATING_SMASH_X2_CHANCE) anotherAttack = true
+            }
+
+            if (anotherAttack) {
                 // Check if any enemies are alive
                 const aliveEnemies = getAlive(defendingTeam)
 
@@ -1369,7 +1357,7 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
                     const target = getTarget(defendingTeam, rng)
 
                     effects.push(...attack(attackingGotchi, attackingTeam, defendingTeam, [target], rng, { 
-                        multiplier: MULTS.CLAN_MOMENTUM_DAMAGE, 
+                        multiplier: MULTS.DEVESTATING_SMASH_DAMAGE, 
                         cannotBeCountered: true,
                         noPassiveStatuses: true
                     }))

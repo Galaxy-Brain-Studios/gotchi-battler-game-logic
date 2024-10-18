@@ -18,6 +18,12 @@ const BUFF_MULT_EFFECTS = {
     },
     taunt: {
         armor: 2
+    },
+    channel_the_coven: {
+        magic: 0.2
+    },
+    clan_momentum: {
+        physical: 0.2
     }
 }
 
@@ -80,16 +86,13 @@ const MULTS = {
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
-    CHANNEL_THE_COVEN_CRIT_MULTIPLIER: 1.4,
-    CHANNEL_THE_COVEN_DAMAGE_SLOW: 1.1,
-    CHANNEL_THE_COVEN_DAMAGE_FAST: 0.75,
-    THUNDER_DAMAGE_SLOW: 1.1,
-    THUNDER_DAMAGE_FAST: 0.75,
-    THUNDER_CRIT_MULTIPLIER: 1.4,
+    CHANNEL_THE_COVEN_STUN_CHANCE: 0.4,
+    THUNDER_STUN_CHANCE: 0.2,
+    THUNDER_DAMAGE: 0.75,
     // Troll
+    CLAN_MOMENTUM_CHANCE: 0.4,
+    DEVESTATING_SMASH_X2_CHANCE: 0.2,
     DEVESTATING_SMASH_DAMAGE: 2,
-    DEVESTATING_SMASH_SPEED_PENALTY: 2.5,
-    CLAN_MOMENTUM_DAMAGE: 3.2
 }
 
 const passiveIcons = {
