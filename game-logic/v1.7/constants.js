@@ -8,10 +8,10 @@ const BUFF_MULT_EFFECTS = {
         physical: 0.15
     },
     power_up_2: {
-        crit: 0.35,
-        resist: 0.35,
-        magic: 0.35,
-        physical: 0.35
+        crit: 0.4,
+        resist: 0.4,
+        magic: 0.4,
+        physical: 0.4
     },
     fortify: {
         armor: 2
@@ -87,12 +87,12 @@ const MULTS = {
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
-    CHANNEL_THE_COVEN_STUN_CHANCE: 1,
+    CHANNEL_THE_COVEN_STUN_CHANCE: 0.8,
     THUNDER_STUN_CHANCE: 0.2,
     THUNDER_DAMAGE: 0.5,
     // Troll
-    CLAN_MOMENTUM_CHANCE: 0.4,
-    DEVESTATING_SMASH_X2_CHANCE: 0.2,
+    CLAN_MOMENTUM_CHANCE: 0.3,
+    DEVESTATING_SMASH_X2_CHANCE: 0.1,
     DEVESTATING_SMASH_DAMAGE: 2,
     DEVESTATING_SMASH_X2_DAMAGE: 1,
 }
