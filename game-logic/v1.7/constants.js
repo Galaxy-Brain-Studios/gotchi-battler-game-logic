@@ -4,8 +4,8 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     power_up_1: {
-        magic: 0.2,
-        physical: 0.2
+        magic: 0.175,
+        physical: 0.175
     },
     power_up_2: {
         crit: 0.4,
@@ -14,7 +14,7 @@ const BUFF_MULT_EFFECTS = {
         physical: 0.4
     },
     fortify: {
-        armor: 2
+        armor: 2.2
     },
     taunt: {
         armor: 2
@@ -64,7 +64,7 @@ const MULTS = {
     // Ninja
     SHARP_BLADES_BLEED_CHANCE: 0.7,
     BLEED_DAMAGE: 10,
-    SPECTRAL_STRIKE_DAMAGE: 1.5,
+    SPECTRAL_STRIKE_DAMAGE: 1.6,
     // Enlightened
     // Cleaver
     CLEAVE_DAMAGE: 1.35,
@@ -73,17 +73,17 @@ const MULTS = {
     FORTIFY_COUNTER_CHANCE: 20,
     COUNTER_DAMAGE: 1.5,
     // Cursed
-    SPREAD_THE_FEAR_CHANCE: 0.9,
+    SPREAD_THE_FEAR_CHANCE: 1,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
     CURSE_DAMAGE: 1,
-    CURSE_HEAL: 0.6,
+    CURSE_HEAL: 0.7,
     CURSE_SPEED_PENALTY: 0,
     // Healer
     CLEANSING_AURA_REGEN: 0.5,
     CLEANSING_AURA_NON_HEALER_REGEN: 5,
     CLEANSING_AURA_HEAL: 3,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
-    BLESSING_HEAL: 3,
+    BLESSING_HEAL: 2.5,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
