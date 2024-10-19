@@ -218,7 +218,7 @@ const runSims = async (simsVersion, gameLogicVersion, simsPerMatchup, useAvg) =>
         if (false) {
             process.env.GOOGLE_APPLICATION_CREDENTIALS = path.join(__dirname, '../../keyfile.json')
             try {
-                await storage.bucket(process.env.SIMS_BUCKET).file(`${Date.now}_${attackingTeamIndex}.json`).save(JSON.stringify(results))
+                await storage.bucket(process.env.SIMS_BUCKET).file(`avg-sims-ghxzm_${attackingTeamIndex}.json`).save(JSON.stringify(results))
             } catch (err) {
                 throw err
             }
