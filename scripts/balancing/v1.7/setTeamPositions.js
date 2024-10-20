@@ -55,5 +55,22 @@ module.exports = (team) => {
             team.formation.back[i] = null
         }
     })
+
+    // If you have >3 gotchis in the front then send the lowest 3 to the back
+    const frontGotchis = team.formation.front.filter(gotchi => gotchi)
+    const backGotchis = team.formation.back.filter(gotchi => gotchi)
+    if (frontGotchis.length > 3) {
+        const orderedGotchis = [...frontGotchis, ...backGotchis].sort((a, b) => getFrontRowScore(b.id, team.leader) - getFrontRowScore(a.id, team.leader));
+
+        [0,1,2,3,4].forEach((i) => {
+            if (i < 3) {
+                team.formation.back[i] = orderedGotchis[i]
+                team.formation.front[i] = null
+            } else {
+                team.formation.front[i] = orderedGotchis[i]
+                team.formation.back[i] = null
+            }
+        })
+    }
 }
 
