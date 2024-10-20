@@ -20,10 +20,10 @@ const BUFF_MULT_EFFECTS = {
         armor: 2
     },
     channel_the_coven: {
-        magic: 0.2
+        magic: 0.175
     },
     clan_momentum: {
-        physical: 0.2
+        physical: 0.175
     }
 }
 
@@ -64,7 +64,7 @@ const MULTS = {
     // Ninja
     SHARP_BLADES_BLEED_CHANCE: 0.7,
     BLEED_DAMAGE: 10,
-    SPECTRAL_STRIKE_DAMAGE: 1.6,
+    SPECTRAL_STRIKE_DAMAGE: 1.5,
     // Enlightened
     // Cleaver
     CLEAVE_DAMAGE: 1.35,
