@@ -976,22 +976,22 @@ const handleStatusEffects = (attackingGotchi, attackingTeam, defendingTeam, rng)
         }
 
         // Stun
-        if (status === 'stun') {
-            // Skip turn
-            statusEffects.push({
-                target: attackingGotchi.id,
-                status,
-                damage: 0,
-                remove: true
-            })
+        // if (status === 'stun') {
+        //     // Skip turn
+        //     statusEffects.push({
+        //         target: attackingGotchi.id,
+        //         status,
+        //         damage: 0,
+        //         remove: true
+        //     })
 
-            skipTurn = 'STUN'
+        //     skipTurn = 'STUN'
 
-            // Remove first instance of stun
-            attackingGotchi.statuses.splice(i, 1)
+        //     // Remove first instance of stun
+        //     attackingGotchi.statuses.splice(i, 1)
 
-            break
-        }
+        //     break
+        // }
     }
 
     return {

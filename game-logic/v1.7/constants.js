@@ -23,7 +23,7 @@ const BUFF_MULT_EFFECTS = {
         armor: 2
     },
     channel_the_coven: {
-        magic: 0.175
+        magic: 0.2
     },
     clan_momentum: {
         physical: 0.175
@@ -45,6 +45,9 @@ const BUFFS = [...PASSIVES, ...BUFF_STATUSES, ...Object.keys(BUFF_MULT_EFFECTS),
 const DEBUFF_MULT_EFFECTS = {
     fear: {
         resist: 0.5
+    },
+    stun: {
+        speed: 0.2
     }
 }
 
@@ -90,9 +93,9 @@ const MULTS = {
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
-    CHANNEL_THE_COVEN_STUN_CHANCE: 0.8,
+    CHANNEL_THE_COVEN_STUN_CHANCE: 1,
     THUNDER_STUN_CHANCE: 0.3,
-    THUNDER_DAMAGE: 0.5,
+    THUNDER_DAMAGE: 0.6,
     // Troll
     CLAN_MOMENTUM_CHANCE: 0.4,
     DEVESTATING_SMASH_X2_CHANCE: 0.2,
