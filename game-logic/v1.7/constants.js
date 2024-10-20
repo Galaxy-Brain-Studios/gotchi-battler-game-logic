@@ -13,6 +13,9 @@ const BUFF_MULT_EFFECTS = {
         magic: 0.4,
         physical: 0.4
     },
+    frenzy: {
+        crit: 1
+    },
     fortify: {
         armor: 2.2
     },
@@ -32,7 +35,7 @@ const BUFF_FLAT_EFFECTS = {
         armor: 100
     },
     frenzy: {
-        crit: 23
+        crit: 15
     }
 }
 
@@ -87,7 +90,7 @@ const MULTS = {
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
-    CHANNEL_THE_COVEN_STUN_CHANCE: 0.9,
+    CHANNEL_THE_COVEN_STUN_CHANCE: 0.8,
     THUNDER_STUN_CHANCE: 0.3,
     THUNDER_DAMAGE: 0.5,
     // Troll
