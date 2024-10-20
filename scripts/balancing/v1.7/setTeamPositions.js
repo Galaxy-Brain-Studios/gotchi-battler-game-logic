@@ -5,14 +5,19 @@ const getFrontRowScore = (gotchiId, leaderId) => {
     const leader = trainingGotchis.find(gotchi => gotchi.id === leaderId)
 
     if (gotchi.name.includes(' avg ')) {
-        // Enlightened, Cursed, Healers go up front
-        if (gotchi.specialId === 2 || gotchi.specialId === 5) {
+        // Enlightened are the best up front
+        if (gotchi.specialId === 2) {
             return 6
         }
 
-        // Healer with a healer leader goes up front
+        // Healer with a healer leader are the second best up front
         if (leader.specialId === 6 && gotchi.specialId === 6) {
-            return 6
+            return 5
+        }
+
+        // Cursed are the third best up front
+        if (gotchi.specialId === 5) {
+            return 4
         }
     }
 
@@ -56,19 +61,20 @@ module.exports = (team) => {
         }
     })
 
-    // If you have >3 gotchis in the front then send the lowest 3 to the back
+    // If you have 5 gotchis in the front then send the lowest 2 to the back
     const frontGotchis = team.formation.front.filter(gotchi => gotchi)
-    const backGotchis = team.formation.back.filter(gotchi => gotchi)
-    if (frontGotchis.length > 3) {
-        const orderedGotchis = [...frontGotchis, ...backGotchis].sort((a, b) => getFrontRowScore(b.id, team.leader) - getFrontRowScore(a.id, team.leader));
+    if (frontGotchis.length === 5) {
+        // Sort the gotchis by score in ascending order (lowest score first)
+        const orderedGotchis = JSON.parse(JSON.stringify(frontGotchis)).sort((a, b) => getFrontRowScore(a.id, team.leader) - getFrontRowScore(b.id, team.leader));
 
-        [0,1,2,3,4].forEach((i) => {
-            if (i < 3) {
-                team.formation.back[i] = orderedGotchis[i]
+        // Loop through the front row and the first 2 gotchis that have a score of either orderedGotchis[0] or orderedGotchis[1] move to the back
+        let hasMoved = 0
+        team.formation.front.forEach((gotchi, i) => {
+            if (hasMoved < 2 && (gotchi.id === orderedGotchis[0].id || gotchi.id === orderedGotchis[1].id)) {
+                team.formation.back[i] = gotchi
                 team.formation.front[i] = null
-            } else {
-                team.formation.front[i] = orderedGotchis[i]
-                team.formation.back[i] = null
+
+                hasMoved++
             }
         })
     }
