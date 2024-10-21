@@ -17,13 +17,13 @@ const BUFF_MULT_EFFECTS = {
         crit: 1
     },
     fortify: {
-        armor: 2.2
+        armor: 2
     },
     taunt: {
         armor: 2
     },
     channel_the_coven: {
-        magic: 0.25
+        magic: 0.175
     },
     clan_momentum: {
         physical: 0.175
@@ -77,7 +77,7 @@ const MULTS = {
     // Tank
     COUNTER_CHANCE_MIN: 20,
     FORTIFY_COUNTER_CHANCE: 0,
-    COUNTER_DAMAGE: 1.5,
+    COUNTER_DAMAGE: 1,
     // Cursed
     SPREAD_THE_FEAR_CHANCE: 0.9,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
@@ -85,22 +85,22 @@ const MULTS = {
     CURSE_HEAL: 1,
     CURSE_SPEED_PENALTY: 0,
     // Healer
-    CLEANSING_AURA_REGEN: 0.45,
-    CLEANSING_AURA_NON_HEALER_REGEN: 5,
-    CLEANSING_AURA_HEAL: 3,
+    CLEANSING_AURA_REGEN: 1,
+    CLEANSING_AURA_NON_HEALER_REGEN: 10,
+    CLEANSING_AURA_HEAL: 4,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
-    BLESSING_HEAL: 2.5,
+    BLESSING_HEAL: 3,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
-    CHANNEL_THE_COVEN_STUN_CHANCE: 1,
-    THUNDER_STUN_CHANCE: 0,
+    CHANNEL_THE_COVEN_STUN_CHANCE: 0.5,
+    THUNDER_STUN_CHANCE: 0.2,
     THUNDER_DAMAGE: 0.75,
     // Troll
-    CLAN_MOMENTUM_CHANCE: 0.4,
+    CLAN_MOMENTUM_CHANCE: 0.5,
     DEVESTATING_SMASH_X2_CHANCE: 0.2,
-    DEVESTATING_SMASH_DAMAGE: 1.8,
-    DEVESTATING_SMASH_X2_DAMAGE: 0.8,
+    DEVESTATING_SMASH_DAMAGE: 2,
+    DEVESTATING_SMASH_X2_DAMAGE: 1.5,
 }
 
 const passiveIcons = {
