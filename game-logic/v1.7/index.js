@@ -185,16 +185,16 @@ const getDamage = (attackingTeam, defendingTeam, attackingGotchi, defendingGotch
 
     let attackValue = modifiedAttackingGotchi.attack === 'magic' ? modifiedAttackingGotchi.magic : modifiedAttackingGotchi.physical
 
-    // If attacking gotchi is in the front row and physical attack then apply front row physical attack bonus
-    if (getFormationPosition(attackingTeam, defendingTeam, attackingGotchi.id).row === 'front' && modifiedAttackingGotchi.attack === 'physical') {
-        attackValue = Math.round(attackValue * MULTS.FRONT_ROW_PHY_ATK)
+    // If attacking gotchi is in the front row then apply front row attack bonus
+    if (getFormationPosition(attackingTeam, defendingTeam, attackingGotchi.id).row === 'front') {
+        attackValue = Math.round(attackValue * MULTS.FRONT_ROW_ATK_BONUS)
     }
 
     let defenseValue = modifiedAttackingGotchi.attack === 'magic' ? modifiedDefendingGotchi.magic : modifiedDefendingGotchi.physical
 
-    // If defending gotchi is in the front row and the attack is physical then apply front row physical defence penalty
-    if (getFormationPosition(attackingTeam, defendingTeam, defendingGotchi.id).row === 'front' && modifiedAttackingGotchi.attack === 'physical') {
-        defenseValue = Math.round(defenseValue * MULTS.FRONT_ROW_PHY_DEF)
+    // If defending gotchi is in the front row then apply front row defence penalty
+    if (getFormationPosition(attackingTeam, defendingTeam, defendingGotchi.id).row === 'front') {
+        defenseValue = Math.round(defenseValue * MULTS.FRONT_ROW_DEF_NERF)
     }
 
     // Add armor to defense value

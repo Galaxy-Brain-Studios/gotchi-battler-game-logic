@@ -17,10 +17,10 @@ const BUFF_MULT_EFFECTS = {
         crit: 1
     },
     fortify: {
-        armor: 2
+        armor: 1.5
     },
     taunt: {
-        armor: 2
+        armor: 1.5
     },
     channel_the_coven: {
         magic: 0.175
@@ -60,8 +60,8 @@ const DEBUFFS = [...DEBUFF_STATUSES, ...Object.keys(DEBUFF_MULT_EFFECTS), ...Obj
 
 const MULTS = {
     // General
-    FRONT_ROW_PHY_ATK: 1.1,
-    FRONT_ROW_PHY_DEF: 0.8,
+    FRONT_ROW_ATK_BONUS: 1.1,
+    FRONT_ROW_DEF_NERF: 0.8,
     EXPIRE_LEADERSKILL: 0,
     SPEED_PENALTY: 2.5,
     MAX_STATUSES: 3,
@@ -87,9 +87,9 @@ const MULTS = {
     // Healer
     CLEANSING_AURA_REGEN: 1,
     CLEANSING_AURA_NON_HEALER_REGEN: 10,
-    CLEANSING_AURA_HEAL: 4,
+    CLEANSING_AURA_HEAL: 5,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
-    BLESSING_HEAL: 3,
+    BLESSING_HEAL: 5,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
