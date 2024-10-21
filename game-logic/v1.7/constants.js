@@ -8,10 +8,10 @@ const BUFF_MULT_EFFECTS = {
         physical: 0.175
     },
     power_up_2: {
-        crit: 0.4,
-        resist: 0.4,
-        magic: 0.4,
-        physical: 0.4
+        crit: 0.35,
+        resist: 0.35,
+        magic: 0.35,
+        physical: 0.35
     },
     frenzy: {
         crit: 1
@@ -68,7 +68,7 @@ const MULTS = {
     CRIT_MULTIPLIER_FAST: 1.8,
     CRIT_MULTIPLIER_SLOW: 1.8,
     // Ninja
-    SHARP_BLADES_BLEED_CHANCE: 0.8,
+    SHARP_BLADES_BLEED_CHANCE: 0.9,
     BLEED_DAMAGE: 10,
     SPECTRAL_STRIKE_DAMAGE: 1.5,
     // Enlightened
@@ -76,10 +76,10 @@ const MULTS = {
     CLEAVE_DAMAGE: 1.6,
     // Tank
     COUNTER_CHANCE_MIN: 20,
-    FORTIFY_COUNTER_CHANCE: 0,
+    FORTIFY_COUNTER_CHANCE: 20,
     COUNTER_DAMAGE: 1,
     // Cursed
-    SPREAD_THE_FEAR_CHANCE: 0.7,
+    SPREAD_THE_FEAR_CHANCE: 0.5,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
     CURSE_DAMAGE: 1.5,
     CURSE_HEAL: 1,
@@ -87,9 +87,9 @@ const MULTS = {
     // Healer
     CLEANSING_AURA_REGEN: 1,
     CLEANSING_AURA_NON_HEALER_REGEN: 10,
-    CLEANSING_AURA_HEAL: 6,
+    CLEANSING_AURA_HEAL: 5.5,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
-    BLESSING_HEAL: 5,
+    BLESSING_HEAL: 5.5,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
@@ -99,7 +99,7 @@ const MULTS = {
     // Troll
     CLAN_MOMENTUM_CHANCE: 0.6,
     DEVESTATING_SMASH_X2_CHANCE: 0.3,
-    DEVESTATING_SMASH_DAMAGE: 2,
+    DEVESTATING_SMASH_DAMAGE: 2.2,
     DEVESTATING_SMASH_X2_DAMAGE: 2,
 }
 
