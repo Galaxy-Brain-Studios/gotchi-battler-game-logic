@@ -1,5 +1,5 @@
 const fs = require('fs')
-const trainingGotchis = require('./v1.6/training_gotchis.json')
+const trainingGotchis = require('./v1.7/training_gotchis.json')
 
 const specials = [
     {
@@ -169,32 +169,56 @@ const fixTraits = (gotchi) => {
 }
 
 const addAvgGotchs = () => {
-    const statsToOverwrite = ["speed", "health", "crit", "armor", "evade", "resist", "magic", "physical", "accuracy"]
+    const statsToOverwrite = ["speed", "health", "crit", "armor", "evade", "resist", "accuracy"]
 
-    const avgGotchis = []
+    const avgGotchis = [];
 
-    powerLevels.forEach((powerLevel) => {
-        classes.forEach((className) => {
-            // Find all gotchis with the same class and power level
-            // Names are in the format "Godlike ++++ Ninja"
-            const gotchis = trainingGotchis.filter(gotchi => gotchi.name.includes(powerLevel) && gotchi.name.includes(className))
+    // Add magic gotchis
+    ['magic', 'physical'].forEach((brainValue) => {
+        powerLevels.forEach((powerLevel) => {
+            classes.forEach((className) => {
+                // Find all gotchis with the same class and power level
+                // Names are in the format "Godlike ++++ Ninja"
+                const gotchis = trainingGotchis.filter(gotchi => gotchi.name.includes(powerLevel) && gotchi.name.includes(className))
 
-            // Copy over one of the gotchis
-            const avgGotchi = JSON.parse(JSON.stringify(gotchis[0]))
+                // Copy over one of the gotchis
+                const avgGotchi = JSON.parse(JSON.stringify(gotchis[0]))
 
-            // Add an id
-            avgGotchi.id = trainingGotchis.length + avgGotchis.length + 1
+                // Add an id
+                avgGotchi.id = trainingGotchis.length + avgGotchis.length + 1
 
-            // Overwrite the name
-            avgGotchi.name = `${powerLevel} avg ${className}`
+                // Overwrite the name
+                avgGotchi.name = `${powerLevel} avg-${brainValue} ${className}`
 
-            // Overwrite the stats
-            statsToOverwrite.forEach((stat) => {
-                const total = gotchis.reduce((acc, gotchi) => acc + gotchi[stat], 0)
-                avgGotchi[stat] = Math.round(total / gotchis.length)
+                // Overwrite the stats
+                statsToOverwrite.forEach((stat) => {
+                    const total = gotchis.reduce((acc, gotchi) => acc + gotchi[stat], 0)
+                    avgGotchi[stat] = Math.round(total / gotchis.length)
+                })
+
+                // Get the highest/lowest magic value
+                const magicValues = gotchis.map(gotchi => gotchi.magic)
+                const highestMagic = Math.max(...magicValues)
+                const lowestMagic = Math.min(...magicValues)
+
+                // Get the highest/lowest physical value
+                const physicalValues = gotchis.map(gotchi => gotchi.physical)
+                const highestPhysical = Math.max(...physicalValues)
+                const lowestPhysical = Math.min(...physicalValues)
+
+                // If this is a magic gotchi then set the magic value to the highest
+                if (brainValue === 'magic') {
+                    avgGotchi.magic = highestMagic
+                    avgGotchi.physical = lowestPhysical
+                    avgGotchi.attack = 'magic'
+                } else {
+                    avgGotchi.magic = lowestMagic
+                    avgGotchi.physical = highestPhysical
+                    avgGotchi.attack = 'physical'
+                }
+
+                avgGotchis.push(avgGotchi)
             })
-
-            avgGotchis.push(avgGotchi)
         })
     })
 

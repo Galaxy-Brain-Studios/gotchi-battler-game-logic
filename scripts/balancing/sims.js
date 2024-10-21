@@ -10,51 +10,77 @@ const classes = ['Ninja','Enlightened','Cleaver','Tank','Cursed','Healer', 'Mage
  * @param {Array} classCombo The class combinations
  * @param {Array} classTraitCombos The trait combinations for each class
  * @param {Array} powerLevels The power levels
+ * @param {Array} trainingGotchis The training gotchis
+ * @param {Boolean} useTraitSets If false then exhaustive search is done, if true then only the trait sets are used
  * @returns {Object} A team object
  */
-const createTeamIndexes = (classCombos, classTraitCombos, powerLevels, trainingGotchis) => {
+const createTeamIndexes = (classCombos, classTraitCombos, powerLevels, trainingGotchis, useTraitSets) => {
 
     const teams = []
 
-    classCombos.forEach(classCombo => {
-        powerLevels.forEach(powerLevel => {
-            // Loop over each class in the classCombo
-            for(let i = 0; i < classCombo.length; i++) {
-                classTraitCombos[classCombo[i] - 1].forEach(traitSet1 => {
-                    for (let j = i + 1; j < classCombo.length; j++) {
-                        classTraitCombos[classCombo[j] - 1].forEach(traitSet2 => {
-                            for (let k = j + 1; k < classCombo.length; k++) {
-                                classTraitCombos[classCombo[k] - 1].forEach(traitSet3 => {
-                                    for (let l = k + 1; l < classCombo.length; l++) {
-                                        classTraitCombos[classCombo[l] - 1].forEach(traitSet4 => {
-                                            for (let m = l + 1; m < classCombo.length; m++) {
-                                                classTraitCombos[classCombo[m] - 1].forEach(traitSet5 => {
-                                                    const team = [];
+    if (!useTraitSets) {
+        classCombos.forEach(classCombo => {
+            powerLevels.forEach(powerLevel => {
+                // Loop over each class in the classCombo
+                for(let i = 0; i < classCombo.length; i++) {
+                    classTraitCombos[classCombo[i] - 1].forEach(traitSet1 => {
+                        for (let j = i + 1; j < classCombo.length; j++) {
+                            classTraitCombos[classCombo[j] - 1].forEach(traitSet2 => {
+                                for (let k = j + 1; k < classCombo.length; k++) {
+                                    classTraitCombos[classCombo[k] - 1].forEach(traitSet3 => {
+                                        for (let l = k + 1; l < classCombo.length; l++) {
+                                            classTraitCombos[classCombo[l] - 1].forEach(traitSet4 => {
+                                                for (let m = l + 1; m < classCombo.length; m++) {
+                                                    classTraitCombos[classCombo[m] - 1].forEach(traitSet5 => {
+                                                        const team = [];
 
-                                                    [traitSet1, traitSet2, traitSet3, traitSet4, traitSet5].forEach((traitSet, index) => {
-                                                        const gotchiName = `${powerLevel} ${traitSet} ${classes[classCombo[index] - 1]}`
-                                                        const gotchi = trainingGotchis.find(gotchi => {
-                                                            return gotchi.name === gotchiName
+                                                        [traitSet1, traitSet2, traitSet3, traitSet4, traitSet5].forEach((traitSet, index) => {
+                                                            const gotchiName = `${powerLevel} ${traitSet} ${classes[classCombo[index] - 1]}`
+                                                            const gotchi = trainingGotchis.find(gotchi => {
+                                                                return gotchi.name === gotchiName
+                                                            })
+
+                                                            if (!gotchi) throw new Error(`Gotchi not found: "${gotchiName}"`)
+
+                                                            team.push(gotchi.id)
                                                         })
 
-                                                        if (!gotchi) throw new Error(`Gotchi not found: "${gotchiName}"`)
-
-                                                        team.push(gotchi.id)
+                                                        teams.push(team)
                                                     })
-
-                                                    teams.push(team)
-                                                })
-                                            }
-                                        })
-                                    }
-                                })
-                            }
-                        })
-                    }
-                })
-            }
+                                                }
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+            })
         })
-    })
+    } else {
+        classCombos.forEach(classCombo => {
+            powerLevels.forEach(powerLevel => {
+                // Loop over how many trait sets there are in the classTraitCombos array
+                classTraitCombos[0].forEach((x, i) => {
+                    const team = []
+                    classCombo.forEach(classIndex => {
+                        const gotchiName = `${powerLevel} ${classTraitCombos[classIndex - 1][i]} ${classes[classIndex - 1]}`
+                        const gotchi = trainingGotchis.find(gotchi => {
+                            return gotchi.name === gotchiName
+                        })
+    
+                        if (!gotchi) throw new Error(`Gotchi not found: "${gotchiName}"`)
+                        
+                        team.push(gotchi.id)
+                    })
+                    teams.push(team)
+                })
+            })
+        })
+    }
+
+    
 
     return teams
 }
@@ -108,21 +134,21 @@ const getGotchisSimNameFromTeam = (team) => {
     return names
 }
 
-const runSims = async (simsVersion, gameLogicVersion, simsPerMatchup, useAvg) => {
+const runSims = async (simsVersion, gameLogicVersion, simsPerMatchup) => {
     const trainingGotchis = require(`./${simsVersion}/training_gotchis.json`)
-    const classCombos = useAvg ? require('./allClassCombos') : require(`./${simsVersion}/class_combos.json`)
-    const classTraitCombos = useAvg ? require('./avg_trait_combos.json') : require(`./${simsVersion}/trait_combos.json`)
+    const classCombos = require(`./${simsVersion}/class_combos.js`)
+    const classTraitCombos = require(`./${simsVersion}/trait_combos.json`)
     const setTeamPositions = require(`./${simsVersion}/setTeamPositions`)
     const gameLogic = require("../../game-logic")[gameLogicVersion].gameLoop
 
-    const attackingPowerLevels = ['Godlike', 'Mythical', 'Legendary']
+    const attackingPowerLevels = ['Godlike']
     const defendingPowerLevels = ['Godlike', 'Mythical', 'Legendary']
     
-    const attackingTeamIndexes = createTeamIndexes(classCombos, classTraitCombos, attackingPowerLevels, trainingGotchis, useAvg)
+    const attackingTeamIndexes = createTeamIndexes(classCombos, classTraitCombos, attackingPowerLevels, trainingGotchis, true)
 
     // console.log(`Running sims for ${attackingTeamIndexes.length} attacking teams`)
 
-    const defendingTeamIndexes = createTeamIndexes(classCombos, classTraitCombos, defendingPowerLevels, trainingGotchis, useAvg)
+    const defendingTeamIndexes = createTeamIndexes(classCombos, classTraitCombos, defendingPowerLevels, trainingGotchis, true)
 
     // console.log(`Against ${defendingTeamIndexes.length} defending teams`)
 
@@ -218,7 +244,7 @@ const runSims = async (simsVersion, gameLogicVersion, simsPerMatchup, useAvg) =>
         if (false) {
             process.env.GOOGLE_APPLICATION_CREDENTIALS = path.join(__dirname, '../../keyfile.json')
             try {
-                await storage.bucket(process.env.SIMS_BUCKET).file(`avg-sims-ghxzm_${attackingTeamIndex}.json`).save(JSON.stringify(results))
+                await storage.bucket(process.env.SIMS_BUCKET).file(`avg-sims-znw68_${attackingTeamIndex}.json`).save(JSON.stringify(results))
             } catch (err) {
                 throw err
             }

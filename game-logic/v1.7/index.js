@@ -180,20 +180,20 @@ const getDamage = (attackingTeam, defendingTeam, attackingGotchi, defendingGotch
     const attackerWithSpeedPenalty = speedPenalty ? applySpeedPenalty(attackingGotchi, speedPenalty) : attackingGotchi
 
     // Apply any status effects
-    const modifiedAttackingsGotchi = getModifiedStats(attackerWithSpeedPenalty)
+    const modifiedAttackingGotchi = getModifiedStats(attackerWithSpeedPenalty)
     const modifiedDefendingGotchi = getModifiedStats(defendingGotchi)
 
-    let attackValue = attackingGotchi.attack === 'magic' ? modifiedAttackingsGotchi.magic : modifiedAttackingsGotchi.physical
+    let attackValue = modifiedAttackingGotchi.attack === 'magic' ? modifiedAttackingGotchi.magic : modifiedAttackingGotchi.physical
 
     // If attacking gotchi is in the front row and physical attack then apply front row physical attack bonus
-    if (getFormationPosition(attackingTeam, defendingTeam, attackingGotchi.id).row === 'front' && attackingGotchi.attack === 'physical') {
+    if (getFormationPosition(attackingTeam, defendingTeam, attackingGotchi.id).row === 'front' && modifiedAttackingGotchi.attack === 'physical') {
         attackValue = Math.round(attackValue * MULTS.FRONT_ROW_PHY_ATK)
     }
 
-    let defenseValue = attackingGotchi.attack === 'magic' ? modifiedDefendingGotchi.magic : modifiedDefendingGotchi.physical
+    let defenseValue = modifiedAttackingGotchi.attack === 'magic' ? modifiedDefendingGotchi.magic : modifiedDefendingGotchi.physical
 
     // If defending gotchi is in the front row and the attack is physical then apply front row physical defence penalty
-    if (getFormationPosition(attackingTeam, defendingTeam, defendingGotchi.id).row === 'front' && attackingGotchi.attack === 'physical') {
+    if (getFormationPosition(attackingTeam, defendingTeam, defendingGotchi.id).row === 'front' && modifiedAttackingGotchi.attack === 'physical') {
         defenseValue = Math.round(defenseValue * MULTS.FRONT_ROW_PHY_DEF)
     }
 
@@ -286,6 +286,9 @@ const getModifiedStats = (gotchi) => {
         }
         
     })
+
+    // Recalculate attack type
+    modifiedGotchi.attack = modifiedGotchi.magic > modifiedGotchi.physical ? 'magic' : 'physical'
 
     return modifiedGotchi
 }
