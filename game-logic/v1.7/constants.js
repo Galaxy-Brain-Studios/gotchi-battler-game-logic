@@ -73,7 +73,7 @@ const MULTS = {
     SPECTRAL_STRIKE_DAMAGE: 1.5,
     // Enlightened
     // Cleaver
-    CLEAVE_DAMAGE: 1.35,
+    CLEAVE_DAMAGE: 1.5,
     // Tank
     COUNTER_CHANCE_MIN: 20,
     FORTIFY_COUNTER_CHANCE: 20,
@@ -95,7 +95,7 @@ const MULTS = {
     // Mage
     CHANNEL_THE_COVEN_STUN_CHANCE: 1,
     THUNDER_STUN_CHANCE: 0,
-    THUNDER_DAMAGE: 0.6,
+    THUNDER_DAMAGE: 0.75,
     // Troll
     CLAN_MOMENTUM_CHANCE: 0.4,
     DEVESTATING_SMASH_X2_CHANCE: 0.2,
