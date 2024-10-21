@@ -15,11 +15,14 @@ const getFrontRowScore = (gotchiId, leaderId) => {
         } else if (gotchi.specialId === 5) {
             // Cursed are the third best up front
             return 4
+        } else if (gotchi.specialId === 6) {
+            // Healers do ok
+            return 2
         } else if (gotchi.specialId === 7) {
             // Mages always go to the back
             return 0
         } else {
-            return 2
+            return 1
         }
     }
 
