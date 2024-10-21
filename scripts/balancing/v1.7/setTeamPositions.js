@@ -5,19 +5,21 @@ const getFrontRowScore = (gotchiId, leaderId) => {
     const leader = trainingGotchis.find(gotchi => gotchi.id === leaderId)
 
     if (gotchi.name.includes(' avg ')) {
-        // Enlightened are the best up front
+        
         if (gotchi.specialId === 2) {
+            // Enlightened are the best up front
             return 6
-        }
-
-        // Healer with a healer leader are the second best up front
-        if (leader.specialId === 6 && gotchi.specialId === 6) {
+        } else if (leader.specialId === 6 && gotchi.specialId === 6) {
+            // Healer with a healer leader are the second best up front
             return 5
-        }
-
-        // Cursed are the third best up front
-        if (gotchi.specialId === 5) {
+        } else if (gotchi.specialId === 5) {
+            // Cursed are the third best up front
             return 4
+        } else if (gotchi.specialId === 7) {
+            // Mages always go to the back
+            return 0
+        } else {
+            return 2
         }
     }
 
