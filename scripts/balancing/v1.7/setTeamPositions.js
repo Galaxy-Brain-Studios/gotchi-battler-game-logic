@@ -78,5 +78,23 @@ module.exports = (team) => {
             }
         })
     }
+
+    // If you have 5 gotchis in the back then send the highest 2 to the front
+    const backGotchis = team.formation.back.filter(gotchi => gotchi)
+    if (backGotchis.length === 5) {
+        // Sort the gotchis by score in descending order (highest score first)
+        const orderedGotchis = JSON.parse(JSON.stringify(backGotchis)).sort((a, b) => getFrontRowScore(b.id, team.leader) - getFrontRowScore(a.id, team.leader));
+
+        // Loop through the back row and the first 2 gotchis that have a score of either orderedGotchis[0] or orderedGotchis[1] move to the front
+        let hasMoved = 0
+        team.formation.back.forEach((gotchi, i) => {
+            if (hasMoved < 2 && (gotchi.id === orderedGotchis[0].id || gotchi.id === orderedGotchis[1].id)) {
+                team.formation.front[i] = gotchi
+                team.formation.back[i] = null
+
+                hasMoved++
+            }
+        })
+    }
 }
 
