@@ -8,10 +8,10 @@ const BUFF_MULT_EFFECTS = {
         physical: 0.165
     },
     power_up_2: {
-        crit: 0.35,
-        resist: 0.35,
-        magic: 0.35,
-        physical: 0.35
+        crit: 0.4,
+        resist: 0.4,
+        magic: 0.4,
+        physical: 0.4
     },
     frenzy: {
         crit: 1
@@ -70,7 +70,7 @@ const MULTS = {
     // Ninja
     SHARP_BLADES_BLEED_CHANCE: 0.9,
     BLEED_DAMAGE: 10,
-    SPECTRAL_STRIKE_DAMAGE: 1.5,
+    SPECTRAL_STRIKE_DAMAGE: 1.6,
     // Enlightened
     // Cleaver
     CLEAVE_DAMAGE: 1.6,
@@ -85,7 +85,7 @@ const MULTS = {
     CURSE_HEAL: 1,
     CURSE_SPEED_PENALTY: 0,
     // Healer
-    CLEANSING_AURA_REGEN: 1,
+    CLEANSING_AURA_REGEN: 0.7,
     CLEANSING_AURA_NON_HEALER_REGEN: 10,
     CLEANSING_AURA_HEAL: 6.25,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
@@ -93,13 +93,13 @@ const MULTS = {
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
-    CHANNEL_THE_COVEN_STUN_CHANCE: 0.475,
+    CHANNEL_THE_COVEN_STUN_CHANCE: 0.6,
     THUNDER_STUN_CHANCE: 0.2,
     THUNDER_DAMAGE: 0.7,
     // Troll
     CLAN_MOMENTUM_CHANCE: 0.6,
     DEVESTATING_SMASH_X2_CHANCE: 0.3,
-    DEVESTATING_SMASH_DAMAGE: 2.2,
+    DEVESTATING_SMASH_DAMAGE: 2.5,
     DEVESTATING_SMASH_X2_DAMAGE: 2,
 }
 

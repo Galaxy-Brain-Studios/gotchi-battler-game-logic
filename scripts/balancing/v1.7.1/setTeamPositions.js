@@ -10,7 +10,7 @@ const getFrontRowScore = (gotchiId, leaderId) => {
 
         switch (gotchi.specialId) {
             case 1: // Ninja
-                score = 3
+                score = 2
                 break
             case 2: // Enlightened
                 score = 6
