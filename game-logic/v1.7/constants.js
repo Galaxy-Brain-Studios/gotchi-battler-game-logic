@@ -4,8 +4,8 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     power_up_1: {
-        magic: 0.15,
-        physical: 0.15
+        magic: 0.165,
+        physical: 0.165
     },
     power_up_2: {
         crit: 0.35,
@@ -35,7 +35,7 @@ const BUFF_FLAT_EFFECTS = {
         armor: 100
     },
     frenzy: {
-        crit: 15
+        crit: 16
     }
 }
 
@@ -76,10 +76,10 @@ const MULTS = {
     CLEAVE_DAMAGE: 1.6,
     // Tank
     COUNTER_CHANCE_MIN: 20,
-    FORTIFY_COUNTER_CHANCE: 10,
+    FORTIFY_COUNTER_CHANCE: 12,
     COUNTER_DAMAGE: 1,
     // Cursed
-    SPREAD_THE_FEAR_CHANCE: 0.6,
+    SPREAD_THE_FEAR_CHANCE: 0.625,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
     CURSE_DAMAGE: 1.5,
     CURSE_HEAL: 1,
@@ -87,13 +87,13 @@ const MULTS = {
     // Healer
     CLEANSING_AURA_REGEN: 1,
     CLEANSING_AURA_NON_HEALER_REGEN: 10,
-    CLEANSING_AURA_HEAL: 6.5,
+    CLEANSING_AURA_HEAL: 6.25,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL: 4.5,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
-    CHANNEL_THE_COVEN_STUN_CHANCE: 0.5,
+    CHANNEL_THE_COVEN_STUN_CHANCE: 0.475,
     THUNDER_STUN_CHANCE: 0.2,
     THUNDER_DAMAGE: 0.7,
     // Troll
