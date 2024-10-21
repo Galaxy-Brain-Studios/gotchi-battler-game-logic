@@ -8,10 +8,10 @@ const BUFF_MULT_EFFECTS = {
         physical: 0.165
     },
     power_up_2: {
-        crit: 0.4,
-        resist: 0.4,
-        magic: 0.4,
-        physical: 0.4
+        crit: 0.41,
+        resist: 0.41,
+        magic: 0.41,
+        physical: 0.41
     },
     frenzy: {
         crit: 1
@@ -35,7 +35,7 @@ const BUFF_FLAT_EFFECTS = {
         armor: 100
     },
     frenzy: {
-        crit: 15
+        crit: 14
     }
 }
 
@@ -68,21 +68,21 @@ const MULTS = {
     CRIT_MULTIPLIER_FAST: 1.8,
     CRIT_MULTIPLIER_SLOW: 1.8,
     // Ninja
-    SHARP_BLADES_BLEED_CHANCE: 0.9,
+    SHARP_BLADES_BLEED_CHANCE: 0.95,
     BLEED_DAMAGE: 10,
     SPECTRAL_STRIKE_DAMAGE: 1.4,
     // Enlightened
     // Cleaver
-    CLEAVE_DAMAGE: 1.6,
+    CLEAVE_DAMAGE: 1.55,
     // Tank
-    COUNTER_CHANCE_MIN: 28,
+    COUNTER_CHANCE_MIN: 30,
     FORTIFY_COUNTER_CHANCE: 12,
     COUNTER_DAMAGE: 1.1,
     // Cursed
-    SPREAD_THE_FEAR_CHANCE: 0.7,
+    SPREAD_THE_FEAR_CHANCE: 0.8,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
     CURSE_DAMAGE: 1,
-    CURSE_HEAL: 1,
+    CURSE_HEAL: 0.9,
     CURSE_SPEED_PENALTY: 0,
     // Healer
     CLEANSING_AURA_REGEN: 0.6,
@@ -100,7 +100,7 @@ const MULTS = {
     CLAN_MOMENTUM_CHANCE: 0.6,
     DEVESTATING_SMASH_X2_CHANCE: 0.3,
     DEVESTATING_SMASH_DAMAGE: 2.7,
-    DEVESTATING_SMASH_X2_DAMAGE: 2,
+    DEVESTATING_SMASH_X2_DAMAGE: 1.9,
 }
 
 const passiveIcons = {
