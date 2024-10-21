@@ -17,10 +17,10 @@ const BUFF_MULT_EFFECTS = {
         crit: 1
     },
     fortify: {
-        armor: 1.5
+        armor: 1
     },
     taunt: {
-        armor: 1.5
+        armor: 1
     },
     channel_the_coven: {
         magic: 0.175
@@ -68,26 +68,26 @@ const MULTS = {
     CRIT_MULTIPLIER_FAST: 1.8,
     CRIT_MULTIPLIER_SLOW: 1.8,
     // Ninja
-    SHARP_BLADES_BLEED_CHANCE: 0.7,
+    SHARP_BLADES_BLEED_CHANCE: 0.8,
     BLEED_DAMAGE: 10,
     SPECTRAL_STRIKE_DAMAGE: 1.5,
     // Enlightened
     // Cleaver
-    CLEAVE_DAMAGE: 1.7,
+    CLEAVE_DAMAGE: 1.6,
     // Tank
     COUNTER_CHANCE_MIN: 20,
     FORTIFY_COUNTER_CHANCE: 0,
     COUNTER_DAMAGE: 1,
     // Cursed
-    SPREAD_THE_FEAR_CHANCE: 0.9,
+    SPREAD_THE_FEAR_CHANCE: 0.7,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
-    CURSE_DAMAGE: 1,
+    CURSE_DAMAGE: 1.5,
     CURSE_HEAL: 1,
     CURSE_SPEED_PENALTY: 0,
     // Healer
     CLEANSING_AURA_REGEN: 1,
     CLEANSING_AURA_NON_HEALER_REGEN: 10,
-    CLEANSING_AURA_HEAL: 5,
+    CLEANSING_AURA_HEAL: 6,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL: 5,
     BLESSING_HEAL_SPEED_PENALTY: 1,
@@ -95,12 +95,12 @@ const MULTS = {
     // Mage
     CHANNEL_THE_COVEN_STUN_CHANCE: 0.5,
     THUNDER_STUN_CHANCE: 0.2,
-    THUNDER_DAMAGE: 0.75,
+    THUNDER_DAMAGE: 0.7,
     // Troll
-    CLAN_MOMENTUM_CHANCE: 0.5,
-    DEVESTATING_SMASH_X2_CHANCE: 0.2,
+    CLAN_MOMENTUM_CHANCE: 0.6,
+    DEVESTATING_SMASH_X2_CHANCE: 0.3,
     DEVESTATING_SMASH_DAMAGE: 2,
-    DEVESTATING_SMASH_X2_DAMAGE: 1.5,
+    DEVESTATING_SMASH_X2_DAMAGE: 2,
 }
 
 const passiveIcons = {
