@@ -73,10 +73,10 @@ const MULTS = {
     SPECTRAL_STRIKE_DAMAGE: 1.5,
     // Enlightened
     // Cleaver
-    CLEAVE_DAMAGE: 1.5,
+    CLEAVE_DAMAGE: 1.7,
     // Tank
     COUNTER_CHANCE_MIN: 20,
-    FORTIFY_COUNTER_CHANCE: 20,
+    FORTIFY_COUNTER_CHANCE: 0,
     COUNTER_DAMAGE: 1.5,
     // Cursed
     SPREAD_THE_FEAR_CHANCE: 0.9,
