@@ -15,7 +15,7 @@ npm install gotchi-battler-game-logic
 To use the module in your project, import it as follows:
 
 ```javascript
-const game = require('gotchi-battler-game-logic')
+const { game } = require('gotchi-battler-game-logic')
 
 // team1 and team2 an in-game team objects (see below)
 // seed is a random seed for the game
