@@ -1,6 +1,6 @@
 {
   "name": "gotchi-battler-game-logic",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,8 +12,8 @@
     "url": "Galaxy-Brain-Studios/gotchi-battler-game-logic"
   },
   "dependencies": {
-    "jsonschema": "^1.4.1",
-    "seedrandom": "^3.0.5"
+    "seedrandom": "^3.0.5",
+    "z-schema": "^6.0.2"
   },
   "devDependencies": {
     "@google-cloud/storage": "^7.13.0",

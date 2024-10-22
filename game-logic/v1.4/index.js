@@ -1,5 +1,6 @@
 const seedrandom = require('seedrandom')
-
+const ZSchema = require('z-schema')
+const validator = new ZSchema()
 const { GameError } = require('../../utils/errors')
 
 let {
@@ -581,6 +582,18 @@ const gameLoop = (team1, team2, seed, debug) => {
     if (!team1) throw new Error("Team 1 not found")
     if (!team2) throw new Error("Team 2 not found")
     if (!seed) throw new Error("Seed not found")
+
+        // Validate team objects
+    const team1Validation = validator.validate(team1, teamSchema)
+    if (!team1Validation) {
+        console.error('Team 1 validation failed: ', JSON.stringify(validator.getLastErrors(), null, 2))
+        throw new Error(`Team 1 validation failed`)
+    }
+    const team2Validation = validator.validate(team2, teamSchema)
+    if (!team2Validation) {
+        console.error('Team 2 validation failed: ', JSON.stringify(validator.getLastErrors(), null, 2))
+        throw new Error(`Team 2 validation failed`)
+    }
 
     const rng = seedrandom(seed)
 
