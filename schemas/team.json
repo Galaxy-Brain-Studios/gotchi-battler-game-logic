@@ -171,6 +171,60 @@
                     "required": ["id", "name", "cooldown", "leaderPassive"],
                     "additionalProperties": false
                 },
+                "itemId": {
+                    "type": ["integer", "null"]
+                },
+                "item": {
+                    "type": ["object", "null"],
+                    "properties": {
+                        "id": {
+                            "type": "integer"
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "image": {
+                            "type": "string",
+                            "format": "uri"
+                        },
+                        "rarity": {
+                            "type": "string",
+                            "enum": ["common", "uncommon", "rare", "legendary", "mythical", "godlike"]
+                        },
+                        "cost": {
+                            "type": "number"
+                        },
+                        "stat": {
+                            "type": "string",
+                            "enum": ["speed", "health", "crit", "armor", "evade", "resist", "magic", "physical", "accuracy"]
+                        },
+                        "statValue": {
+                            "type": "integer"
+                        },
+                        "createdAt": {
+                            "type": "string"
+                        },
+                        "updatedAt": {
+                            "type": "string"
+                        }
+                    },
+                    "required": ["id", "name", "description", "image", "rarity", "cost", "stat", "statValue"],
+                    "example": {
+                        "id": 1,
+                        "name": "Speed +",
+                        "description": "Increase speed by 1",
+                        "image": "https://gotchibattler.com/apple-touch-icon.png",
+                        "rarity": "common",
+                        "cost": 0.2,
+                        "stat": "speed",
+                        "statValue": 1,
+                        "createdAt": "2022-02-22T22:22:22Z",
+                        "updatedAt": "2022-02-22T22:22:22Z"
+                    }
+                },
                 "statuses": {
                     "type": "array",
                     "items": {

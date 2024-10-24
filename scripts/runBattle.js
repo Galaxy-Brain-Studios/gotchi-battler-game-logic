@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const battle = require('..')
+const { battle } = require('..')
 
 // Edit these json files to test different battles
 // NOTE: Only the in-game stats (speed, health, crit etc..) are used in the game logic
@@ -14,3 +14,5 @@ const resultsFilename = `results-${timestamp}.json`
 fs.writeFileSync(path.join(__dirname, 'output', resultsFilename), JSON.stringify(results, null, '\t'))
 
 console.log(`Results written to ${path.join(__dirname, 'output', resultsFilename)}`)
+
+// node scripts/runBattle.js

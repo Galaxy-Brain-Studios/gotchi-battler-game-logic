@@ -6,7 +6,7 @@ const teamSchema = require('./schemas/team')
 const { webappTeamToInGameTeam, inGameTeamToWebappTeam } = require('./utils/transforms')
 
 module.exports = {
-    game: currentVersion.gameLoop,
+    battle: currentVersion.gameLoop,
     teamSchema,
     webappTeamToInGameTeam,
     inGameTeamToWebappTeam
