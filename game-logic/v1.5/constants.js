@@ -115,10 +115,3 @@ module.exports = {
     DEBUFFS,
     MULTS
 }
-
-// node services/game-logic/constants.js
-if (require.main === module) {
-    console.log("Buffs", BUFFS)
-    console.log("Debuffs", DEBUFFS)
-    process.exit(0)
-}
