@@ -158,37 +158,37 @@
                     "type": "integer"
                 },
                 "hauntId": {
-                    "type": "integer"
+                    "type": ["integer", "null"]
                 },
                 "collateralType": {
-                    "type": "string"
+                    "type": ["string", "null"]
                 },
                 "eyeShape": {
-                    "type": "string"
+                    "type": ["string", "null"]
                 },
                 "eyeColor": {
-                    "type": "string"
+                    "type": ["string", "null"]
                 },
                 "wearableBody": {
-                    "type": "integer"
+                    "type": ["integer", "null"]
                 },
                 "wearableFace": {
-                    "type": "integer"
+                    "type": ["integer", "null"]
                 },
                 "wearableEyes": {
-                    "type": "integer"
+                    "type": ["integer", "null"]
                 },
                 "wearableHead": {
-                    "type": "integer"
+                    "type": ["integer", "null"]
                 },
                 "wearableHandLeft": {
-                    "type": "integer"
+                    "type": ["integer", "null"]
                 },
                 "wearableHandRight": {
-                    "type": "integer"
+                    "type": ["integer", "null"]
                 },
                 "wearablePet": {
-                    "type": "integer"
+                    "type": ["integer", "null"]
                 },
                 "special": {
                     "type": "object",
