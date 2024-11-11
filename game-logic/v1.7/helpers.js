@@ -549,17 +549,6 @@ const getLogGotchis = (allAliveGotchis) => {
 
         // Remove unnecessary properties to reduce log size
         delete x.special.class
-        delete x.snapshotBlock
-        delete x.onchainId
-        delete x.brs
-        delete x.nrg
-        delete x.agg
-        delete x.spk
-        delete x.brn
-        delete x.eyc
-        delete x.eys
-        delete x.kinship
-        delete x.xp
         delete x.actionDelay
         delete x.attack
         delete x.originalStats
