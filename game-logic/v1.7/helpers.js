@@ -509,6 +509,9 @@ const prepareTeams = (allAliveGotchis, team1, team2) => {
     // check there's no duplicate gotchis
     scrambleGotchiIds(allAliveGotchis, team1, team2);
 
+    // Apply stat items
+    applyStatItems(allAliveGotchis)
+
     allAliveGotchis.forEach(x => {
         // Add statuses property to all gotchis
         x.statuses = []
@@ -530,9 +533,6 @@ const prepareTeams = (allAliveGotchis, team1, team2) => {
     // Add leader passive to team
     addLeaderToTeam(team1)
     addLeaderToTeam(team2)
-
-    // Apply stat items
-    applyStatItems(allAliveGotchis)
 }
 
 /**

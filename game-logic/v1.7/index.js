@@ -271,7 +271,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, defendingTargets,
                 && !options.cannotBeCountered) {
 
                 // Chance to counter based on speed over 100
-                let chanceToCounter = defendingGotchi.speed - 100
+                let chanceToCounter = modifiedDefendingGotchi.speed - 100
 
                 if (chanceToCounter < MULTS.COUNTER_CHANCE_MIN) chanceToCounter = MULTS.COUNTER_CHANCE_MIN
 
