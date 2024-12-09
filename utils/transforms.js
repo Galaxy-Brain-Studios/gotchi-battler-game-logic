@@ -46,8 +46,8 @@ const logToInGameTeams = (originalLog) => {
 const webappTeamToInGameTeam = (webappTeam) => {
     const inGameTeam = {
         formation: {
-            front: [front1Gotchi, front2Gotchi, front3Gotchi, front4Gotchi, front5Gotchi],
-            back: [back1Gotchi, back2Gotchi, back3Gotchi, back4Gotchi, back5Gotchi],
+            front: [webappTeam.front1Gotchi, webappTeam.front2Gotchi, webappTeam.front3Gotchi, webappTeam.front4Gotchi, webappTeam.front5Gotchi],
+            back: [webappTeam.back1Gotchi, webappTeam.back2Gotchi, webappTeam.back3Gotchi, webappTeam.back4Gotchi, webappTeam.back5Gotchi],
         },
         leader: webappTeam.leader,
         name: webappTeam.name,
@@ -55,6 +55,7 @@ const webappTeamToInGameTeam = (webappTeam) => {
     }
 
     inGameTeam.formation.front.forEach(gotchi => {
+        if (!gotchi) return
         // remove availableSpecials
         delete gotchi.availableSpecials
     })

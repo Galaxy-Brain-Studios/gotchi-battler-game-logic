@@ -4,6 +4,8 @@ axiosRetry(axios, {
     retries: 3, 
     retryDelay: axiosRetry.exponentialDelay
 })
+const fs = require('fs')
+const path = require('path')
 
 const { GameError, ValidationError } = require('../utils/errors')
 const { logToInGameTeams } = require('../utils/transforms')
@@ -29,7 +31,9 @@ const main = async (battleId, seed, gameLogicVersion) => {
 
     try {
         // Run the game loop
-        const logs = await gameLoop(teams[0], teams[1], seed)
+        const logs = await gameLoop(teams[0], teams[1], seed, true)
+
+        fs.writeFileSync(path.join(__dirname, 'output', `${battleId}_${Date.now()}.json`), JSON.stringify(logs, null, '\t'))
 
         // Validate the results
         compareLogs(res.data, logs)
@@ -46,7 +50,7 @@ const main = async (battleId, seed, gameLogicVersion) => {
 
 module.exports = main
 
-// node scripts/validateBattle.js 4d0f3c5c-08a0-42db-bd34-dee44300685a 82807311112923564712218359337695919195403960526804010606215202651499586140469
+// node scripts/validateBattle.js 19566507-bafe-4a97-a5ee-0926ac9efcd8 86621513544048786694066938490119673052266855523096067323796322823978866460212
 if (require.main === module) {
     const battleId = process.argv[2]
     const seed = process.argv[3]
