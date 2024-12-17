@@ -141,7 +141,7 @@ const runSims = async (simsVersion, gameLogicVersion, simsPerMatchup) => {
     const setTeamPositions = require(`./${simsVersion}/setTeamPositions`)
     const gameLogic = require("../../game-logic")[gameLogicVersion].gameLoop
 
-    const attackingPowerLevels = ['Godlike']
+    const attackingPowerLevels = ['Godlike', 'Mythical', 'Legendary']
     const defendingPowerLevels = ['Godlike', 'Mythical', 'Legendary']
     
     const attackingTeamIndexes = createTeamIndexes(classCombos, classTraitCombos, attackingPowerLevels, trainingGotchis, true)
