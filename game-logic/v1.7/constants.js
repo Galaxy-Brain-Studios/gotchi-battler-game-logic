@@ -8,10 +8,10 @@ const BUFF_MULT_EFFECTS = {
         physical: 0.165
     },
     power_up_2: {
-        crit: 0.4,
-        resist: 0.4,
-        magic: 0.4,
-        physical: 0.4
+        crit: 0.35,
+        resist: 0.35,
+        magic: 0.35,
+        physical: 0.35
     },
     frenzy: {
         crit: 1
@@ -20,7 +20,7 @@ const BUFF_MULT_EFFECTS = {
         armor: 1
     },
     taunt: {
-        armor: 1.2
+        armor: 1.5
     },
     channel_the_coven: {
         magic: 0.175
@@ -68,38 +68,38 @@ const MULTS = {
     CRIT_MULTIPLIER_FAST: 1.8,
     CRIT_MULTIPLIER_SLOW: 1.8,
     // Ninja
-    SHARP_BLADES_BLEED_CHANCE: 0.925,
+    SHARP_BLADES_BLEED_CHANCE: 0.825,
     BLEED_DAMAGE: 11,
     SPECTRAL_STRIKE_DAMAGE: 1.35,
     // Enlightened
     // Cleaver
-    CLEAVE_DAMAGE: 1.45,
+    CLEAVE_DAMAGE: 1.35,
     // Tank
     COUNTER_CHANCE_MIN: 38,
     FORTIFY_COUNTER_CHANCE: 12,
-    COUNTER_DAMAGE: 1.1,
+    COUNTER_DAMAGE: 1.25,
     // Cursed
     SPREAD_THE_FEAR_CHANCE: 0.825,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
-    CURSE_DAMAGE: 1,
+    CURSE_DAMAGE: 1.1,
     CURSE_HEAL: 1,
     CURSE_SPEED_PENALTY: 0,
     // Healer
     CLEANSING_AURA_REGEN: 0.6,
-    CLEANSING_AURA_NON_HEALER_REGEN: 10,
-    CLEANSING_AURA_HEAL: 6,
+    CLEANSING_AURA_NON_HEALER_REGEN: 11,
+    CLEANSING_AURA_HEAL: 6.5,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL: 5,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
-    CHANNEL_THE_COVEN_STUN_CHANCE: 0.7,
+    CHANNEL_THE_COVEN_STUN_CHANCE: 0.6,
     THUNDER_STUN_CHANCE: 0.2,
-    THUNDER_DAMAGE: 0.6,
+    THUNDER_DAMAGE: 0.7,
     // Troll
     CLAN_MOMENTUM_CHANCE: 0.6,
-    DEVESTATING_SMASH_X2_CHANCE: 0.3,
-    DEVESTATING_SMASH_DAMAGE: 2.8,
+    DEVESTATING_SMASH_X2_CHANCE: 0.2,
+    DEVESTATING_SMASH_DAMAGE: 2.5,
     DEVESTATING_SMASH_X2_DAMAGE: 1.75,
 }
 
