@@ -1,5 +1,6 @@
 const fs = require('fs')
-const trainingGotchis = require('./v1.7/training_gotchis.json')
+const trainingGotchis = require('./v1.7.2/training_gotchis.json')
+const { mapGotchi } = require('../../utils/mapGotchi')
 
 const specials = [
     {
@@ -62,111 +63,6 @@ const specials = [
 
 const classes = ['Ninja','Enlightened','Cleaver','Tank','Cursed','Healer', 'Mage', 'Troll']
 const powerLevels = ['Godlike', 'Mythical', 'Legendary', 'Rare', 'Uncommon', 'Common', 'Garbage']
-
-// This is copied/hacked from the mapGotchi function in the backend
-const fixTraits = (gotchi) => {
-    const traitMaps = {
-        speed: {
-            baseFormula: 100,
-            multiplier: 1,
-            traitKey: 0,
-            isNegative: false
-        },
-        health: {
-            baseFormula: 'brs*0.75',
-            multiplier: 12,
-            traitKey: 0,
-            isNegative: true
-        },
-        crit: {
-            baseFormula: 0,
-            multiplier: 0.5,
-            traitKey: 1,
-            isNegative: false
-        },
-        armor: {
-            baseFormula: 0,
-            multiplier: 2,
-            traitKey: 1,
-            isNegative: true
-        },
-        evade: {
-            baseFormula: 0,
-            multiplier: 0.3,
-            traitKey: 2,
-            isNegative: false
-        },
-        resist: {
-            baseFormula: 0,
-            multiplier: 1,
-            traitKey: 2,
-            isNegative: true
-        },
-        magic: {
-            baseFormula: 'brs*0.25',
-            multiplier: 5,
-            traitKey: 3,
-            isNegative: false
-        },
-        physical: {
-            baseFormula: 'brs*0.25',
-            multiplier: 5,
-            traitKey: 3,
-            isNegative: true
-        },
-        accuracy: {
-            baseFormula: 50,
-            multiplier: 0.5,
-            traitKey: 45,
-            isNegative: false
-        }
-    }
-
-    const traitValue = (trait) => {
-        return trait < 50 ? 50 - trait : trait - 50 + 1
-    }
-
-    const onchainVals = [
-        gotchi.nrg,
-        gotchi.agg,
-        gotchi.spk,
-        gotchi.brn,
-        gotchi.eyc,
-        gotchi.eys
-    ]
-    // Convert trait value to in-game value
-    const traitValues = onchainVals.map(x => { return traitValue(x) })
-
-    // Map traits
-    for(const trait in traitMaps) { 
-        const traitMap = traitMaps[trait]
-        const onchainVal = onchainVals[traitMap.traitKey]
-
-        let base = traitMap.baseFormula
-
-        // If baseFormula is a string and contains a * then it is a formula
-        if (typeof traitMap.baseFormula === 'string' && traitMap.baseFormula.includes('*')) {
-            const formula = traitMap.baseFormula.split('*')
-
-            if (!gotchi[formula[0]]) throw new Error('Trait not found: ', formula[0])
-
-            base = Math.round(Number(gotchi[formula[0]]) * Number(formula[1]))
-        }
-
-        let newTrait
-        if (trait !== 'accuracy') {
-            if (traitMap.isNegative) {
-                newTrait = onchainVal < 50 ? Math.round(base + (traitValues[traitMap.traitKey] * traitMap.multiplier)) : base
-            } else {
-                newTrait = onchainVal < 50 ? base : Math.round(base + (traitValues[traitMap.traitKey] * traitMap.multiplier))
-            }
-        } else {
-            newTrait = base + ((traitValues[4] + traitValues[5]) * traitMap.multiplier)
-        }
-
-        if (newTrait !== gotchi[trait]) gotchi[trait] = newTrait
-    }
-}
 
 const addAvgGotchs = () => {
     const statsToOverwrite = ["speed", "health", "crit", "armor", "evade", "resist", "accuracy"]
@@ -248,7 +144,7 @@ trainingGotchis.forEach(gotchi => {
     delete gotchi.stats_brs
 
     // Make sure the gotchi has the correct traits
-    fixTraits(gotchi)
+    mapGotchi(gotchi)
 })
 
 // Add the average gotchis
