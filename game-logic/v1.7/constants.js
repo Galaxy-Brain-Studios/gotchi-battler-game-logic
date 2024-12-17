@@ -8,10 +8,10 @@ const BUFF_MULT_EFFECTS = {
         physical: 0.165
     },
     power_up_2: {
-        crit: 0.425,
-        resist: 0.425,
-        magic: 0.425,
-        physical: 0.425
+        crit: 0.4,
+        resist: 0.4,
+        magic: 0.4,
+        physical: 0.4
     },
     frenzy: {
         crit: 1
@@ -20,7 +20,7 @@ const BUFF_MULT_EFFECTS = {
         armor: 1
     },
     taunt: {
-        armor: 1
+        armor: 1.2
     },
     channel_the_coven: {
         magic: 0.175
@@ -73,7 +73,7 @@ const MULTS = {
     SPECTRAL_STRIKE_DAMAGE: 1.35,
     // Enlightened
     // Cleaver
-    CLEAVE_DAMAGE: 1.55,
+    CLEAVE_DAMAGE: 1.45,
     // Tank
     COUNTER_CHANCE_MIN: 38,
     FORTIFY_COUNTER_CHANCE: 12,
@@ -82,20 +82,20 @@ const MULTS = {
     SPREAD_THE_FEAR_CHANCE: 0.825,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
     CURSE_DAMAGE: 1,
-    CURSE_HEAL: 0.7,
+    CURSE_HEAL: 1,
     CURSE_SPEED_PENALTY: 0,
     // Healer
     CLEANSING_AURA_REGEN: 0.6,
     CLEANSING_AURA_NON_HEALER_REGEN: 10,
-    CLEANSING_AURA_HEAL: 5.7,
+    CLEANSING_AURA_HEAL: 6,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
-    BLESSING_HEAL: 4.9,
+    BLESSING_HEAL: 5,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
-    CHANNEL_THE_COVEN_STUN_CHANCE: 0.8,
+    CHANNEL_THE_COVEN_STUN_CHANCE: 0.7,
     THUNDER_STUN_CHANCE: 0.2,
-    THUNDER_DAMAGE: 0.7,
+    THUNDER_DAMAGE: 0.6,
     // Troll
     CLAN_MOMENTUM_CHANCE: 0.6,
     DEVESTATING_SMASH_X2_CHANCE: 0.3,
