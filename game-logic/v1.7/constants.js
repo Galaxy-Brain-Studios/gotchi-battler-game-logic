@@ -4,8 +4,8 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     power_up_1: {
-        magic: 0.165,
-        physical: 0.165
+        magic: 0.125,
+        physical: 0.125
     },
     power_up_2: {
         crit: 0.3,
@@ -23,10 +23,10 @@ const BUFF_MULT_EFFECTS = {
         armor: 1.5
     },
     channel_the_coven: {
-        magic: 0.125
+        magic: 0.15
     },
     clan_momentum: {
-        physical: 0.15
+        physical: 0.175
     }
 }
 
@@ -68,7 +68,7 @@ const MULTS = {
     CRIT_MULTIPLIER_FAST: 2,
     CRIT_MULTIPLIER_SLOW: 2,
     // Ninja
-    SHARP_BLADES_BLEED_CHANCE: 0.825,
+    SHARP_BLADES_BLEED_CHANCE: 0.8,
     BLEED_DAMAGE: 10,
     SPECTRAL_STRIKE_DAMAGE: 1.35,
     // Enlightened
@@ -85,11 +85,11 @@ const MULTS = {
     CURSE_HEAL: 1,
     CURSE_SPEED_PENALTY: 0,
     // Healer
-    CLEANSING_AURA_REGEN: 0.75,
+    CLEANSING_AURA_REGEN: 0.7,
     CLEANSING_AURA_NON_HEALER_REGEN: 13,
     CLEANSING_AURA_HEAL: 6.5,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
-    BLESSING_HEAL: 5,
+    BLESSING_HEAL: 4.5,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
@@ -98,8 +98,8 @@ const MULTS = {
     THUNDER_DAMAGE: 0.75,
     // Troll
     CLAN_MOMENTUM_CHANCE: 0.6,
-    DEVESTATING_SMASH_X2_CHANCE: 0.2,
-    DEVESTATING_SMASH_DAMAGE: 2,
+    DEVESTATING_SMASH_X2_CHANCE: 0.1,
+    DEVESTATING_SMASH_DAMAGE: 1.75,
     DEVESTATING_SMASH_X2_DAMAGE: 1.75,
 }
 
