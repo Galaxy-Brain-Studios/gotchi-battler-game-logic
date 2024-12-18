@@ -14,7 +14,7 @@ const BUFF_MULT_EFFECTS = {
         physical: 0.35
     },
     frenzy: {
-        crit: 0.8
+        crit: 1
     },
     fortify: {
         armor: 1
@@ -26,7 +26,7 @@ const BUFF_MULT_EFFECTS = {
         magic: 0.125
     },
     clan_momentum: {
-        physical: 0.125
+        physical: 0.15
     }
 }
 
@@ -65,8 +65,8 @@ const MULTS = {
     EXPIRE_LEADERSKILL: 0,
     SPEED_PENALTY: 2.5,
     MAX_STATUSES: 3,
-    CRIT_MULTIPLIER_FAST: 1.8,
-    CRIT_MULTIPLIER_SLOW: 1.8,
+    CRIT_MULTIPLIER_FAST: 2,
+    CRIT_MULTIPLIER_SLOW: 2,
     // Ninja
     SHARP_BLADES_BLEED_CHANCE: 0.825,
     BLEED_DAMAGE: 11,
@@ -100,7 +100,7 @@ const MULTS = {
     CLAN_MOMENTUM_CHANCE: 0.6,
     DEVESTATING_SMASH_X2_CHANCE: 0.2,
     DEVESTATING_SMASH_DAMAGE: 2,
-    DEVESTATING_SMASH_X2_DAMAGE: 2,
+    DEVESTATING_SMASH_X2_DAMAGE: 1.75,
 }
 
 const passiveIcons = {
