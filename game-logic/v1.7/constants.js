@@ -4,8 +4,8 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     power_up_1: {
-        magic: 0.125,
-        physical: 0.125
+        magic: 0.14,
+        physical: 0.14
     },
     power_up_2: {
         crit: 0.3,
@@ -23,7 +23,7 @@ const BUFF_MULT_EFFECTS = {
         armor: 1.5
     },
     channel_the_coven: {
-        magic: 0.15
+        magic: 0.13
     },
     clan_momentum: {
         physical: 0.175
@@ -94,11 +94,11 @@ const MULTS = {
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
     CHANNEL_THE_COVEN_STUN_CHANCE: 0.6,
-    THUNDER_STUN_CHANCE: 0.3,
+    THUNDER_STUN_CHANCE: 0.4,
     THUNDER_DAMAGE: 0.75,
     // Troll
-    CLAN_MOMENTUM_CHANCE: 0.6,
-    DEVESTATING_SMASH_X2_CHANCE: 0.1,
+    CLAN_MOMENTUM_CHANCE: 0.7,
+    DEVESTATING_SMASH_X2_CHANCE: 0,
     DEVESTATING_SMASH_DAMAGE: 1.75,
     DEVESTATING_SMASH_X2_DAMAGE: 1.75,
 }
