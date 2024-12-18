@@ -201,6 +201,19 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, defendingTargets,
 
     const effects = []
 
+    // Calculate what the multiplier should be if the attack is a crit
+    let critMultiplier = options.multiplier
+    if (options.critMultiplier) {
+        critMultiplier *= options.critMultiplier
+    } else {
+        // Apply different crit multipliers for -nrg and +nrg gotchis
+        if (attackingGotchi.speed <= 100) {
+            critMultiplier *= MULTS.CRIT_MULTIPLIER_SLOW
+        } else {
+            critMultiplier *= MULTS.CRIT_MULTIPLIER_FAST
+        }
+    }
+
     defendingTargets.forEach((defendingGotchi) => {
         // Check attacking gotchi hasn't been killed by a counter
         if (attackingGotchi.health <= 0) return
@@ -209,25 +222,17 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, defendingTargets,
         const modifiedDefendingGotchi = getModifiedStats(defendingGotchi)
 
         // Check for crit
+        let damageMultiplier = options.multiplier
         const isCrit = rng() < modifiedAttackingGotchi.crit / 100
         if (isCrit) {
-            if (options.critMultiplier) {
-                options.multiplier *= options.critMultiplier
-            } else {
-                // Apply different crit multipliers for -nrg and +nrg gotchis
-                if (attackingGotchi.speed <= 100) {
-                    options.multiplier *= MULTS.CRIT_MULTIPLIER_SLOW
-                } else {
-                    options.multiplier *= MULTS.CRIT_MULTIPLIER_FAST
-                }
-            }
+            damageMultiplier = critMultiplier
         }
 
         let canEvade = true
         if (options.cannotBeEvaded) canEvade = false
         if (isCrit && options.critCannotBeEvaded) canEvade = false
 
-        const damage = getDamage(attackingTeam, defendingTeam, attackingGotchi, defendingGotchi, options.multiplier, options.ignoreArmor, options.speedPenalty)
+        const damage = getDamage(attackingTeam, defendingTeam, attackingGotchi, defendingGotchi, damageMultiplier, options.ignoreArmor, options.speedPenalty)
 
         let effect = {
             target: defendingGotchi.id,
@@ -792,5 +797,7 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
 }
 
 module.exports = {
-    gameLoop
+    gameLoop,
+    attack,
+    specialAttack
 }
