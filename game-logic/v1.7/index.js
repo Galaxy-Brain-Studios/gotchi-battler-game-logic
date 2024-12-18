@@ -747,8 +747,7 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
                 multiplier: MULTS.THUNDER_DAMAGE, 
                 statuses: stunStatuses,
                 cannotBeCountered: true, 
-                noPassiveStatuses: true,
-                critMultiplier: MULTS.THUNDER_CRIT_MULTIPLIER
+                noPassiveStatuses: true
             })
 
             break

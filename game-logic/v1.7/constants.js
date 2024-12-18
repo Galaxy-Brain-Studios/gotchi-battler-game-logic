@@ -26,7 +26,7 @@ const BUFF_MULT_EFFECTS = {
         magic: 0.125
     },
     clan_momentum: {
-        physical: 0.175
+        physical: 0.125
     }
 }
 
@@ -73,7 +73,7 @@ const MULTS = {
     SPECTRAL_STRIKE_DAMAGE: 1.35,
     // Enlightened
     // Cleaver
-    CLEAVE_DAMAGE: 1.45,
+    CLEAVE_DAMAGE: 1.6,
     // Tank
     COUNTER_CHANCE_MIN: 38,
     FORTIFY_COUNTER_CHANCE: 12,
@@ -94,8 +94,8 @@ const MULTS = {
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
     CHANNEL_THE_COVEN_STUN_CHANCE: 0.6,
-    THUNDER_STUN_CHANCE: 0.2,
-    THUNDER_DAMAGE: 0.7,
+    THUNDER_STUN_CHANCE: 0.3,
+    THUNDER_DAMAGE: 0.75,
     // Troll
     CLAN_MOMENTUM_CHANCE: 0.6,
     DEVESTATING_SMASH_X2_CHANCE: 0.2,
