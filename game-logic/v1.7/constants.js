@@ -35,7 +35,7 @@ const BUFF_FLAT_EFFECTS = {
         armor: 105
     },
     frenzy: {
-        crit: 12
+        crit: 11
     }
 }
 
@@ -65,8 +65,8 @@ const MULTS = {
     EXPIRE_LEADERSKILL: 0,
     SPEED_PENALTY: 2.5,
     MAX_STATUSES: 3,
-    CRIT_MULTIPLIER_FAST: 2,
-    CRIT_MULTIPLIER_SLOW: 2,
+    CRIT_MULTIPLIER_FAST: 2.2,
+    CRIT_MULTIPLIER_SLOW: 2.2,
     // Ninja
     SHARP_BLADES_BLEED_CHANCE: 0.8,
     BLEED_DAMAGE: 10,
