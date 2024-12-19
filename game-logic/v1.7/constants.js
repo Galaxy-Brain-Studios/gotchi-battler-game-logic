@@ -26,7 +26,7 @@ const BUFF_MULT_EFFECTS = {
         magic: 0.13
     },
     clan_momentum: {
-        physical: 0.13
+        physical: 0.15
     }
 }
 
@@ -65,8 +65,8 @@ const MULTS = {
     EXPIRE_LEADERSKILL: 0,
     SPEED_PENALTY: 2.5,
     MAX_STATUSES: 3,
-    CRIT_MULTIPLIER_FAST: 2.2,
-    CRIT_MULTIPLIER_SLOW: 2.2,
+    CRIT_MULTIPLIER_FAST: 2,
+    CRIT_MULTIPLIER_SLOW: 2,
     // Ninja
     SHARP_BLADES_BLEED_CHANCE: 0.8,
     BLEED_DAMAGE: 10,
@@ -97,10 +97,10 @@ const MULTS = {
     THUNDER_STUN_CHANCE: 0.4,
     THUNDER_DAMAGE: 0.8,
     // Troll
-    CLAN_MOMENTUM_CHANCE: 0.7,
+    CLAN_MOMENTUM_CHANCE: 1,
     DEVESTATING_SMASH_X2_CHANCE: 0.2,
-    DEVESTATING_SMASH_DAMAGE: 1.8,
-    DEVESTATING_SMASH_X2_DAMAGE: 1.5,
+    DEVESTATING_SMASH_DAMAGE: 1.5,
+    DEVESTATING_SMASH_X2_DAMAGE: 2,
 }
 
 const passiveIcons = {
