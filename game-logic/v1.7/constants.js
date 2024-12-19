@@ -20,22 +20,22 @@ const BUFF_MULT_EFFECTS = {
         armor: 1.5
     },
     taunt: {
-        armor: 1.5
+        armor: 1.4
     },
     channel_the_coven: {
         magic: 0.13
     },
     clan_momentum: {
-        physical: 0.175
+        physical: 0.13
     }
 }
 
 const BUFF_FLAT_EFFECTS = {
     fortify: {
-        armor: 100
+        armor: 110
     },
     frenzy: {
-        crit: 10
+        crit: 12
     }
 }
 
@@ -87,9 +87,9 @@ const MULTS = {
     // Healer
     CLEANSING_AURA_REGEN: 0.7,
     CLEANSING_AURA_NON_HEALER_REGEN: 13,
-    CLEANSING_AURA_HEAL: 6,
+    CLEANSING_AURA_HEAL: 5.5,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
-    BLESSING_HEAL: 4,
+    BLESSING_HEAL: 4.5,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
@@ -99,7 +99,7 @@ const MULTS = {
     // Troll
     CLAN_MOMENTUM_CHANCE: 0.7,
     DEVESTATING_SMASH_X2_CHANCE: 0,
-    DEVESTATING_SMASH_DAMAGE: 1.7,
+    DEVESTATING_SMASH_DAMAGE: 2,
     DEVESTATING_SMASH_X2_DAMAGE: 1.8,
 }
 
