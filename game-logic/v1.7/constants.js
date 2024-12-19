@@ -4,8 +4,8 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     power_up_1: {
-        magic: 0.14,
-        physical: 0.14
+        magic: 0.1425,
+        physical: 0.1425
     },
     power_up_2: {
         crit: 0.3,
@@ -89,7 +89,7 @@ const MULTS = {
     CLEANSING_AURA_NON_HEALER_REGEN: 13,
     CLEANSING_AURA_HEAL: 5,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
-    BLESSING_HEAL: 4,
+    BLESSING_HEAL: 4.25,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
@@ -100,7 +100,7 @@ const MULTS = {
     CLAN_MOMENTUM_CHANCE: 0.5,
     DEVESTATING_SMASH_X2_CHANCE: 0,
     DEVESTATING_SMASH_DAMAGE: 1.7,
-    DEVESTATING_SMASH_X2_DAMAGE: 1.8,
+    DEVESTATING_SMASH_X2_DAMAGE: 1.7,
 }
 
 const passiveIcons = {
