@@ -32,7 +32,7 @@ const BUFF_MULT_EFFECTS = {
 
 const BUFF_FLAT_EFFECTS = {
     fortify: {
-        armor: 110
+        armor: 105
     },
     frenzy: {
         crit: 12
@@ -98,9 +98,9 @@ const MULTS = {
     THUNDER_DAMAGE: 0.8,
     // Troll
     CLAN_MOMENTUM_CHANCE: 0.7,
-    DEVESTATING_SMASH_X2_CHANCE: 0,
-    DEVESTATING_SMASH_DAMAGE: 2,
-    DEVESTATING_SMASH_X2_DAMAGE: 1.8,
+    DEVESTATING_SMASH_X2_CHANCE: 0.2,
+    DEVESTATING_SMASH_DAMAGE: 1.8,
+    DEVESTATING_SMASH_X2_DAMAGE: 1.5,
 }
 
 const passiveIcons = {
