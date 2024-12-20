@@ -16,7 +16,7 @@ const getFrontRowScore = (gotchiId, leaderId) => {
                 score = 6
                 break
             case 3: // Cleaver
-                score = 1
+                score = 0
                 break
             case 4: // Tank
                 score = 2
@@ -36,7 +36,7 @@ const getFrontRowScore = (gotchiId, leaderId) => {
                 score = 0
                 break
             case 8: // Troll
-                score = 1
+                score = 0
                 break
         }
 
