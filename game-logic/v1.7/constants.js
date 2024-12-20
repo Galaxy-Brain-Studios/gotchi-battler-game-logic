@@ -4,8 +4,8 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     power_up_1: {
-        magic: 0.125,
-        physical: 0.125
+        magic: 0.1,
+        physical: 0.1
     },
     power_up_2: {
         speed: 0.15,
@@ -18,16 +18,16 @@ const BUFF_MULT_EFFECTS = {
         crit: 1
     },
     fortify: {
-        armor: 1.4
+        armor: 1.3
     },
     taunt: {
-        armor: 1.4
+        armor: 1.3
     },
     channel_the_coven: {
         magic: 0.135
     },
     clan_momentum: {
-        physical: 0.2
+        physical: 0.225
     }
 }
 
