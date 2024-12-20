@@ -8,11 +8,11 @@ const BUFF_MULT_EFFECTS = {
         physical: 0.125
     },
     power_up_2: {
-        speed: 0.175,
-        crit: 0.175,
-        resist: 0.175,
-        magic: 0.175,
-        physical: 0.175
+        speed: 0.15,
+        crit: 0.15,
+        resist: 0.15,
+        magic: 0.15,
+        physical: 0.15
     },
     frenzy: {
         crit: 1
@@ -24,7 +24,7 @@ const BUFF_MULT_EFFECTS = {
         armor: 1.4
     },
     channel_the_coven: {
-        magic: 0.15
+        magic: 0.135
     },
     clan_momentum: {
         physical: 0.2
@@ -99,7 +99,7 @@ const MULTS = {
     THUNDER_STUN_CHANCE: 0.4,
     THUNDER_DAMAGE: 0.8,
     // Troll
-    CLAN_MOMENTUM_CHANCE: 0.5,
+    CLAN_MOMENTUM_CHANCE: 0.6,
     DEVESTATING_SMASH_X2_CHANCE: 0,
     DEVESTATING_SMASH_DAMAGE: 2,
     DEVESTATING_SMASH_X2_DAMAGE: 1.5,
