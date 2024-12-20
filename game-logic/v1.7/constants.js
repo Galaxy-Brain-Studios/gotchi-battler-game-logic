@@ -23,7 +23,7 @@ const BUFF_MULT_EFFECTS = {
         armor: 1.4
     },
     channel_the_coven: {
-        magic: 0.13
+        magic: 0.1
     },
     clan_momentum: {
         physical: 0.2
@@ -100,7 +100,7 @@ const MULTS = {
     CLAN_MOMENTUM_CHANCE: 0.5,
     DEVESTATING_SMASH_X2_CHANCE: 0,
     DEVESTATING_SMASH_DAMAGE: 2,
-    DEVESTATING_SMASH_X2_DAMAGE: 1.2,
+    DEVESTATING_SMASH_X2_DAMAGE: 1.5,
 }
 
 const passiveIcons = {
