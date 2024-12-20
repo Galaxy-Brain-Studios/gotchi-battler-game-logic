@@ -18,7 +18,7 @@ const BUFF_MULT_EFFECTS = {
         crit: 1
     },
     fortify: {
-        armor: 1.2
+        armor: 1.17
     },
     taunt: {
         armor: 1.3
@@ -89,9 +89,9 @@ const MULTS = {
     // Healer
     CLEANSING_AURA_REGEN: 0.7,
     CLEANSING_AURA_NON_HEALER_REGEN: 13,
-    CLEANSING_AURA_HEAL: 5.25,
+    CLEANSING_AURA_HEAL: 5.3,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
-    BLESSING_HEAL: 4.25,
+    BLESSING_HEAL: 4.3,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
@@ -101,7 +101,7 @@ const MULTS = {
     // Troll
     CLAN_MOMENTUM_CHANCE: 0.6,
     DEVESTATING_SMASH_X2_CHANCE: 0,
-    DEVESTATING_SMASH_DAMAGE: 1.9,
+    DEVESTATING_SMASH_DAMAGE: 1.8,
     DEVESTATING_SMASH_X2_DAMAGE: 1.5,
 }
 
