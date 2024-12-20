@@ -367,8 +367,10 @@ const addLeaderToTeam = (team) => {
             })
             break
         case 2:
-            // Cloud of Zen - Leader get 'cloud_of_zen' status
-            teamLeader.statuses.push(PASSIVES[team.leaderPassive - 1])
+            // Cloud of Zen - All enlightened allies get 'cloud_of_zen' status
+            getAlive(team).forEach(x => {
+                if (x.special.id === 2) x.statuses.push(PASSIVES[team.leaderPassive - 1])
+            })
             break
         case 3:
             // Frenzy - all allies get 'frenzy' status
