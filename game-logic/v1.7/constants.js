@@ -4,8 +4,8 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     power_up_1: {
-        magic: 0.11,
-        physical: 0.11
+        magic: 0.105,
+        physical: 0.105
     },
     power_up_2: {
         speed: 0.15,
@@ -83,13 +83,13 @@ const MULTS = {
     // Cursed
     SPREAD_THE_FEAR_CHANCE: 0.85,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
-    CURSE_DAMAGE: 1.25,
+    CURSE_DAMAGE: 1.275,
     CURSE_HEAL: 1,
     CURSE_SPEED_PENALTY: 0,
     // Healer
     CLEANSING_AURA_REGEN: 0.7,
     CLEANSING_AURA_NON_HEALER_REGEN: 13,
-    CLEANSING_AURA_HEAL: 5,
+    CLEANSING_AURA_HEAL: 5.25,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL: 4.25,
     BLESSING_HEAL_SPEED_PENALTY: 1,
@@ -101,7 +101,7 @@ const MULTS = {
     // Troll
     CLAN_MOMENTUM_CHANCE: 0.6,
     DEVESTATING_SMASH_X2_CHANCE: 0,
-    DEVESTATING_SMASH_DAMAGE: 2,
+    DEVESTATING_SMASH_DAMAGE: 1.9,
     DEVESTATING_SMASH_X2_DAMAGE: 1.5,
 }
 
