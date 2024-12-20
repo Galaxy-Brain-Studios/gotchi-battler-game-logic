@@ -8,23 +8,23 @@ const BUFF_MULT_EFFECTS = {
         physical: 0.125
     },
     power_up_2: {
-        speed: 0.2,
-        crit: 0.2,
-        resist: 0.2,
-        magic: 0.2,
-        physical: 0.2
+        speed: 0.175,
+        crit: 0.175,
+        resist: 0.175,
+        magic: 0.175,
+        physical: 0.175
     },
     frenzy: {
         crit: 1
     },
     fortify: {
-        armor: 1.5
+        armor: 1.4
     },
     taunt: {
         armor: 1.4
     },
     channel_the_coven: {
-        magic: 0.1
+        magic: 0.15
     },
     clan_momentum: {
         physical: 0.2
@@ -79,6 +79,7 @@ const MULTS = {
     COUNTER_CHANCE_MIN: 38,
     FORTIFY_COUNTER_CHANCE: 12,
     COUNTER_DAMAGE: 1.5,
+    FORTIFY_COUNTER_DAMAGE: 1.7,
     // Cursed
     SPREAD_THE_FEAR_CHANCE: 0.825,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,

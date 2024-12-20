@@ -286,7 +286,8 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, defendingTargets,
                 }
                 
                 if (rng() < chanceToCounter / 100) {
-                    const counterDamage = getDamage(defendingTeam, attackingTeam, defendingGotchi, attackingGotchi, MULTS.COUNTER_DAMAGE, false, 0)
+                    const counterDamageMultiplier = defendingGotchi.statuses.includes('fortify') ? MULTS.FORTIFY_COUNTER_DAMAGE : MULTS.COUNTER_DAMAGE
+                    const counterDamage = getDamage(defendingTeam, attackingTeam, defendingGotchi, attackingGotchi, counterDamageMultiplier, false, 0)
 
                     attackingGotchi.health -= counterDamage
 
