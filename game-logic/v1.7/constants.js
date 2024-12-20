@@ -18,7 +18,7 @@ const BUFF_MULT_EFFECTS = {
         crit: 1
     },
     fortify: {
-        armor: 1.17
+        armor: 1.1
     },
     taunt: {
         armor: 1.3
@@ -69,7 +69,7 @@ const MULTS = {
     CRIT_MULTIPLIER_FAST: 2,
     CRIT_MULTIPLIER_SLOW: 2,
     // Ninja
-    SHARP_BLADES_BLEED_CHANCE: 0.8,
+    SHARP_BLADES_BLEED_CHANCE: 0.825,
     BLEED_DAMAGE: 10,
     SPECTRAL_STRIKE_DAMAGE: 1.3,
     // Enlightened
