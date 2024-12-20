@@ -26,7 +26,7 @@ const BUFF_MULT_EFFECTS = {
         magic: 0.13
     },
     clan_momentum: {
-        physical: 0.25
+        physical: 0.2
     }
 }
 
@@ -99,8 +99,8 @@ const MULTS = {
     // Troll
     CLAN_MOMENTUM_CHANCE: 0.5,
     DEVESTATING_SMASH_X2_CHANCE: 0,
-    DEVESTATING_SMASH_DAMAGE: 1.7,
-    DEVESTATING_SMASH_X2_DAMAGE: 1.7,
+    DEVESTATING_SMASH_DAMAGE: 2,
+    DEVESTATING_SMASH_X2_DAMAGE: 1.2,
 }
 
 const passiveIcons = {
