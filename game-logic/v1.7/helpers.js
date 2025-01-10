@@ -573,6 +573,20 @@ const applyStatItems = (gotchis) => {
     })
 }
 
+/**
+ * Remove stat items from gotchis
+ * This is used when replaying a battle from logs where the stat items have already been applied
+ * @param {Array} gotchis An array of gotchis
+ */
+const removeStatItems = (gotchis) => {
+    gotchis.forEach(gotchi => {
+        // Remove stat items
+        if (gotchi.item && gotchi.item.stat && gotchi.item.statValue) {
+            gotchi[gotchi.item.stat] -= gotchi.item.statValue
+        }
+    })
+}
+
 module.exports = {
     getAlive,
     getFormationPosition,
@@ -592,5 +606,6 @@ module.exports = {
     scrambleGotchiIds,
     prepareTeams,
     getLogGotchis,
-    applyStatItems
+    applyStatItems,
+    removeStatItems
 }

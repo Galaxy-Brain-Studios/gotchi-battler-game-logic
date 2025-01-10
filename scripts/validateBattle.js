@@ -18,7 +18,7 @@ const main = async (battleId, seed, gameLogicVersion) => {
     if (!gameVersions[gameLogicVersion]) throw new Error('Invalid game logic version')
         
     const gameLoop = gameVersions[gameLogicVersion].gameLoop
-
+    
     const res = await axios.get(`https://storage.googleapis.com/gotchi-battler-live_battles/v1/${battleId}.json`)
 
     if (!res || !res.data || !res.data.layout) {
@@ -29,11 +29,20 @@ const main = async (battleId, seed, gameLogicVersion) => {
     // Transform the logs to in-game teams
     const teams = logToInGameTeams(res.data)
 
+    // If the game logic has a removeStatItems function, call it
+    // This is so the item buffs don't get applied twice
+    const helpers = require(`../game-logic/${gameLogicVersion}/helpers`)
+
+    if (helpers.removeStatItems) {
+        helpers.removeStatItems(helpers.getAlive(teams[0]))
+        helpers.removeStatItems(helpers.getAlive(teams[1]))
+    }
+
     try {
         // Run the game loop
         const logs = await gameLoop(teams[0], teams[1], seed, true)
 
-        fs.writeFileSync(path.join(__dirname, 'output', `${battleId}_${Date.now()}.json`), JSON.stringify(logs, null, '\t'))
+        // fs.writeFileSync(path.join(__dirname, 'output', `${battleId}_${Date.now()}.json`), JSON.stringify(logs, null, '\t'))
 
         // Validate the results
         compareLogs(res.data, logs)
