@@ -8,11 +8,11 @@ const BUFF_MULT_EFFECTS = {
         physical: 0.1
     },
     power_up_2: {
-        speed: 0.25,
-        crit: 0.25,
-        resist: 0.25,
-        magic: 0.25,
-        physical: 0.25
+        speed: 0.26,
+        crit: 0.26,
+        resist: 0.26,
+        magic: 0.26,
+        physical: 0.26
     },
     frenzy: {
         crit: 1
@@ -45,7 +45,7 @@ const BUFFS = [...PASSIVES, ...BUFF_STATUSES, ...Object.keys(BUFF_MULT_EFFECTS),
 
 const DEBUFF_MULT_EFFECTS = {
     fear: {
-        resist: 0.5
+        resist: 1
     },
     stun: {
         speed: 0.4
@@ -78,7 +78,7 @@ const MULTS = {
     // Tank
     COUNTER_CHANCE_MIN: 38,
     FORTIFY_COUNTER_CHANCE: 12,
-    COUNTER_DAMAGE: 1.5,
+    COUNTER_DAMAGE: 1.4,
     FORTIFY_COUNTER_DAMAGE: 1.7,
     // Cursed
     SPREAD_THE_FEAR_CHANCE: 1,
@@ -89,20 +89,20 @@ const MULTS = {
     // Healer
     CLEANSING_AURA_REGEN: 0.25,
     CLEANSING_AURA_NON_HEALER_REGEN: 10,
-    CLEANSING_AURA_HEAL: 3.5,
+    CLEANSING_AURA_HEAL: 3.4,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
-    BLESSING_HEAL: 2.5,
+    BLESSING_HEAL: 2.6,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
-    CHANNEL_THE_COVEN_STUN_CHANCE: 1,
-    THUNDER_STUN_CHANCE: 0.5,
+    CHANNEL_THE_COVEN_STUN_CHANCE: 0.9,
+    THUNDER_STUN_CHANCE: 0.45,
     THUNDER_DAMAGE: 1,
     // Troll
     CLAN_MOMENTUM_CHANCE: 1,
     DEVESTATING_SMASH_X2_CHANCE: 0.5,
-    DEVESTATING_SMASH_DAMAGE: 2.5,
-    DEVESTATING_SMASH_X2_DAMAGE: 2,
+    DEVESTATING_SMASH_DAMAGE: 2.6,
+    DEVESTATING_SMASH_X2_DAMAGE: 1.9,
 }
 
 const passiveIcons = {
