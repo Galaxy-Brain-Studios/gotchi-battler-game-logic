@@ -4,15 +4,15 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     power_up_1: {
-        magic: 0.105,
-        physical: 0.105
+        magic: 0.1,
+        physical: 0.1
     },
     power_up_2: {
-        speed: 0.15,
-        crit: 0.15,
-        resist: 0.15,
-        magic: 0.15,
-        physical: 0.15
+        speed: 0.2,
+        crit: 0.2,
+        resist: 0.2,
+        magic: 0.2,
+        physical: 0.2
     },
     frenzy: {
         crit: 1
@@ -21,13 +21,13 @@ const BUFF_MULT_EFFECTS = {
         armor: 1.1
     },
     taunt: {
-        armor: 1.3
+        armor: 1
     },
     channel_the_coven: {
-        magic: 0.13
+        magic: 0.1
     },
     clan_momentum: {
-        physical: 0.22
+        physical: 0.1
     }
 }
 
@@ -74,7 +74,7 @@ const MULTS = {
     SPECTRAL_STRIKE_DAMAGE: 1.3,
     // Enlightened
     // Cleaver
-    CLEAVE_DAMAGE: 1.675,
+    CLEAVE_DAMAGE: 1.5,
     // Tank
     COUNTER_CHANCE_MIN: 38,
     FORTIFY_COUNTER_CHANCE: 12,
@@ -89,20 +89,20 @@ const MULTS = {
     // Healer
     CLEANSING_AURA_REGEN: 0.7,
     CLEANSING_AURA_NON_HEALER_REGEN: 13,
-    CLEANSING_AURA_HEAL: 5.3,
+    CLEANSING_AURA_HEAL: 4,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
-    BLESSING_HEAL: 4.3,
+    BLESSING_HEAL: 3.5,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
     CHANNEL_THE_COVEN_STUN_CHANCE: 0.6,
     THUNDER_STUN_CHANCE: 0.4,
-    THUNDER_DAMAGE: 0.8,
+    THUNDER_DAMAGE: 1,
     // Troll
     CLAN_MOMENTUM_CHANCE: 0.6,
-    DEVESTATING_SMASH_X2_CHANCE: 0,
-    DEVESTATING_SMASH_DAMAGE: 1.8,
-    DEVESTATING_SMASH_X2_DAMAGE: 1.5,
+    DEVESTATING_SMASH_X2_CHANCE: 0.2,
+    DEVESTATING_SMASH_DAMAGE: 2.5,
+    DEVESTATING_SMASH_X2_DAMAGE: 2,
 }
 
 const passiveIcons = {
