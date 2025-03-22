@@ -108,13 +108,13 @@
                     "type": "integer"
                 },
                 "crit": {
-                    "type": "integer"
+                    "type": "number"
                 },
                 "armor": {
                     "type": "integer"
                 },
                 "evade": {
-                    "type": "integer"
+                    "type": "number"
                 },
                 "resist": {
                     "type": "integer"

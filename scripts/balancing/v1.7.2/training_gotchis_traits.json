@@ -1,0 +1,520 @@
+{
+  "godlike": {
+    "cleaver": {
+      "brs": 783,
+      "nrg": [2,97],
+      "agg": [null,111],
+      "spk": [-2,101],
+      "brn": [-8,107],
+      "eys": [null,94],
+      "eyc": [null,94]
+    },
+    "cursed": {
+      "brs": 783,
+      "nrg": [2,97],
+      "agg": [-1,100],
+      "spk": [null,111],
+      "brn": [-9,108],
+      "eys": [null,94],
+      "eyc": [null,94]
+    },
+    "mage": {
+      "brs": 783,
+      "nrg": [1,103],
+      "agg": [-2,101],
+      "spk": [1,98],
+      "brn": [null,114],
+      "eys": [null,94],
+      "eyc": [null,94]
+    },
+    "ninja": {
+      "brs": 783,
+      "nrg": [null,110],
+      "agg": [1,98],
+      "spk": [-2,101],
+      "brn": [-8,107],
+      "eys": [null,94],
+      "eyc": [null,94]
+    },
+    "troll": {
+      "brs": 783,
+      "nrg": [-4,103],
+      "agg": [-2,101],
+      "spk": [-2,101],
+      "brn": [-12],
+      "eys": [null,94],
+      "eyc": [null,94]
+    },
+    "healer": {
+      "brs": 783,
+      "nrg": [-1,100],
+      "agg": [-2,101],
+      "spk": [-15],
+      "brn": [-2,101],
+      "eys": [null,94],
+      "eyc": [null,94]
+    },
+    "tank": {
+      "brs": 783,
+      "nrg": [0,99],
+      "agg": [-15],
+      "spk": [1,98],
+      "brn": [-6,105],
+      "eys": [null,94],
+      "eyc": [null,94]
+    },
+    "enlightened": {
+      "brs": 783,
+      "nrg": [-13],
+      "agg": [-1,100],
+      "spk": [-1,100],
+      "brn": [-5,104],
+      "eys": [null,94],
+      "eyc": [null,94]
+    }
+  },
+  "mythical": {
+    "ninja": {
+      "brs": 690,
+      "nrg": [null,108],
+      "agg": [0,99],
+      "spk": [3,96],
+      "brn": [1,98],
+      "eys": [null,91],
+      "eyc": [null,92]
+    },
+    "cleaver": {
+      "brs": 690,
+      "nrg": [1,101],
+      "agg": [null,109],
+      "spk": [4,95],
+      "brn": [3,96],
+      "eys": [null,91],
+      "eyc": [null,92]
+    },
+    "cursed": {
+      "brs": 690,
+      "nrg": [3,97],
+      "agg": [1,98],
+      "spk": [null,108],
+      "brn": [1,98],
+      "eys": [null,91],
+      "eyc": [null,92]
+    },
+    "mage": {
+      "brs": 690,
+      "nrg": [2,98],
+      "agg": [2,98],
+      "spk": [3,96],
+      "brn": [null,109],
+      "eys": [null,91],
+      "eyc": [null,92]
+    },
+    "troll": {
+      "brs": 690,
+      "nrg": [0,99],
+      "agg": [1,98],
+      "spk": [4,95],
+      "brn": [-10],
+      "eys": [null,91],
+      "eyc": [null,92]
+    },
+    "healer": {
+      "brs": 690,
+      "nrg": [1,98],
+      "agg": [4,95],
+      "spk": [-15],
+      "brn": [5,94],
+      "eys": [null,91],
+      "eyc": [null,92]
+    },
+    "tank": {
+      "brs": 690,
+      "nrg": [1,98],
+      "agg": [-7],
+      "spk": [1,98],
+      "brn": [0,99],
+      "eys": [null,91],
+      "eyc": [null,92]
+    },
+    "enlightened": {
+      "brs": 690,
+      "nrg": [-10],
+      "agg": [3,96],
+      "spk": [2,97],
+      "brn": [0,99],
+      "eys": [null,92],
+      "eyc": [null,91]
+    }
+  },
+  "legendary": {
+    "ninja": {
+      "brs": 638,
+      "nrg": [null,106],
+      "agg": [4,95],
+      "spk": [5,94],
+      "brn": [5,94],
+      "eys": [null,90],
+      "eyc": [null,90]
+    },
+    "cleaver": {
+      "brs": 638,
+      "nrg": [5,94],
+      "agg": [null,105],
+      "spk": [4,95],
+      "brn": [-1,95],
+      "eys": [null,90],
+      "eyc": [null,90]
+    },
+    "cursed": {
+      "brs": 638,
+      "nrg": [4,95],
+      "agg": [6,93],
+      "spk": [null,106],
+      "brn": [4,95],
+      "eys": [null,90],
+      "eyc": [null,90]
+    },
+    "mage": {
+      "brs": 638,
+      "nrg": [4,96],
+      "agg": [6,93],
+      "spk": [6,93],
+      "brn": [null,107],
+      "eys": [null,90],
+      "eyc": [null,90]
+    },
+    "troll": {
+      "brs": 638,
+      "nrg": [4,95],
+      "agg": [5,94],
+      "spk": [3,96],
+      "brn": [-5],
+      "eys": [null,90],
+      "eyc": [null,90]
+    },
+    "healer": {
+      "brs": 638,
+      "nrg": [4,95],
+      "agg": [6,93],
+      "spk": [-7],
+      "brn": [4,95],
+      "eys": [null,90],
+      "eyc": [null,90]
+    },
+    "tank": {
+      "brs": 638,
+      "nrg": [3,96],
+      "agg": [-6],
+      "spk": [5,94],
+      "brn": [5,94],
+      "eys": [null,90],
+      "eyc": [null,90]
+    },
+    "enlightened": {
+      "brs": 638,
+      "nrg": [-6],
+      "agg": [6,93],
+      "spk": [4,95],
+      "brn": [3,96],
+      "eys": [null,90],
+      "eyc": [null,90]
+    }
+  },
+  "rare": {
+    "ninja": {
+      "brs": 597,
+      "nrg": [null,103],
+      "agg": [7,92],
+      "spk": [8,91],
+      "brn": [8,91],
+      "eys": [null,88],
+      "eyc": [null,89]
+    },
+    "cleaver": {
+      "brs": 597,
+      "nrg": [9,90],
+      "agg": [null,105],
+      "spk": [8,91],
+      "brn": [8,91],
+      "eys": [null,88],
+      "eyc": [null,89]
+    },
+    "cursed": {
+      "brs": 597,
+      "nrg": [9,90],
+      "agg": [7,92],
+      "spk": [null,103],
+      "brn": [7,92],
+      "eys": [null,88],
+      "eyc": [null,89]
+    },
+    "mage": {
+      "brs": 597,
+      "nrg": [8,91],
+      "agg": [7,92],
+      "spk": [8,91],
+      "brn": [null,103],
+      "eys": [null,88],
+      "eyc": [null,89]
+    },
+    "troll": {
+      "brs": 597,
+      "nrg": [9,90],
+      "agg": [7,92],
+      "spk": [7,92],
+      "brn": [-4],
+      "eys": [null,88],
+      "eyc": [null,89]
+    },
+    "healer": {
+      "brs": 597,
+      "nrg": [8,91],
+      "agg": [7,92],
+      "spk": [-3],
+      "brn": [7,92],
+      "eys": [null,89],
+      "eyc": [null,88]
+    },
+    "tank": {
+      "brs": 597,
+      "nrg": [7,92],
+      "agg": [-3],
+      "spk": [8,91],
+      "brn": [7,92],
+      "eys": [null,88],
+      "eyc": [null,89]
+    },
+    "enlightened": {
+      "brs": 597,
+      "nrg": [-2],
+      "agg": [7,92],
+      "spk": [7,92],
+      "brn": [7,92],
+      "eys": [null,88],
+      "eyc": [null,89]
+    }
+  },
+  "uncommon": {
+    "ninja": {
+      "brs": 556,
+      "nrg": [null,102],
+      "agg": [12,87],
+      "spk": [13,86],
+      "brn": [12,87],
+      "eys": [null,87],
+      "eyc": [null,87]
+    },
+    "cleaver": {
+      "brs": 556,
+      "nrg": [12,87],
+      "agg": [null,102],
+      "spk": [13,86],
+      "brn": [11,88],
+      "eys": [null,87],
+      "eyc": [null,87]
+    },
+    "cursed": {
+      "brs": 556,
+      "nrg": [12,87],
+      "agg": [12,87],
+      "spk": [null,102],
+      "brn": [12,87],
+      "eys": [null,87],
+      "eyc": [null,87]
+    },
+    "mage": {
+      "brs": 556,
+      "nrg": [12,87],
+      "agg": [11,88],
+      "spk": [13,86],
+      "brn": [null,102],
+      "eys": [null,87],
+      "eyc": [null,87]
+    },
+    "troll": {
+      "brs": 556,
+      "nrg": [13,86],
+      "agg": [12,87],
+      "spk": [13,86],
+      "brn": [-4],
+      "eys": [null,87],
+      "eyc": [null,88]
+    },
+    "healer": {
+      "brs": 556,
+      "nrg": [13,86],
+      "agg": [12,87],
+      "spk": [-3],
+      "brn": [11,88],
+      "eys": [null,87],
+      "eyc": [null,87]
+    },
+    "tank": {
+      "brs": 556,
+      "nrg": [12,87],
+      "agg": [-3],
+      "spk": [12,87],
+      "brn": [13,87],
+      "eys": [null,87],
+      "eyc": [null,87]
+    },
+    "enlightened": {
+      "brs": 556,
+      "nrg": [-3],
+      "agg": [11,88],
+      "spk": [13,86],
+      "brn": [12,87],
+      "eys": [null,87],
+      "eyc": [null,87]
+    }
+  },
+  "common": {
+    "ninja": {
+      "brs": 501,
+      "nrg": [null,95],
+      "agg": [21,78],
+      "spk": [22,77],
+      "brn": [21,78],
+      "eys": [null,82],
+      "eyc": [null,83]
+    },
+    "cleaver": {
+      "brs": 501,
+      "nrg": [22,77],
+      "agg": [null,96],
+      "spk": [21,78],
+      "brn": [21,78],
+      "eys": [null,82],
+      "eyc": [null,83]
+    },
+    "cursed": {
+      "brs": 501,
+      "nrg": [22,77],
+      "agg": [21,78],
+      "spk": [null,96],
+      "brn": [21,78],
+      "eys": [null,82],
+      "eyc": [null,83]
+    },
+    "mage": {
+      "brs": 501,
+      "nrg": [22,77],
+      "agg": [21,79],
+      "spk": [22,77],
+      "brn": [null,96],
+      "eys": [null,82],
+      "eyc": [null,83]
+    },
+    "troll": {
+      "brs": 501,
+      "nrg": [22,77],
+      "agg": [22,77],
+      "spk": [22,77],
+      "brn": [3],
+      "eys": [null,83],
+      "eyc": [null,84]
+    },
+    "healer": {
+      "brs": 501,
+      "nrg": [22,77],
+      "agg": [22,77],
+      "spk": [3],
+      "brn": [21,78],
+      "eys": [null,83],
+      "eyc": [null,82]
+    },
+    "tank": {
+      "brs": 501,
+      "nrg": [22,77],
+      "agg": [3],
+      "spk": [22,77],
+      "brn": [21,78],
+      "eys": [null,83],
+      "eyc": [null,82]
+    },
+    "enlightened": {
+      "brs": 501,
+      "nrg": [4],
+      "agg": [21,78],
+      "spk": [22,77],
+      "brn": [21,78],
+      "eys": [null,83],
+      "eyc": [null,82]
+    }
+  },
+  "garbage": {
+    "ninja": {
+      "brs": 400,
+      "nrg": [null,51],
+      "agg": [49,50],
+      "spk": [49,50],
+      "brn": [49,50],
+      "eys": [null,50],
+      "eyc": [null,50]
+    },
+    "cleaver": {
+      "brs": 400,
+      "nrg": [49,50],
+      "agg": [null,50],
+      "spk": [49,50],
+      "brn": [49,50],
+      "eys": [null,50],
+      "eyc": [null,50]
+    },
+    "cursed": {
+      "brs": 400,
+      "nrg": [49,50],
+      "agg": [49,50],
+      "spk": [null,50],
+      "brn": [49,50],
+      "eys": [null,50],
+      "eyc": [null,50]
+    },
+    "mage": {
+      "brs": 400,
+      "nrg": [49,50],
+      "agg": [49,50],
+      "spk": [49,50],
+      "brn": [null,50],
+      "eys": [null,50],
+      "eyc": [null,50]
+    },
+    "troll": {
+      "brs": 400,
+      "nrg": [49,50],
+      "agg": [49,50],
+      "spk": [49,50],
+      "brn": [49],
+      "eys": [null,50],
+      "eyc": [null,50]
+    },
+    "healer": {
+      "brs": 400,
+      "nrg": [49,50],
+      "agg": [49,50],
+      "spk": [49],
+      "brn": [49,50],
+      "eys": [null,50],
+      "eyc": [null,50]
+    },
+    "tank": {
+      "brs": 400,
+      "nrg": [49,50],
+      "agg": [49],
+      "spk": [49,50],
+      "brn": [49,50],
+      "eys": [null,50],
+      "eyc": [null,50]
+    },
+    "enlightened": {
+      "brs": 400,
+      "nrg": [49],
+      "agg": [49,50],
+      "spk": [49,50],
+      "brn": [49,50],
+      "eys": [null,50],
+      "eyc": [null,50]
+    }
+  }
+}

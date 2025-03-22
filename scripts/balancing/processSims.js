@@ -196,7 +196,7 @@ const main = async (executionId, numOfTasks, gameLogicVersion) => {
     })
 
     if(process.env.CLOUD_RUN_JOB) {
-        const bucket = storage.bucket('gotchi-battler-sims-v1-7-2')
+        const bucket = storage.bucket('gotchi-battler-sims-v1-7-3')
         
         // Get number of files in the bucket
         const [files] = await bucket.getFiles()

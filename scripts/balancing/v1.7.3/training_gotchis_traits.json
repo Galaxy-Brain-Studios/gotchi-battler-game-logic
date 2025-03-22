@@ -1,0 +1,37 @@
+{
+  "godlike": {
+    "brs": 783,
+    "traits": [-10, 109],
+    "eyes": 94
+  },
+  "mythical": {
+    "brs": 690,
+    "traits": [-5, 104],
+    "eyes": 92
+  },
+  "legendary": {
+    "brs": 638,
+    "traits": [-1, 100],
+    "eyes": 90
+  },
+  "rare": {
+    "brs": 597,
+    "traits": [4, 95],
+    "eyes": 89
+  },
+  "uncommon": {
+    "brs": 556,
+    "traits": [12, 87],
+    "eyes": 87
+  },
+  "common": {
+    "brs": 501,
+    "traits": [19, 80],
+    "eyes": 83
+  },
+  "garbage": {
+    "brs": 400,
+    "traits": [49, 50],
+    "eyes": 50
+  }
+}
