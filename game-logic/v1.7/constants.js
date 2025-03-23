@@ -8,11 +8,10 @@ const BUFF_MULT_EFFECTS = {
         physical: 0.11
     },
     power_up_2: {
-        speed: 0.26,
-        crit: 0.26,
-        resist: 0.26,
-        magic: 0.26,
-        physical: 0.26
+        speed: 0.27,
+        crit: 0.27,
+        magic: 0.27,
+        physical: 0.27
     },
     frenzy: {
         crit: 1
@@ -87,8 +86,8 @@ const MULTS = {
     CURSE_HEAL: 1,
     CURSE_SPEED_PENALTY: 0,
     // Healer
-    CLEANSING_AURA_REGEN: 0.25,
-    CLEANSING_AURA_NON_HEALER_REGEN: 5,
+    CLEANSING_AURA_REGEN: 0.5,
+    CLEANSING_AURA_NON_HEALER_REGEN: 0,
     CLEANSING_AURA_HEAL: 3.5,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL: 2.8,
