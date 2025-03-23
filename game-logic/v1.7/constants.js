@@ -31,9 +31,6 @@ const BUFF_MULT_EFFECTS = {
 }
 
 const BUFF_FLAT_EFFECTS = {
-    fortify: {
-        armor: 80
-    },
     frenzy: {
         crit: 8
     }
@@ -75,8 +72,8 @@ const MULTS = {
     // Cleaver
     CLEAVE_DAMAGE: 1.65,
     // Tank
-    COUNTER_CHANCE_MIN: 15,
-    FORTIFY_COUNTER_CHANCE: 25,
+    COUNTER_SPEED_MULTIPLIER: 0.5,
+    FORTIFY_COUNTER_CHANCE: 50,
     COUNTER_DAMAGE: 1.2,
     FORTIFY_COUNTER_DAMAGE: 1.7,
     // Cursed

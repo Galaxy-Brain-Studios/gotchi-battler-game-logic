@@ -276,9 +276,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, defendingTargets,
                 && !options.cannotBeCountered) {
 
                 // Chance to counter based on speed over 100
-                let chanceToCounter = modifiedDefendingGotchi.speed - 100
-
-                if (chanceToCounter < MULTS.COUNTER_CHANCE_MIN) chanceToCounter = MULTS.COUNTER_CHANCE_MIN
+                let chanceToCounter = Math.round((modifiedDefendingGotchi.speed - 100) * MULTS.COUNTER_SPEED_MULTIPLIER)
 
                 // Add chance if gotchi has fortify status
                 if (defendingGotchi.statuses.includes('fortify')) {
