@@ -17,10 +17,10 @@ const BUFF_MULT_EFFECTS = {
         crit: 1
     },
     fortify: {
-        armor: 0.6
+        armor: 0.5
     },
     taunt: {
-        armor: 1.2
+        armor: 1.3
     },
     channel_the_coven: {
         magic: 0.15
