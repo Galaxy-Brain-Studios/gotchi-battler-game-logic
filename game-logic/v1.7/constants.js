@@ -20,7 +20,8 @@ const BUFF_MULT_EFFECTS = {
         armor: 1
     },
     taunt: {
-        armor: 1
+        armor: 1,
+        resist: 0.2
     },
     channel_the_coven: {
         magic: 0.15
@@ -32,7 +33,7 @@ const BUFF_MULT_EFFECTS = {
 
 const BUFF_FLAT_EFFECTS = {
     fortify: {
-        armor: 100
+        armor: 80
     },
     frenzy: {
         crit: 8
@@ -76,9 +77,9 @@ const MULTS = {
     CLEAVE_DAMAGE: 1.65,
     // Tank
     COUNTER_CHANCE_MIN: 15,
-    FORTIFY_COUNTER_CHANCE: 15,
+    FORTIFY_COUNTER_CHANCE: 25,
     COUNTER_DAMAGE: 1.2,
-    FORTIFY_COUNTER_DAMAGE: 1.5,
+    FORTIFY_COUNTER_DAMAGE: 1.6,
     // Cursed
     SPREAD_THE_FEAR_CHANCE: 1,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
