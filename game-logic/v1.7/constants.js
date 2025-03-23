@@ -20,8 +20,7 @@ const BUFF_MULT_EFFECTS = {
         armor: 1
     },
     taunt: {
-        armor: 1,
-        resist: 0.2
+        armor: 1
     },
     channel_the_coven: {
         magic: 0.15
@@ -79,7 +78,7 @@ const MULTS = {
     COUNTER_CHANCE_MIN: 15,
     FORTIFY_COUNTER_CHANCE: 25,
     COUNTER_DAMAGE: 1.2,
-    FORTIFY_COUNTER_DAMAGE: 1.6,
+    FORTIFY_COUNTER_DAMAGE: 1.7,
     // Cursed
     SPREAD_THE_FEAR_CHANCE: 1,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
@@ -91,7 +90,7 @@ const MULTS = {
     CLEANSING_AURA_NON_HEALER_REGEN: 0,
     CLEANSING_AURA_HEAL: 3.5,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
-    BLESSING_HEAL: 2.8,
+    BLESSING_HEAL: 2.7,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
