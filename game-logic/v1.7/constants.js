@@ -17,7 +17,7 @@ const BUFF_MULT_EFFECTS = {
         crit: 1
     },
     fortify: {
-        armor: 0.9
+        armor: 0.8
     },
     taunt: {
         armor: 1
@@ -74,7 +74,7 @@ const MULTS = {
     // Tank
     COUNTER_SPEED_MULTIPLIER: 0.5,
     FORTIFY_COUNTER_CHANCE: 50,
-    COUNTER_DAMAGE: 1.2,
+    COUNTER_DAMAGE: 1.5,
     FORTIFY_COUNTER_DAMAGE: 1.7,
     // Cursed
     SPREAD_THE_FEAR_CHANCE: 1,
