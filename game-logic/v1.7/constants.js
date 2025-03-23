@@ -4,8 +4,8 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     power_up_1: {
-        magic: 0.1,
-        physical: 0.1
+        magic: 0.11,
+        physical: 0.11
     },
     power_up_2: {
         speed: 0.26,
@@ -48,7 +48,7 @@ const DEBUFF_MULT_EFFECTS = {
         resist: 1
     },
     stun: {
-        speed: 0.4
+        speed: 0.35
     }
 }
 
@@ -88,7 +88,7 @@ const MULTS = {
     CURSE_SPEED_PENALTY: 0,
     // Healer
     CLEANSING_AURA_REGEN: 0.25,
-    CLEANSING_AURA_NON_HEALER_REGEN: 10,
+    CLEANSING_AURA_NON_HEALER_REGEN: 5,
     CLEANSING_AURA_HEAL: 3.5,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL: 2.8,
