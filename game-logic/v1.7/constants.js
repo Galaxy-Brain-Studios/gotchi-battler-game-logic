@@ -4,8 +4,8 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     power_up_1: {
-        magic: 0.1025,
-        physical: 0.1025
+        magic: 0.102,
+        physical: 0.102
     },
     power_up_2: {
         speed: 0.26,
@@ -36,7 +36,7 @@ const BUFF_FLAT_EFFECTS = {
         armor: 100
     },
     frenzy: {
-        crit: 9
+        crit: 8
     }
 }
 
@@ -78,7 +78,7 @@ const MULTS = {
     // Tank
     COUNTER_CHANCE_MIN: 15,
     FORTIFY_COUNTER_CHANCE: 15,
-    COUNTER_DAMAGE: 1.25,
+    COUNTER_DAMAGE: 1.2,
     FORTIFY_COUNTER_DAMAGE: 1.5,
     // Cursed
     SPREAD_THE_FEAR_CHANCE: 1,
