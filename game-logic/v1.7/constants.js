@@ -17,10 +17,10 @@ const BUFF_MULT_EFFECTS = {
         crit: 1
     },
     fortify: {
-        armor: 0.8
+        armor: 0.7
     },
     taunt: {
-        armor: 1
+        armor: 1.1
     },
     channel_the_coven: {
         magic: 0.15
@@ -74,7 +74,7 @@ const MULTS = {
     // Tank
     COUNTER_SPEED_MULTIPLIER: 0.5,
     FORTIFY_COUNTER_CHANCE: 50,
-    COUNTER_DAMAGE: 1.5,
+    COUNTER_DAMAGE: 1.7,
     FORTIFY_COUNTER_DAMAGE: 1.7,
     // Cursed
     SPREAD_THE_FEAR_CHANCE: 1,
