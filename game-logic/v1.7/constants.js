@@ -4,8 +4,10 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     power_up_1: {
-        magic: 0.1,
-        physical: 0.1
+        crit: 0.05,
+        resist: 0.05,
+        magic: 0.05,
+        physical: 0.05
     },
     power_up_2: {
         speed: 0.26,
