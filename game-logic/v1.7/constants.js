@@ -17,7 +17,7 @@ const BUFF_MULT_EFFECTS = {
         crit: 1
     },
     fortify: {
-        armor: 1
+        armor: 0.9
     },
     taunt: {
         armor: 1
