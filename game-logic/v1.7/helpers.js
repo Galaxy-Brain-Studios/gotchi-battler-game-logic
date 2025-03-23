@@ -458,8 +458,14 @@ const getExpiredStatuses = (team1, team2) => {
  * @returns {Boolean} success A boolean to determine if the status was added
  **/
 const addStatusToGotchi = (gotchi, status) => {
+    
+    const numOfStatus = gotchi.statuses.filter(item => item === status).length
+
     // Check that gotchi doesn't already have max number of statuses
-    if (gotchi.statuses.filter(item => item === status).length >= MULTS.MAX_STATUSES) return false
+    if (numOfStatus >= MULTS.MAX_STATUSES) return false
+
+    // Check for special cases
+    if (status === 'power_up_1' && numOfStatus >= 2) return false
 
     gotchi.statuses.push(status)
 
