@@ -4,8 +4,8 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     power_up_1: {
-        magic: 0.1,
-        physical: 0.1
+        magic: 0.105,
+        physical: 0.105
     },
     power_up_2: {
         speed: 0.26,
@@ -36,7 +36,7 @@ const BUFF_FLAT_EFFECTS = {
         armor: 100
     },
     frenzy: {
-        crit: 11
+        crit: 10
     }
 }
 
@@ -71,12 +71,12 @@ const MULTS = {
     // Ninja
     SHARP_BLADES_BLEED_CHANCE: 1,
     BLEED_DAMAGE: 11,
-    SPECTRAL_STRIKE_DAMAGE: 1.3,
+    SPECTRAL_STRIKE_DAMAGE: 1.35,
     // Enlightened
     // Cleaver
     CLEAVE_DAMAGE: 1.625,
     // Tank
-    COUNTER_CHANCE_MIN: 25,
+    COUNTER_CHANCE_MIN: 15,
     FORTIFY_COUNTER_CHANCE: 15,
     COUNTER_DAMAGE: 1.3,
     FORTIFY_COUNTER_DAMAGE: 1.5,
@@ -96,7 +96,7 @@ const MULTS = {
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
     CHANNEL_THE_COVEN_STUN_CHANCE: 0.9,
-    THUNDER_STUN_CHANCE: 0.45,
+    THUNDER_STUN_CHANCE: 0.5,
     THUNDER_DAMAGE: 1,
     // Troll
     CLAN_MOMENTUM_CHANCE: 1,
