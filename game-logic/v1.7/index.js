@@ -724,9 +724,6 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
                     })
                 }
 
-                // Remove all debuffs
-                
-
                 // if gotchi has 'cleansing_aura' status, remove all debuffs
                 if (attackingGotchi.statuses.includes('cleansing_aura')) {
                     // Remove all debuffs
