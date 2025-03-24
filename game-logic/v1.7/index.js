@@ -725,18 +725,39 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
                 }
 
                 // Remove all debuffs
-                // Add removed debuffs to statusesExpired
-                gotchi.statuses.forEach((status) => {
-                    if (DEBUFFS.includes(status)) {
+                
+
+                // if gotchi has 'cleansing_aura' status, remove all debuffs
+                if (attackingGotchi.statuses.includes('cleansing_aura')) {
+                    // Remove all debuffs
+                    gotchi.statuses = gotchi.statuses.filter((status) => !DEBUFFS.includes(status))
+
+                    // Add removed debuffs to statusesExpired
+                    gotchi.statuses.forEach((status) => {
+                        if (DEBUFFS.includes(status)) {
+                            statusesExpired.push({
+                                target: gotchi.id,
+                                status
+                            })
+                        }
+                    })
+                } else {
+                    // Remove 1 random debuff
+                    const debuffs = gotchi.statuses.filter((status) => DEBUFFS.includes(status))
+
+                    if (debuffs.length) {
+                        const randomDebuff = debuffs[Math.floor(rng() * debuffs.length)]
                         statusesExpired.push({
                             target: gotchi.id,
-                            status
+                            status: randomDebuff
                         })
-                    }
-                })
 
-                // Remove all debuffs from gotchi
-                gotchi.statuses = gotchi.statuses.filter((status) => !DEBUFFS.includes(status))
+                        // Remove first instance of randomDebuff (there may be multiple)
+                        const index = gotchi.statuses.indexOf(randomDebuff)
+                        gotchi.statuses.splice(index, 1)
+                    }
+                }
+                
             })
 
             // If no allies have been healed and no debuffs removed, then special attack not done
