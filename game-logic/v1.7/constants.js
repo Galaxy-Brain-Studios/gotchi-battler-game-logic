@@ -23,10 +23,10 @@ const BUFF_MULT_EFFECTS = {
         armor: 1.4
     },
     channel_the_coven: {
-        magic: 0.14
+        magic: 0.15
     },
     clan_momentum: {
-        physical: 0.14
+        physical: 0.15
     }
 }
 
@@ -67,7 +67,7 @@ const MULTS = {
     // Ninja
     SHARP_BLADES_BLEED_CHANCE: 0.8,
     BLEED_DAMAGE: 10,
-    SPECTRAL_STRIKE_DAMAGE: 1.35,
+    SPECTRAL_STRIKE_DAMAGE: 1.3,
     // Enlightened
     // Cleaver
     CLEAVE_DAMAGE: 1.65,
@@ -79,26 +79,26 @@ const MULTS = {
     // Cursed
     SPREAD_THE_FEAR_CHANCE: 0.9,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
-    CURSE_DAMAGE: 1.2,
+    CURSE_DAMAGE: 1,
     CURSE_HEAL: 1,
     CURSE_SPEED_PENALTY: 0,
     // Healer
     CLEANSING_AURA_REGEN: 0.3,
     CLEANSING_AURA_NON_HEALER_REGEN: 0,
-    CLEANSING_AURA_HEAL: 3.5,
+    CLEANSING_AURA_HEAL: 3.7,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
-    BLESSING_HEAL: 2.6,
+    BLESSING_HEAL: 2.8,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
-    CHANNEL_THE_COVEN_STUN_CHANCE: 0.9,
+    CHANNEL_THE_COVEN_STUN_CHANCE: 0.8,
     THUNDER_STUN_CHANCE: 0.5,
     THUNDER_DAMAGE: 1,
     // Troll
     CLAN_MOMENTUM_CHANCE: 1,
     DEVESTATING_SMASH_X2_CHANCE: 0.6,
     DEVESTATING_SMASH_DAMAGE: 2.75,
-    DEVESTATING_SMASH_X2_DAMAGE: 1.9,
+    DEVESTATING_SMASH_X2_DAMAGE: 1.8,
 }
 
 const passiveIcons = {
