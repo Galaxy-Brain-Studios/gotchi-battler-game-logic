@@ -516,10 +516,17 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
             // get single target
             const ssTarget = getTarget(defendingTeam, rng)
 
+            let statuses = ['bleed']
+
+            // Add another bleed if gotchi has 'sharp_blades' status
+            if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
+                statuses.push('bleed')
+            }
+
             effects = attack(attackingGotchi, attackingTeam, defendingTeam, [ssTarget], rng, { 
                 multiplier: MULTS.SPECTRAL_STRIKE_DAMAGE, 
                 ignoreArmor: true, 
-                statuses: ['bleed'],
+                statuses,
                 cannotBeCountered: true, 
                 cannotBeEvaded: true,
                 noPassiveStatuses: true,
@@ -634,8 +641,13 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
                 // 1 chance to remove a random buff
                 removeRandomBuff(curseTarget)
 
+                // Add another chance if crit
                 if (effects[0].outcome === 'critical') {
-                    // 2 chances to remove a random buff
+                    removeRandomBuff(curseTarget)
+                }
+
+                // Add another chance if 'spread_the_fear' status
+                if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
                     removeRandomBuff(curseTarget)
                 }
 
