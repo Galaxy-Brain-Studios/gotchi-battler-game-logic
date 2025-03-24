@@ -17,13 +17,13 @@ const BUFF_MULT_EFFECTS = {
         crit: 1
     },
     fortify: {
-        armor: 0.3
+        armor: 0.4
     },
     taunt: {
         armor: 1.4
     },
     channel_the_coven: {
-        magic: 0.15
+        magic: 0.16
     },
     clan_momentum: {
         physical: 0.15
@@ -77,7 +77,7 @@ const MULTS = {
     COUNTER_DAMAGE: 1.7,
     FORTIFY_COUNTER_DAMAGE: 2,
     // Cursed
-    SPREAD_THE_FEAR_CHANCE: 0.9,
+    SPREAD_THE_FEAR_CHANCE: 0.8,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
     CURSE_DAMAGE: 1.1,
     CURSE_HEAL: 1,
@@ -91,7 +91,7 @@ const MULTS = {
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
-    CHANNEL_THE_COVEN_STUN_CHANCE: 0.85,
+    CHANNEL_THE_COVEN_STUN_CHANCE: 0.8,
     THUNDER_STUN_CHANCE: 0.5,
     THUNDER_DAMAGE: 1,
     // Troll
