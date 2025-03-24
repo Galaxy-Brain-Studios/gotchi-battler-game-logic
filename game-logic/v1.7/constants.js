@@ -23,7 +23,7 @@ const BUFF_MULT_EFFECTS = {
         armor: 1.4
     },
     channel_the_coven: {
-        magic: 0.16
+        magic: 0.175
     },
     clan_momentum: {
         physical: 0.15
@@ -44,7 +44,7 @@ const DEBUFF_MULT_EFFECTS = {
         resist: 1
     },
     stun: {
-        speed: 0.35
+        speed: 0.3
     }
 }
 
