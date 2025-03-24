@@ -17,7 +17,7 @@ const BUFF_MULT_EFFECTS = {
         crit: 1
     },
     fortify: {
-        armor: 0.4
+        armor: 0.3
     },
     taunt: {
         armor: 1.4
@@ -65,7 +65,7 @@ const MULTS = {
     CRIT_MULTIPLIER_FAST: 2,
     CRIT_MULTIPLIER_SLOW: 2,
     // Ninja
-    SHARP_BLADES_BLEED_CHANCE: 1,
+    SHARP_BLADES_BLEED_CHANCE: 0.9,
     BLEED_DAMAGE: 11,
     SPECTRAL_STRIKE_DAMAGE: 1.325,
     // Enlightened
@@ -85,7 +85,7 @@ const MULTS = {
     // Healer
     CLEANSING_AURA_REGEN: 0.3,
     CLEANSING_AURA_NON_HEALER_REGEN: 0,
-    CLEANSING_AURA_HEAL: 3.5,
+    CLEANSING_AURA_HEAL: 3.6,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL: 2.7,
     BLESSING_HEAL_SPEED_PENALTY: 1,
