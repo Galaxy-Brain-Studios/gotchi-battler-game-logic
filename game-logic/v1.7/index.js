@@ -608,6 +608,11 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
 
             const curseTargetStatuses = ['fear']
 
+            // Check if leader passive is 'spread_the_fear' then apply fear status
+            if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
+                curseTargetStatuses.push('fear')
+            }
+
             effects = attack(attackingGotchi, attackingTeam, defendingTeam, [curseTarget], rng, { 
                 multiplier: MULTS.CURSE_DAMAGE, 
                 statuses: curseTargetStatuses, 
