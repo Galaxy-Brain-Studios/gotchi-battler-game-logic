@@ -23,7 +23,7 @@ const BUFF_MULT_EFFECTS = {
         armor: 1.4
     },
     channel_the_coven: {
-        magic: 0.18
+        magic: 0.2
     },
     clan_momentum: {
         physical: 0.16
@@ -44,7 +44,7 @@ const DEBUFF_MULT_EFFECTS = {
         resist: 1
     },
     stun: {
-        speed: 0.3
+        speed: 0.2
     }
 }
 
@@ -79,11 +79,12 @@ const MULTS = {
     // Cursed
     SPREAD_THE_FEAR_CHANCE: 0.8,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
+    SPREAD_THE_FEAR_CURSE_DAMAGE: 1.4,
     CURSE_DAMAGE: 1.1,
     CURSE_HEAL: 1,
     CURSE_SPEED_PENALTY: 0,
     // Healer
-    CLEANSING_AURA_REGEN: 0.3,
+    CLEANSING_AURA_REGEN: 0.275,
     CLEANSING_AURA_NON_HEALER_REGEN: 0,
     CLEANSING_AURA_HEAL: 3.7,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
