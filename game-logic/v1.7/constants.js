@@ -17,7 +17,7 @@ const BUFF_MULT_EFFECTS = {
         crit: 1
     },
     fortify: {
-        armor: 0.5
+        armor: 0.45
     },
     taunt: {
         armor: 1.4
@@ -70,7 +70,7 @@ const MULTS = {
     SPECTRAL_STRIKE_DAMAGE: 1.3,
     // Enlightened
     // Cleaver
-    CLEAVE_DAMAGE: 1.65,
+    CLEAVE_DAMAGE: 1.625,
     // Tank
     COUNTER_SPEED_MULTIPLIER: 0.5,
     FORTIFY_COUNTER_CHANCE: 50,
@@ -92,7 +92,7 @@ const MULTS = {
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
-    CHANNEL_THE_COVEN_STUN_CHANCE: 0.75,
+    CHANNEL_THE_COVEN_STUN_CHANCE: 0.8,
     THUNDER_STUN_CHANCE: 0.5,
     THUNDER_DAMAGE: 1,
     // Troll
