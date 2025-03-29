@@ -4,8 +4,8 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     power_up_1: {
-        magic: 0.11,
-        physical: 0.11
+        magic: 0.1125,
+        physical: 0.1125
     },
     power_up_2: {
         speed: 0.27,
@@ -70,7 +70,7 @@ const MULTS = {
     SPECTRAL_STRIKE_DAMAGE: 1.3,
     // Enlightened
     // Cleaver
-    CLEAVE_DAMAGE: 1.625,
+    CLEAVE_DAMAGE: 1.6,
     // Tank
     COUNTER_SPEED_MULTIPLIER: 0.5,
     FORTIFY_COUNTER_CHANCE: 50,
@@ -92,14 +92,14 @@ const MULTS = {
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
-    CHANNEL_THE_COVEN_STUN_CHANCE: 0.8,
-    THUNDER_STUN_CHANCE: 0.5,
+    CHANNEL_THE_COVEN_STUN_CHANCE: 0.9,
+    THUNDER_STUN_CHANCE: 0.6,
     THUNDER_DAMAGE: 1,
     // Troll
     CLAN_MOMENTUM_CHANCE: 0.9,
     DEVESTATING_SMASH_X2_CHANCE: 0.6,
-    DEVESTATING_SMASH_DAMAGE: 2.75,
-    DEVESTATING_SMASH_X2_DAMAGE: 1.75,
+    DEVESTATING_SMASH_DAMAGE: 2.5,
+    DEVESTATING_SMASH_X2_DAMAGE: 2,
 }
 
 const passiveIcons = {
