@@ -42,7 +42,7 @@ const DEBUFF_MULT_EFFECTS = {
         resist: 1
     },
     stun: {
-        speed: 0.25
+        speed: 0.24
     }
 }
 
@@ -72,13 +72,13 @@ const MULTS = {
     // Tank
     COUNTER_SPEED_MULTIPLIER: 0.5,
     FORTIFY_COUNTER_CHANCE: 50,
-    COUNTER_DAMAGE: 1.7,
-    FORTIFY_COUNTER_DAMAGE: 2,
+    COUNTER_DAMAGE: 1.9,
+    FORTIFY_COUNTER_DAMAGE: 1.9,
     // Cursed
     SPREAD_THE_FEAR_CHANCE: 0.8,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
     SPREAD_THE_FEAR_CURSE_DAMAGE: 1.3,
-    CURSE_DAMAGE: 1.1,
+    CURSE_DAMAGE: 1.2,
     CURSE_HEAL: 1,
     CURSE_SPEED_PENALTY: 0,
     // Healer
