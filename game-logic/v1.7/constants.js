@@ -4,8 +4,8 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     cloud_of_zen: {
-        magic: 0.15,
-        physical: 0.15
+        magic: 0.14,
+        physical: 0.14
     },
     power_up_2: {
         magic: 0.6,
@@ -15,10 +15,10 @@ const BUFF_MULT_EFFECTS = {
         crit: 1.1
     },
     fortify: {
-        armor: 0.45
+        armor: 0.5
     },
     taunt: {
-        armor: 1.4
+        armor: 1.5
     },
     channel_the_coven: {
         magic: 0.18
@@ -71,7 +71,7 @@ const MULTS = {
     CLEAVE_DAMAGE: 1.6,
     // Tank
     COUNTER_SPEED_MULTIPLIER: 0.5,
-    FORTIFY_COUNTER_CHANCE: 49,
+    FORTIFY_COUNTER_CHANCE: 50,
     COUNTER_DAMAGE: 1.7,
     FORTIFY_COUNTER_DAMAGE: 2,
     // Cursed
@@ -86,7 +86,7 @@ const MULTS = {
     CLEANSING_AURA_NON_HEALER_REGEN: 0.1,
     CLEANSING_AURA_HEAL: 3.5,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
-    BLESSING_HEAL: 2.9,
+    BLESSING_HEAL: 2.8,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
@@ -94,7 +94,7 @@ const MULTS = {
     THUNDER_STUN_CHANCE: 0.65,
     THUNDER_DAMAGE: 1,
     // Troll
-    CLAN_MOMENTUM_CHANCE: 0.9,
+    CLAN_MOMENTUM_CHANCE: 1,
     DEVESTATING_SMASH_X2_CHANCE: 0.7,
     DEVESTATING_SMASH_DAMAGE: 2.5,
     DEVESTATING_SMASH_X2_DAMAGE: 1.95,
