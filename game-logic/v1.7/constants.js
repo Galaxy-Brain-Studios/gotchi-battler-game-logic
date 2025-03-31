@@ -4,14 +4,14 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     cloud_of_zen: {
-        magic: 0.17,
-        physical: 0.17
+        magic: 0.16,
+        physical: 0.16
     },
     power_up_2: {
-        speed: 0.30,
-        crit: 0.30,
-        magic: 0.30,
-        physical: 0.30
+        speed: 0.4,
+        crit: 0.4,
+        magic: 0.4,
+        physical: 0.4
     },
     frenzy: {
         crit: 1.1
@@ -44,7 +44,7 @@ const DEBUFF_MULT_EFFECTS = {
         resist: 1
     },
     stun: {
-        speed: 0.2
+        speed: 0.25
     }
 }
 
@@ -88,7 +88,7 @@ const MULTS = {
     CLEANSING_AURA_NON_HEALER_REGEN: 0.1,
     CLEANSING_AURA_HEAL: 3.5,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
-    BLESSING_HEAL: 3,
+    BLESSING_HEAL: 2.9,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
@@ -97,7 +97,7 @@ const MULTS = {
     THUNDER_DAMAGE: 1,
     // Troll
     CLAN_MOMENTUM_CHANCE: 0.9,
-    DEVESTATING_SMASH_X2_CHANCE: 0.65,
+    DEVESTATING_SMASH_X2_CHANCE: 0.7,
     DEVESTATING_SMASH_DAMAGE: 2.5,
     DEVESTATING_SMASH_X2_DAMAGE: 1.95,
 }

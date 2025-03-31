@@ -479,11 +479,7 @@ const addStatusToGotchi = (gotchi, status) => {
     if (numOfStatus >= MULTS.MAX_STATUSES) return false
 
     // Check for special cases
-    if ((
-            status === 'power_up_1' ||
-            status === 'power_up_2' 
-        )
-        && numOfStatus >= 2) return false
+    if (['power_up_2'].includes(status) && numOfStatus >= 1) return false
 
     gotchi.statuses.push(status)
 

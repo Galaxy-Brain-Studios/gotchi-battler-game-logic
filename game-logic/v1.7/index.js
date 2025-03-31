@@ -535,7 +535,7 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
             break
         case 2:
             // Meditate - Boost own speed, magic, physical by 30%
-            // If gotchi already has 2 power_up statuses, do nothing
+            // If gotchi already has a power_up statuses, do nothing
             if (!addStatusToGotchi(attackingGotchi, 'power_up_2')) {
                 specialNotDone = true
                 break
