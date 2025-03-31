@@ -14,7 +14,7 @@ const BUFF_MULT_EFFECTS = {
         physical: 0.27
     },
     frenzy: {
-        crit: 1.05
+        crit: 1.1
     },
     fortify: {
         armor: 0.45
@@ -73,7 +73,7 @@ const MULTS = {
     CLEAVE_DAMAGE: 1.6,
     // Tank
     COUNTER_SPEED_MULTIPLIER: 0.5,
-    FORTIFY_COUNTER_CHANCE: 50,
+    FORTIFY_COUNTER_CHANCE: 49,
     COUNTER_DAMAGE: 1.7,
     FORTIFY_COUNTER_DAMAGE: 2,
     // Cursed
@@ -86,7 +86,7 @@ const MULTS = {
     // Healer
     CLEANSING_AURA_REGEN: 0.29,
     CLEANSING_AURA_NON_HEALER_REGEN: 0,
-    CLEANSING_AURA_HEAL: 3.7,
+    CLEANSING_AURA_HEAL: 3.65,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL: 2.7,
     BLESSING_HEAL_SPEED_PENALTY: 1,
