@@ -4,21 +4,21 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     cloud_of_zen: {
-        magic: 0.14,
-        physical: 0.14
+        magic: 0.139,
+        physical: 0.139
     },
     power_up_2: {
-        magic: 0.6,
-        physical: 0.6
+        magic: 0.6125,
+        physical: 0.6125
     },
     frenzy: {
         crit: 1.1
     },
     fortify: {
-        armor: 0.55
+        armor: 0.56
     },
     taunt: {
-        armor: 1.5
+        armor: 1.55
     },
     channel_the_coven: {
         magic: 0.18
@@ -42,7 +42,7 @@ const DEBUFF_MULT_EFFECTS = {
         resist: 1
     },
     stun: {
-        speed: 0.24
+        speed: 0.23
     }
 }
 
@@ -71,7 +71,7 @@ const MULTS = {
     CLEAVE_DAMAGE: 1.6,
     // Tank
     COUNTER_SPEED_MULTIPLIER: 0.5,
-    FORTIFY_COUNTER_CHANCE: 50,
+    FORTIFY_COUNTER_CHANCE: 48,
     COUNTER_DAMAGE: 1.9,
     FORTIFY_COUNTER_DAMAGE: 1.9,
     // Cursed
