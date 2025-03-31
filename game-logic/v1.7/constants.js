@@ -3,9 +3,9 @@ const DEBUFF_STATUSES = ['bleed', 'stun', 'fear']
 const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
-    power_up_1: {
-        magic: 0.1125,
-        physical: 0.1125
+    cloud_of_zen: {
+        magic: 0.2,
+        physical: 0.2
     },
     power_up_2: {
         speed: 0.27,
@@ -85,19 +85,19 @@ const MULTS = {
     CURSE_SPEED_PENALTY: 0,
     // Healer
     CLEANSING_AURA_REGEN: 0.2,
-    CLEANSING_AURA_NON_HEALER_REGEN: 0,
-    CLEANSING_AURA_HEAL: 4.6,
+    CLEANSING_AURA_NON_HEALER_REGEN: 0.1,
+    CLEANSING_AURA_HEAL: 3.5,
     CLEANSING_AURA_HEAL_SPEED_PENALTY: 1,
-    BLESSING_HEAL: 2.9,
+    BLESSING_HEAL: 3,
     BLESSING_HEAL_SPEED_PENALTY: 1,
     BLESSING_HEAL_CRIT_MULTIPLIER: 1.25,
     // Mage
     CHANNEL_THE_COVEN_STUN_CHANCE: 0.9,
-    THUNDER_STUN_CHANCE: 0.6,
+    THUNDER_STUN_CHANCE: 0.65,
     THUNDER_DAMAGE: 1,
     // Troll
     CLAN_MOMENTUM_CHANCE: 0.9,
-    DEVESTATING_SMASH_X2_CHANCE: 0.6,
+    DEVESTATING_SMASH_X2_CHANCE: 0.65,
     DEVESTATING_SMASH_DAMAGE: 2.5,
     DEVESTATING_SMASH_X2_DAMAGE: 1.95,
 }
@@ -121,7 +121,7 @@ const debuffIcons = {
 
 const buffIcons = {
     'taunt': 'https://game-icons.net/1x1/lorc/archery-target.html',
-    'power_up_1': 'https://game-icons.net/1x1/lorc/strong.html',
+    'cloud_of_zen': 'https://game-icons.net/1x1/lorc/strong.html',
     'power_up_2': 'https://game-icons.net/1x1/delapouite/mighty-force.html'
 }
 

@@ -325,7 +325,7 @@ const handleStatusEffects = (attackingGotchi, attackingTeam, defendingTeam, rng)
                     if (gotchi.special.id === 6) {
                         amountToHeal = Math.round(modifiedGotchi.resist * MULTS.CLEANSING_AURA_REGEN)
                     } else {
-                        amountToHeal = MULTS.CLEANSING_AURA_NON_HEALER_REGEN
+                        amountToHeal = Math.round(modifiedGotchi.resist * MULTS.CLEANSING_AURA_NON_HEALER_REGEN)
                     }
 
                     // Don't allow amountToHeal to be more than the difference between current health and max health
@@ -550,21 +550,21 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
             ]
 
             // Check for leaderPassive 'Cloud of Zen'
-            if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
-                // Increase allies speed, magic and physical by 15% of the original value
+            // if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
+            //     // Increase allies speed, magic and physical by 15% of the original value
 
-                const cloudOfZenGotchis = getAlive(attackingTeam)
+            //     const cloudOfZenGotchis = getAlive(attackingTeam)
 
-                cloudOfZenGotchis.forEach((gotchi) => {
-                    if (addStatusToGotchi(gotchi, 'power_up_1')) {
-                        effects.push({
-                            target: gotchi.id,
-                            outcome: 'success',
-                            statuses: ['power_up_1']
-                        })
-                    }
-                })
-            }
+            //     cloudOfZenGotchis.forEach((gotchi) => {
+            //         if (addStatusToGotchi(gotchi, 'power_up_1')) {
+            //             effects.push({
+            //                 target: gotchi.id,
+            //                 outcome: 'success',
+            //                 statuses: ['power_up_1']
+            //             })
+            //         }
+            //     })
+            // }
 
             break
         case 3:

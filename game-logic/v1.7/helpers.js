@@ -381,9 +381,9 @@ const addLeaderToTeam = (team) => {
             })
             break
         case 2:
-            // Cloud of Zen - All enlightened allies get 'cloud_of_zen' status
+            // Cloud of Zen - all allies get 'cloud_of_zen' status
             getAlive(team).forEach(x => {
-                if (x.special.id === 2) x.statuses.push(PASSIVES[team.leaderPassive - 1])
+                x.statuses.push(PASSIVES[team.leaderPassive - 1])
             })
             break
         case 3:
@@ -406,9 +406,9 @@ const addLeaderToTeam = (team) => {
             })
             break
         case 6:
-            // Cleansing aura - every healer ally and every tank ally gets 'cleansing_aura' status
+            // Cleansing aura - all allies get 'cleansing_aura' status
             getAlive(team).forEach(x => {
-                if (x.special.id === 6 || x.special.id === 4) x.statuses.push(PASSIVES[team.leaderPassive - 1])
+                x.statuses.push(PASSIVES[team.leaderPassive - 1])
             })
             break
         case 7:
