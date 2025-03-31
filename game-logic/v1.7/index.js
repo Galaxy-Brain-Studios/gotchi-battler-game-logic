@@ -535,7 +535,13 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
             break
         case 2:
             // Meditate - Boost own speed, magic, physical by 30%
-            // If gotchi already has a power_up statuses, do nothing
+
+             // Check if gotchi already has power_up_2 status
+            if (attackingGotchi.statuses.includes('power_up_2')) {
+                specialNotDone = true
+                break
+            }
+
             if (!addStatusToGotchi(attackingGotchi, 'power_up_2')) {
                 specialNotDone = true
                 break
@@ -548,24 +554,6 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
                     statuses: ['power_up_2']
                 }
             ]
-
-            // Check for leaderPassive 'Cloud of Zen'
-            // if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
-            //     // Increase allies speed, magic and physical by 15% of the original value
-
-            //     const cloudOfZenGotchis = getAlive(attackingTeam)
-
-            //     cloudOfZenGotchis.forEach((gotchi) => {
-            //         if (addStatusToGotchi(gotchi, 'power_up_1')) {
-            //             effects.push({
-            //                 target: gotchi.id,
-            //                 outcome: 'success',
-            //                 statuses: ['power_up_1']
-            //             })
-            //         }
-            //     })
-            // }
-
             break
         case 3:
             // Cleave - attack all enemies in a row (that have the most gotchis) for 75% damage
