@@ -4,8 +4,8 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     cloud_of_zen: {
-        magic: 0.2,
-        physical: 0.2
+        magic: 0.18,
+        physical: 0.18
     },
     power_up_2: {
         speed: 0.27,
