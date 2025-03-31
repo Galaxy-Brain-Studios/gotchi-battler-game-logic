@@ -4,8 +4,8 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     cloud_of_zen: {
-        magic: 0.14,
-        physical: 0.13
+        magic: 0.1425,
+        physical: 0.1325
     },
     power_up_2: {
         magic: 0.7,
@@ -69,7 +69,7 @@ const MULTS = {
     CLEAVE_DAMAGE: 1.55,
     // Tank
     COUNTER_SPEED_MULTIPLIER: 0.5,
-    FORTIFY_COUNTER_CHANCE: 30,
+    FORTIFY_COUNTER_CHANCE: 32,
     COUNTER_DAMAGE: 1.9,
     FORTIFY_COUNTER_DAMAGE: 1.9,
     // Cursed
@@ -95,7 +95,7 @@ const MULTS = {
     CLAN_MOMENTUM_CHANCE: 0.9,
     DEVESTATING_SMASH_X2_CHANCE: 0.65,
     DEVESTATING_SMASH_DAMAGE: 2.5,
-    DEVESTATING_SMASH_X2_DAMAGE: 1.95,
+    DEVESTATING_SMASH_X2_DAMAGE: 1.9,
 }
 
 const passiveIcons = {
