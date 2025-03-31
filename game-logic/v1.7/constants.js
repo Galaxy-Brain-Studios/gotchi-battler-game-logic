@@ -9,13 +9,13 @@ const BUFF_MULT_EFFECTS = {
     },
     power_up_2: {
         magic: 0.62,
-        physical: 0.6
+        physical: 0.58
     },
     frenzy: {
-        crit: 1.1
+        crit: 1.11
     },
     fortify: {
-        armor: 0.65
+        armor: 0.7
     },
     taunt: {
         armor: 1.6
@@ -66,10 +66,10 @@ const MULTS = {
     SPECTRAL_STRIKE_DAMAGE: 1.3,
     // Enlightened
     // Cleaver
-    CLEAVE_DAMAGE: 1.59,
+    CLEAVE_DAMAGE: 1.58,
     // Tank
     COUNTER_SPEED_MULTIPLIER: 0.5,
-    FORTIFY_COUNTER_CHANCE: 45,
+    FORTIFY_COUNTER_CHANCE: 43,
     COUNTER_DAMAGE: 1.9,
     FORTIFY_COUNTER_DAMAGE: 1.9,
     // Cursed
