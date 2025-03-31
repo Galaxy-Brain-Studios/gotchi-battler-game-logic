@@ -15,7 +15,7 @@ const BUFF_MULT_EFFECTS = {
         crit: 1.1
     },
     fortify: {
-        armor: 0.5
+        armor: 0.55
     },
     taunt: {
         armor: 1.5
@@ -94,8 +94,8 @@ const MULTS = {
     THUNDER_STUN_CHANCE: 0.65,
     THUNDER_DAMAGE: 1,
     // Troll
-    CLAN_MOMENTUM_CHANCE: 1,
-    DEVESTATING_SMASH_X2_CHANCE: 0.7,
+    CLAN_MOMENTUM_CHANCE: 0.9,
+    DEVESTATING_SMASH_X2_CHANCE: 0.65,
     DEVESTATING_SMASH_DAMAGE: 2.5,
     DEVESTATING_SMASH_X2_DAMAGE: 1.95,
 }
