@@ -14,7 +14,7 @@ const BUFF_MULT_EFFECTS = {
         physical: 0.27
     },
     frenzy: {
-        crit: 1
+        crit: 1.05
     },
     fortify: {
         armor: 0.45
@@ -99,7 +99,7 @@ const MULTS = {
     CLAN_MOMENTUM_CHANCE: 0.9,
     DEVESTATING_SMASH_X2_CHANCE: 0.6,
     DEVESTATING_SMASH_DAMAGE: 2.5,
-    DEVESTATING_SMASH_X2_DAMAGE: 2,
+    DEVESTATING_SMASH_X2_DAMAGE: 1.95,
 }
 
 const passiveIcons = {

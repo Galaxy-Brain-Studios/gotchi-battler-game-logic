@@ -219,7 +219,14 @@ const getModifiedStats = (gotchi) => {
         // apply any modifier from BUFF_MULT_EFFECTS
         if (BUFF_MULT_EFFECTS[status]) {
             Object.keys(BUFF_MULT_EFFECTS[status]).forEach(stat => {
-                const modifier = Math.round(gotchi[stat] * BUFF_MULT_EFFECTS[status][stat])
+                let modifier = gotchi[stat] * BUFF_MULT_EFFECTS[status][stat]
+
+                if (['speed', 'health', 'armor', 'resist', 'magic', 'physical', 'accuracy'].includes(stat)) {
+                    modifier = Math.round(modifier)
+                } else {
+                    // Round to 2 decimal places
+                    modifier = Math.round((modifier) * 100) / 100
+                }
 
                 statusStatMods[stat] = modifier
             })
@@ -240,7 +247,14 @@ const getModifiedStats = (gotchi) => {
         // apply any modifier from DEBUFF_MULT_EFFECTS
         if (DEBUFF_MULT_EFFECTS[status]) {
             Object.keys(DEBUFF_MULT_EFFECTS[status]).forEach(stat => {
-                const modifier = Math.round(gotchi[stat] * DEBUFF_MULT_EFFECTS[status][stat])
+                let modifier = gotchi[stat] * DEBUFF_MULT_EFFECTS[status][stat]
+
+                if (['speed', 'health', 'armor', 'resist', 'magic', 'physical', 'accuracy'].includes(stat)) {
+                    modifier = Math.round(modifier)
+                } else {
+                    // Round to 2 decimal places
+                    modifier = Math.round((modifier) * 100) / 100
+                }
 
                 statusStatMods[stat] = -modifier
             })
