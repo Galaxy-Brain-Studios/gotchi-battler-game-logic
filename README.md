@@ -33,8 +33,8 @@ The validate tournament script does the following:
 - Fetches the data of a tournament from the Gotchi Battler website
 - Loops through all the battles in the tournament, bracket by bracket, round by round
 - For each battle, the logs are fetched from the Gotchi Battler website
-- The battle is then simulated using the game logic
-- The result of the simulation is compared to the actual result of the battle
+- The battle is then simulated locally using the game logic
+- The result of this simulation is then compared to the logs from the Gotchi Battler website
 
 To validate the battles from the RF8 100K Tournament, run the following command:
 
@@ -46,5 +46,5 @@ Get the tournament id from the URL of the tournament page on the Gotchi Battler 
 
 
 PLEASE NOTE:
-- Currently, only the tournaments from Rarity Farming season 8 are supported (Tournament IDs 13-15)
+- Currently, only the tournaments from Rarity Farming season 8 and 9 are supported (Tournament IDs 13-15 + 18)
 - The script can take a while to run, in local testing it took around 20 minutes

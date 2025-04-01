@@ -219,7 +219,14 @@ const getModifiedStats = (gotchi) => {
         // apply any modifier from BUFF_MULT_EFFECTS
         if (BUFF_MULT_EFFECTS[status]) {
             Object.keys(BUFF_MULT_EFFECTS[status]).forEach(stat => {
-                const modifier = Math.round(gotchi[stat] * BUFF_MULT_EFFECTS[status][stat])
+                let modifier = gotchi[stat] * BUFF_MULT_EFFECTS[status][stat]
+
+                if (['speed', 'health', 'armor', 'resist', 'magic', 'physical', 'accuracy'].includes(stat)) {
+                    modifier = Math.round(modifier)
+                } else {
+                    // Round to 2 decimal places
+                    modifier = Math.round((modifier) * 100) / 100
+                }
 
                 statusStatMods[stat] = modifier
             })
@@ -240,7 +247,14 @@ const getModifiedStats = (gotchi) => {
         // apply any modifier from DEBUFF_MULT_EFFECTS
         if (DEBUFF_MULT_EFFECTS[status]) {
             Object.keys(DEBUFF_MULT_EFFECTS[status]).forEach(stat => {
-                const modifier = Math.round(gotchi[stat] * DEBUFF_MULT_EFFECTS[status][stat])
+                let modifier = gotchi[stat] * DEBUFF_MULT_EFFECTS[status][stat]
+
+                if (['speed', 'health', 'armor', 'resist', 'magic', 'physical', 'accuracy'].includes(stat)) {
+                    modifier = Math.round(modifier)
+                } else {
+                    // Round to 2 decimal places
+                    modifier = Math.round((modifier) * 100) / 100
+                }
 
                 statusStatMods[stat] = -modifier
             })
@@ -367,9 +381,9 @@ const addLeaderToTeam = (team) => {
             })
             break
         case 2:
-            // Cloud of Zen - All enlightened allies get 'cloud_of_zen' status
+            // Cloud of Zen - all allies get 'cloud_of_zen' status
             getAlive(team).forEach(x => {
-                if (x.special.id === 2) x.statuses.push(PASSIVES[team.leaderPassive - 1])
+                x.statuses.push(PASSIVES[team.leaderPassive - 1])
             })
             break
         case 3:
@@ -392,9 +406,9 @@ const addLeaderToTeam = (team) => {
             })
             break
         case 6:
-            // Cleansing aura - every healer ally and every tank ally gets 'cleansing_aura' status
+            // Cleansing aura - all allies get 'cleansing_aura' status
             getAlive(team).forEach(x => {
-                if (x.special.id === 6 || x.special.id === 4) x.statuses.push(PASSIVES[team.leaderPassive - 1])
+                x.statuses.push(PASSIVES[team.leaderPassive - 1])
             })
             break
         case 7:
@@ -458,8 +472,11 @@ const getExpiredStatuses = (team1, team2) => {
  * @returns {Boolean} success A boolean to determine if the status was added
  **/
 const addStatusToGotchi = (gotchi, status) => {
+    
+    const numOfStatus = gotchi.statuses.filter(item => item === status).length
+
     // Check that gotchi doesn't already have max number of statuses
-    if (gotchi.statuses.filter(item => item === status).length >= MULTS.MAX_STATUSES) return false
+    if (numOfStatus >= MULTS.MAX_STATUSES) return false
 
     gotchi.statuses.push(status)
 

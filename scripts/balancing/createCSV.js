@@ -111,7 +111,7 @@ const main = async () => {
 module.exports = main
 
 if (require.main === module) {
-    // node scripts/balancing/createCSV.js balancing-sims-fgpsl
+    // node scripts/balancing/createCSV.js avg-sims-8jzd7
 
     main()
         .then(() => {

@@ -276,9 +276,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, defendingTargets,
                 && !options.cannotBeCountered) {
 
                 // Chance to counter based on speed over 100
-                let chanceToCounter = modifiedDefendingGotchi.speed - 100
-
-                if (chanceToCounter < MULTS.COUNTER_CHANCE_MIN) chanceToCounter = MULTS.COUNTER_CHANCE_MIN
+                let chanceToCounter = Math.round((modifiedDefendingGotchi.speed - 100) * MULTS.COUNTER_SPEED_MULTIPLIER)
 
                 // Add chance if gotchi has fortify status
                 if (defendingGotchi.statuses.includes('fortify')) {
@@ -327,7 +325,7 @@ const handleStatusEffects = (attackingGotchi, attackingTeam, defendingTeam, rng)
                     if (gotchi.special.id === 6) {
                         amountToHeal = Math.round(modifiedGotchi.resist * MULTS.CLEANSING_AURA_REGEN)
                     } else {
-                        amountToHeal = MULTS.CLEANSING_AURA_NON_HEALER_REGEN
+                        amountToHeal = Math.round(modifiedGotchi.resist * MULTS.CLEANSING_AURA_NON_HEALER_REGEN)
                     }
 
                     // Don't allow amountToHeal to be more than the difference between current health and max health
@@ -518,10 +516,17 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
             // get single target
             const ssTarget = getTarget(defendingTeam, rng)
 
+            let statuses = ['bleed']
+
+            // Add another bleed if gotchi has 'sharp_blades' status
+            if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
+                statuses.push('bleed')
+            }
+
             effects = attack(attackingGotchi, attackingTeam, defendingTeam, [ssTarget], rng, { 
                 multiplier: MULTS.SPECTRAL_STRIKE_DAMAGE, 
                 ignoreArmor: true, 
-                statuses: ['bleed'],
+                statuses,
                 cannotBeCountered: true, 
                 cannotBeEvaded: true,
                 noPassiveStatuses: true,
@@ -530,7 +535,13 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
             break
         case 2:
             // Meditate - Boost own speed, magic, physical by 30%
-            // If gotchi already has 2 power_up statuses, do nothing
+
+             // Check if gotchi already has power_up_2 status
+            if (attackingGotchi.statuses.includes('power_up_2')) {
+                specialNotDone = true
+                break
+            }
+
             if (!addStatusToGotchi(attackingGotchi, 'power_up_2')) {
                 specialNotDone = true
                 break
@@ -543,24 +554,6 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
                     statuses: ['power_up_2']
                 }
             ]
-
-            // Check for leaderPassive 'Cloud of Zen'
-            if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
-                // Increase allies speed, magic and physical by 15% of the original value
-
-                const cloudOfZenGotchis = getAlive(attackingTeam)
-
-                cloudOfZenGotchis.forEach((gotchi) => {
-                    if (addStatusToGotchi(gotchi, 'power_up_1')) {
-                        effects.push({
-                            target: gotchi.id,
-                            outcome: 'success',
-                            statuses: ['power_up_1']
-                        })
-                    }
-                })
-            }
-
             break
         case 3:
             // Cleave - attack all enemies in a row (that have the most gotchis) for 75% damage
@@ -602,9 +595,16 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
             const curseTarget = getTarget(defendingTeam, rng)
 
             const curseTargetStatuses = ['fear']
+            let curseMultiplier = MULTS.CURSE_DAMAGE
+
+            // Check if leader passive is 'spread_the_fear' then apply fear status
+            if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
+                curseTargetStatuses.push('fear')
+                curseMultiplier = MULTS.SPREAD_THE_FEAR_CURSE_DAMAGE
+            }
 
             effects = attack(attackingGotchi, attackingTeam, defendingTeam, [curseTarget], rng, { 
-                multiplier: MULTS.CURSE_DAMAGE, 
+                multiplier: curseMultiplier, 
                 statuses: curseTargetStatuses, 
                 cannotBeCountered: true,
                 noPassiveStatuses: true,
@@ -636,8 +636,13 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
                 // 1 chance to remove a random buff
                 removeRandomBuff(curseTarget)
 
+                // Add another chance if crit
                 if (effects[0].outcome === 'critical') {
-                    // 2 chances to remove a random buff
+                    removeRandomBuff(curseTarget)
+                }
+
+                // Add another chance if 'spread_the_fear' status
+                if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
                     removeRandomBuff(curseTarget)
                 }
 
@@ -709,19 +714,37 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
                     })
                 }
 
-                // Remove all debuffs
-                // Add removed debuffs to statusesExpired
-                gotchi.statuses.forEach((status) => {
-                    if (DEBUFFS.includes(status)) {
+                // if gotchi has 'cleansing_aura' status, remove all debuffs
+                if (attackingGotchi.statuses.includes('cleansing_aura')) {
+                    // Remove all debuffs
+                    gotchi.statuses = gotchi.statuses.filter((status) => !DEBUFFS.includes(status))
+
+                    // Add removed debuffs to statusesExpired
+                    gotchi.statuses.forEach((status) => {
+                        if (DEBUFFS.includes(status)) {
+                            statusesExpired.push({
+                                target: gotchi.id,
+                                status
+                            })
+                        }
+                    })
+                } else {
+                    // Remove 1 random debuff
+                    const debuffs = gotchi.statuses.filter((status) => DEBUFFS.includes(status))
+
+                    if (debuffs.length) {
+                        const randomDebuff = debuffs[Math.floor(rng() * debuffs.length)]
                         statusesExpired.push({
                             target: gotchi.id,
-                            status
+                            status: randomDebuff
                         })
-                    }
-                })
 
-                // Remove all debuffs from gotchi
-                gotchi.statuses = gotchi.statuses.filter((status) => !DEBUFFS.includes(status))
+                        // Remove first instance of randomDebuff (there may be multiple)
+                        const index = gotchi.statuses.indexOf(randomDebuff)
+                        gotchi.statuses.splice(index, 1)
+                    }
+                }
+                
             })
 
             // If no allies have been healed and no debuffs removed, then special attack not done
