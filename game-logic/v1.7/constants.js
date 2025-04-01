@@ -4,8 +4,8 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     cloud_of_zen: {
-        magic: 0.1425,
-        physical: 0.1325
+        magic: 0.14,
+        physical: 0.14
     },
     power_up_2: {
         magic: 0.7,
@@ -73,7 +73,7 @@ const MULTS = {
     COUNTER_DAMAGE: 1.9,
     FORTIFY_COUNTER_DAMAGE: 1.9,
     // Cursed
-    SPREAD_THE_FEAR_CHANCE: 0.8,
+    SPREAD_THE_FEAR_CHANCE: 0.82,
     SPREAD_THE_FEAR_SPEED_PENALTY: 0,
     SPREAD_THE_FEAR_CURSE_DAMAGE: 1.3,
     CURSE_DAMAGE: 1.2,
