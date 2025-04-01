@@ -4,15 +4,15 @@ const BUFF_STATUSES = ['taunt']
 
 const BUFF_MULT_EFFECTS = {
     cloud_of_zen: {
-        magic: 0.139,
-        physical: 0.139
+        magic: 0.138,
+        physical: 0.138
     },
     power_up_2: {
         magic: 0.72,
-        physical: 0.52
+        physical: 0.50
     },
     frenzy: {
-        crit: 1.13
+        crit: 1.14
     },
     fortify: {
         armor: 1
@@ -61,9 +61,9 @@ const MULTS = {
     CRIT_MULTIPLIER_FAST: 2,
     CRIT_MULTIPLIER_SLOW: 2,
     // Ninja
-    SHARP_BLADES_BLEED_CHANCE: 0.72,
+    SHARP_BLADES_BLEED_CHANCE: 0.74,
     BLEED_DAMAGE: 10,
-    SPECTRAL_STRIKE_DAMAGE: 1.3,
+    SPECTRAL_STRIKE_DAMAGE: 1.275,
     // Enlightened
     // Cleaver
     CLEAVE_DAMAGE: 1.55,
