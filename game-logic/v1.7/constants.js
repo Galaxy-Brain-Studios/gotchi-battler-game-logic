@@ -8,7 +8,7 @@ const BUFF_MULT_EFFECTS = {
         physical: 0.138
     },
     power_up_2: {
-        magic: 0.72,
+        magic: 0.75,
         physical: 0.50
     },
     frenzy: {
@@ -61,9 +61,9 @@ const MULTS = {
     CRIT_MULTIPLIER_FAST: 2,
     CRIT_MULTIPLIER_SLOW: 2,
     // Ninja
-    SHARP_BLADES_BLEED_CHANCE: 0.74,
+    SHARP_BLADES_BLEED_CHANCE: 0.76,
     BLEED_DAMAGE: 10,
-    SPECTRAL_STRIKE_DAMAGE: 1.275,
+    SPECTRAL_STRIKE_DAMAGE: 1.25,
     // Enlightened
     // Cleaver
     CLEAVE_DAMAGE: 1.55,
