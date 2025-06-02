@@ -19,6 +19,9 @@
                             },
                             {
                                 "type": "null"
+                            },
+                            {
+                                "$ref": "#/definitions/enemy"
                             }
                         ]
                     }
@@ -34,6 +37,9 @@
                             },
                             {
                                 "type": "null"
+                            },
+                            {
+                                "$ref": "#/definitions/enemy"
                             }
                         ]
                     }
@@ -49,6 +55,35 @@
         "owner": {
             "type": "string",
             "pattern": "^0x[a-fA-F0-9]{40}$"
+        },
+        "startingState": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "health": {
+                        "type": "integer"
+                    },
+                    "statuses": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "health",
+                    "statuses"
+                ]
+            }
         }
     },
     "required": [
@@ -59,6 +94,122 @@
     ],
     "additionalProperties": false,
     "definitions": {
+        "special":{
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "class": {
+                    "type": "string"
+                },
+                "gotchiClass": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "cooldown": {
+                    "type": "integer"
+                },
+                "leaderPassive": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "name",
+                "cooldown",
+                "leaderPassive"
+            ],
+            "additionalProperties": false
+        },
+        "item": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string",
+                    "format": "uri"
+                },
+                "rarity": {
+                    "type": "string",
+                    "enum": [
+                        "common",
+                        "uncommon",
+                        "rare",
+                        "legendary",
+                        "mythical",
+                        "godlike"
+                    ]
+                },
+                "cost": {
+                    "type": "number"
+                },
+                "stat": {
+                    "type": "string",
+                    "enum": [
+                        "speed",
+                        "health",
+                        "crit",
+                        "armor",
+                        "evade",
+                        "resist",
+                        "magic",
+                        "physical",
+                        "accuracy"
+                    ]
+                },
+                "statValue": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "name",
+                "description",
+                "image",
+                "rarity",
+                "cost",
+                "stat",
+                "statValue"
+            ],
+            "example": {
+                "id": 1,
+                "name": "Speed +",
+                "description": "Increase speed by 1",
+                "image": "https://gotchibattler.com/apple-touch-icon.png",
+                "rarity": "common",
+                "cost": 0.2,
+                "stat": "speed",
+                "statValue": 1,
+                "createdAt": "2022-02-22T22:22:22Z",
+                "updatedAt": "2022-02-22T22:22:22Z"
+            }
+        },
         "gotchi": {
             "type": "object",
             "properties": {
@@ -157,6 +308,9 @@
                 "specialId": {
                     "type": "integer"
                 },
+                "enemyId": {
+                    "type": ["integer", "null"]
+                },
                 "hauntId": {
                     "type": ["integer", "null"]
                 },
@@ -191,40 +345,7 @@
                     "type": ["integer", "null"]
                 },
                 "special": {
-                    "type": "object",
-                    "properties": {
-                        "id": {
-                            "type": "integer"
-                        },
-                        "class": {
-                            "type": "string"
-                        },
-                        "gotchiClass": {
-                            "type": "string"
-                        },
-                        "name": {
-                            "type": "string"
-                        },
-                        "cooldown": {
-                            "type": "integer"
-                        },
-                        "leaderPassive": {
-                            "type": "string"
-                        },
-                        "createdAt": {
-                            "type": "string"
-                        },
-                        "updatedAt": {
-                            "type": "string"
-                        }
-                    },
-                    "required": [
-                        "id",
-                        "name",
-                        "cooldown",
-                        "leaderPassive"
-                    ],
-                    "additionalProperties": false
+                    "$ref": "#/definitions/special"
                 },
                 "itemId": {
                     "type": [
@@ -233,84 +354,7 @@
                     ]
                 },
                 "item": {
-                    "type": [
-                        "object",
-                        "null"
-                    ],
-                    "properties": {
-                        "id": {
-                            "type": "integer"
-                        },
-                        "name": {
-                            "type": "string"
-                        },
-                        "description": {
-                            "type": "string"
-                        },
-                        "image": {
-                            "type": "string",
-                            "format": "uri"
-                        },
-                        "rarity": {
-                            "type": "string",
-                            "enum": [
-                                "common",
-                                "uncommon",
-                                "rare",
-                                "legendary",
-                                "mythical",
-                                "godlike"
-                            ]
-                        },
-                        "cost": {
-                            "type": "number"
-                        },
-                        "stat": {
-                            "type": "string",
-                            "enum": [
-                                "speed",
-                                "health",
-                                "crit",
-                                "armor",
-                                "evade",
-                                "resist",
-                                "magic",
-                                "physical",
-                                "accuracy"
-                            ]
-                        },
-                        "statValue": {
-                            "type": "integer"
-                        },
-                        "createdAt": {
-                            "type": "string"
-                        },
-                        "updatedAt": {
-                            "type": "string"
-                        }
-                    },
-                    "required": [
-                        "id",
-                        "name",
-                        "description",
-                        "image",
-                        "rarity",
-                        "cost",
-                        "stat",
-                        "statValue"
-                    ],
-                    "example": {
-                        "id": 1,
-                        "name": "Speed +",
-                        "description": "Increase speed by 1",
-                        "image": "https://gotchibattler.com/apple-touch-icon.png",
-                        "rarity": "common",
-                        "cost": 0.2,
-                        "stat": "speed",
-                        "statValue": 1,
-                        "createdAt": "2022-02-22T22:22:22Z",
-                        "updatedAt": "2022-02-22T22:22:22Z"
-                    }
+                    "$ref": "#/definitions/item"
                 },
                 "statuses": {
                     "type": "array",
@@ -338,10 +382,104 @@
                 "magic",
                 "physical",
                 "accuracy",
-                "svgFront",
-                "svgBack",
-                "svgLeft",
-                "svgRight",
+                "specialId",
+                "special"
+            ]
+        },
+        "enemy": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "enemyId": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "speed": {
+                    "type": "integer"
+                },
+                "health": {
+                    "type": "integer"
+                },
+                "startingHealth": {
+                    "type": "integer"
+                },
+                "crit": {
+                    "type": "number"
+                },
+                "armor": {
+                    "type": "integer"
+                },
+                "evade": {
+                    "type": "number"
+                },
+                "resist": {
+                    "type": "integer"
+                },
+                "magic": {
+                    "type": "integer"
+                },
+                "physical": {
+                    "type": "integer"
+                },
+                "accuracy": {
+                    "type": "number"
+                },
+                "attack": {
+                    "type": "string",
+                    "enum": [
+                        "physical",
+                        "magic"
+                    ]
+                },
+                "actionDelay": {
+                    "type": "number"
+                },
+                "specialId": {
+                    "type": "integer"
+                },
+                "special": {
+                    "$ref": "#/definitions/special"
+                },
+                "itemId": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "item": {
+                    "$ref": "#/definitions/item"
+                },
+                "statuses": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "id",
+                "name",
+                "enemyId",
+                "speed",
+                "health",
+                "crit",
+                "armor",
+                "evade",
+                "resist",
+                "magic",
+                "physical",
+                "accuracy",
                 "specialId",
                 "special"
             ]

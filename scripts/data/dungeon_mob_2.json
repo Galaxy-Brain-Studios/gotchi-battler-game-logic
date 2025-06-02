@@ -1,0 +1,87 @@
+{
+    "formation": {
+        "front": [
+            null,
+            {
+                "id": 1539,
+                "name": "Bat",
+                "enemyId": "BAT",
+                "speed": 200,
+                "health": 400,
+                "crit": 0,
+                "armor": 50,
+                "evade": 5,
+                "resist": 0,
+                "magic": 300,
+                "physical": 150,
+                "accuracy": 90,
+                "attack": "magic",
+                "specialId": 7,
+                "special": {
+                    "id": 7,
+                    "class": "Mage",
+                    "name": "Thunder",
+                    "cooldown": 2,
+                    "leaderPassive": "Channel the coven"
+                }
+            },
+            null,
+            {
+                "id": 1540,
+                "name": "Bat",
+                "enemyId": "BAT",
+                "speed": 200,
+                "health": 400,
+                "crit": 0,
+                "armor": 50,
+                "evade": 5,
+                "resist": 0,
+                "magic": 300,
+                "physical": 150,
+                "accuracy": 90,
+                "attack": "magic",
+                "specialId": 7,
+                "special": {
+                    "id": 7,
+                    "class": "Mage",
+                    "name": "Thunder",
+                    "cooldown": 2,
+                    "leaderPassive": "Channel the coven"
+                }
+            },
+            null
+        ],
+        "back": [
+            null,
+            null,
+            {
+                "id": 1541,
+                "name": "Bat",
+                "enemyId": "BAT",
+                "speed": 200,
+                "health": 400,
+                "crit": 0,
+                "armor": 50,
+                "evade": 5,
+                "resist": 0,
+                "magic": 300,
+                "physical": 150,
+                "accuracy": 90,
+                "attack": "magic",
+                "specialId": 7,
+                "special": {
+                    "id": 7,
+                    "class": "Mage",
+                    "name": "Thunder",
+                    "cooldown": 2,
+                    "leaderPassive": "Channel the coven"
+                }
+            },
+            null,
+            null
+        ]
+    },
+    "leader": 1540,
+    "name": "Dungeon Mob 2",
+    "owner": "0x10B989914A478Ed7DE2d2C4CC4e835bbd3de229b"
+}
