@@ -4,8 +4,6 @@ axiosRetry(axios, {
     retries: 3, 
     retryDelay: axiosRetry.exponentialDelay
 })
-const fs = require('fs')
-const path = require('path')
 
 const { GameError, ValidationError } = require('../utils/errors')
 const { logToInGameTeams } = require('../utils/transforms')
@@ -66,18 +64,18 @@ if (require.main === module) {
     const gameLogicVersion = process.argv[4]
 
     main(battleId, seed, gameLogicVersion)
-    .then(() => {
-        console.log('Results from game logic match the logs ✅')
-        console.log('Done')
-        process.exit(0)
-    })
-    .catch((error) => {
-        if (error instanceof ValidationError) {
-            console.error('Results from game logic do not match the logs ❌')
-        }
+        .then(() => {
+            console.log('Results from game logic match the logs ✅')
+            console.log('Done')
+            process.exit(0)
+        })
+        .catch((error) => {
+            if (error instanceof ValidationError) {
+                console.error('Results from game logic do not match the logs ❌')
+            }
             
-        console.error('Error: ', error.message)
+            console.error('Error: ', error.message)
 
-        process.exit(1)
-    })
+            process.exit(1)
+        })
 }

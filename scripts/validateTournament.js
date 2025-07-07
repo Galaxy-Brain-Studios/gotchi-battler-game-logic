@@ -89,13 +89,13 @@ if (require.main === module) {
     const tournamentId = process.argv[2]
 
     main(tournamentId)
-    .then(() => {
-        console.log('Done')
-        process.exit(0)
-    })
-    .catch((error) => {
-        console.error(error)
+        .then(() => {
+            console.log('Done')
+            process.exit(0)
+        })
+        .catch((error) => {
+            console.error(error)
 
-        process.exit(1)
-    })
+            process.exit(1)
+        })
 }

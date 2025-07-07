@@ -7,7 +7,7 @@ const { battle } = require('..')
 const team1 = require('./data/team1.json')
 const team2 = require('./data/team2.json')
 
-const results = battle(team1, team2, "82807311112923564712218359337695919195403960526804010606215202651499586140469", true)
+const results = battle(team1, team2, '82807311112923564712218359337695919195403960526804010606215202651499586140469', true)
 
 const timestamp = new Date().getTime()
 const resultsFilename = `results-${timestamp}.json`

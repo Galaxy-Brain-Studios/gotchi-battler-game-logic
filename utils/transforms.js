@@ -38,7 +38,7 @@ const logToInGameTeams = (originalLog) => {
             name: log.layout.teams[teamIndex].name,
             owner: log.layout.teams[teamIndex].owner
         })
-    });
+    })
     
     return teams
 }

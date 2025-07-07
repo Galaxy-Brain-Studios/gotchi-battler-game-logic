@@ -2,60 +2,60 @@ const fs = require('fs')
 
 const specials = [
     {
-        "id": 1,
-        "class": "Ninja",
-        "name": "Spectral strike",
-        "cooldown": 0,
-        "leaderPassive": "Sharpen blades"
+        'id': 1,
+        'class': 'Ninja',
+        'name': 'Spectral strike',
+        'cooldown': 0,
+        'leaderPassive': 'Sharpen blades'
     },
     {
-        "id": 2,
-        "class": "Enlightened",
-        "name": "Meditate",
-        "cooldown": 0,
-        "leaderPassive": "Cloud of Zen"
+        'id': 2,
+        'class': 'Enlightened',
+        'name': 'Meditate',
+        'cooldown': 0,
+        'leaderPassive': 'Cloud of Zen'
     },
     {
-        "id": 3,
-        "class": "Cleaver",
-        "name": "Cleave",
-        "cooldown": 2,
-        "leaderPassive": "Frenzy"
+        'id': 3,
+        'class': 'Cleaver',
+        'name': 'Cleave',
+        'cooldown': 2,
+        'leaderPassive': 'Frenzy'
     },
     {
-        "id": 4,
-        "class": "Tank",
-        "name": "Taunt",
-        "cooldown": 0,
-        "leaderPassive": "Fortify"
+        'id': 4,
+        'class': 'Tank',
+        'name': 'Taunt',
+        'cooldown': 0,
+        'leaderPassive': 'Fortify'
     },
     {
-        "id": 5,
-        "class": "Cursed",
-        "name": "Curse",
-        "cooldown": 0,
-        "leaderPassive": "Spread the fear"
+        'id': 5,
+        'class': 'Cursed',
+        'name': 'Curse',
+        'cooldown': 0,
+        'leaderPassive': 'Spread the fear'
     },
     {
-        "id": 6,
-        "class": "Healer",
-        "name": "Blessing",
-        "cooldown": 0,
-        "leaderPassive": "Cleansing Aura"
+        'id': 6,
+        'class': 'Healer',
+        'name': 'Blessing',
+        'cooldown': 0,
+        'leaderPassive': 'Cleansing Aura'
     },
     {
-        "id": 7,
-        "class": "Mage",
-        "name": "Thunder",
-        "cooldown": 2,
-        "leaderPassive": "Channel the coven"
+        'id': 7,
+        'class': 'Mage',
+        'name': 'Thunder',
+        'cooldown': 2,
+        'leaderPassive': 'Channel the coven'
     },
     {
-        "id": 8,
-        "class": "Troll",
-        "name": "Devestating Smash",
-        "cooldown": 2,
-        "leaderPassive": "Clan momentum"
+        'id': 8,
+        'class': 'Troll',
+        'name': 'Devestating Smash',
+        'cooldown': 2,
+        'leaderPassive': 'Clan momentum'
     }
 ]
 
@@ -182,8 +182,8 @@ const main = (version) => {
                 gotchi.svgBack = `https://storage.googleapis.com/gotchi-battler-qa_gotchis/training/${className.toLowerCase()}_${p.toLowerCase()}_back.png`
                 gotchi.svgLeft = `https://storage.googleapis.com/gotchi-battler-qa_gotchis/training/${className.toLowerCase()}_${p.toLowerCase()}_left.png`
                 gotchi.svgRight = `https://storage.googleapis.com/gotchi-battler-qa_gotchis/training/${className.toLowerCase()}_${p.toLowerCase()}_right.png`
-                gotchi.createdAt = "2023-09-09 12:10:01"
-                gotchi.updatedAt = "2024-06-05 16:34:00"
+                gotchi.createdAt = '2023-09-09 12:10:01'
+                gotchi.updatedAt = '2024-06-05 16:34:00'
                 gotchi.special = specials.find(s => s.id === gotchi.specialId)
 
                 trainingGotchis.push(gotchi)
@@ -197,11 +197,11 @@ const main = (version) => {
 
     trainingGotchis.push(...avgGotchis)
 
-    fs.writeFileSync(`./training_gotchis.json`, JSON.stringify(trainingGotchis, null, 2))
+    fs.writeFileSync('./training_gotchis.json', JSON.stringify(trainingGotchis, null, 2))
 }
 
 const createAvgGotchs = (trainingGotchis) => {
-    const statsToOverwrite = ["speed", "health", "crit", "armor", "evade", "resist", "accuracy"]
+    const statsToOverwrite = ['speed', 'health', 'crit', 'armor', 'evade', 'resist', 'accuracy']
 
     const avgGotchis = [];
 

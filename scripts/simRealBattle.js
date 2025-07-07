@@ -110,12 +110,12 @@ if (require.main === module) {
     const battleId = process.argv[2]
 
     main(battleId)
-    .then(() => {
-        console.log('Done')
-        process.exit(0)
-    })
-    .catch((error) => {
-        console.error('Error: ', error)
-        process.exit(1)
-    })
+        .then(() => {
+            console.log('Done')
+            process.exit(0)
+        })
+        .catch((error) => {
+            console.error('Error: ', error)
+            process.exit(1)
+        })
 }

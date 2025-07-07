@@ -41,16 +41,16 @@ const classes = ['Ninja','Enlightened','Cleaver','Tank','Cursed','Healer', 'Mage
 
 const calculateKpis = (data) => {
     // Extract wins values
-    const wins = data.map(item => item.wins);
+    const wins = data.map(item => item.wins)
 
     // Calculate the mean of wins
-    const winsMean = wins.reduce((sum, value) => sum + value, 0) / wins.length;
+    const winsMean = wins.reduce((sum, value) => sum + value, 0) / wins.length
 
     // Calculate the wins per slot
     const winsPerSlot = winsMean / 5
 
     // Calculate the standard deviation of wins
-    const winsVariance = wins.reduce((sum, value) => sum + Math.pow(value - winsMean, 2), 0) / (wins.length - 1);
+    const winsVariance = wins.reduce((sum, value) => sum + Math.pow(value - winsMean, 2), 0) / (wins.length - 1)
     const winsStdev = Math.sqrt(winsVariance)
 
     // Calculate Interquartile Range (IQR)
@@ -91,8 +91,8 @@ const calculateKpis = (data) => {
         // G is power level, avg is trait combo, 1 is class number, B is formation position
         const leaderWins = data.filter(item => item.slot1.includes(`${i + 1}`)).map(item => item.wins)
 
-        const leaderWinsMean = leaderWins.reduce((sum, value) => sum + value, 0) / leaderWins.length;
-        const leaderWinsVariance = leaderWins.reduce((sum, value) => sum + Math.pow(value - leaderWinsMean, 2), 0) / (leaderWins.length - 1);
+        const leaderWinsMean = leaderWins.reduce((sum, value) => sum + value, 0) / leaderWins.length
+        const leaderWinsVariance = leaderWins.reduce((sum, value) => sum + Math.pow(value - leaderWinsMean, 2), 0) / (leaderWins.length - 1)
         const leaderWinsStdev = Math.sqrt(leaderWinsVariance)
 
         // Calculate Interquartile Range (IQR)

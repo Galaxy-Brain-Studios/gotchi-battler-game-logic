@@ -125,7 +125,7 @@ const getGotchisSimNameFromTeam = (team) => {
 
     [0,1,2,3,4].forEach(i => {
         const gotchi = team.formation.back[i] || team.formation.front[i]
-        const position  = !!team.formation.back[i] ? 'B' : 'F'
+        const position  = team.formation.back[i] ? 'B' : 'F'
 
         const nameParts = gotchi.name.split(' ')
         // Return e.g. "R|++++|1_B"
@@ -139,7 +139,7 @@ const runSims = async (simsVersion, gameLogicVersion, simsPerMatchup) => {
     const classCombos = require(`./${simsVersion}/class_combos.js`)
     const classTraitCombos = require(`./${simsVersion}/trait_combos.json`)
     const setTeamPositions = require(`./${simsVersion}/setTeamPositions`)
-    const gameLogic = require("../../game-logic")[gameLogicVersion].gameLoop
+    const gameLogic = require('../../game-logic')[gameLogicVersion].gameLoop
 
     const attackingPowerLevels = ['Godlike']
     const defendingPowerLevels = ['Godlike', 'Mythical', 'Legendary']
@@ -181,7 +181,7 @@ const runSims = async (simsVersion, gameLogicVersion, simsPerMatchup) => {
 
     console.time(`Sims for ${attackingTeam.name}`)
 
-    defendingTeamIndexes.forEach((defendingTeamIndex, i) => {
+    defendingTeamIndexes.forEach((defendingTeamIndex) => {
         const defendingTeam = createTeamFromTeamIndex(defendingTeamIndex, trainingGotchis, setTeamPositions)
         
         let matchupWins = 0
@@ -231,23 +231,16 @@ const runSims = async (simsVersion, gameLogicVersion, simsPerMatchup) => {
 
     if (process.env.CLOUD_RUN_JOB && process.env.SIMS_BUCKET) {
         // Save as JSON to GCS
-        try {
-            await storage.bucket(process.env.SIMS_BUCKET).file(`${process.env.CLOUD_RUN_EXECUTION}_${attackingTeamIndex}.json`).save(JSON.stringify(results))
-        } catch (err) {
-            throw err
-        }
+        await storage.bucket(process.env.SIMS_BUCKET).file(`${process.env.CLOUD_RUN_EXECUTION}_${attackingTeamIndex}.json`).save(JSON.stringify(results))
         
     } else {
-       console.log('Results', results)
+        console.log('Results', results)
 
         // Test saving to GCS
-        if (false) {
+        const test = false
+        if (test) {
             process.env.GOOGLE_APPLICATION_CREDENTIALS = path.join(__dirname, '../../keyfile.json')
-            try {
-                await storage.bucket(process.env.SIMS_BUCKET).file(`avg-sims-znw68_${attackingTeamIndex}.json`).save(JSON.stringify(results))
-            } catch (err) {
-                throw err
-            }
+            await storage.bucket(process.env.SIMS_BUCKET).file(`avg-sims-znw68_${attackingTeamIndex}.json`).save(JSON.stringify(results))
         }
     }
 }

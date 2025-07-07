@@ -98,29 +98,6 @@ const MULTS = {
     DEVESTATING_SMASH_X2_DAMAGE: 1.9,
 }
 
-const passiveIcons = {
-    'sharp_blades': 'https://game-icons.net/1x1/lorc/plain-dagger.html',
-    'cloud_of_zen': 'https://game-icons.net/1x1/lorc/meditation.html',
-    'frenzy': 'https://game-icons.net/1x1/lorc/totem-head.html',
-    'fortify': 'https://game-icons.net/1x1/lorc/crenulated-shield.html',
-    'spread_the_fear': 'https://game-icons.net/1x1/lorc/evil-book.html',
-    'cleansing_aura': 'https://game-icons.net/1x1/lorc/aura.html',
-    'channel_the_coven': 'https://game-icons.net/1x1/lorc/witch-flight.html',
-    'clan_momentum': 'https://game-icons.net/1x1/delapouite/bully-minion.html'
-}
-
-const debuffIcons = {
-    'bleed': 'https://game-icons.net/1x1/lorc/broken-heart.html',
-    'stun': 'https://game-icons.net/1x1/sbed/electric.html',
-    'fear': 'https://game-icons.net/1x1/lorc/screaming.html'
-}
-
-const buffIcons = {
-    'taunt': 'https://game-icons.net/1x1/lorc/archery-target.html',
-    'cloud_of_zen': 'https://game-icons.net/1x1/lorc/strong.html',
-    'power_up_2': 'https://game-icons.net/1x1/delapouite/mighty-force.html'
-}
-
 module.exports = {
     PASSIVES,
     DEBUFF_STATUSES,

@@ -87,7 +87,7 @@ module.exports = (team) => {
     const frontGotchis = team.formation.front.filter(gotchi => gotchi)
     if (frontGotchis.length === 5) {
         // Sort the gotchis by score in ascending order (lowest score first)
-        const orderedGotchis = JSON.parse(JSON.stringify(frontGotchis)).sort((a, b) => getFrontRowScore(a.id, team.leader) - getFrontRowScore(b.id, team.leader));
+        const orderedGotchis = JSON.parse(JSON.stringify(frontGotchis)).sort((a, b) => getFrontRowScore(a.id, team.leader) - getFrontRowScore(b.id, team.leader))
 
         // Loop through the front row and the first 2 gotchis that have a score of either orderedGotchis[0] or orderedGotchis[1] move to the back
         let hasMoved = 0
@@ -105,7 +105,7 @@ module.exports = (team) => {
     const backGotchis = team.formation.back.filter(gotchi => gotchi)
     if (backGotchis.length === 5) {
         // Sort the gotchis by score in descending order (highest score first)
-        const orderedGotchis = JSON.parse(JSON.stringify(backGotchis)).sort((a, b) => getFrontRowScore(b.id, team.leader) - getFrontRowScore(a.id, team.leader));
+        const orderedGotchis = JSON.parse(JSON.stringify(backGotchis)).sort((a, b) => getFrontRowScore(b.id, team.leader) - getFrontRowScore(a.id, team.leader))
 
         // Loop through the back row and the first 2 gotchis that have a score of either orderedGotchis[0] or orderedGotchis[1] move to the front
         let hasMoved = 0
