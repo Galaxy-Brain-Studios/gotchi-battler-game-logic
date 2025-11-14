@@ -1,31 +1,22 @@
 const seedrandom = require('seedrandom')
-const ZSchema = require('z-schema')
-const validator = new ZSchema()
-const teamSchema = require('../../schemas/team.json')
+const { InGameTeamSchema } = require('../../schemas/ingameteam')
 
-const { GameError } = require('../../utils/errors')
-
-const {
-    PASSIVES,
-    DEBUFFS,
-    BUFFS,
-    MULTS
-} = require('./constants')
+const STATUSES = require('./statuses.json')
 
 const {
     getTeamGotchis,
     getAlive,
     getNextToAct,
-    getTarget,
+    getTargetsFromCode,
     getDamage,
-    getModifiedStats,
+    getHealFromMultiplier,
     getNewActionDelay,
     simplifyTeam,
-    getExpiredStatuses,
     addStatusToGotchi,
     prepareTeams,
     getLogGotchis,
-    getTeamStats
+    getTeamStats,
+    getStatusByCode
 } = require('./helpers')
 
 /**
@@ -33,29 +24,19 @@ const {
  * @param {Object} team1 An in-game team object
  * @param {Object} team2 An in-game team object
  * @param {String} seed A seed for the random number generator
- * @param {Boolean} debug A boolean to determine if the logs should include debug information
+ * @param {Object} options An object containing options for the game loop
+ * @param {Boolean} options.debug A boolean to determine if the logs should include debug information
+ * @param {String} options.type A string to determine the type of the game loop
+ * @param {Object} options.campaign An object containing the campaign information
+ * @param {String} options.isBoss A boolean to determine if team2 is a boss
  * @returns {Object} logs The battle logs
  */
-const gameLoop = (team1, team2, seed, debug) => {
-    if (!team1) throw new Error('Team 1 not found')
-    if (!team2) throw new Error('Team 2 not found')
+const gameLoop = (team1, team2, seed, options = { debug: false, type: 'pve', campaign: {}, isBoss: false }) => {
     if (!seed) throw new Error('Seed not found')
 
     // Validate team objects
-    const team1Validation = validator.validate(team1, teamSchema)
-    if (!team1Validation) {
-        console.error('Team 1 validation failed: ', JSON.stringify(validator.getLastErrors(), null, 2))
-        throw new Error('Team 1 validation failed')
-    }
-    const team2Validation = validator.validate(team2, teamSchema)
-    if (!team2Validation) {
-        console.error('Team 2 validation failed: ', JSON.stringify(validator.getLastErrors(), null, 2))
-        throw new Error('Team 2 validation failed')
-    }
-
-    // Make deep copy of team objects to avoid modifying the original objects
-    team1 = JSON.parse(JSON.stringify(team1))
-    team2 = JSON.parse(JSON.stringify(team2))
+    team1 = InGameTeamSchema.parse(team1)
+    team2 = InGameTeamSchema.parse(team2)
 
     const rng = seedrandom(seed)
 
@@ -64,6 +45,13 @@ const gameLoop = (team1, team2, seed, debug) => {
     prepareTeams(allAliveGotchis, team1, team2)
 
     const logs = {
+        meta: {
+            seed,
+            timestamp: new Date(),
+            type: options.type || 'pve',
+            campaign: options.campaign || {},
+            isBoss: options.isBoss || false
+        },
         gotchis: getLogGotchis(allAliveGotchis),
         layout: {
             teams: [
@@ -93,13 +81,9 @@ const gameLoop = (team1, team2, seed, debug) => {
             // Check if turnCounter is ready for environment effects (99,149,199, etc)
             if (isEnvironmentTurn) turnLogs.environmentEffects = ['damage_up']
 
-            if (MULTS.EXPIRE_LEADERSKILL) {
-                turnLogs.statusesExpired = [...turnLogs.statusesExpired, ...getExpiredStatuses(team1, team2)]
-            }
-
             logs.turns.push({ index: turnCounter, ...turnLogs })
 
-            if (debug) {
+            if (options.debug) {
                 logs.debug.push({
                     turn: turnCounter,
                     user: logs.turns[logs.turns.length - 1].action.user,
@@ -116,8 +100,11 @@ const gameLoop = (team1, team2, seed, debug) => {
             turnCounter++
         }
     } catch (e) {
-        console.error(e)
-        throw new GameError('Game loop failed', logs)
+        // console.error(e)
+        // throw new GameError('Game loop failed', logs)
+        // TODO: Change this back to error
+        console.error('----CHANGE THIS BACK TO ERROR----')
+        throw e
     }
 
     // Add stats to logs
@@ -138,295 +125,9 @@ const gameLoop = (team1, team2, seed, debug) => {
         }
     })
 
-    if (!debug) delete logs.debug
+    if (!options.debug) delete logs.debug
 
     return logs
-}
-
-/**
- * Attack one or more gotchis. This mutates the defending gotchis health
- * @param {Object} attackingGotchi The attacking gotchi object
- * @param {Array} attackingTeam A team object for the attacking team
- * @param {Array} defendingTeam A team object for the defending team
- * @param {Array} defendingTargets An array of gotchis to attack
- * @param {Function} rng The random number generator
- * @param {Object} options An object of options
- * @param {Boolean} options.ignoreArmor Ignore the defending gotchi's defense
- * @param {Boolean} options.multiplier A multiplier to apply to the damage
- * @param {Boolean} options.statuses An array of status effects to apply
- * @param {Boolean} options.cannotBeEvaded A boolean to determine if the attack can be evaded
- * @param {Boolean} options.cannotBeResisted A boolean to determine if the attack can be resisted
- * @param {Boolean} options.cannotBeCountered A boolean to determine if the attack can be countered
- * @param {Boolean} options.noPassiveStatuses A boolean to determine if passive statuses should be inflicted
- * @param {Number} options.critMultiplier Override the crit multiplier
- * @returns {Array} effects An array of effects to apply
- */
-const attack = (attackingGotchi, attackingTeam, defendingTeam, defendingTargets, rng, options) => {
-    if (!options) options = {}
-    if (!options.ignoreArmor) options.ignoreArmor = false
-    if (!options.multiplier) options.multiplier = 1
-    if (!options.statuses) options.statuses = []
-    if (!options.cannotBeEvaded) options.cannotBeEvaded = false
-    if (!options.critCannotBeEvaded) options.critCannotBeEvaded = false
-    if (!options.cannotBeResisted) options.cannotBeResisted = false
-    if (!options.cannotBeCountered) options.cannotBeCountered = false
-    if (!options.noPassiveStatuses) options.noPassiveStatuses = false
-    if (!options.speedPenalty) options.speedPenalty = 0
-    if (!options.noResistSpeedPenalty) options.noResistSpeedPenalty = false
-    if (!options.critMultiplier) options.critMultiplier = null
-
-    // If passive statuses are allowed then add leaderPassive status effects to attackingGotchi
-    if (!options.noPassiveStatuses) {
-        // If attacking gotchi has 'sharp_blades' status, add 'bleed' to statuses
-        if (attackingGotchi.statuses.includes('sharp_blades')) {
-            if (rng() < MULTS.SHARP_BLADES_BLEED_CHANCE) options.statuses.push('bleed')
-        }
-
-        // If attacking gotchi has 'spread_the_fear' status, add 'fear' to statuses
-        if (attackingGotchi.statuses.includes('spread_the_fear')) {
-            // Reduce the chance to spread the fear if attacking gotchi has speed over 100
-            const spreadTheFearChance = attackingGotchi.speed > 100 ? MULTS.SPREAD_THE_FEAR_CHANCE - MULTS.SPREAD_THE_FEAR_SPEED_PENALTY : MULTS.SPREAD_THE_FEAR_CHANCE
-            if (rng() < spreadTheFearChance) options.statuses.push('fear')
-        }
-    }
-
-    const effects = []
-
-    // Calculate what the multiplier should be if the attack is a crit
-    let critMultiplier = options.multiplier
-    if (options.critMultiplier) {
-        critMultiplier *= options.critMultiplier
-    } else {
-        // Apply different crit multipliers for -nrg and +nrg gotchis
-        if (attackingGotchi.speed <= 100) {
-            critMultiplier *= MULTS.CRIT_MULTIPLIER_SLOW
-        } else {
-            critMultiplier *= MULTS.CRIT_MULTIPLIER_FAST
-        }
-    }
-
-    defendingTargets.forEach((defendingGotchi) => {
-        // Check attacking gotchi hasn't been killed by a counter
-        if (attackingGotchi.health <= 0) return
-
-        const modifiedAttackingGotchi = getModifiedStats(attackingGotchi)
-        const modifiedDefendingGotchi = getModifiedStats(defendingGotchi)
-
-        // Check for crit
-        let damageMultiplier = options.multiplier
-        const isCrit = rng() < modifiedAttackingGotchi.crit / 100
-        if (isCrit) {
-            damageMultiplier = critMultiplier
-        }
-
-        let canEvade = true
-        if (options.cannotBeEvaded) canEvade = false
-        if (isCrit && options.critCannotBeEvaded) canEvade = false
-
-        const damage = getDamage(attackingTeam, defendingTeam, attackingGotchi, defendingGotchi, damageMultiplier, options.ignoreArmor, options.speedPenalty)
-
-        let effect = {
-            target: defendingGotchi.id,
-        }
-
-        // Check for miss
-        if (rng() > modifiedAttackingGotchi.accuracy / 100) {
-            effect.outcome = 'miss'
-            effects.push(effect)
-
-            attackingGotchi.stats.misses++
-        } else if (canEvade && rng() < modifiedDefendingGotchi.evade / 100){
-            effect.outcome = 'evade'
-            effects.push(effect)
-
-            defendingGotchi.stats.evades++
-        } else {
-            if (!options.cannotBeResisted) {
-                // Check for status effect from the move
-                options.statuses.forEach((status) => {
-                    if (rng() > modifiedDefendingGotchi.resist / 100) {
-                        // Attempt to add status to defending gotchi
-                        if (addStatusToGotchi(defendingGotchi, status)) {
-                            // If status added, add to effect
-                            if (!effect.statuses) {
-                                effect.statuses = [status]
-                            } else {
-                                effect.statuses.push(status)
-                            }
-                        }
-                    } else {
-                        defendingGotchi.stats.resists++
-                    }
-                })
-            }
-
-            // Handle damage
-            defendingGotchi.health -= damage
-            effect.damage = damage
-
-            attackingGotchi.stats.hits++
-            attackingGotchi.stats.dmgGiven += damage
-            defendingGotchi.stats.dmgReceived += damage
-
-            if (isCrit) {
-                effect.outcome = 'critical'
-                attackingGotchi.stats.crits++
-            } else {
-                effect.outcome = 'success'
-            }
-            
-            effects.push(effect)
-
-            // Check for counter attack
-            if (
-                defendingGotchi.statuses.includes('taunt')
-                && defendingGotchi.health > 0
-                && !options.cannotBeCountered) {
-
-                // Chance to counter based on speed over 100
-                let chanceToCounter = Math.round((modifiedDefendingGotchi.speed - 100) * MULTS.COUNTER_SPEED_MULTIPLIER)
-
-                // Add chance if gotchi has fortify status
-                if (defendingGotchi.statuses.includes('fortify')) {
-                    chanceToCounter += MULTS.FORTIFY_COUNTER_CHANCE
-                }
-                
-                if (rng() < chanceToCounter / 100) {
-                    const counterDamageMultiplier = defendingGotchi.statuses.includes('fortify') ? MULTS.FORTIFY_COUNTER_DAMAGE : MULTS.COUNTER_DAMAGE
-                    const counterDamage = getDamage(defendingTeam, attackingTeam, defendingGotchi, attackingGotchi, counterDamageMultiplier, false, 0)
-
-                    attackingGotchi.health -= counterDamage
-
-                    effects.push({
-                        target: attackingGotchi.id,
-                        source: defendingGotchi.id,
-                        damage: counterDamage,
-                        outcome: 'counter'
-                    })
-
-                    defendingGotchi.stats.counters++
-                }
-            }
-        }
-    })
-
-    return effects
-}
-
-// Deal with start of turn status effects
-const handleStatusEffects = (attackingGotchi, attackingTeam, defendingTeam) => {
-    const statusEffects = []
-    const passiveEffects = []
-
-    // Check for global status effects
-    const allAliveGotchis = [...getAlive(attackingTeam), ...getAlive(defendingTeam)]
-
-    allAliveGotchis.forEach((gotchi) => {
-        const modifiedGotchi = getModifiedStats(gotchi)
-        if (gotchi.statuses && gotchi.statuses.length) {
-            gotchi.statuses.forEach((status) => {
-                // Handle cleansing_aura (health regen)
-                if (status === 'cleansing_aura') {
-                    let amountToHeal
-
-                    // Check if healer
-                    if (gotchi.special.id === 6) {
-                        amountToHeal = Math.round(modifiedGotchi.resist * MULTS.CLEANSING_AURA_REGEN)
-                    } else {
-                        amountToHeal = Math.round(modifiedGotchi.resist * MULTS.CLEANSING_AURA_NON_HEALER_REGEN)
-                    }
-
-                    // Don't allow amountToHeal to be more than the difference between current health and max health
-                    if (amountToHeal > gotchi.fullHealth - gotchi.health) {
-                        amountToHeal = gotchi.fullHealth - gotchi.health
-                    }
-
-                    // if amountToHeal > 0, add status effect
-                    if (amountToHeal) {
-                        // Add status effect
-                        statusEffects.push({
-                            target: gotchi.id,
-                            status,
-                            damage: -Math.abs(amountToHeal),
-                            remove: false
-                        })
-
-                        gotchi.health += amountToHeal
-                    }
-                }
-
-                /* 
-                * Handle damage effect at the bottom of the loop
-                */
-
-                // Handle bleed
-                if (status === 'bleed') {
-                    let damage = MULTS.BLEED_DAMAGE
-
-                    gotchi.health -= damage
-                    if (gotchi.health <= 0) gotchi.health = 0
-
-                    // Add status effect
-                    statusEffects.push({
-                        target: gotchi.id,
-                        status,
-                        damage,
-                        remove: false
-                    })
-
-                    gotchi.stats.dmgReceived += damage
-                }
-            })
-        }
-    })
-
-    let skipTurn = null
-
-    // Check if gotchi is dead
-    if (attackingGotchi.health <= 0) {
-        return {
-            statusEffects,
-            passiveEffects,
-            skipTurn: 'ATTACKER_DEAD'
-        }
-    }
-
-    // Check if a whole team is dead
-    if (getAlive(attackingTeam).length === 0 || getAlive(defendingTeam).length === 0) {
-        return {
-            statusEffects,
-            passiveEffects,
-            skipTurn: 'TEAM_DEAD'
-        }
-    }
-
-    // Check for turn skipping statuses
-    for (let i = 0; i < attackingGotchi.statuses.length; i++) {
-        const status = attackingGotchi.statuses[i]
-        // Fear - skip turn
-        if (status === 'fear') {
-            // Skip turn
-            statusEffects.push({
-                target: attackingGotchi.id,
-                status,
-                damage: 0,
-                remove: true
-            })
-
-            skipTurn = 'FEAR'
-
-            // Remove fear first instance of fear
-            attackingGotchi.statuses.splice(i, 1)
-
-            break
-        }
-    }
-
-    return {
-        statusEffects,
-        passiveEffects,
-        skipTurn
-    }
 }
 
 const executeTurn = (team1, team2, rng) => {
@@ -437,10 +138,11 @@ const executeTurn = (team1, team2, rng) => {
 
     const attackingGotchi = attackingTeam.formation[nextToAct.row][nextToAct.position]
 
-    let { statusEffects, passiveEffects, skipTurn } = handleStatusEffects(attackingGotchi, attackingTeam, defendingTeam, rng)
+    let { statusEffects, skipTurn } = handleStatusEffects(attackingGotchi, attackingTeam, defendingTeam, rng)
     let statusesExpired = []
 
-    let effects = []
+    let actionEffects = []
+    let additionalEffects = []
     if (skipTurn) {
         // Increase actionDelay
         attackingGotchi.actionDelay = getNewActionDelay(attackingGotchi)
@@ -450,42 +152,37 @@ const executeTurn = (team1, team2, rng) => {
             action: {
                 user: attackingGotchi.id,
                 name: 'auto',
-                effects
+                actionEffects,
+                additionalEffects
             },
-            passiveEffects,
             statusEffects,
             statusesExpired
         }
     }
 
-    let specialDone = false
+    let actionName = 'auto'
     // Check if special attack is ready
-    if (attackingGotchi.special.cooldown === 0) {
+    if (attackingGotchi.cooldown === 0) {
         // Execute special attack
-        const specialResults = specialAttack(attackingGotchi, attackingTeam, defendingTeam, rng)
-
-        if (specialResults.specialNotDone) {
-            // Do nothing which will lead to an auto attack
-        } else {
-            specialDone = true
-
-            effects = specialResults.effects
-            statusesExpired = specialResults.statusesExpired
-
-            // Reset cooldown
-            attackingGotchi.special.cooldown = 2
-        }
+        actionName = attackingGotchi.specialExpanded.code
+        const specialResults = attack(attackingGotchi, attackingTeam, defendingTeam, rng, true)
         
+        actionEffects = specialResults.actionEffects
+        additionalEffects = specialResults.additionalEffects
+        statusesExpired = specialResults.statusesExpired
+
+        // Reset cooldown
+        attackingGotchi.cooldown = attackingGotchi.specialExpanded.cooldown
     } else {
-        // Decrease cooldown
-        attackingGotchi.special.cooldown--
-    }
-
-    if (!specialDone) {
         // Do an auto attack
-        const target = getTarget(defendingTeam, rng)
+        const attackResults = attack(attackingGotchi, attackingTeam, defendingTeam, rng)
 
-        effects = attack(attackingGotchi, attackingTeam, defendingTeam, [target], rng)
+        actionEffects = attackResults.actionEffects
+        additionalEffects = attackResults.additionalEffects
+        statusesExpired = attackResults.statusesExpired
+
+        // Decrease cooldown
+        attackingGotchi.cooldown--
     }
 
     // Increase actionDelay
@@ -495,352 +192,544 @@ const executeTurn = (team1, team2, rng) => {
         skipTurn,
         action: {
             user: attackingGotchi.id,
-            name: specialDone ? attackingGotchi.special.name : 'auto',
-            effects
+            name: actionName,
+            actionEffects,
+            additionalEffects
         },
-        passiveEffects,
         statusEffects,
         statusesExpired
     }
 }
 
-/**
- * Execute a special attack
- * @param {Object} attackingGotchi The attacking gotchi object
- * @param {Array} attackingTeam An array of gotchis to attack
- * @param {Array} defendingTeam An array of gotchis to attack
- * @param {Function} rng The random number generator
- * @returns {Array} effects An array of effects to apply
- **/
-const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
-    const specialId = attackingGotchi.special.id
-    let effects = []
-    let statusesExpired = []
-    let specialNotDone = false
+// Deal with start of turn status effects
+const handleStatusEffects = (attackingGotchi, attackingTeam, defendingTeam) => {
+    const statusEffects = []
+    let skipTurn = null
 
-    const modifiedAttackingGotchi = getModifiedStats(attackingGotchi)
+    // Check for global status effects
+    const allAliveGotchis = [...getAlive(attackingTeam), ...getAlive(defendingTeam)]
 
-    switch (specialId) {
-        case 1: {
-            // Spectral Strike - ignore armor and appply bleed status
-            // get single target
-            const ssTarget = getTarget(defendingTeam, rng)
+    allAliveGotchis.forEach((gotchi) => {
+        // Get all statuses that have turnEffects
+        const turnEffectStatuses = gotchi.statuses.filter(status => {
+            const statusEffect = getStatusByCode(status)
+            return statusEffect.turnEffects
+        })
 
-            let statuses = ['bleed']
+        turnEffectStatuses.forEach((turnEffectStatus) => {
 
-            // Add another bleed if gotchi has 'sharp_blades' status
-            if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
-                statuses.push('bleed')
-            }
+            const status = getStatusByCode(turnEffectStatus)
 
-            effects = attack(attackingGotchi, attackingTeam, defendingTeam, [ssTarget], rng, { 
-                multiplier: MULTS.SPECTRAL_STRIKE_DAMAGE, 
-                ignoreArmor: true, 
-                statuses,
-                cannotBeCountered: true, 
-                cannotBeEvaded: true,
-                noPassiveStatuses: true,
-                noResistSpeedPenalty: true
-            })
-            break
-        }
-        case 2: {
-            // Meditate - Boost own speed, magic, physical by 30%
+            const turnEffects = status.turnEffects
 
-            // Check if gotchi already has power_up_2 status
-            if (attackingGotchi.statuses.includes('power_up_2')) {
-                specialNotDone = true
-                break
-            }
+            turnEffects.forEach((turnEffect) => {
+                switch (turnEffect.type) {
+                    case 'heal': {
+                        let amountToHeal = turnEffect.value
 
-            if (!addStatusToGotchi(attackingGotchi, 'power_up_2')) {
-                specialNotDone = true
-                break
-            }
-
-            effects = [
-                {
-                    target: attackingGotchi.id,
-                    outcome: 'success',
-                    statuses: ['power_up_2']
-                }
-            ]
-            break
-        }
-        case 3: {
-            // Cleave - attack all enemies in a row (that have the most gotchis) for 75% damage
-            // Find row with most gotchis
-            const cleaveRow = getAlive(defendingTeam, 'front').length > getAlive(defendingTeam, 'back').length ? 'front' : 'back'
-
-            // Attack all gotchis in that row for 75% damage
-            effects = attack(attackingGotchi, attackingTeam, defendingTeam, getAlive(defendingTeam, cleaveRow), rng, { 
-                multiplier: MULTS.CLEAVE_DAMAGE, 
-                cannotBeCountered: true, 
-                noPassiveStatuses: true
-            })
-            break
-        }
-        case 4: {
-            // Taunt - add taunt status to self
-
-            // Check if gotchi already has taunt status
-            if (attackingGotchi.statuses.includes('taunt')) {
-                specialNotDone = true
-                break
-            }
-
-            if (!addStatusToGotchi(attackingGotchi, 'taunt')) {
-                specialNotDone = true
-                break
-            }
-
-            effects = [
-                {
-                    target: attackingGotchi.id,
-                    outcome: 'success',
-                    statuses: ['taunt']
-                }
-            ]
-            break
-        }
-        case 5: {
-            // Curse - attack random enemy for 50% damage, apply fear status and remove all buffs
-
-            const curseTarget = getTarget(defendingTeam, rng)
-
-            const curseTargetStatuses = ['fear']
-            let curseMultiplier = MULTS.CURSE_DAMAGE
-
-            // Check if leader passive is 'spread_the_fear' then apply fear status
-            if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
-                curseTargetStatuses.push('fear')
-                curseMultiplier = MULTS.SPREAD_THE_FEAR_CURSE_DAMAGE
-            }
-
-            effects = attack(attackingGotchi, attackingTeam, defendingTeam, [curseTarget], rng, { 
-                multiplier: curseMultiplier, 
-                statuses: curseTargetStatuses, 
-                cannotBeCountered: true,
-                noPassiveStatuses: true,
-                speedPenalty: MULTS.CURSE_SPEED_PENALTY,
-                noResistSpeedPenalty: true
-            })
-
-            const removeRandomBuff = (target) => {
-                const modifiedTarget = getModifiedStats(target)
-
-                if (rng() > modifiedTarget.resist / 100) {
-                    const buffsToRemove = target.statuses.filter((status) => BUFFS.includes(status))
-
-                    if (buffsToRemove.length) {
-                        const randomBuff = buffsToRemove[Math.floor(rng() * buffsToRemove.length)]
-                        statusesExpired.push({
-                            target: target.id,
-                            status: randomBuff
-                        })
-                    
-                        // Remove first instance of randomBuff (there may be multiple)
-                        const index = target.statuses.indexOf(randomBuff)
-                        target.statuses.splice(index, 1)
-                    }
-                }
-            }
-
-            if (effects[0] && (effects[0].outcome === 'success' || effects[0].outcome === 'critical')) {
-                // 1 chance to remove a random buff
-                removeRandomBuff(curseTarget)
-
-                // Add another chance if crit
-                if (effects[0].outcome === 'critical') {
-                    removeRandomBuff(curseTarget)
-                }
-
-                // Add another chance if 'spread_the_fear' status
-                if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
-                    removeRandomBuff(curseTarget)
-                }
-
-                // heal attacking gotchi for % of damage dealt
-                let amountToHeal = Math.round(effects[0].damage * MULTS.CURSE_HEAL)
-
-                // Don't allow amountToHeal to be more than the difference between current health and max health
-                if (amountToHeal > attackingGotchi.fullHealth - attackingGotchi.health) {
-                    amountToHeal = attackingGotchi.fullHealth - attackingGotchi.health
-                }
-
-                if (amountToHeal) {
-                    attackingGotchi.health += amountToHeal
-
-                    effects.push({
-                        target: attackingGotchi.id,
-                        outcome: effects[0].outcome,
-                        damage: -Math.abs(amountToHeal)
-                    })
-                }
-            }
-
-            break
-        }
-        case 6: {
-            // Blessing - Heal all non-healer allies and remove all debuffs
-
-            // Get all alive non-healer allies on the attacking team
-            // const gotchisToHeal = getAlive(attackingTeam).filter(x => x.special.id !== 6)
-            const gotchisToHeal = getAlive(attackingTeam)
-
-            // Heal all allies for multiple of healers resistance
-            gotchisToHeal.forEach((gotchi) => {
-                let amountToHeal
-                
-                // If gotchi has 'cleansing_aura' status, increase heal amount
-                if (attackingGotchi.statuses.includes('cleansing_aura')) {
-                    amountToHeal = Math.round(modifiedAttackingGotchi.resist * MULTS.CLEANSING_AURA_HEAL)
-                } else {
-                    amountToHeal = Math.round(modifiedAttackingGotchi.resist * MULTS.BLESSING_HEAL)
-                }
-
-                // Check for crit
-                const isCrit = rng() < modifiedAttackingGotchi.crit / 100
-                if (isCrit) {
-                    amountToHeal = Math.round(amountToHeal * MULTS.BLESSING_HEAL_CRIT_MULTIPLIER)
-                }
-
-                // Apply speed penalty
-                let speedPenalty
-                if (attackingGotchi.statuses.includes('cleansing_aura')) {
-                    speedPenalty = Math.round((modifiedAttackingGotchi.speed - 100) * MULTS.CLEANSING_AURA_HEAL_SPEED_PENALTY)
-                } else {
-                    speedPenalty = Math.round((modifiedAttackingGotchi.speed - 100) * MULTS.BLESSING_HEAL_SPEED_PENALTY)
-                }
-                if (speedPenalty > 0) amountToHeal -= speedPenalty
-
-                // Don't allow amountToHeal to be more than the difference between current health and max health
-                if (amountToHeal > gotchi.fullHealth - gotchi.health) {
-                    amountToHeal = gotchi.fullHealth - gotchi.health
-                }
-
-                gotchi.health += amountToHeal
-                attackingGotchi.stats.healGiven += amountToHeal
-                gotchi.stats.healReceived += amountToHeal
-
-                if (amountToHeal) {
-                    effects.push({
-                        target: gotchi.id,
-                        outcome: isCrit ? 'critical' : 'success',
-                        damage: -Math.abs(amountToHeal)
-                    })
-                }
-
-                // if gotchi has 'cleansing_aura' status, remove all debuffs
-                if (attackingGotchi.statuses.includes('cleansing_aura')) {
-                    // Remove all debuffs
-                    gotchi.statuses = gotchi.statuses.filter((status) => !DEBUFFS.includes(status))
-
-                    // Add removed debuffs to statusesExpired
-                    gotchi.statuses.forEach((status) => {
-                        if (DEBUFFS.includes(status)) {
-                            statusesExpired.push({
-                                target: gotchi.id,
-                                status
-                            })
+                        if (turnEffect.valueType === 'percent') {
+                            amountToHeal = Math.round(gotchi.fullHealth * (amountToHeal / 100))
                         }
-                    })
-                } else {
-                    // Remove 1 random debuff
-                    const debuffs = gotchi.statuses.filter((status) => DEBUFFS.includes(status))
 
-                    if (debuffs.length) {
-                        const randomDebuff = debuffs[Math.floor(rng() * debuffs.length)]
-                        statusesExpired.push({
+                        // Don't allow amountToHeal to be more than the difference between current health and max health
+                        if (amountToHeal > gotchi.fullHealth - gotchi.health) {
+                            amountToHeal = gotchi.fullHealth - gotchi.health
+                        }
+
+                        if (amountToHeal > 0) {
+                            // Add status effect
+                            statusEffects.push({
+                                target: gotchi.id,
+                                status: status.code,
+                                damage: -amountToHeal,
+                                remove: false
+                            })
+
+                            gotchi.health += amountToHeal
+                        }
+
+                        break
+                    }
+                    case 'damage': {
+                        const damage = turnEffect.value
+
+                        gotchi.health -= damage
+                        if (gotchi.health <= 0) gotchi.health = 0
+
+                        // Add status effect
+                        statusEffects.push({
                             target: gotchi.id,
-                            status: randomDebuff
+                            status: status.code,
+                            damage: damage,
+                            remove: false
                         })
 
-                        // Remove first instance of randomDebuff (there may be multiple)
-                        const index = gotchi.statuses.indexOf(randomDebuff)
-                        gotchi.statuses.splice(index, 1)
+                        gotchi.stats.dmgReceived += damage
+
+                        break
+                    }
+                    case 'skip_turn': {
+                        // Do nothing here and handle after damage/heal
+                        break
+                    }
+                    default: {
+                        throw new Error(`Invalid turn status effect type: ${turnEffect.type}`)
                     }
                 }
-                
             })
+        })
+    })
 
-            // If no allies have been healed and no debuffs removed, then special attack not done
-            if (!effects.length && !statusesExpired.length) {
-                specialNotDone = true
+    // Check if gotchi is dead
+    if (attackingGotchi.health <= 0) {
+        return {
+            statusEffects,
+            skipTurn: 'attacker_dead'
+        }
+    }
+
+    // Check if a whole team is dead
+    if (getAlive(attackingTeam).length === 0 || getAlive(defendingTeam).length === 0) {
+        return {
+            statusEffects,
+            skipTurn: 'team_dead'
+        }
+    }
+
+    // Check for turn skipping statuses
+    for (let i = 0; i < attackingGotchi.statuses.length; i++) {
+        const status = getStatusByCode(attackingGotchi.statuses[i])
+
+        if (status.turnEffects) {
+            // Get first instance of a turn effect that is a skip_turn
+            const skipTurnEffect = status.turnEffects.find(turnEffect => turnEffect.type === 'skip_turn')
+            if (skipTurnEffect) {
+                statusEffects.push({
+                    target: attackingGotchi.id,
+                    status: status.code,
+                    damage: 0,
+                    remove: true
+                })
+
+                skipTurn = status.code
+
+                // Remove status
+                attackingGotchi.statuses.splice(i, 1)
+
                 break
             }
-
-            break
-        }
-        case 7: {
-            // Thunder - Attack all enemies for 50% damage and apply stun status
-
-            const thunderTargets = getAlive(defendingTeam)
-
-            let stunStatuses = []
-            // Check if leader passive is 'channel_the_coven' then apply stun status
-            if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
-                if (rng() < MULTS.CHANNEL_THE_COVEN_STUN_CHANCE) stunStatuses.push('stun')
-            } else {
-                if (rng() < MULTS.THUNDER_STUN_CHANCE) stunStatuses.push('stun')
-            }
-
-            effects = attack(attackingGotchi, attackingTeam, defendingTeam, thunderTargets, rng, { 
-                multiplier: MULTS.THUNDER_DAMAGE, 
-                statuses: stunStatuses,
-                cannotBeCountered: true, 
-                noPassiveStatuses: true
-            })
-
-            break
-        }
-        case 8: {
-            // Devestating Smash - Attack random enemy for 200% damage
-
-            const smashTarget = getTarget(defendingTeam, rng)
-
-            effects = attack(attackingGotchi, attackingTeam, defendingTeam, [smashTarget], rng, {  
-                multiplier: MULTS.DEVESTATING_SMASH_DAMAGE, 
-                cannotBeCountered: true,
-                noPassiveStatuses: true
-            })
-
-            let anotherAttack = false
-            if (attackingGotchi.statuses.includes(PASSIVES[specialId - 1])) {
-                if (rng() < MULTS.CLAN_MOMENTUM_CHANCE) anotherAttack = true
-            } else {
-                if (rng() < MULTS.DEVESTATING_SMASH_X2_CHANCE) anotherAttack = true
-            }
-
-            if (anotherAttack) {
-                // Check if any enemies are alive
-                const aliveEnemies = getAlive(defendingTeam)
-
-                if (aliveEnemies.length) {
-                    // Do an extra devestating smash
-                    const target = getTarget(defendingTeam, rng)
-
-                    effects.push(...attack(attackingGotchi, attackingTeam, defendingTeam, [target], rng, { 
-                        multiplier: MULTS.DEVESTATING_SMASH_X2_DAMAGE, 
-                        cannotBeCountered: true,
-                        noPassiveStatuses: true
-                    }))
-                }
-            }
-
-            break
         }
     }
 
     return {
-        effects,
-        statusesExpired,
-        specialNotDone
+        statusEffects,
+        skipTurn
+    }
+}
+
+/**
+ * Attack one or more gotchis. This mutates the defending gotchis health
+ * @param {Object} attackingGotchi The attacking gotchi object
+ * @param {Array} attackingTeam A team object for the attacking team
+ * @param {Array} defendingTeam A team object for the defending team
+ * @param {Function} rng The random number generator
+ * @param {Boolean} isSpecial A boolean to determine if the attack is a special attack
+ * @returns {Object} results The results of the attack
+ * @returns {Array} results.effects An array of effects to apply
+ * @returns {Array} results.statusesExpired An array of statuses that expired
+ */
+const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = false) => {
+    const action = isSpecial ? attackingGotchi.specialExpanded.actionType : 'attack'
+
+    const targetCode = isSpecial ? attackingGotchi.specialExpanded.target : 'enemy_random'
+    const targets = getTargetsFromCode(targetCode, attackingGotchi, attackingTeam, defendingTeam, rng)
+
+    let actionMultipler = isSpecial ? attackingGotchi.specialExpanded.actionMultiplier : 1
+
+    const actionEffects = []
+    const additionalEffects = []
+    const statusesExpired = []
+    
+    targets.forEach((target) => {
+        // The effect for the main action of the attack
+        let targetActionEffect
+
+        // For an additional effects that come for the special attack e.g. heals
+        const targetAdditionalEffects = []
+
+        // Handle action first
+        if (action === 'attack') {
+            const isCrit = rng() < attackingGotchi.criticalRate / 100
+            if (isCrit) {
+                actionMultipler *= (attackingGotchi.criticalDamage / 100) + 1
+            }
+            
+            const damage = getDamage(attackingGotchi, target, actionMultipler)
+
+            targetActionEffect = {
+                target: target.id,
+                statuses: [],
+                damage,
+                outcome: isCrit ? 'critical' : 'success'
+            }
+
+            // Handle damage
+            target.health -= damage
+
+            // Handle stats
+            if (isCrit) attackingGotchi.stats.crits++
+            attackingGotchi.stats.hits++
+            attackingGotchi.stats.dmgGiven += damage
+            target.stats.dmgReceived += damage
+
+        } else if (action === 'heal') {
+            const amountToHeal = getHealFromMultiplier(attackingGotchi, actionMultipler)
+
+            targetActionEffect = {
+                target: target.id,
+                statuses: [],
+                damage: -amountToHeal,
+                outcome: 'success'
+            }
+
+            // Handle healing
+            target.health += amountToHeal
+
+            // Handle stats
+            attackingGotchi.stats.healGiven += amountToHeal
+            target.stats.healReceived += amountToHeal
+
+        } else if (action === 'none') {
+            // Do nothing
+        } else {
+            // Check we actually have a valid action
+            throw new Error(`Invalid action: ${action}`)
+        }
+
+        // If it's a special attack then handle the special effects with target 'same_as_attack'
+        if (isSpecial) {
+            attackingGotchi.specialExpanded.effects.forEach((specialEffect) => {
+                // Only handle special effects here that have a target code of 'same_as_attack'
+                // Handle the rest after the action is done
+                // This is to ensure that these effects are not applied multiple times
+                // e.g. if the target is 'all_enemies' then we don't want to apply that here for every target
+
+                if (specialEffect.target === 'same_as_attack') {
+                    // Handle the effect
+                    const specialEffectResults = handleSpecialEffects(attackingGotchi, target, specialEffect, rng)
+
+                    if (specialEffectResults) {
+                        if (specialEffectResults.actionEffect) {
+                            if (targetActionEffect) {
+                                // If target is same as the actionEffect then just add statuses to the actionEffect
+                                if (targetActionEffect.target && targetActionEffect.target === specialEffectResults.actionEffect.target) {
+                                    targetActionEffect.statuses.push(...specialEffectResults.actionEffect.statuses)
+                                } else {
+                                    // If not then add to additionalEffects
+                                    targetAdditionalEffects.push(specialEffectResults.actionEffect)
+                                }
+                            } else {
+                                targetActionEffect = specialEffectResults.actionEffect
+                            }
+                        }
+
+                        if (specialEffectResults.additionalEffects) {   
+                            targetAdditionalEffects.push(...specialEffectResults.additionalEffects)
+                        }
+
+                        if (specialEffectResults.statusesExpired) {
+                            statusesExpired.push(...specialEffectResults.statusesExpired)
+                        }
+                    }
+                }
+            })
+        } else {
+            // If it's an auto attack then handle all the statuses that have attackEffects
+            const attackEffects = attackingGotchi.statuses.filter(status => {
+                const statusEffect = getStatusByCode(status)
+                return statusEffect.attackEffects
+            })
+
+            attackEffects.forEach((attackEffect) => {
+                if (attackEffect.effectChance && attackEffect.effectChance < 1 && rng() > attackEffect.effectChance) {
+                    return
+                }
+
+                // 'apply_status', 'gain_status', 'remove_buff', 'cleanse_target', 'cleanse_self'
+                switch (attackEffect.type) {
+                    case 'apply_status': {
+                        addStatusToGotchi(target, attackEffect.status)
+                        targetActionEffect.statuses.push(attackEffect.status)
+                        break
+                    }
+                    case 'gain_status': {
+                        addStatusToGotchi(attackingGotchi, attackEffect.status)
+                        targetAdditionalEffects.push({
+                            target: attackingGotchi.id,
+                            status: attackEffect.status,
+                            outcome: 'success'
+                        })
+                        break
+                    }
+                    case 'remove_buff': {
+                        const buffs = target.statuses.filter(status => STATUSES[status].isBuff)
+
+                        if (buffs.length) {
+                            const randomBuff = buffs[Math.floor(rng() * buffs.length)]
+                            statusesExpired.push({
+                                target: target.id,
+                                status: randomBuff
+                            })
+
+                            // Remove first instance of randomBuff (there may be multiple)
+                            const index = target.statuses.indexOf(randomBuff)
+                            target.statuses.splice(index, 1)
+                        }
+                        break
+                    }
+                    case 'cleanse_target': {
+                        const debuffs = target.statuses.filter(status => STATUSES[status].isDebuff)
+
+                        if (debuffs.length) {
+                            const randomDebuff = debuffs[Math.floor(rng() * debuffs.length)]
+                            statusesExpired.push({
+                                target: target.id,
+                                status: randomDebuff
+                            })
+
+                            // Remove first instance of randomDebuff (there may be multiple)
+                            const index = target.statuses.indexOf(randomDebuff)
+                            target.statuses.splice(index, 1)
+                        }
+                        break
+                    }
+                    case 'cleanse_self': {
+                        const debuffs = attackingGotchi.statuses.filter(status => STATUSES[status].isDebuff)
+
+                        if (debuffs.length) {
+                            const randomDebuff = debuffs[Math.floor(rng() * debuffs.length)]
+                            statusesExpired.push({
+                                target: attackingGotchi.id,
+                                status: randomDebuff
+                            })
+
+                            // Remove first instance of randomDebuff (there may be multiple)
+                            const index = attackingGotchi.statuses.indexOf(randomDebuff)
+                            attackingGotchi.statuses.splice(index, 1)
+                        }
+                        break
+                    }
+                }
+            })
+
+            // Check for counter attack
+            if (target.statuses.includes('taunt') && target.health > 0) {
+                const counterDamageMultiplier = 0.5
+                const counterDamage = getDamage(target, attackingGotchi, counterDamageMultiplier)
+
+                attackingGotchi.health -= counterDamage
+
+                targetAdditionalEffects.push({
+                    target: attackingGotchi.id,
+                    source: target.id,
+                    damage: counterDamage,
+                    outcome: 'counter'
+                })
+
+                // Add to stats
+                target.stats.counters++
+            }
+        }
+
+        console.log('targetActionEffect', targetActionEffect)
+        console.log('targetAdditionalEffects', targetAdditionalEffects)
+
+        // If the actionType is 'none' then there may not be an actionEffect
+        if (targetActionEffect) {
+            actionEffects.push(targetActionEffect)
+        }
+
+        // Add additional effects to the effects array
+        additionalEffects.push(...targetAdditionalEffects)
+    })
+
+    // Handle specialEffects that are not 'same_as_attack'
+    if (isSpecial) {
+        attackingGotchi.specialExpanded.effects.forEach((specialEffect) => {
+            if (specialEffect.target !== 'same_as_attack') {
+                const targets = getTargetsFromCode(specialEffect.target, attackingGotchi, attackingTeam, defendingTeam, rng)
+
+                targets.forEach((target) => {   
+                    const specialEffectResults = handleSpecialEffects(attackingGotchi, target, specialEffect, rng)
+
+                    if (specialEffectResults) {
+                        if (specialEffectResults.actionEffect) {
+                            additionalEffects.push(specialEffectResults.actionEffect)
+                        }
+
+                        if (specialEffectResults.additionalEffects) {
+                            additionalEffects.push(...specialEffectResults.additionalEffects)
+                        }
+
+                        if (specialEffectResults.statusesExpired) {
+                            statusesExpired.push(...specialEffectResults.statusesExpired)
+                        }
+                    }
+                })
+            }
+        })
+    }
+
+    return {
+        actionEffects,
+        additionalEffects,
+        statusesExpired
+    }
+}
+
+const handleSpecialEffects = (attackingGotchi, target, specialEffect, rng) => {
+    if (specialEffect.chance && specialEffect.chance < 1 && rng() > specialEffect.chance) {
+        return false
+    }
+
+    const actionEffect = {
+        target: target.id,
+        statuses: [],
+        outcome: 'success'
+    }
+    const additionalEffects = []
+    const statusesExpired = []
+
+    switch (specialEffect.effectType) {
+        case 'status': {
+            // TODO: Focus/resistance check
+            addStatusToGotchi(target, specialEffect.status)
+            // Add to effect
+            actionEffect.statuses.push(specialEffect.status)
+            break
+        }
+        case 'heal': {
+            // TODO: Focus/resistance check
+            const amountToHeal = getHealFromMultiplier(target, specialEffect.actionMultiplier)
+            target.health += amountToHeal
+
+            // Add another effect for the healing
+            additionalEffects.push({
+                target: target.id,
+                source: attackingGotchi.id,
+                damage: -amountToHeal,
+                outcome: 'success'
+            })
+
+            // Handle stats
+            attackingGotchi.stats.healGiven += amountToHeal
+            target.stats.healReceived += amountToHeal
+            break
+        }
+        case 'remove_buff': {
+            const buffs = target.statuses.filter(statusCode => {
+                const status = getStatusByCode(statusCode)
+                return status.isBuff
+            })
+
+            if (buffs.length) {
+                const randomBuff = buffs[Math.floor(rng() * buffs.length)]
+                statusesExpired.push({
+                    target: target.id,
+                    status: randomBuff
+                })
+
+                // Remove first instance of randomBuff (there may be multiple)
+                const index = target.statuses.indexOf(randomBuff)
+                target.statuses.splice(index, 1)
+            }
+            break
+        }
+        case 'remove_debuff': {
+            const debuffs = target.statuses.filter(statusCode => {
+                const status = getStatusByCode(statusCode)
+                return !status.isBuff
+            })
+
+            if (debuffs.length) {
+                const randomDebuff = debuffs[Math.floor(rng() * debuffs.length)]
+                statusesExpired.push({
+                    target: target.id,
+                    status: randomDebuff
+                })
+
+                // Remove first instance of randomDebuff (there may be multiple)
+                const index = target.statuses.indexOf(randomDebuff)
+                target.statuses.splice(index, 1)
+            }
+            break
+        }
+        case 'remove_all_buffs': {
+            const buffsToRemove = target.statuses.filter(statusCode => {
+                const status = getStatusByCode(statusCode)
+                return status.isBuff
+            })
+
+            buffsToRemove.forEach((buff) => {
+                statusesExpired.push({
+                    target: target.id,
+                    status: buff
+                })
+            })
+
+            if (buffsToRemove.length) {
+                // Filter statuses so only debuffs remain
+                target.statuses = target.statuses.filter(statusCode => {
+                    const status = getStatusByCode(statusCode)
+                    return !status.isBuff
+                })
+            }
+
+            break
+        }
+        case 'remove_all_debuffs': {
+            const debuffsToRemove = target.statuses.filter(statusCode => {
+                const status = getStatusByCode(statusCode)
+                return !status.isBuff
+            })
+
+            debuffsToRemove.forEach((debuff) => {
+                statusesExpired.push({
+                    target: target.id,
+                    status: debuff
+                })
+            })
+
+            if (debuffsToRemove.length) {
+                // Filter statuses so only buffs remain
+                target.statuses = target.statuses.filter(statusCode => {
+                    const status = getStatusByCode(statusCode)
+                    return status.isBuff
+                })
+            }
+
+            break
+        }
+        case 'repeat_attack': {
+            // TODO
+            // Need to think of a way to show in the effects array which effects are from the repeat attack
+            // We could either add a flag to the effect object or add a flag to the return object which...
+            // would not increase the actionDelay so the whole turn is essentially repeated
+            console.log('----Repeat attack not implemented yet----')
+            break
+        }
+        default:
+            throw new Error(`Invalid special effect type: ${specialEffect.effectType}`)
+    }
+
+    return {
+        actionEffect,
+        additionalEffects,
+        statusesExpired
     }
 }
 
 module.exports = {
     gameLoop,
-    attack,
-    specialAttack
+    attack
 }

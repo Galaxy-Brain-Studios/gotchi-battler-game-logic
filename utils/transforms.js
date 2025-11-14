@@ -49,16 +49,10 @@ const webappTeamToInGameTeam = (webappTeam) => {
             front: [webappTeam.front1Gotchi, webappTeam.front2Gotchi, webappTeam.front3Gotchi, webappTeam.front4Gotchi, webappTeam.front5Gotchi],
             back: [webappTeam.back1Gotchi, webappTeam.back2Gotchi, webappTeam.back3Gotchi, webappTeam.back4Gotchi, webappTeam.back5Gotchi],
         },
-        leader: webappTeam.leader,
+        leader: webappTeam[webappTeam.leader],
         name: webappTeam.name,
         owner: webappTeam.owner
     }
-
-    inGameTeam.formation.front.forEach(gotchi => {
-        if (!gotchi) return
-        // remove availableSpecials
-        delete gotchi.availableSpecials
-    })
 
     return inGameTeam
 }

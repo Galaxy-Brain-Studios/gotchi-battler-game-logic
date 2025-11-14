@@ -1,0 +1,63 @@
+---
+description: This rule documents the main directory structure of the project and highlights the purpose of important files and folders. Use this as a reference for navigation and for understanding where to place or find code and resources.
+globs: **/*
+alwaysApply: true
+---
+# Project Directory Structure
+
+This rule documents the main directory structure of the project and highlights the purpose of important files and folders. Use this as a reference for navigation and for understanding where to place or find code and resources.
+
+## Root Level
+
+- `README.md`: Project overview and documentation.
+- `package.json`, `package-lock.json`: Node.js dependencies and scripts.
+- `Dockerfile`, `cloudbuild.yaml`: Deployment and CI/CD configuration.
+- `eslint.config.js`: Linting configuration.
+- `index.js`: Entry point or root logic.
+- `.gitignore`, `.DS_Store`: Git and system files.
+
+## Main Folders
+
+- `game-logic/`: Core game logic, organized by version (e.g., `v1.4`, `v1.5`, ..., `v2.0`). Each version contains:
+  - `index.js`: Main logic for that version.
+  - `constants.js`: Constants for that version.
+  - `helpers.js`: Helper functions (in later versions).
+- `scripts/`: Utility scripts for running, validating, and simulating battles, as well as data and balancing tools.
+  - `balancing/`: Scripts and data for balancing, with subfolders for different balancing versions (e.g., `v1.7`, `v1.7.1`, ...).
+  - `data/`: JSON data for dungeons, teams, tournaments, etc.
+  - `output/`: Output files from scripts.
+  - Various JS scripts for running and validating battles and tournaments.
+- `utils/`: Shared utility modules (e.g., `errors.js`, `transforms.js`, `mapGotchi.js`, `contracts.js`, `validations.js`).
+- `schemas/`: JSON schemas (e.g., `team.json`).
+- `constants/`: Shared constants (e.g., `tournamentManagerAbi.json`).
+- `.cursor/`: Cursor rules and configuration.
+  - `rules/`: All cursor rules (e.g., `cursor-rules.mdc`, `directory-structure.mdc`).
+
+## Notes
+- All source and configuration files should be placed in their appropriate folders as outlined above.
+- Cursor rules must always be placed in `.cursor/rules/` following the naming and structure guidelines in `cursor-rules.mdc`.
+
+## Example Structure
+
+```plaintext
+PROJECT_ROOT/
+├── game-logic/
+│   ├── v1.4/
+│   ├── v1.5/
+│   ├── ...
+│   └── v2.0/
+├── scripts/
+│   ├── balancing/
+│   │   ├── v1.7/
+│   │   ├── v1.7.1/
+│   │   └── ...
+│   ├── data/
+│   └── ...
+├── utils/
+├── schemas/
+├── constants/
+├── .cursor/
+│   └── rules/
+├── ... (root files)
+```
+

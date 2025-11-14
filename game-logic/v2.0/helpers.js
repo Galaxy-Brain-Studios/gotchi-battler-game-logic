@@ -1,11 +1,4 @@
-const {
-    PASSIVES,
-    BUFF_MULT_EFFECTS, 
-    BUFF_FLAT_EFFECTS, 
-    DEBUFF_MULT_EFFECTS, 
-    DEBUFF_FLAT_EFFECTS,
-    MULTS
-} = require('./constants')
+const STATUSES = require('./statuses.json')
 
 const getTeamGotchis = (team) => {
     return [...team.formation.front, ...team.formation.back].filter(x => x)
@@ -75,9 +68,6 @@ const getFormationPosition = (team1, team2, gotchiId) => {
  * Get the leader gotchi of a team
  * @param {Object} team An in-game team object
  * @returns {Object} gotchi The leader gotchi
- * @returns {Number} leader.id The id of the gotchi
- * @returns {String} leader.special The special object of the gotchi
- * @returns {String} leader.special.class The class of the special
  **/
 const getLeaderGotchi = (team) => {
     const leader = [...team.formation.front, ...team.formation.back].find(x => x && x.id === team.leader)
@@ -149,54 +139,119 @@ const getTarget = (defendingTeam, rng) => {
     throw new Error('No gotchis to target')
 }
 
-const applySpeedPenalty = (gotchi, penalty) => {
-    const speedPenalty = (gotchi.speed - 100) * penalty
+/**
+ * Get a target from a target code
+ * @param {String} targetCode The target code
+ * @param {Object} attackingGotchi The attacking gotchi
+ * @param {Array} attackingTeam The attacking team
+ * @param {Array} defendingTeam The defending team
+ * @param {Function} rng The random number generator
+ * @returns {Array} targets An array of targets
+ **/
+const getTargetsFromCode = (targetCode, attackingGotchi, attackingTeam, defendingTeam, rng) => {
+    /**
+    *   [
+            { "code": "self",               "description": "The casting Gotchi itself" },
+            { "code": "enemy_random",       "description": "Random enemy" },
+            { "code": "enemy_back_row",     "description": "Random enemy in the back row" },
+            { "code": "enemy_front_row",    "description": "Random enemy in the front row" },
+            { "code": "enemy_row_largest",  "description": "Random enemy in the row with most enemies" },
+            { "code": "all_enemies",        "description": "All enemies" },
 
-    return {
-        ...gotchi,
-        magic: gotchi.magic - speedPenalty,
-        physical: gotchi.physical - speedPenalty
+            { "code": "ally_random",        "description": "Random ally" },
+            { "code": "ally_back_row",      "description": "Random ally in the back row" },
+            { "code": "ally_front_row",     "description": "Random ally in the front row" },
+            { "code": "ally_row_largest",   "description": "Random ally in the row with most allies" },
+            { "code": "all_allies",         "description": "All allies" },
+
+            { "code": "same_as_attack",     "description": "Targets exactly the same units as the special attack did" },
+            { "code": "all",                "description": "All Gotchis on the battlefield (allies and enemies)" }
+        ]
+    */
+
+    let targets = []    
+
+    switch (targetCode) {
+        case 'self':
+            targets.push(attackingGotchi)
+            break
+        case 'enemy_random':
+            targets.push(getTarget(defendingTeam, rng))
+            break
+        case 'enemy_back_row':
+            if (getAlive(defendingTeam, 'back').length) {
+                targets.push(getAlive(defendingTeam, 'back')[Math.floor(rng() * getAlive(defendingTeam, 'back').length)])
+            } else {
+                targets.push(getTarget(defendingTeam, rng))
+            }
+            break
+        case 'enemy_front_row':
+            if (getAlive(defendingTeam, 'front').length) {
+                targets.push(getAlive(defendingTeam, 'front')[Math.floor(rng() * getAlive(defendingTeam, 'front').length)])
+            } else {
+                targets.push(getTarget(defendingTeam, rng))
+            }
+            break
+        case 'enemy_row_largest': {
+            const row = getAlive(defendingTeam, 'front').length > getAlive(defendingTeam, 'back').length ? 'front' : 'back'
+            targets = getAlive(defendingTeam, row)
+            break
+        }
+        case 'all_enemies':
+            targets = getAlive(defendingTeam)
+            break
+        case 'ally_random':
+            targets.push(getTarget(attackingTeam, rng))
+            break
+        case 'ally_back_row':
+            if (getAlive(attackingTeam, 'back').length) {
+                targets.push(getAlive(attackingTeam, 'back')[Math.floor(rng() * getAlive(attackingTeam, 'back').length)])
+            } else {
+                targets.push(getTarget(attackingTeam, rng))
+            }
+            break
+        case 'ally_front_row':
+            if (getAlive(attackingTeam, 'front').length) {
+                targets.push(getAlive(attackingTeam, 'front')[Math.floor(rng() * getAlive(attackingTeam, 'front').length)])
+            } else {
+                targets.push(getTarget(attackingTeam, rng))
+            }
+            break
+        case 'ally_row_largest': {
+            const row = getAlive(attackingTeam, 'front').length > getAlive(attackingTeam, 'back').length ? 'front' : 'back'
+            targets = getAlive(attackingTeam, row)
+            break
+        }
+        case 'all_allies':
+            targets = getAlive(attackingTeam)
+            break
+        case 'same_as_attack':
+            throw new Error('same_as_attack is not implemented in getTargetsFromCode')
+        case 'all':
+            targets = [...getAlive(attackingTeam), ...getAlive(defendingTeam)]
+            break
+        default:
+            throw new Error(`Invalid target code: ${targetCode}`)
     }
+
+    return targets
 }
 
 /**
  * Get the damage of an attack
- * @param {Object} attackingTeam The attacking team
- * @param {Object} defendingTeam The defending team
  * @param {Object} attackingGotchi The gotchi attacking
  * @param {Object} defendingGotchi The gotchi defending
  * @param {Number} multiplier The damage multiplier
- * @param {Boolean} ignoreArmor Whether to ignore armor
- * @param {Number} speedPenalty The speed penalty to apply
  * @returns {Number} damage The damage of the attack
  **/
-const getDamage = (attackingTeam, defendingTeam, attackingGotchi, defendingGotchi, multiplier, ignoreArmor, speedPenalty) => {
-    
-    const attackerWithSpeedPenalty = speedPenalty ? applySpeedPenalty(attackingGotchi, speedPenalty) : attackingGotchi
+const getDamage = (attackingGotchi, defendingGotchi, multiplier) => {
 
     // Apply any status effects
-    const modifiedAttackingGotchi = getModifiedStats(attackerWithSpeedPenalty)
+    const modifiedAttackingGotchi = getModifiedStats(attackingGotchi)
     const modifiedDefendingGotchi = getModifiedStats(defendingGotchi)
 
-    let attackValue = modifiedAttackingGotchi.attack === 'magic' ? modifiedAttackingGotchi.magic : modifiedAttackingGotchi.physical
-
-    // If attacking gotchi is in the front row then apply front row attack bonus
-    if (getFormationPosition(attackingTeam, defendingTeam, attackingGotchi.id).row === 'front') {
-        attackValue = Math.round(attackValue * MULTS.FRONT_ROW_ATK_BONUS)
-    }
-
-    let defenseValue = modifiedAttackingGotchi.attack === 'magic' ? modifiedDefendingGotchi.magic : modifiedDefendingGotchi.physical
-
-    // If defending gotchi is in the front row then apply front row defence penalty
-    if (getFormationPosition(attackingTeam, defendingTeam, defendingGotchi.id).row === 'front') {
-        defenseValue = Math.round(defenseValue * MULTS.FRONT_ROW_DEF_NERF)
-    }
-
-    // Add armor to defense value
-    if (!ignoreArmor) defenseValue += modifiedDefendingGotchi.armor
-
     // Calculate damage
-    let damage = Math.round((attackValue / defenseValue) * 100)
+    let damage = Math.round((modifiedAttackingGotchi.attack / modifiedDefendingGotchi.defense) * 100)
 
     // Apply multiplier
     if (multiplier) damage = Math.round(damage * multiplier)
@@ -209,6 +264,15 @@ const getDamage = (attackingTeam, defendingTeam, attackingGotchi, defendingGotch
     return damage
 }
 
+const getHealFromMultiplier = (healingGotchi, multiplier) => {
+
+    const modifiedHealingGotchi = getModifiedStats(healingGotchi)
+
+    const amountToHeal = Math.round(modifiedHealingGotchi.resist * multiplier)
+
+    return amountToHeal
+}
+
 /**
  * Apply status effects to a gotchi
  * @param {Object} gotchi An in-game gotchi object
@@ -217,64 +281,40 @@ const getDamage = (attackingTeam, defendingTeam, attackingGotchi, defendingGotch
 const getModifiedStats = (gotchi) => {
     const statMods = {}
 
-    gotchi.statuses.forEach(status => {
+    const decimalStats = ['criticalRate', 'criticalDamage']
+
+    gotchi.statuses.forEach(statusCode => {
         const statusStatMods = {}
+        const status = getStatusByCode(statusCode)
 
-        // apply any modifier from BUFF_MULT_EFFECTS
-        if (BUFF_MULT_EFFECTS[status]) {
-            Object.keys(BUFF_MULT_EFFECTS[status]).forEach(stat => {
-                let modifier = gotchi[stat] * BUFF_MULT_EFFECTS[status][stat]
-
-                if (['speed', 'health', 'armor', 'resist', 'magic', 'physical', 'accuracy'].includes(stat)) {
-                    modifier = Math.round(modifier)
-                } else {
-                    // Round to 2 decimal places
-                    modifier = Math.round((modifier) * 100) / 100
-                }
-
-                statusStatMods[stat] = modifier
-            })
+        // Check if status is a stat modifier
+        if (status.category !== 'stat_modifier') {
+            return
         }
 
-        // apply any modifier from BUFF_FLAT_EFFECTS
-        if (BUFF_FLAT_EFFECTS[status]) {
-            Object.keys(BUFF_FLAT_EFFECTS[status]).forEach(stat => {
-                if (statusStatMods[stat]) {
-                    // If a mod for this status already exists, only add if the new mod is greater
-                    if (BUFF_FLAT_EFFECTS[status][stat] > statusStatMods[stat]) statusStatMods[stat] = BUFF_FLAT_EFFECTS[status][stat]
-                } else {
-                    statusStatMods[stat] = BUFF_FLAT_EFFECTS[status][stat]
-                }
-            })
-        }
+        status.statModifiers.forEach(statModifier => {
+            let statChange = 0
 
-        // apply any modifier from DEBUFF_MULT_EFFECTS
-        if (DEBUFF_MULT_EFFECTS[status]) {
-            Object.keys(DEBUFF_MULT_EFFECTS[status]).forEach(stat => {
-                let modifier = gotchi[stat] * DEBUFF_MULT_EFFECTS[status][stat]
+            if (statModifier.valueType === 'flat') {
+                statChange = statModifier.value
+            } else if (statModifier.valueType === 'percent') {
+                statChange = gotchi[statModifier.statName] * (statModifier.value / 100)
+            } else {
+                throw new Error(`Invalid value type for status ${statusCode}: ${statModifier.valueType}`)
+            }
 
-                if (['speed', 'health', 'armor', 'resist', 'magic', 'physical', 'accuracy'].includes(stat)) {
-                    modifier = Math.round(modifier)
-                } else {
-                    // Round to 2 decimal places
-                    modifier = Math.round((modifier) * 100) / 100
-                }
+            if (decimalStats.includes(statModifier.statName)) {
+                statChange = Math.round(statChange * 100) / 100
+            } else {
+                statChange = Math.round(statChange)
+            }
 
-                statusStatMods[stat] = -modifier
-            })
-        }
-
-        // apply any modifier from DEBUFF_FLAT_EFFECTS
-        if (DEBUFF_FLAT_EFFECTS[status]) {
-            Object.keys(DEBUFF_FLAT_EFFECTS[status]).forEach(stat => {
-                if (statusStatMods[stat]) {
-                    // If a mod for this status already exists, only add if the new mod is greater
-                    if (DEBUFF_FLAT_EFFECTS[status][stat] < statusStatMods[stat]) statusStatMods[stat] = DEBUFF_FLAT_EFFECTS[status][stat]
-                } else {
-                    statusStatMods[stat] = -DEBUFF_FLAT_EFFECTS[status][stat]
-                }
-            })
-        }
+            if (statusStatMods[statModifier.statName]) {
+                statusStatMods[statModifier.statName] = statusStatMods[statModifier.statName] + statChange
+            } else {
+                statusStatMods[statModifier.statName] = statChange
+            }
+        })
 
         // apply status mods
         Object.keys(statusStatMods).forEach(stat => {
@@ -293,11 +333,15 @@ const getModifiedStats = (gotchi) => {
         } else {
             modifiedGotchi[stat] += statMods[stat]
         }
-        
     })
 
-    // Recalculate attack type
-    modifiedGotchi.attack = modifiedGotchi.magic > modifiedGotchi.physical ? 'magic' : 'physical'
+    // Enforce practical lower bounds for certain stats regardless of whether they were modified by statuses
+    if (modifiedGotchi.defense < 1) {
+        modifiedGotchi.defense = 1
+    }
+    if (modifiedGotchi.speed < 1) {
+        modifiedGotchi.speed = 1
+    }
 
     return modifiedGotchi
 }
@@ -372,120 +416,34 @@ const getUiOrder = (team) => {
  * @param {Boolean} addStatuses Whether to add the leader statuses to the team
  **/
 const addLeaderToTeam = (team, addStatuses) => {
-    // Add passive leader abilities
-    const teamLeader = getLeaderGotchi(team)
-
-    team.leaderPassive = teamLeader.special.id
-
     if (!addStatuses) return
 
-    // Apply leader passive statuses
-    switch (team.leaderPassive) {
-        case 1:
-            // Sharpen blades - all allies gain 'sharp_blades' status
-            getAlive(team).forEach(x => {
-                x.statuses.push(PASSIVES[team.leaderPassive - 1])
-            })
-            break
-        case 2:
-            // Cloud of Zen - all allies get 'cloud_of_zen' status
-            getAlive(team).forEach(x => {
-                x.statuses.push(PASSIVES[team.leaderPassive - 1])
-            })
-            break
-        case 3:
-            // Frenzy - all allies get 'frenzy' status
-            getAlive(team).forEach(x => {
-                x.statuses.push(PASSIVES[team.leaderPassive - 1])
-            })
-            break
-        case 4:
-            // All allies get 'fortify' status
-            getAlive(team).forEach(x => {
-                x.statuses.push(PASSIVES[team.leaderPassive - 1])
-            })
+    // Add passive leader abilities
+    const teamLeader = getLeaderGotchi(team)
+    const leaderskill = teamLeader.leaderSkillExpanded
 
-            break
-        case 5:
-            // Spread the fear - all allies get 'spread_the_fear' status
-            getAlive(team).forEach(x => {
-                x.statuses.push(PASSIVES[team.leaderPassive - 1])
-            })
-            break
-        case 6:
-            // Cleansing aura - all allies get 'cleansing_aura' status
-            getAlive(team).forEach(x => {
-                x.statuses.push(PASSIVES[team.leaderPassive - 1])
-            })
-            break
-        case 7:
-            // All allies get 'channel_the_coven' status
-            getAlive(team).forEach(x => {
-                x.statuses.push(PASSIVES[team.leaderPassive - 1])
-            })
-            break
-        case 8:
-            // All allies get 'clan_momentum' status
-            getAlive(team).forEach(x => {
-                x.statuses.push(PASSIVES[team.leaderPassive - 1])
-            })
-            break
-    }
-}
+    if (!leaderskill || !leaderskill.statuses) return
 
-const removeLeaderPassivesFromTeam = (team) => {
-    let statusesRemoved = []
-    if (!team.leaderPassive) return statusesRemoved
-
-    // Remove leader passive statuses from team
-    getAlive(team).forEach(x => {
-        // add effects for each status removed
-        x.statuses.forEach(status => {
-            if (status === PASSIVES[team.leaderPassive - 1]) {
-                statusesRemoved.push({
-                    target: x.id,
-                    status: status
-                })
-            }
+    leaderskill.statuses.forEach(leaderSkillStatus => {
+        getAlive(team).forEach(x => {
+            addStatusToGotchi(x, leaderSkillStatus.status, leaderSkillStatus.stackCount)
         })
-
-        x.statuses = x.statuses.filter(x => x !== PASSIVES[team.leaderPassive - 1])
     })
-
-    team.leaderPassive = null
-
-    return statusesRemoved
-}
-
-const getExpiredStatuses = (team1, team2) => {
-    // If leader is dead, remove leader passive
-    let statusesExpired = []
-    if (team1.leaderPassive && !getAlive(team1).find(x => x.id === team1.leader)) {
-        // Remove leader passive statuses
-        statusesExpired = removeLeaderPassivesFromTeam(team1)
-    }
-    if (team2.leaderPassive && !getAlive(team2).find(x => x.id === team2.leader)) {
-        // Remove leader passive statuses
-        statusesExpired = removeLeaderPassivesFromTeam(team2)
-    }
-
-    return statusesExpired
 }
 
 /**
  * Add a status to a gotchi
  * @param {Object} gotchi An in-game gotchi object
  * @param {String} status The status to add
+ * @param {Integer} count The number of the status to add
  * @returns {Boolean} success A boolean to determine if the status was added
  **/
-const addStatusToGotchi = (gotchi, status) => {
-    
-    const numOfStatus = gotchi.statuses.filter(item => item === status).length
+const addStatusToGotchi = (gotchi, status, count) => {
+    if (!count) count = 1
 
-    // Check that gotchi doesn't already have max number of statuses
-    if (numOfStatus >= MULTS.MAX_STATUSES) return false
-
-    gotchi.statuses.push(status)
+    for (let i = 0; i < count; i++) {
+        gotchi.statuses.push(status)
+    }
 
     return true
 }
@@ -545,8 +503,8 @@ const prepareTeams = (allAliveGotchis, team1, team2) => {
         // Calculate initial action delay for all gotchis
         x.actionDelay = calculateActionDelay(x)
 
-        // Calculate attack type
-        x.attack = x.magic > x.physical ? 'magic' : 'physical'
+        // Set special cooldown
+        x.cooldown = x.specialExpanded.initialCooldown
 
         // Handle Health
         // add fullHealth property to all gotchis
@@ -562,11 +520,9 @@ const prepareTeams = (allAliveGotchis, team1, team2) => {
             healGiven: 0,
             healReceived: 0,
             crits: 0,
-            evades: 0,
             resists: 0,
             counters: 0,
-            hits: 0,
-            misses: 0
+            hits: 0
         }
     })
 
@@ -605,13 +561,8 @@ const getLogGotchis = (allAliveGotchis) => {
     const logGotchis = JSON.parse(JSON.stringify(allAliveGotchis))
 
     logGotchis.forEach(x => {
-        // Change gotchi.special.class to gotchi.special.gotchiClass to avoid conflicts with class keyword
-        x.special.gotchiClass = x.special.class
-
         // Remove unnecessary properties to reduce log size
-        delete x.special.class
         delete x.actionDelay
-        delete x.attack
         delete x.environmentEffects
     })
 
@@ -669,6 +620,16 @@ const getTeamStats = (team) => {
     }
 }
 
+const getStatusByCode = (statusCode) => {
+    const status = STATUSES.find(status => status.code === statusCode)
+
+    if (!status) {
+        throw new Error(`Status with code ${statusCode} not found`)
+    }
+
+    return status
+}
+
 module.exports = {
     getTeamGotchis,
     getAlive,
@@ -676,20 +637,21 @@ module.exports = {
     getLeaderGotchi,
     getNextToAct,
     getTarget,
+    getTargetsFromCode,
     getDamage,
+    getHealFromMultiplier,
     getModifiedStats,
     calculateActionDelay,
     getNewActionDelay,
     simplifyTeam,
     getUiOrder,
     addLeaderToTeam,
-    removeLeaderPassivesFromTeam,
-    getExpiredStatuses,
     addStatusToGotchi,
     scrambleGotchiIds,
     prepareTeams,
     getLogGotchis,
     applyStatItems,
     removeStatItems,
-    getTeamStats
+    getTeamStats,
+    getStatusByCode
 }

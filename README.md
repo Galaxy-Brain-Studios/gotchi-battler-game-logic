@@ -2,6 +2,10 @@
 
 This npm module contains the game logic for the Gotchi Battler game developed by Galaxy Brain Studios.
 
+It has been split out into an npm module for two reasons:
+1. So that it can be used in both the frontend and backend of the Gotchi Battler game. This allows heavy simulations and training to be done on the frontend (users browser), to reduce server load, and in the backend when provable randomness is needed (e.g. for tournaments)
+2. So that users can download this repository and verify the results of the game logic run in the backend to prove that the game is fair and that the results are not manipulated. See the [Validate Tournament](#validate-tournament) section for more details.
+
 ## Installation
 
 To install the module, run the following command:

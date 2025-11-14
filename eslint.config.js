@@ -19,5 +19,13 @@ module.exports = [
             'object-curly-spacing': ['error', 'always'],
             'array-bracket-spacing': ['error', 'never']
         }
+    },
+    {
+        files: ['tests/**/*.test.js'],
+        languageOptions: {
+            globals: {
+                ...globals.mocha
+            }
+        }
     }
 ] 

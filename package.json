@@ -3,7 +3,11 @@
   "version": "3.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha \"tests/**/*.test.js\"",
+    "test:watch": "mocha --watch \"tests/**/*.test.js\"",
+    "test:report": "mocha \"tests/**/*.test.js\" --reporter spec",
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint . --fix"
   },
   "author": "Galaxy Brain Studios",
   "description": "The game logic for the Gotchi Battler game",
@@ -13,15 +17,17 @@
   },
   "dependencies": {
     "seedrandom": "^3.0.5",
-    "z-schema": "^6.0.2"
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@google-cloud/storage": "^7.13.0",
     "axios": "^1.7.4",
     "axios-retry": "^4.5.0",
+    "chai": "^4.3.10",
     "dotenv": "^16.4.5",
     "eslint": "^9.30.1",
     "ethers": "^6.13.4",
-    "json-csv": "^4.0.18"
+    "json-csv": "^4.0.18",
+    "mocha": "^11.7.1"
   }
 }
