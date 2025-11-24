@@ -1,5 +1,6 @@
 const seedrandom = require('seedrandom')
 const { InGameTeamSchema } = require('../../schemas/ingameteam')
+const { GameError } = require('../../utils/errors')
 
 const STATUSES = require('./statuses.json')
 
@@ -16,7 +17,11 @@ const {
     prepareTeams,
     getLogGotchis,
     getTeamStats,
-    getStatusByCode
+    getStatusByCode,
+    getTeamSpecialBars,
+    focusCheck,
+    getCritMultiplier,
+    getModifiedStats
 } = require('./helpers')
 
 /**
@@ -78,6 +83,8 @@ const gameLoop = (team1, team2, seed, options = { debug: false, type: 'pve', cam
 
             const turnLogs = executeTurn(team1, team2, rng)
 
+            turnLogs.specialBars = getTeamSpecialBars(team1, team2)
+
             // Check if turnCounter is ready for environment effects (99,149,199, etc)
             if (isEnvironmentTurn) turnLogs.environmentEffects = ['damage_up']
 
@@ -100,11 +107,8 @@ const gameLoop = (team1, team2, seed, options = { debug: false, type: 'pve', cam
             turnCounter++
         }
     } catch (e) {
-        // console.error(e)
-        // throw new GameError('Game loop failed', logs)
-        // TODO: Change this back to error
-        console.error('----CHANGE THIS BACK TO ERROR----')
-        throw e
+        console.error(e)
+        throw new GameError('Game loop failed', logs)
     }
 
     // Add stats to logs
@@ -122,6 +126,24 @@ const gameLoop = (team1, team2, seed, options = { debug: false, type: 'pve', cam
             name: gotchi.name,
             health: gotchi.health,
             statuses: gotchi.statuses,
+            originalStats: {
+                speed: gotchi.speed,
+                attack: gotchi.attack,
+                defense: gotchi.defense,
+                criticalRate: gotchi.criticalRate,
+                criticalDamage: gotchi.criticalDamage,
+                resist: gotchi.resist,
+                focus: gotchi.focus
+            },
+            modifiedStats: {
+                speed: getModifiedStats(gotchi).speed,
+                attack: getModifiedStats(gotchi).attack,
+                defense: getModifiedStats(gotchi).defense,
+                criticalRate: getModifiedStats(gotchi).criticalRate,
+                criticalDamage: getModifiedStats(gotchi).criticalDamage,
+                resist: getModifiedStats(gotchi).resist,
+                focus: getModifiedStats(gotchi).focus
+            }
         }
     })
 
@@ -161,8 +183,9 @@ const executeTurn = (team1, team2, rng) => {
     }
 
     let actionName = 'auto'
+    let repeatAttack = false
     // Check if special attack is ready
-    if (attackingGotchi.cooldown === 0) {
+    if (attackingGotchi.cooldown === 100) {
         // Execute special attack
         actionName = attackingGotchi.specialExpanded.code
         const specialResults = attack(attackingGotchi, attackingTeam, defendingTeam, rng, true)
@@ -171,8 +194,13 @@ const executeTurn = (team1, team2, rng) => {
         additionalEffects = specialResults.additionalEffects
         statusesExpired = specialResults.statusesExpired
 
-        // Reset cooldown
-        attackingGotchi.cooldown = attackingGotchi.specialExpanded.cooldown
+        if (specialResults.repeatAttack) {
+            // Don't reset cooldown, just repeat the attack
+            repeatAttack = true
+        } else {
+            // Reset cooldown
+            attackingGotchi.cooldown = Math.round((100/6) * (6 - attackingGotchi.specialExpanded.cooldown))
+        }
     } else {
         // Do an auto attack
         const attackResults = attack(attackingGotchi, attackingTeam, defendingTeam, rng)
@@ -181,12 +209,15 @@ const executeTurn = (team1, team2, rng) => {
         additionalEffects = attackResults.additionalEffects
         statusesExpired = attackResults.statusesExpired
 
-        // Decrease cooldown
-        attackingGotchi.cooldown--
+        // Increase cooldown by 1/6th
+        attackingGotchi.cooldown = Math.round(attackingGotchi.cooldown + (100/6))
+        if (attackingGotchi.cooldown > 100) attackingGotchi.cooldown = 100
     }
 
     // Increase actionDelay
-    attackingGotchi.actionDelay = getNewActionDelay(attackingGotchi)
+    if (!repeatAttack) {
+        attackingGotchi.actionDelay = getNewActionDelay(attackingGotchi)
+    }
 
     return {
         skipTurn,
@@ -349,6 +380,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
     const actionEffects = []
     const additionalEffects = []
     const statusesExpired = []
+    let repeatAttack = false
     
     targets.forEach((target) => {
         // The effect for the main action of the attack
@@ -359,10 +391,9 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
 
         // Handle action first
         if (action === 'attack') {
-            const isCrit = rng() < attackingGotchi.criticalRate / 100
-            if (isCrit) {
-                actionMultipler *= (attackingGotchi.criticalDamage / 100) + 1
-            }
+            const critMultiplier = getCritMultiplier(attackingGotchi, rng)
+            const isCrit = critMultiplier > 1
+            actionMultipler *= critMultiplier
             
             const damage = getDamage(attackingGotchi, target, actionMultipler)
 
@@ -416,7 +447,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
 
                 if (specialEffect.target === 'same_as_attack') {
                     // Handle the effect
-                    const specialEffectResults = handleSpecialEffects(attackingGotchi, target, specialEffect, rng)
+                    const specialEffectResults = handleSpecialEffects(attackingTeam, attackingGotchi, target, specialEffect, rng)
 
                     if (specialEffectResults) {
                         if (specialEffectResults.actionEffect) {
@@ -440,6 +471,10 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
                         if (specialEffectResults.statusesExpired) {
                             statusesExpired.push(...specialEffectResults.statusesExpired)
                         }
+
+                        if (specialEffectResults.repeatAttack) {
+                            repeatAttack = true
+                        }
                     }
                 }
             })
@@ -458,8 +493,10 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
                 // 'apply_status', 'gain_status', 'remove_buff', 'cleanse_target', 'cleanse_self'
                 switch (attackEffect.type) {
                     case 'apply_status': {
-                        addStatusToGotchi(target, attackEffect.status)
-                        targetActionEffect.statuses.push(attackEffect.status)
+                        if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
+                            addStatusToGotchi(target, attackEffect.status)
+                            targetActionEffect.statuses.push(attackEffect.status)
+                        }
                         break
                     }
                     case 'gain_status': {
@@ -472,18 +509,20 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
                         break
                     }
                     case 'remove_buff': {
-                        const buffs = target.statuses.filter(status => STATUSES[status].isBuff)
+                        if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
+                            const buffs = target.statuses.filter(status => STATUSES[status].isBuff)
 
-                        if (buffs.length) {
-                            const randomBuff = buffs[Math.floor(rng() * buffs.length)]
-                            statusesExpired.push({
-                                target: target.id,
-                                status: randomBuff
-                            })
+                            if (buffs.length) {
+                                const randomBuff = buffs[Math.floor(rng() * buffs.length)]
+                                statusesExpired.push({
+                                    target: target.id,
+                                    status: randomBuff
+                                })
 
-                            // Remove first instance of randomBuff (there may be multiple)
-                            const index = target.statuses.indexOf(randomBuff)
-                            target.statuses.splice(index, 1)
+                                // Remove first instance of randomBuff (there may be multiple)
+                                const index = target.statuses.indexOf(randomBuff)
+                                target.statuses.splice(index, 1)
+                            }
                         }
                         break
                     }
@@ -541,9 +580,6 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
             }
         }
 
-        console.log('targetActionEffect', targetActionEffect)
-        console.log('targetAdditionalEffects', targetAdditionalEffects)
-
         // If the actionType is 'none' then there may not be an actionEffect
         if (targetActionEffect) {
             actionEffects.push(targetActionEffect)
@@ -560,7 +596,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
                 const targets = getTargetsFromCode(specialEffect.target, attackingGotchi, attackingTeam, defendingTeam, rng)
 
                 targets.forEach((target) => {   
-                    const specialEffectResults = handleSpecialEffects(attackingGotchi, target, specialEffect, rng)
+                    const specialEffectResults = handleSpecialEffects(attackingTeam, attackingGotchi, target, specialEffect, rng)
 
                     if (specialEffectResults) {
                         if (specialEffectResults.actionEffect) {
@@ -574,6 +610,10 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
                         if (specialEffectResults.statusesExpired) {
                             statusesExpired.push(...specialEffectResults.statusesExpired)
                         }
+
+                        if (specialEffectResults.repeatAttack) {
+                            repeatAttack = true
+                        }
                     }
                 })
             }
@@ -583,11 +623,12 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
     return {
         actionEffects,
         additionalEffects,
-        statusesExpired
+        statusesExpired,
+        repeatAttack
     }
 }
 
-const handleSpecialEffects = (attackingGotchi, target, specialEffect, rng) => {
+const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEffect, rng) => {
     if (specialEffect.chance && specialEffect.chance < 1 && rng() > specialEffect.chance) {
         return false
     }
@@ -597,19 +638,21 @@ const handleSpecialEffects = (attackingGotchi, target, specialEffect, rng) => {
         statuses: [],
         outcome: 'success'
     }
+    
     const additionalEffects = []
     const statusesExpired = []
+    let repeatAttack = false
 
     switch (specialEffect.effectType) {
         case 'status': {
-            // TODO: Focus/resistance check
-            addStatusToGotchi(target, specialEffect.status)
-            // Add to effect
-            actionEffect.statuses.push(specialEffect.status)
+            // Focus/resistance check if target is not on the same team as the attacking gotchi
+            if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
+                addStatusToGotchi(target, specialEffect.status)
+                actionEffect.statuses.push(specialEffect.status)
+            }
             break
         }
         case 'heal': {
-            // TODO: Focus/resistance check
             const amountToHeal = getHealFromMultiplier(target, specialEffect.actionMultiplier)
             target.health += amountToHeal
 
@@ -627,22 +670,26 @@ const handleSpecialEffects = (attackingGotchi, target, specialEffect, rng) => {
             break
         }
         case 'remove_buff': {
-            const buffs = target.statuses.filter(statusCode => {
-                const status = getStatusByCode(statusCode)
-                return status.isBuff
-            })
-
-            if (buffs.length) {
-                const randomBuff = buffs[Math.floor(rng() * buffs.length)]
-                statusesExpired.push({
-                    target: target.id,
-                    status: randomBuff
+            // Focus/resistance check if target is not on the same team as the attacking gotchi
+            if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
+                const buffs = target.statuses.filter(statusCode => {
+                    const status = getStatusByCode(statusCode)
+                    return status.isBuff
                 })
 
-                // Remove first instance of randomBuff (there may be multiple)
-                const index = target.statuses.indexOf(randomBuff)
-                target.statuses.splice(index, 1)
+                if (buffs.length) {
+                    const randomBuff = buffs[Math.floor(rng() * buffs.length)]
+                    statusesExpired.push({
+                        target: target.id,
+                        status: randomBuff
+                    })
+
+                    // Remove first instance of randomBuff (there may be multiple)
+                    const index = target.statuses.indexOf(randomBuff)
+                    target.statuses.splice(index, 1)
+                }
             }
+
             break
         }
         case 'remove_debuff': {
@@ -665,24 +712,27 @@ const handleSpecialEffects = (attackingGotchi, target, specialEffect, rng) => {
             break
         }
         case 'remove_all_buffs': {
-            const buffsToRemove = target.statuses.filter(statusCode => {
-                const status = getStatusByCode(statusCode)
-                return status.isBuff
-            })
-
-            buffsToRemove.forEach((buff) => {
-                statusesExpired.push({
-                    target: target.id,
-                    status: buff
-                })
-            })
-
-            if (buffsToRemove.length) {
-                // Filter statuses so only debuffs remain
-                target.statuses = target.statuses.filter(statusCode => {
+            // Focus/resistance check if target is not on the same team as the attacking gotchi
+            if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
+                const buffsToRemove = target.statuses.filter(statusCode => {
                     const status = getStatusByCode(statusCode)
-                    return !status.isBuff
+                    return status.isBuff
                 })
+
+                buffsToRemove.forEach((buff) => {
+                    statusesExpired.push({
+                        target: target.id,
+                        status: buff
+                    })
+                })
+
+                if (buffsToRemove.length) {
+                    // Filter statuses so only debuffs remain
+                    target.statuses = target.statuses.filter(statusCode => {
+                        const status = getStatusByCode(statusCode)
+                        return !status.isBuff
+                    })
+                }
             }
 
             break
@@ -711,11 +761,7 @@ const handleSpecialEffects = (attackingGotchi, target, specialEffect, rng) => {
             break
         }
         case 'repeat_attack': {
-            // TODO
-            // Need to think of a way to show in the effects array which effects are from the repeat attack
-            // We could either add a flag to the effect object or add a flag to the return object which...
-            // would not increase the actionDelay so the whole turn is essentially repeated
-            console.log('----Repeat attack not implemented yet----')
+            repeatAttack = true
             break
         }
         default:
@@ -725,7 +771,8 @@ const handleSpecialEffects = (attackingGotchi, target, specialEffect, rng) => {
     return {
         actionEffect,
         additionalEffects,
-        statusesExpired
+        statusesExpired,
+        repeatAttack
     }
 }
 

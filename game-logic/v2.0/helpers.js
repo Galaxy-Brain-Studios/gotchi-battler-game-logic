@@ -504,7 +504,9 @@ const prepareTeams = (allAliveGotchis, team1, team2) => {
         x.actionDelay = calculateActionDelay(x)
 
         // Set special cooldown
-        x.cooldown = x.specialExpanded.initialCooldown
+        // gotchi.cooldown is the % the special bar is full. 100% is full. 0% is empty.
+        // We split into 6 sections, so the initial cooldown is the number of sections to fill.
+        x.cooldown = Math.round((100/6) * (6 - x.specialExpanded.initialCooldown))
 
         // Handle Health
         // add fullHealth property to all gotchis
@@ -521,6 +523,7 @@ const prepareTeams = (allAliveGotchis, team1, team2) => {
             healReceived: 0,
             crits: 0,
             resists: 0,
+            focuses: 0,
             counters: 0,
             hits: 0
         }
@@ -564,6 +567,11 @@ const getLogGotchis = (allAliveGotchis) => {
         // Remove unnecessary properties to reduce log size
         delete x.actionDelay
         delete x.environmentEffects
+        delete x.cooldown
+        delete x.fullHealth
+        delete x.stats
+        delete x.createdAt
+        delete x.updatedAt
     })
 
     return logGotchis
@@ -630,6 +638,50 @@ const getStatusByCode = (statusCode) => {
     return status
 }
 
+const getTeamSpecialBars = (team1, team2) => {
+    const specialBars = {}
+
+    for (const gotchi of [...getTeamGotchis(team1), ...getTeamGotchis(team2)]) {
+        specialBars[gotchi.id] = gotchi.cooldown
+    }
+
+    return specialBars
+}
+
+const focusCheck = (attackingTeam, attackingGotchi, targetGotchi, rng) => {
+    const modifiedAttackingGotchi = getModifiedStats(attackingGotchi)
+    const modifiedTargetGotchi = getModifiedStats(targetGotchi)
+
+    const attackingTeamGotchis = getTeamGotchis(attackingTeam)
+    // If the attacking gotchi is on the same team as the defending gotchi then always return true
+    if (attackingTeamGotchis.find(gotchi => gotchi.id === targetGotchi.id)) {
+        return true
+    } else {
+        // Status apply chance is clamp(0.5 + (FOC - RES) / 200, 0.15, 0.95)
+        const chance = Math.max(Math.min(0.5 + (modifiedAttackingGotchi.focus - modifiedTargetGotchi.resist) / 200, 0.95), 0.15)
+
+        const result = rng() < chance
+
+        if (result) {
+            // if attacking gotchi has beaten the focus check then add to stats
+            attackingGotchi.stats.focuses++
+        } else {
+            targetGotchi.stats.resists++
+        }
+
+        return result
+    }
+}
+
+const getCritMultiplier = (gotchi, rng) => {
+    const modifiedGotchi = getModifiedStats(gotchi)
+    const isCrit = rng() < Math.max(Math.min(modifiedGotchi.criticalRate / 100, 1), 0.05)
+    if (isCrit) {
+        return (modifiedGotchi.criticalDamage / 100) + 1
+    }
+    return 1
+}
+
 module.exports = {
     getTeamGotchis,
     getAlive,
@@ -653,5 +705,8 @@ module.exports = {
     applyStatItems,
     removeStatItems,
     getTeamStats,
-    getStatusByCode
+    getStatusByCode,
+    getTeamSpecialBars,
+    focusCheck,
+    getCritMultiplier
 }

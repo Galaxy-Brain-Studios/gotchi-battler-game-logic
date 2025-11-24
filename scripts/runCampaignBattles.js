@@ -2,15 +2,22 @@ const fs = require('fs')
 const path = require('path')
 const { battle } = require('..')
 
-const campaignName = 'mount_oomf'
+const campaigns = [
+    'yield_fields',
+    'daark_forest',
+    'caaverns',
+    'defi_desert',
+    'laughing_peaks',
+    'mount_oomf'
+]
 
-// Loop through each json file in /data/campaign/ (ignore the results folder)
-const campaignDir = path.join(__dirname, 'data', 'campaign', campaignName)
-const files = fs.readdirSync(campaignDir)
+const team1 = require('./data/immaterialTeam1.json')
 
-for (const file of files) {
-    if (file.endsWith('.json')) {
-        const team1 = require('./data/oggyMaxi.json')
+for (const campaign of campaigns) {
+    const campaignDir = path.join(__dirname, 'data', 'campaign', campaign)
+    const files = fs.readdirSync(campaignDir).filter(file => file.endsWith('.json'))
+
+    for (const file of files) {
         const team2 = require(path.join(campaignDir, file))
 
         const results = battle(team1, team2, 'randomseed', { 
@@ -24,8 +31,10 @@ for (const file of files) {
             isBoss: file.includes('b6') 
         })
 
-        // Write output to data/campaign/yield_fields/results/
-        fs.writeFileSync(path.join(campaignDir, 'results', file.replace('.json', '-results.json')), JSON.stringify(results, null, '\t'))
+        const resultsDir = path.join(__dirname, 'output', 'campaign', campaign)
+
+        // Write output to /scripts/output/campaign/<campaign>/<file>-results.json
+        fs.writeFileSync(path.join(resultsDir, file.replace('.json', '-results.json')), JSON.stringify(results, null, '\t'))
     }
 }
 

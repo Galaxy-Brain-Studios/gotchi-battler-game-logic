@@ -23,8 +23,8 @@ const specials = [
 const main = async () => {
     for (const special of specials) {
         // Mock the game loop
-        let team1 = require('./data/oggyMaxi.json')
-        let team2 = require('./data/wagdiddly.json')
+        let team1 = require('./data/immaterialTeam1.json')
+        let team2 = require('./data/immaterialTeam2.json')
 
         team1 = JSON.parse(JSON.stringify(team1))
         team2 = JSON.parse(JSON.stringify(team2))
