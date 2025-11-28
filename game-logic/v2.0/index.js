@@ -185,7 +185,7 @@ const executeTurn = (team1, team2, rng) => {
     let actionName = 'auto'
     let repeatAttack = false
     // Check if special attack is ready
-    if (attackingGotchi.cooldown === 100) {
+    if (attackingGotchi.specialBar === 100) {
         // Execute special attack
         actionName = attackingGotchi.specialExpanded.code
         const specialResults = attack(attackingGotchi, attackingTeam, defendingTeam, rng, true)
@@ -195,11 +195,11 @@ const executeTurn = (team1, team2, rng) => {
         statusesExpired = specialResults.statusesExpired
 
         if (specialResults.repeatAttack) {
-            // Don't reset cooldown, just repeat the attack
+            // Don't reset specialBar, just repeat the attack
             repeatAttack = true
         } else {
-            // Reset cooldown
-            attackingGotchi.cooldown = Math.round((100/6) * (6 - attackingGotchi.specialExpanded.cooldown))
+            // Reset specialBar
+            attackingGotchi.specialBar = Math.round((100/6) * (6 - attackingGotchi.specialExpanded.cooldown))
         }
     } else {
         // Do an auto attack
@@ -209,9 +209,9 @@ const executeTurn = (team1, team2, rng) => {
         additionalEffects = attackResults.additionalEffects
         statusesExpired = attackResults.statusesExpired
 
-        // Increase cooldown by 1/6th
-        attackingGotchi.cooldown = Math.round(attackingGotchi.cooldown + (100/6))
-        if (attackingGotchi.cooldown > 100) attackingGotchi.cooldown = 100
+        // Increase specialBar by 1/6th
+        attackingGotchi.specialBar = Math.round(attackingGotchi.specialBar + (100/6))
+        if (attackingGotchi.specialBar > 100) attackingGotchi.specialBar = 100
     }
 
     // Increase actionDelay

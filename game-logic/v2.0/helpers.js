@@ -503,10 +503,10 @@ const prepareTeams = (allAliveGotchis, team1, team2) => {
         // Calculate initial action delay for all gotchis
         x.actionDelay = calculateActionDelay(x)
 
-        // Set special cooldown
-        // gotchi.cooldown is the % the special bar is full. 100% is full. 0% is empty.
-        // We split into 6 sections, so the initial cooldown is the number of sections to fill.
-        x.cooldown = Math.round((100/6) * (6 - x.specialExpanded.initialCooldown))
+        // Set special specialBar
+        // gotchi.specialBar is the % the special bar is full. 100% is full. 0% is empty.
+        // We split into 6 sections, so the initial specialBar is the number of sections to fill.
+        x.specialBar = Math.round((100/6) * (6 - x.specialExpanded.initialCooldown))
 
         // Handle Health
         // add fullHealth property to all gotchis
@@ -567,8 +567,6 @@ const getLogGotchis = (allAliveGotchis) => {
         // Remove unnecessary properties to reduce log size
         delete x.actionDelay
         delete x.environmentEffects
-        delete x.cooldown
-        delete x.fullHealth
         delete x.stats
         delete x.createdAt
         delete x.updatedAt
@@ -642,7 +640,7 @@ const getTeamSpecialBars = (team1, team2) => {
     const specialBars = {}
 
     for (const gotchi of [...getTeamGotchis(team1), ...getTeamGotchis(team2)]) {
-        specialBars[gotchi.id] = gotchi.cooldown
+        specialBars[gotchi.id] = gotchi.specialBar
     }
 
     return specialBars
