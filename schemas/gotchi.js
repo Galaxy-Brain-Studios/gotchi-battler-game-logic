@@ -16,7 +16,7 @@ const GotchiSchema = z.object({
     attack: z.number().int(),
     defense: z.number().int(),
     criticalRate: z.number(),
-    criticalDamage: z.number(),
+    criticalDamage: z.number().int(),
     resist: z.number().int(),
     focus: z.number().int(),
 
