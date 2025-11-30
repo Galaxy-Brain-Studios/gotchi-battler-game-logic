@@ -1,0 +1,93 @@
+// Generate logs which test the sequences for all special attacks
+const fs = require('fs')
+const path = require('path')
+const seedrandom = require('seedrandom')
+const { attack } = require('../game-logic/v2.0')
+const { getAlive, prepareTeams, getLogGotchis, simplifyTeam } = require('../game-logic/v2.0/helpers')
+const ninjaSpecials = require('../../gotchi-battler-backend/data/specials_ninja.json')
+const enlightenedSpecials = require('../../gotchi-battler-backend/data/specials_enlightened.json')
+const cleaverSpecials = require('../../gotchi-battler-backend/data/specials_cleaver.json')
+const tankSpecials = require('../../gotchi-battler-backend/data/specials_tank.json')
+const cursedSpecials = require('../../gotchi-battler-backend/data/specials_cursed.json')
+const healerSpecials = require('../../gotchi-battler-backend/data/specials_healer.json')
+const mageSpecials = require('../../gotchi-battler-backend/data/specials_mage.json')
+const trollSpecials = require('../../gotchi-battler-backend/data/specials_troll.json')
+
+const specials = [
+    ...ninjaSpecials, ...enlightenedSpecials, 
+    ...cleaverSpecials, ...tankSpecials, 
+    ...cursedSpecials, ...healerSpecials, 
+    ...mageSpecials, ...trollSpecials
+]
+
+const main = async () => {
+    // Mock the game loop
+    let team1 = require('./data/immaterialTeam1.json')
+    let team2 = require('./data/immaterialTeam2.json')
+
+    team1 = JSON.parse(JSON.stringify(team1))
+    team2 = JSON.parse(JSON.stringify(team2))
+
+    const seed = 'randomseed'
+    const rng = seedrandom(seed)
+
+    // Give all gotchis 100000 health for testing
+    const allAliveGotchis = [...getAlive(team1), ...getAlive(team2)]
+    allAliveGotchis.forEach(x => {
+        x.health = 1000000
+    })
+
+    prepareTeams(allAliveGotchis, team1, team2)
+
+    const logs = {
+        meta: {
+            seed,
+            timestamp: new Date(),
+            type: 'pvp',
+            campaign: {},
+            isBoss: false
+        },
+        gotchis: getLogGotchis(allAliveGotchis),
+        layout: {
+            teams: [
+                simplifyTeam(team1),
+                simplifyTeam(team2)
+            ]
+        },
+        turns: [],
+        result: {},
+        debug: []
+    }
+    
+    let turnCounter = 0
+    for (const special of specials) {
+
+        // Make each gotchi do each special
+        
+        for (const gotchi of allAliveGotchis) {
+            const specialResults = attack({
+                ...gotchi,
+                special: special.code, 
+                specialExpanded: special
+            }, team1, team2, rng, true)
+            logs.turns.push({
+                index: turnCounter,
+                skipTurn: null,
+                action: {
+                    user: gotchi.id,
+                    name: special.code,
+                    effects: specialResults.effects
+                },
+                statusEffects: [],
+                statusesExpired: specialResults.statusesExpired
+            })
+            turnCounter++
+        }
+    }
+
+    // Save logs to file
+    fs.writeFileSync(path.join(__dirname, 'output', 'gotchi-sequences.json'), JSON.stringify(logs, null, 2))
+}
+
+// node scripts/generateAllSpecialsLogs.js
+main()

@@ -1,0 +1,374 @@
+{
+    "formation": {
+        "front": [
+            null,
+            {
+                "id": 2,
+                "onchainId": 22892,
+                "name": "Chonk",
+                "type": "gotchi",
+                "visualCode": "Polygon-POLYGON-Uncommon_High-310-216-262-309-312-311-261",
+                "level": 72,
+                "speed": 187,
+                "health": 864,
+                "attack": 176,
+                "defense": 157,
+                "criticalRate": 38.6,
+                "criticalDamage": 158.2,
+                "resist": 182,
+                "focus": 182,
+                "createdAt": "2025-11-24T16:54:05.342Z",
+                "updatedAt": "2025-11-24T16:54:05.342Z",
+                "gotchiClass": "tank",
+                "special": "fortress_stance",
+                "leaderSkill": "dig_in",
+                "item": null,
+                "crystalSlot1": null,
+                "crystalSlot2": null,
+                "crystalSlot3": null,
+                "crystalSlot4": null,
+                "crystalSlot5": null,
+                "crystalSlot6": null,
+                "specialExpanded": {
+                    "code": "fortress_stance",
+                    "name": "Fortress Stance",
+                    "initialCooldown": 1,
+                    "cooldown": 3,
+                    "actionType": "none",
+                    "actionMultiplier": null,
+                    "monstersOnly": false,
+                    "notes": "Self Taunt; 50% chance for each of two +DEF stacks.",
+                    "gotchiClass": "tank",
+                    "target": "self",
+                    "effects": [
+                        {
+                            "id": 37,
+                            "effectType": "status",
+                            "value": null,
+                            "chance": 1,
+                            "special": "fortress_stance",
+                            "target": "self",
+                            "status": "taunt"
+                        },
+                        {
+                            "id": 38,
+                            "effectType": "status",
+                            "value": null,
+                            "chance": 0.5,
+                            "special": "fortress_stance",
+                            "target": "self",
+                            "status": "def_up"
+                        },
+                        {
+                            "id": 39,
+                            "effectType": "status",
+                            "value": null,
+                            "chance": 0.5,
+                            "special": "fortress_stance",
+                            "target": "self",
+                            "status": "def_up"
+                        }
+                    ]
+                },
+                "leaderSkillExpanded": {
+                    "code": "dig_in",
+                    "name": "Dig In",
+                    "description": "Your team gets -FOC, +DEF and +CRD.",
+                    "monstersOnly": false,
+                    "gotchiClass": "tank",
+                    "statuses": [
+                        {
+                            "leaderSkill": "dig_in",
+                            "status": "foc_down",
+                            "stackCount": 1
+                        },
+                        {
+                            "leaderSkill": "dig_in",
+                            "status": "def_up",
+                            "stackCount": 1
+                        },
+                        {
+                            "leaderSkill": "dig_in",
+                            "status": "crd_up",
+                            "stackCount": 1
+                        }
+                    ]
+                }
+            },
+            null,
+            {
+                "id": 4,
+                "onchainId": 13536,
+                "name": "Bearded",
+                "type": "gotchi",
+                "visualCode": "wBTC-Common1-Mythical_High-50-384-49-48-217-51-261",
+                "level": 71,
+                "speed": 190,
+                "health": 853,
+                "attack": 175,
+                "defense": 132,
+                "criticalRate": 45.7,
+                "criticalDamage": 172.7,
+                "resist": 151,
+                "focus": 176,
+                "createdAt": "2025-11-24T16:54:05.343Z",
+                "updatedAt": "2025-11-24T16:54:05.343Z",
+                "gotchiClass": "ninja",
+                "special": "precise_shuriken",
+                "leaderSkill": "known_vulnerability",
+                "item": null,
+                "crystalSlot1": null,
+                "crystalSlot2": null,
+                "crystalSlot3": null,
+                "crystalSlot4": null,
+                "crystalSlot5": null,
+                "crystalSlot6": null,
+                "specialExpanded": {
+                    "code": "precise_shuriken",
+                    "name": "Precise Shuriken",
+                    "initialCooldown": 1,
+                    "cooldown": 2,
+                    "actionType": "attack",
+                    "actionMultiplier": 0.8,
+                    "monstersOnly": false,
+                    "notes": "Ninja may gain +CRT (75%).",
+                    "gotchiClass": "ninja",
+                    "target": "enemy_random",
+                    "effects": [
+                        {
+                            "id": 3,
+                            "effectType": "status",
+                            "value": null,
+                            "chance": 0.75,
+                            "special": "precise_shuriken",
+                            "target": "self",
+                            "status": "crt_up"
+                        }
+                    ]
+                },
+                "leaderSkillExpanded": {
+                    "code": "known_vulnerability",
+                    "name": "Known Vulnerability",
+                    "description": "Your team gets +CRT.",
+                    "monstersOnly": false,
+                    "gotchiClass": "ninja",
+                    "statuses": [
+                        {
+                            "leaderSkill": "known_vulnerability",
+                            "status": "crt_up",
+                            "stackCount": 1
+                        }
+                    ]
+                }
+            },
+            null
+        ],
+        "back": [
+            {
+                "id": 1,
+                "onchainId": 16559,
+                "name": "Immaterial",
+                "type": "gotchi",
+                "visualCode": "USDT-MythicalLow2_H2-Rare_Low-366-260-385-52-113-17-35",
+                "level": 108,
+                "speed": 217,
+                "health": 1096,
+                "attack": 200,
+                "defense": 172,
+                "criticalRate": 47.8,
+                "criticalDamage": 184.6,
+                "resist": 199,
+                "focus": 233,
+                "createdAt": "2025-11-24T16:54:05.340Z",
+                "updatedAt": "2025-11-24T16:54:05.340Z",
+                "gotchiClass": "mage",
+                "special": "tornado",
+                "leaderSkill": "obsessive_studies",
+                "item": null,
+                "crystalSlot1": null,
+                "crystalSlot2": null,
+                "crystalSlot3": null,
+                "crystalSlot4": null,
+                "crystalSlot5": null,
+                "crystalSlot6": null,
+                "specialExpanded": {
+                    "code": "tornado",
+                    "name": "Tornado",
+                    "initialCooldown": 2,
+                    "cooldown": 3,
+                    "actionType": "none",
+                    "actionMultiplier": null,
+                    "monstersOnly": false,
+                    "notes": "Each enemy has a 25 % chance to be Feared.",
+                    "gotchiClass": "mage",
+                    "target": "all_enemies",
+                    "effects": [
+                        {
+                            "id": 87,
+                            "effectType": "status",
+                            "value": null,
+                            "chance": 0.25,
+                            "special": "tornado",
+                            "target": "same_as_attack",
+                            "status": "fear"
+                        }
+                    ]
+                },
+                "leaderSkillExpanded": {
+                    "code": "obsessive_studies",
+                    "name": "Obsessive Studies",
+                    "description": "Your team gets -DEF and +2 FOC.",
+                    "monstersOnly": false,
+                    "gotchiClass": "mage",
+                    "statuses": [
+                        {
+                            "leaderSkill": "obsessive_studies",
+                            "status": "def_down",
+                            "stackCount": 1
+                        },
+                        {
+                            "leaderSkill": "obsessive_studies",
+                            "status": "foc_up",
+                            "stackCount": 2
+                        }
+                    ]
+                }
+            },
+            null,
+            {
+                "id": 3,
+                "onchainId": 22249,
+                "name": "575 Zoomer",
+                "type": "gotchi",
+                "visualCode": "USDC-RareLow1-Uncommon_Low-310-384-262-309-311-32-417",
+                "level": 71,
+                "speed": 190,
+                "health": 858,
+                "attack": 201,
+                "defense": 156,
+                "criticalRate": 38.3,
+                "criticalDamage": 172.7,
+                "resist": 152,
+                "focus": 152,
+                "createdAt": "2025-11-24T16:54:05.342Z",
+                "updatedAt": "2025-11-24T16:54:05.342Z",
+                "gotchiClass": "ninja",
+                "special": "precise_shuriken",
+                "leaderSkill": "known_vulnerability",
+                "item": null,
+                "crystalSlot1": null,
+                "crystalSlot2": null,
+                "crystalSlot3": null,
+                "crystalSlot4": null,
+                "crystalSlot5": null,
+                "crystalSlot6": null,
+                "specialExpanded": {
+                    "code": "precise_shuriken",
+                    "name": "Precise Shuriken",
+                    "initialCooldown": 1,
+                    "cooldown": 2,
+                    "actionType": "attack",
+                    "actionMultiplier": 0.8,
+                    "monstersOnly": false,
+                    "notes": "Ninja may gain +CRT (75%).",
+                    "gotchiClass": "ninja",
+                    "target": "enemy_random",
+                    "effects": [
+                        {
+                            "id": 3,
+                            "effectType": "status",
+                            "value": null,
+                            "chance": 0.75,
+                            "special": "precise_shuriken",
+                            "target": "self",
+                            "status": "crt_up"
+                        }
+                    ]
+                },
+                "leaderSkillExpanded": {
+                    "code": "known_vulnerability",
+                    "name": "Known Vulnerability",
+                    "description": "Your team gets +CRT.",
+                    "monstersOnly": false,
+                    "gotchiClass": "ninja",
+                    "statuses": [
+                        {
+                            "leaderSkill": "known_vulnerability",
+                            "status": "crt_up",
+                            "stackCount": 1
+                        }
+                    ]
+                }
+            },
+            null,
+            {
+                "id": 5,
+                "onchainId": 236,
+                "name": "Terry",
+                "type": "gotchi",
+                "visualCode": "Dai-RareLow2-Common-0-0-0-0-0-0-0",
+                "level": 40,
+                "speed": 166,
+                "health": 652,
+                "attack": 155,
+                "defense": 116,
+                "criticalRate": 38.1,
+                "criticalDamage": 160.1,
+                "resist": 110,
+                "focus": 132,
+                "createdAt": "2025-11-24T16:54:05.343Z",
+                "updatedAt": "2025-11-24T16:54:05.343Z",
+                "gotchiClass": "ninja",
+                "special": "precise_shuriken",
+                "leaderSkill": "known_vulnerability",
+                "item": null,
+                "crystalSlot1": null,
+                "crystalSlot2": null,
+                "crystalSlot3": null,
+                "crystalSlot4": null,
+                "crystalSlot5": null,
+                "crystalSlot6": null,
+                "specialExpanded": {
+                    "code": "precise_shuriken",
+                    "name": "Precise Shuriken",
+                    "initialCooldown": 1,
+                    "cooldown": 2,
+                    "actionType": "attack",
+                    "actionMultiplier": 0.8,
+                    "monstersOnly": false,
+                    "notes": "Ninja may gain +CRT (75%).",
+                    "gotchiClass": "ninja",
+                    "target": "enemy_random",
+                    "effects": [
+                        {
+                            "id": 3,
+                            "effectType": "status",
+                            "value": null,
+                            "chance": 0.75,
+                            "special": "precise_shuriken",
+                            "target": "self",
+                            "status": "crt_up"
+                        }
+                    ]
+                },
+                "leaderSkillExpanded": {
+                    "code": "known_vulnerability",
+                    "name": "Known Vulnerability",
+                    "description": "Your team gets +CRT.",
+                    "monstersOnly": false,
+                    "gotchiClass": "ninja",
+                    "statuses": [
+                        {
+                            "leaderSkill": "known_vulnerability",
+                            "status": "crt_up",
+                            "stackCount": 1
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "leader": 1,
+    "name": "Immaterial Team 1",
+    "owner": "0xfe698c212526f15cc25af671beba14aac309457f"
+}

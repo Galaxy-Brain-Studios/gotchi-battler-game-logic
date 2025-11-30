@@ -1,0 +1,365 @@
+{
+    "formation": {
+        "front": [
+            null,
+            {
+                "id": 7,
+                "onchainId": 23921,
+                "name": "Godly",
+                "type": "gotchi",
+                "visualCode": "wEth-Common1-Rare_Low-160-416-202-124-70-70-417",
+                "level": 72,
+                "speed": 191,
+                "health": 862,
+                "attack": 210,
+                "defense": 133,
+                "criticalRate": 50.1,
+                "criticalDamage": 168.1,
+                "resist": 152,
+                "focus": 152,
+                "createdAt": "2025-11-24T16:54:05.374Z",
+                "updatedAt": "2025-11-24T16:54:05.374Z",
+                "gotchiClass": "troll",
+                "special": "furious_bash",
+                "leaderSkill": "smash",
+                "item": null,
+                "crystalSlot1": null,
+                "crystalSlot2": null,
+                "crystalSlot3": null,
+                "crystalSlot4": null,
+                "crystalSlot5": null,
+                "crystalSlot6": null,
+                "specialExpanded": {
+                    "code": "furious_bash",
+                    "name": "Furious Bash",
+                    "initialCooldown": 1,
+                    "cooldown": 3,
+                    "actionType": "attack",
+                    "actionMultiplier": 1,
+                    "monstersOnly": false,
+                    "notes": "50 % chance for Troll to gain +SPD.",
+                    "gotchiClass": "troll",
+                    "target": "enemy_random",
+                    "effects": [
+                        {
+                            "id": 99,
+                            "effectType": "status",
+                            "value": null,
+                            "chance": 0.5,
+                            "special": "furious_bash",
+                            "target": "self",
+                            "status": "spd_up"
+                        }
+                    ]
+                },
+                "leaderSkillExpanded": {
+                    "code": "smash",
+                    "name": "Smash!",
+                    "description": "Your team gets +CRD.",
+                    "monstersOnly": false,
+                    "gotchiClass": "troll",
+                    "statuses": [
+                        {
+                            "leaderSkill": "smash",
+                            "status": "crd_up",
+                            "stackCount": 1
+                        }
+                    ]
+                }
+            },
+            null,
+            {
+                "id": 9,
+                "onchainId": 8062,
+                "name": "Magestic",
+                "type": "gotchi",
+                "visualCode": "Uni-UNI-Rare_High-15-13-14-48-217-217-237",
+                "level": 71,
+                "speed": 185,
+                "health": 854,
+                "attack": 175,
+                "defense": 132,
+                "criticalRate": 50.2,
+                "criticalDamage": 157.7,
+                "resist": 181,
+                "focus": 173,
+                "createdAt": "2025-11-24T16:54:05.374Z",
+                "updatedAt": "2025-11-24T16:54:05.374Z",
+                "gotchiClass": "cleaver",
+                "special": "sword_breaker",
+                "leaderSkill": "sharp_wits",
+                "item": null,
+                "crystalSlot1": null,
+                "crystalSlot2": null,
+                "crystalSlot3": null,
+                "crystalSlot4": null,
+                "crystalSlot5": null,
+                "crystalSlot6": null,
+                "specialExpanded": {
+                    "code": "sword_breaker",
+                    "name": "Sword Breaker",
+                    "initialCooldown": 3,
+                    "cooldown": 1,
+                    "actionType": "attack",
+                    "actionMultiplier": 1.2,
+                    "monstersOnly": false,
+                    "notes": "May apply −2 CRT (50% chance per stack).",
+                    "gotchiClass": "cleaver",
+                    "target": "enemy_random",
+                    "effects": [
+                        {
+                            "id": 29,
+                            "effectType": "status",
+                            "value": null,
+                            "chance": 0.5,
+                            "special": "sword_breaker",
+                            "target": "same_as_attack",
+                            "status": "crt_down"
+                        },
+                        {
+                            "id": 30,
+                            "effectType": "status",
+                            "value": null,
+                            "chance": 0.5,
+                            "special": "sword_breaker",
+                            "target": "same_as_attack",
+                            "status": "crt_down"
+                        }
+                    ]
+                },
+                "leaderSkillExpanded": {
+                    "code": "sharp_wits",
+                    "name": "Sharp Wits",
+                    "description": "Your team gets +FOC.",
+                    "monstersOnly": false,
+                    "gotchiClass": "cleaver",
+                    "statuses": [
+                        {
+                            "leaderSkill": "sharp_wits",
+                            "status": "foc_up",
+                            "stackCount": 1
+                        }
+                    ]
+                }
+            },
+            null
+        ],
+        "back": [
+            {
+                "id": 6,
+                "onchainId": 13681,
+                "name": "Artemis",
+                "type": "gotchi",
+                "visualCode": "USDC-MythicalLow2_H2-Common-258-368-259-63-315-386-261",
+                "level": 98,
+                "speed": 178,
+                "health": 1328,
+                "attack": 193,
+                "defense": 166,
+                "criticalRate": 45.1,
+                "criticalDamage": 175.4,
+                "resist": 186,
+                "focus": 217,
+                "createdAt": "2025-11-24T16:54:05.373Z",
+                "updatedAt": "2025-11-24T16:54:05.373Z",
+                "gotchiClass": "mage",
+                "special": "tornado",
+                "leaderSkill": "obsessive_studies",
+                "item": null,
+                "crystalSlot1": null,
+                "crystalSlot2": null,
+                "crystalSlot3": null,
+                "crystalSlot4": null,
+                "crystalSlot5": null,
+                "crystalSlot6": null,
+                "specialExpanded": {
+                    "code": "tornado",
+                    "name": "Tornado",
+                    "initialCooldown": 2,
+                    "cooldown": 3,
+                    "actionType": "none",
+                    "actionMultiplier": null,
+                    "monstersOnly": false,
+                    "notes": "Each enemy has a 25 % chance to be Feared.",
+                    "gotchiClass": "mage",
+                    "target": "all_enemies",
+                    "effects": [
+                        {
+                            "id": 87,
+                            "effectType": "status",
+                            "value": null,
+                            "chance": 0.25,
+                            "special": "tornado",
+                            "target": "same_as_attack",
+                            "status": "fear"
+                        }
+                    ]
+                },
+                "leaderSkillExpanded": {
+                    "code": "obsessive_studies",
+                    "name": "Obsessive Studies",
+                    "description": "Your team gets -DEF and +2 FOC.",
+                    "monstersOnly": false,
+                    "gotchiClass": "mage",
+                    "statuses": [
+                        {
+                            "leaderSkill": "obsessive_studies",
+                            "status": "def_down",
+                            "stackCount": 1
+                        },
+                        {
+                            "leaderSkill": "obsessive_studies",
+                            "status": "foc_up",
+                            "stackCount": 2
+                        }
+                    ]
+                }
+            },
+            null,
+            {
+                "id": 8,
+                "onchainId": 19172,
+                "name": "Gatekeeper",
+                "type": "gotchi",
+                "visualCode": "Dai-UncommonLow2-Mythical_High-160-263-262-62-51-312-261",
+                "level": 72,
+                "speed": 194,
+                "health": 863,
+                "attack": 176,
+                "defense": 156,
+                "criticalRate": 38.5,
+                "criticalDamage": 168.9,
+                "resist": 153,
+                "focus": 186,
+                "createdAt": "2025-11-24T16:54:05.374Z",
+                "updatedAt": "2025-11-24T16:54:05.374Z",
+                "gotchiClass": "mage",
+                "special": "tornado",
+                "leaderSkill": "obsessive_studies",
+                "item": null,
+                "crystalSlot1": null,
+                "crystalSlot2": null,
+                "crystalSlot3": null,
+                "crystalSlot4": null,
+                "crystalSlot5": null,
+                "crystalSlot6": null,
+                "specialExpanded": {
+                    "code": "tornado",
+                    "name": "Tornado",
+                    "initialCooldown": 2,
+                    "cooldown": 3,
+                    "actionType": "none",
+                    "actionMultiplier": null,
+                    "monstersOnly": false,
+                    "notes": "Each enemy has a 25 % chance to be Feared.",
+                    "gotchiClass": "mage",
+                    "target": "all_enemies",
+                    "effects": [
+                        {
+                            "id": 87,
+                            "effectType": "status",
+                            "value": null,
+                            "chance": 0.25,
+                            "special": "tornado",
+                            "target": "same_as_attack",
+                            "status": "fear"
+                        }
+                    ]
+                },
+                "leaderSkillExpanded": {
+                    "code": "obsessive_studies",
+                    "name": "Obsessive Studies",
+                    "description": "Your team gets -DEF and +2 FOC.",
+                    "monstersOnly": false,
+                    "gotchiClass": "mage",
+                    "statuses": [
+                        {
+                            "leaderSkill": "obsessive_studies",
+                            "status": "def_down",
+                            "stackCount": 1
+                        },
+                        {
+                            "leaderSkill": "obsessive_studies",
+                            "status": "foc_up",
+                            "stackCount": 2
+                        }
+                    ]
+                }
+            },
+            null,
+            {
+                "id": 10,
+                "onchainId": 4751,
+                "name": "best ever",
+                "type": "gotchi",
+                "visualCode": "Yfi-Common1-Mythical_High-0-0-0-0-0-0-0",
+                "level": 41,
+                "speed": 158,
+                "health": 662,
+                "attack": 156,
+                "defense": 117,
+                "criticalRate": 37.5,
+                "criticalDamage": 148.1,
+                "resist": 135,
+                "focus": 136,
+                "createdAt": "2025-11-24T16:54:05.374Z",
+                "updatedAt": "2025-11-24T16:54:05.374Z",
+                "gotchiClass": "mage",
+                "special": "tornado",
+                "leaderSkill": "obsessive_studies",
+                "item": null,
+                "crystalSlot1": null,
+                "crystalSlot2": null,
+                "crystalSlot3": null,
+                "crystalSlot4": null,
+                "crystalSlot5": null,
+                "crystalSlot6": null,
+                "specialExpanded": {
+                    "code": "tornado",
+                    "name": "Tornado",
+                    "initialCooldown": 2,
+                    "cooldown": 3,
+                    "actionType": "none",
+                    "actionMultiplier": null,
+                    "monstersOnly": false,
+                    "notes": "Each enemy has a 25 % chance to be Feared.",
+                    "gotchiClass": "mage",
+                    "target": "all_enemies",
+                    "effects": [
+                        {
+                            "id": 87,
+                            "effectType": "status",
+                            "value": null,
+                            "chance": 0.25,
+                            "special": "tornado",
+                            "target": "same_as_attack",
+                            "status": "fear"
+                        }
+                    ]
+                },
+                "leaderSkillExpanded": {
+                    "code": "obsessive_studies",
+                    "name": "Obsessive Studies",
+                    "description": "Your team gets -DEF and +2 FOC.",
+                    "monstersOnly": false,
+                    "gotchiClass": "mage",
+                    "statuses": [
+                        {
+                            "leaderSkill": "obsessive_studies",
+                            "status": "def_down",
+                            "stackCount": 1
+                        },
+                        {
+                            "leaderSkill": "obsessive_studies",
+                            "status": "foc_up",
+                            "stackCount": 2
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "leader": 6,
+    "name": "Immaterial Team 2",
+    "owner": "0xfe698c212526f15cc25af671beba14aac309457f"
+}

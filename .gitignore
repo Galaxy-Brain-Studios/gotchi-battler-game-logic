@@ -1,6 +1,8 @@
 .DS_Store
 node_modules/
-scripts/output/*.json
+scripts/data/campaign/
+scripts/data/pvp/
+scripts/output/
 scripts/balancing/output/*
 .env
 keyfile.json

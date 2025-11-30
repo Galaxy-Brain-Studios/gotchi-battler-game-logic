@@ -4,60 +4,60 @@ const { mapGotchi } = require('../../utils/mapGotchi')
 
 const specials = [
     {
-        "id": 1,
-        "class": "Ninja",
-        "name": "Spectral strike",
-        "cooldown": 0,
-        "leaderPassive": "Sharpen blades"
+        'id': 1,
+        'class': 'Ninja',
+        'name': 'Spectral strike',
+        'cooldown': 0,
+        'leaderPassive': 'Sharpen blades'
     },
     {
-        "id": 2,
-        "class": "Enlightened",
-        "name": "Meditate",
-        "cooldown": 0,
-        "leaderPassive": "Cloud of Zen"
+        'id': 2,
+        'class': 'Enlightened',
+        'name': 'Meditate',
+        'cooldown': 0,
+        'leaderPassive': 'Cloud of Zen'
     },
     {
-        "id": 3,
-        "class": "Cleaver",
-        "name": "Cleave",
-        "cooldown": 2,
-        "leaderPassive": "Frenzy"
+        'id': 3,
+        'class': 'Cleaver',
+        'name': 'Cleave',
+        'cooldown': 2,
+        'leaderPassive': 'Frenzy'
     },
     {
-        "id": 4,
-        "class": "Tank",
-        "name": "Taunt",
-        "cooldown": 0,
-        "leaderPassive": "Fortify"
+        'id': 4,
+        'class': 'Tank',
+        'name': 'Taunt',
+        'cooldown': 0,
+        'leaderPassive': 'Fortify'
     },
     {
-        "id": 5,
-        "class": "Cursed",
-        "name": "Curse",
-        "cooldown": 0,
-        "leaderPassive": "Spread the fear"
+        'id': 5,
+        'class': 'Cursed',
+        'name': 'Curse',
+        'cooldown': 0,
+        'leaderPassive': 'Spread the fear'
     },
     {
-        "id": 6,
-        "class": "Healer",
-        "name": "Blessing",
-        "cooldown": 0,
-        "leaderPassive": "Cleansing Aura"
+        'id': 6,
+        'class': 'Healer',
+        'name': 'Blessing',
+        'cooldown': 0,
+        'leaderPassive': 'Cleansing Aura'
     },
     {
-        "id": 7,
-        "class": "Mage",
-        "name": "Thunder",
-        "cooldown": 2,
-        "leaderPassive": "Channel the coven"
+        'id': 7,
+        'class': 'Mage',
+        'name': 'Thunder',
+        'cooldown': 2,
+        'leaderPassive': 'Channel the coven'
     },
     {
-        "id": 8,
-        "class": "Troll",
-        "name": "Devestating Smash",
-        "cooldown": 2,
-        "leaderPassive": "Clan momentum"
+        'id': 8,
+        'class': 'Troll',
+        'name': 'Devestating Smash',
+        'cooldown': 2,
+        'leaderPassive': 'Clan momentum'
     }
 ]
 
@@ -65,7 +65,7 @@ const classes = ['Ninja','Enlightened','Cleaver','Tank','Cursed','Healer', 'Mage
 const powerLevels = ['Godlike', 'Mythical', 'Legendary', 'Rare', 'Uncommon', 'Common', 'Garbage']
 
 const addAvgGotchs = () => {
-    const statsToOverwrite = ["speed", "health", "crit", "armor", "evade", "resist", "accuracy"]
+    const statsToOverwrite = ['speed', 'health', 'crit', 'armor', 'evade', 'resist', 'accuracy']
 
     const avgGotchis = [];
 

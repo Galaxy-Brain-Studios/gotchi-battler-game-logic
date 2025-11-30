@@ -119,7 +119,7 @@ const getNextToAct = (team1, team2, rng) => {
 
 const getTarget = (defendingTeam, rng) => {
     // Check for taunt gotchis
-    const taunt = [...getAlive(defendingTeam, 'front'), ...getAlive(defendingTeam, 'back')].filter(gotchi => gotchi.statuses && gotchi.statuses.includes("taunt"))
+    const taunt = [...getAlive(defendingTeam, 'front'), ...getAlive(defendingTeam, 'back')].filter(gotchi => gotchi.statuses && gotchi.statuses.includes('taunt'))
 
     if (taunt.length) {
         if (taunt.length === 1) return taunt[0]
@@ -509,7 +509,7 @@ const scrambleGotchiIds = (allAliveGotchis, team1, team2) => {
  **/
 const prepareTeams = (allAliveGotchis, team1, team2) => {
     // check there's no duplicate gotchis
-    scrambleGotchiIds(allAliveGotchis, team1, team2);
+    scrambleGotchiIds(allAliveGotchis, team1, team2)
 
     // Apply stat items
     applyStatItems(allAliveGotchis)

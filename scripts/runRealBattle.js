@@ -22,8 +22,8 @@ const main = async (battleId) => {
     const seed = battleRes.data.seed
 
     // Transform the logs to in-game teams
-    const team1 = webappTeamToInGameTeam(battleRes.data.team1)
-    const team2 = webappTeamToInGameTeam(battleRes.data.team2)
+    const team1 = webappTeamToInGameTeam(battleRes.data.team1Snapshot || battleRes.data.team1)
+    const team2 = webappTeamToInGameTeam(battleRes.data.team2Snapshot || battleRes.data.team2)
 
     // Run the game loop
     const logs = await battle(team1, team2, seed, true)
@@ -41,12 +41,12 @@ if (require.main === module) {
     const battleId = process.argv[2]
 
     main(battleId)
-    .then(() => {
-        console.log('Done')
-        process.exit(0)
-    })
-    .catch((error) => {
-        console.error('Error: ', error)
-        process.exit(1)
-    })
+        .then(() => {
+            console.log('Done')
+            process.exit(0)
+        })
+        .catch((error) => {
+            console.error('Error: ', error)
+            process.exit(1)
+        })
 }

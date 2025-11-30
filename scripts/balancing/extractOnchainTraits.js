@@ -51,10 +51,10 @@ const main = () => {
 
     fs.writeFileSync('./training_gotchis_traits.json', JSON.stringify(onchainTraits, (key, value) => {
         if (Array.isArray(value)) {
-          return JSON.stringify(value); // Convert array to a string
+            return JSON.stringify(value) // Convert array to a string
         }
-        return value;
-      }, 2).replace(/"\[(.*?)\]"/g, "[$1]"))
+        return value
+    }, 2).replace(/"\[(.*?)\]"/g, '[$1]'))
 }
 
 // node scripts/balancing/extractOnchainTraits.js

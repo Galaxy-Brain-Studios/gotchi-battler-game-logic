@@ -128,7 +128,7 @@ const getNextToAct = (team1, team2, rng) => {
 
 const getTarget = (defendingTeam, rng) => {
     // Check for taunt gotchis
-    const taunt = [...getAlive(defendingTeam, 'front'), ...getAlive(defendingTeam, 'back')].filter(gotchi => gotchi.statuses && gotchi.statuses.includes("taunt"))
+    const taunt = [...getAlive(defendingTeam, 'front'), ...getAlive(defendingTeam, 'back')].filter(gotchi => gotchi.statuses && gotchi.statuses.includes('taunt'))
 
     if (taunt.length) {
         if (taunt.length === 1) return taunt[0]
@@ -513,7 +513,7 @@ const scrambleGotchiIds = (allAliveGotchis, team1, team2) => {
  **/
 const prepareTeams = (allAliveGotchis, team1, team2) => {
     // check there's no duplicate gotchis
-    scrambleGotchiIds(allAliveGotchis, team1, team2);
+    scrambleGotchiIds(allAliveGotchis, team1, team2)
 
     allAliveGotchis.forEach(x => {
         // Add statuses property to all gotchis
@@ -535,7 +535,7 @@ const prepareTeams = (allAliveGotchis, team1, team2) => {
 
     // Add leader passive to team
     addLeaderToTeam(team1)
-    addLeaderToTeam(team2);
+    addLeaderToTeam(team2)
 }
 
 /**
@@ -581,20 +581,20 @@ const getLogGotchis = (allAliveGotchis) => {
  * @returns {Object} logs The battle logs
  */
 const gameLoop = (team1, team2, seed, debug) => {
-    if (!team1) throw new Error("Team 1 not found")
-    if (!team2) throw new Error("Team 2 not found")
-    if (!seed) throw new Error("Seed not found")
+    if (!team1) throw new Error('Team 1 not found')
+    if (!team2) throw new Error('Team 2 not found')
+    if (!seed) throw new Error('Seed not found')
 
     // Validate team objects
     const team1Validation = validator.validate(team1, teamSchema)
     if (!team1Validation) {
         console.error('Team 1 validation failed: ', JSON.stringify(validator.getLastErrors(), null, 2))
-        throw new Error(`Team 1 validation failed`)
+        throw new Error('Team 1 validation failed')
     }
     const team2Validation = validator.validate(team2, teamSchema)
     if (!team2Validation) {
         console.error('Team 2 validation failed: ', JSON.stringify(validator.getLastErrors(), null, 2))
-        throw new Error(`Team 2 validation failed`)
+        throw new Error('Team 2 validation failed')
     }
 
     // Make deep copy of team objects to avoid modifying the original objects
@@ -616,7 +616,7 @@ const gameLoop = (team1, team2, seed, debug) => {
             ]
         },
         turns: []
-    };
+    }
 
     // Used for turn by turn health and status summaries
     // Deleted if not in development or no errors
@@ -644,7 +644,7 @@ const gameLoop = (team1, team2, seed, debug) => {
                 turnLogs.statusesExpired = [...turnLogs.statusesExpired, ...getExpiredStatuses(team1, team2)]
             }
 
-            logs.turns.push({index: turnCounter, ...turnLogs})
+            logs.turns.push({ index: turnCounter, ...turnLogs })
 
             if (debug) {
                 logs.debug.push({
@@ -854,11 +854,9 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, defendingTargets,
 }
 
 // Deal with start of turn status effects
-const handleStatusEffects = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
+const handleStatusEffects = (attackingGotchi, attackingTeam, defendingTeam) => {
     const statusEffects = []
     const passiveEffects = []
-
-    const modifiedAttackingGotchi = getModifiedStats(attackingGotchi)
 
     // Check for cleansing_aura
     // if (attackingGotchi.statuses.includes('cleansing_aura')) {
@@ -1103,7 +1101,7 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
     const modifiedAttackingGotchi = getModifiedStats(attackingGotchi)
 
     switch (specialId) {
-        case 1:
+        case 1: {
             // Spectral Strike - ignore armor and appply bleed status
             // get single target
             const ssTarget = getTarget(defendingTeam, rng)
@@ -1118,7 +1116,8 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
                 noResistSpeedPenalty: true
             })
             break
-        case 2:
+        }
+        case 2: {
             // Meditate - Boost own speed, magic, physical by 30%
             // If gotchi already has 2 power_up statuses, do nothing
             if (!addStatusToGotchi(attackingGotchi, 'power_up_2')) {
@@ -1152,7 +1151,8 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
             }
 
             break
-        case 3:
+        }
+        case 3: {
             // Cleave - attack all enemies in a row (that have the most gotchis) for 75% damage
             // Find row with most gotchis
             const cleaveRow = getAlive(defendingTeam, 'front').length > getAlive(defendingTeam, 'back').length ? 'front' : 'back'
@@ -1164,7 +1164,8 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
                 noPassiveStatuses: true
             })
             break
-        case 4:
+        }
+        case 4: {
             // Taunt - add taunt status to self
 
             // Check if gotchi already has taunt status
@@ -1186,7 +1187,8 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
                 }
             ]
             break
-        case 5:
+        }
+        case 5: {
             // Curse - attack random enemy for 50% damage, apply fear status and remove all buffs
 
             const curseTarget = getTarget(defendingTeam, rng)
@@ -1251,7 +1253,8 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
             }
 
             break
-        case 6:
+        }
+        case 6: {
             // Blessing - Heal all non-healer allies and remove all debuffs
 
             // Get all alive non-healer allies on the attacking team
@@ -1320,7 +1323,8 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
             }
 
             break
-        case 7:
+        }
+        case 7: {
             // Thunder - Attack all enemies for 50% damage and apply stun status
 
             const thunderTargets = getAlive(defendingTeam)
@@ -1347,7 +1351,8 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
             }
 
             break
-        case 8:
+        }
+        case 8: {
             // Devestating Smash - Attack random enemy for 200% damage
 
             const smashTarget = getTarget(defendingTeam, rng)
@@ -1391,6 +1396,7 @@ const specialAttack = (attackingGotchi, attackingTeam, defendingTeam, rng) => {
             }
 
             break
+        }
     }
 
     return {

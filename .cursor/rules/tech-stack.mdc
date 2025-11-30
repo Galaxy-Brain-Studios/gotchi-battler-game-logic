@@ -1,0 +1,99 @@
+---
+description: This rule documents the tech stack used in the project. Use this as a reference for understanding the technologies and tools used in the project.
+globs: **/*
+alwaysApply: true
+---
+
+# Tech Stack and Dependency Best Practices (2024)
+
+This rule documents the major dependencies used in this project, their specific versions, and the latest best practices for their use in Node.js applications as of 2024. Use this as a reference for maintaining, upgrading, or extending the project.
+
+## Major Dependencies
+
+| Package                | Version    | Purpose/Notes                                      |
+|------------------------|------------|----------------------------------------------------|
+| seedrandom             | ^3.0.5     | Deterministic random number generation             |
+| z-schema               | ^6.0.2     | JSON schema validation                             |
+| @google-cloud/storage  | ^7.13.0    | Google Cloud Storage client (dev only)             |
+| axios                  | ^1.7.4     | HTTP client for API requests (dev only)            |
+| axios-retry            | ^4.5.0     | Retry logic for axios (dev only)                   |
+| dotenv                 | ^16.4.5    | Environment variable management (dev only)         |
+| eslint                 | ^9.30.1    | Linting and code quality (dev only)                |
+| ethers                 | ^6.13.4    | Ethereum blockchain interaction (dev only)         |
+| json-csv               | ^4.0.18    | Convert JSON to CSV (dev only)                     |
+
+## Best Practices for Each Dependency
+
+### 1. seedrandom (^3.0.5)
+- Use for deterministic random number generation, especially for reproducible simulations or tests.
+- Always seed with a unique value for each session if reproducibility is required.
+- Avoid using for cryptographic purposes; use Node's `crypto` module for secure randomness.
+
+### 2. z-schema (^6.0.2)
+- Use for validating JSON data against schemas, especially for input validation.
+- Define schemas in a dedicated directory (e.g., `schemas/`).
+- Validate all external input and fail fast on invalid data.
+
+### 3. @google-cloud/storage (^7.13.0)
+- Use environment variables (with dotenv) for credentials and configuration.
+- Avoid hardcoding sensitive information in code or config files.
+- Handle errors and retries gracefully; use axios-retry or built-in retry logic.
+
+### 4. axios (^1.7.4) & axios-retry (^4.5.0)
+- Use axios for all HTTP requests for consistency and easier error handling.
+- Use axios-retry to automatically retry failed requests (e.g., network errors, 5xx responses).
+- Always set timeouts and handle errors with try/catch or `.catch()`.
+- Prefer async/await for readability.
+
+### 5. dotenv (^16.4.5)
+- Store all secrets and environment-specific config in a `.env` file (never commit to VCS).
+- Provide a `.env.example` for onboarding and CI.
+- Load dotenv at the very top of your entry file (e.g., `require('dotenv').config()`).
+
+### 6. eslint (^9.30.1)
+- Use ESLint to enforce code style and catch bugs early.
+- Integrate with your editor for real-time feedback.
+- Use `npx eslint .` and `npx eslint . --fix` in CI and pre-commit hooks.
+- Extend with Prettier for formatting if desired.
+
+### 7. ethers (^6.13.4)
+- Use for all Ethereum blockchain interactions (reading/writing contracts, signing, etc.).
+- Always validate addresses and handle errors from blockchain calls.
+- Store private keys and sensitive data in environment variables, never in code.
+- Use async/await for all blockchain calls.
+
+### 8. json-csv (^4.0.18)
+- Use for converting JSON data to CSV for exports or reporting.
+- Validate data before conversion to avoid malformed CSVs.
+
+## General Node.js Best Practices (2024)
+
+- **Use Node Version Manager (nvm):** Specify a `.nvmrc` file to lock Node.js version for all contributors.
+- **Environment Variables:** Never commit secrets; always use environment variables and provide `.env.example`.
+- **Project Structure:** Organize code by domain (e.g., `game-logic/`, `utils/`, `scripts/`).
+- **Async/Await:** Prefer async/await over callbacks or raw promises for readability and error handling.
+- **Error Handling:** Always handle errors from async operations and external services.
+- **Testing:** Use a test framework (e.g., Mocha, Jest) and aim for high coverage.
+- **CI/CD:** Automate linting, testing, and deployment with CI/CD pipelines.
+- **Documentation:** Keep `README.md` and code comments up to date.
+- **Security:** Regularly audit dependencies (`npm audit`), and keep packages up to date.
+
+## Example: Loading dotenv and Validating Input
+
+```js
+require('dotenv').config();
+const ZSchema = require('z-schema');
+const schema = require('./schemas/team.json');
+
+function validateTeam(team) {
+  const validator = new ZSchema();
+  if (!validator.validate(team, schema)) {
+    throw new Error('Invalid team data');
+  }
+}
+```
+
+## References
+- [Node.js Best Practices](https://github.com/goldbergyoni/nodebestpractices)
+- [Modern Node.js Practices (2025)](https://habtesoft.medium.com/7-modern-node-js-practices-to-adopt-in-2025-fbdec1078c6b)
+- [Web3 Node.js Best Practices](https://docs.chainstack.com/docs/web3-nodejs-from-zero-to-a-full-fledged-project)
