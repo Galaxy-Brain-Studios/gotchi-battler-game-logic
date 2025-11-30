@@ -637,10 +637,13 @@ const getStatusByCode = (statusCode) => {
 }
 
 const getTeamSpecialBars = (team1, team2) => {
-    const specialBars = {}
+    const specialBars = []
 
     for (const gotchi of [...getTeamGotchis(team1), ...getTeamGotchis(team2)]) {
-        specialBars[gotchi.id] = gotchi.specialBar
+        specialBars.push({
+            id: gotchi.id,
+            val: gotchi.specialBar
+        })
     }
 
     return specialBars
