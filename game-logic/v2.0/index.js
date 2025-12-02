@@ -36,7 +36,7 @@ const {
  * @param {String} options.isBoss A boolean to determine if team2 is a boss
  * @returns {Object} logs The battle logs
  */
-const gameLoop = (team1, team2, seed, options = { debug: false, type: 'pve', campaign: {}, isBoss: false }) => {
+const gameLoop = (team1, team2, seed, options = { debug: false, type: 'training', campaign: {}, isBoss: false }) => {
     if (!seed) throw new Error('Seed not found')
 
     // Validate team objects
@@ -53,7 +53,7 @@ const gameLoop = (team1, team2, seed, options = { debug: false, type: 'pve', cam
         meta: {
             seed,
             timestamp: new Date(),
-            type: options.type || 'pve',
+            type: options.type || 'training',
             campaign: options.campaign || {},
             isBoss: options.isBoss || false
         },
