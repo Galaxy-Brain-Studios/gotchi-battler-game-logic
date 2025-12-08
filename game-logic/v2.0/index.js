@@ -449,32 +449,25 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
                     // Handle the effect
                     const specialEffectResults = handleSpecialEffects(attackingTeam, attackingGotchi, target, specialEffect, rng)
 
-                    if (specialEffectResults) {
-                        if (specialEffectResults.actionEffect) {
-                            if (targetActionEffect) {
-                                // If target is same as the actionEffect then just add statuses to the actionEffect
-                                if (targetActionEffect.target && targetActionEffect.target === specialEffectResults.actionEffect.target) {
-                                    targetActionEffect.statuses.push(...specialEffectResults.actionEffect.statuses)
-                                } else {
-                                    // If not then add to additionalEffects
-                                    targetAdditionalEffects.push(specialEffectResults.actionEffect)
-                                }
-                            } else {
-                                targetActionEffect = specialEffectResults.actionEffect
-                            }
+                    // Do we already have an action effect with attack damage or healing?
+                    if (targetActionEffect) {
+                        // If target is same as the actionEffect then just add statuses to the actionEffect
+                        if (targetActionEffect.target && targetActionEffect.target === specialEffectResults.actionEffect.target) {
+                            targetActionEffect.statuses.push(...specialEffectResults.actionEffect.statuses)
+                        } else {
+                            // If not then add to additionalEffects
+                            targetAdditionalEffects.push(specialEffectResults.actionEffect)
                         }
+                    } else {
+                        targetActionEffect = specialEffectResults.actionEffect
+                    }
 
-                        if (specialEffectResults.additionalEffects) {   
-                            targetAdditionalEffects.push(...specialEffectResults.additionalEffects)
-                        }
+                    targetAdditionalEffects.push(...specialEffectResults.additionalEffects)
 
-                        if (specialEffectResults.statusesExpired) {
-                            statusesExpired.push(...specialEffectResults.statusesExpired)
-                        }
+                    statusesExpired.push(...specialEffectResults.statusesExpired)
 
-                        if (specialEffectResults.repeatAttack) {
-                            repeatAttack = true
-                        }
+                    if (specialEffectResults.repeatAttack) {
+                        repeatAttack = true
                     }
                 }
             })
@@ -598,22 +591,14 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
                 targets.forEach((target) => {   
                     const specialEffectResults = handleSpecialEffects(attackingTeam, attackingGotchi, target, specialEffect, rng)
 
-                    if (specialEffectResults) {
-                        if (specialEffectResults.actionEffect) {
-                            additionalEffects.push(specialEffectResults.actionEffect)
-                        }
+                    additionalEffects.push(specialEffectResults.actionEffect)
 
-                        if (specialEffectResults.additionalEffects) {
-                            additionalEffects.push(...specialEffectResults.additionalEffects)
-                        }
+                    additionalEffects.push(...specialEffectResults.additionalEffects)
 
-                        if (specialEffectResults.statusesExpired) {
-                            statusesExpired.push(...specialEffectResults.statusesExpired)
-                        }
+                    statusesExpired.push(...specialEffectResults.statusesExpired)
 
-                        if (specialEffectResults.repeatAttack) {
-                            repeatAttack = true
-                        }
+                    if (specialEffectResults.repeatAttack) {
+                        repeatAttack = true
                     }
                 })
             }
@@ -629,19 +614,25 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
 }
 
 const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEffect, rng) => {
-    if (specialEffect.chance && specialEffect.chance < 1 && rng() > specialEffect.chance) {
-        return false
-    }
-
     const actionEffect = {
         target: target.id,
         statuses: [],
-        outcome: 'success'
+        outcome: 'failed'
     }
-    
+
     const additionalEffects = []
     const statusesExpired = []
     let repeatAttack = false
+
+    // Check for chance of the special effect
+    if (specialEffect.chance && specialEffect.chance < 1 && rng() > specialEffect.chance) {
+        return {
+            actionEffect,
+            additionalEffects,
+            statusesExpired,
+            repeatAttack
+        }
+    }
 
     switch (specialEffect.effectType) {
         case 'status': {
@@ -649,6 +640,9 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
             if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
                 addStatusToGotchi(target, specialEffect.status)
                 actionEffect.statuses.push(specialEffect.status)
+                actionEffect.outcome = 'success'
+            } else {
+                actionEffect.outcome = 'resisted'
             }
             break
         }
