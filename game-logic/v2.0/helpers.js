@@ -264,11 +264,18 @@ const getDamage = (attackingGotchi, defendingGotchi, multiplier) => {
     return damage
 }
 
-const getHealFromMultiplier = (healingGotchi, multiplier) => {
+const getHealFromMultiplier = (healingGotchi, target, multiplier) => {
+    // % of original target health
+    let amountToHeal = Math.round(target.fullHealth * multiplier)
 
-    const modifiedHealingGotchi = getModifiedStats(healingGotchi)
+    // Don't allow amountToHeal to be more than the difference between current health and max health
+    if (amountToHeal > target.fullHealth - target.health) {
+        amountToHeal = target.fullHealth - target.health
+    }
 
-    const amountToHeal = Math.round(modifiedHealingGotchi.resist * multiplier)
+    // Handle stats
+    healingGotchi.stats.healGiven += amountToHeal
+    target.stats.healReceived += amountToHeal
 
     return amountToHeal
 }

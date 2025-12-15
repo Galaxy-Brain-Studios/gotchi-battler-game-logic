@@ -414,7 +414,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
             target.stats.dmgReceived += damage
 
         } else if (action === 'heal') {
-            const amountToHeal = getHealFromMultiplier(attackingGotchi, actionMultipler)
+            const amountToHeal = getHealFromMultiplier(attackingGotchi, target, actionMultipler)
 
             targetActionEffect = {
                 target: target.id,
@@ -425,10 +425,6 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
 
             // Handle healing
             target.health += amountToHeal
-
-            // Handle stats
-            attackingGotchi.stats.healGiven += amountToHeal
-            target.stats.healReceived += amountToHeal
 
         } else if (action === 'none') {
             // Do nothing
@@ -647,9 +643,8 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
             break
         }
         case 'heal': {
-            const amountToHeal = getHealFromMultiplier(target, specialEffect.actionMultiplier)
-            target.health += amountToHeal
-
+            const amountToHeal = getHealFromMultiplier(attackingGotchi, target, specialEffect.actionMultiplier)
+            
             // Add another effect for the healing
             additionalEffects.push({
                 target: target.id,
@@ -658,9 +653,8 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
                 outcome: 'success'
             })
 
-            // Handle stats
-            attackingGotchi.stats.healGiven += amountToHeal
-            target.stats.healReceived += amountToHeal
+            target.health += amountToHeal
+            
             break
         }
         case 'remove_buff': {
