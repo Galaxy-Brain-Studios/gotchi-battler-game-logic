@@ -448,6 +448,9 @@ const addLeaderToTeam = (team, addStatuses) => {
 const addStatusToGotchi = (gotchi, status, count) => {
     if (!count) count = 1
 
+    // Only allow a maximum of 3 of the same status
+    if (gotchi.statuses.filter(x => x === status).length >= 3) return false
+
     for (let i = 0; i < count; i++) {
         gotchi.statuses.push(status)
     }

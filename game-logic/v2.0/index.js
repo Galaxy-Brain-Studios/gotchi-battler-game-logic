@@ -74,7 +74,9 @@ const gameLoop = (team1, team2, seed, options = { debug: false, type: 'training'
     try {
         while (getAlive(team1).length && getAlive(team2).length) {
             // Check if turnCounter is ready for environment effects (99,149,199, etc)
-            let isEnvironmentTurn = [99, 149, 199, 249, 299].includes(turnCounter)
+            let isEnvironmentTurn = [
+                99, 149, 199, 249, 299, 349, 399, 449, 499, 
+                549, 599, 649, 699, 749, 799, 849, 899, 949, 999].includes(turnCounter)
             if (isEnvironmentTurn) {
                 allAliveGotchis.forEach(x => {
                     x.environmentEffects.push('damage_up')
@@ -119,7 +121,7 @@ const gameLoop = (team1, team2, seed, options = { debug: false, type: 'training'
     }
     
     logs.result.winner = getAlive(team1).length ? 1 : 2
-    logs.result.winningTeam = getTeamGotchis(team1).length ? getTeamGotchis(team1) : getTeamGotchis(team2)
+    logs.result.winningTeam = logs.result.winner === 1 ? getTeamGotchis(team1) : getTeamGotchis(team2)
     logs.result.winningTeam = logs.result.winningTeam.map((gotchi) => {
         return {
             id: gotchi.id,
@@ -483,18 +485,20 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
                 switch (attackEffect.type) {
                     case 'apply_status': {
                         if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
-                            addStatusToGotchi(target, attackEffect.status)
-                            targetActionEffect.statuses.push(attackEffect.status)
+                            if (addStatusToGotchi(target, attackEffect.status)) {
+                                targetActionEffect.statuses.push(attackEffect.status)
+                            }
                         }
                         break
                     }
                     case 'gain_status': {
-                        addStatusToGotchi(attackingGotchi, attackEffect.status)
-                        targetAdditionalEffects.push({
-                            target: attackingGotchi.id,
-                            status: attackEffect.status,
-                            outcome: 'success'
-                        })
+                        if (addStatusToGotchi(attackingGotchi, attackEffect.status)) {
+                            targetAdditionalEffects.push({
+                                target: attackingGotchi.id,
+                                status: attackEffect.status,
+                                outcome: 'success'
+                            })
+                        }
                         break
                     }
                     case 'remove_buff': {
@@ -634,9 +638,13 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
         case 'status': {
             // Focus/resistance check if target is not on the same team as the attacking gotchi
             if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
-                addStatusToGotchi(target, specialEffect.status)
-                actionEffect.statuses.push(specialEffect.status)
-                actionEffect.outcome = 'success'
+                if (addStatusToGotchi(target, specialEffect.status)) {
+                    actionEffect.statuses.push(specialEffect.status)
+                    actionEffect.outcome = 'success'
+                } else {
+                    // There's already a maximum of 3 of the same status
+                    actionEffect.outcome = 'failed'
+                }
             } else {
                 actionEffect.outcome = 'resisted'
             }
