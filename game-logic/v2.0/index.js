@@ -75,7 +75,7 @@ const gameLoop = (team1, team2, seed, options = { debug: false, type: 'training'
         while (getAlive(team1).length && getAlive(team2).length) {
             // Check if turnCounter is ready for environment effects (99,149,199, etc)
             let isEnvironmentTurn = [
-                99, 149, 199, 249, 299, 349, 399, 449, 499, 
+                99, 149, 199, 249, 299, 349, 399, 449, 499,
                 549, 599, 649, 699, 749, 799, 849, 899, 949, 999].includes(turnCounter)
             if (isEnvironmentTurn) {
                 allAliveGotchis.forEach(x => {
@@ -119,7 +119,7 @@ const gameLoop = (team1, team2, seed, options = { debug: false, type: 'training'
         team1: getTeamStats(team1),
         team2: getTeamStats(team2)
     }
-    
+
     logs.result.winner = getAlive(team1).length ? 1 : 2
     logs.result.winningTeam = logs.result.winner === 1 ? getTeamGotchis(team1) : getTeamGotchis(team2)
     logs.result.winningTeam = logs.result.winningTeam.map((gotchi) => {
@@ -191,7 +191,7 @@ const executeTurn = (team1, team2, rng) => {
         // Execute special attack
         actionName = attackingGotchi.specialExpanded.code
         const specialResults = attack(attackingGotchi, attackingTeam, defendingTeam, rng, true)
-        
+
         actionEffects = specialResults.actionEffects
         additionalEffects = specialResults.additionalEffects
         statusesExpired = specialResults.statusesExpired
@@ -201,7 +201,7 @@ const executeTurn = (team1, team2, rng) => {
             repeatAttack = true
         } else {
             // Reset specialBar
-            attackingGotchi.specialBar = Math.round((100/6) * (6 - attackingGotchi.specialExpanded.cooldown))
+            attackingGotchi.specialBar = Math.round((100 / 6) * (6 - attackingGotchi.specialExpanded.cooldown))
         }
     } else {
         // Do an auto attack
@@ -212,7 +212,7 @@ const executeTurn = (team1, team2, rng) => {
         statusesExpired = attackResults.statusesExpired
 
         // Increase specialBar by 1/6th
-        attackingGotchi.specialBar = Math.round(attackingGotchi.specialBar + (100/6))
+        attackingGotchi.specialBar = Math.round(attackingGotchi.specialBar + (100 / 6))
         if (attackingGotchi.specialBar > 100) attackingGotchi.specialBar = 100
     }
 
@@ -377,13 +377,13 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
     const targetCode = isSpecial ? attackingGotchi.specialExpanded.target : 'enemy_random'
     const targets = getTargetsFromCode(targetCode, attackingGotchi, attackingTeam, defendingTeam, rng)
 
-    let actionMultipler = isSpecial ? attackingGotchi.specialExpanded.actionMultiplier : 1
+    const actionMultipler = isSpecial ? attackingGotchi.specialExpanded.actionMultiplier : 1
 
     const actionEffects = []
     const additionalEffects = []
     const statusesExpired = []
     let repeatAttack = false
-    
+
     targets.forEach((target) => {
         // The effect for the main action of the attack
         let targetActionEffect
@@ -391,13 +391,14 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
         // For an additional effects that come for the special attack e.g. heals
         const targetAdditionalEffects = []
 
+        // Roll for crit multiplier
+        const critMultiplier = getCritMultiplier(attackingGotchi, rng)
+        const isCrit = critMultiplier > 1
+        const totalMultiplier = actionMultipler * critMultiplier
+
         // Handle action first
         if (action === 'attack') {
-            const critMultiplier = getCritMultiplier(attackingGotchi, rng)
-            const isCrit = critMultiplier > 1
-            actionMultipler *= critMultiplier
-            
-            const damage = getDamage(attackingGotchi, target, actionMultipler)
+            const damage = getDamage(attackingGotchi, target, totalMultiplier)
 
             targetActionEffect = {
                 target: target.id,
@@ -416,7 +417,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
             target.stats.dmgReceived += damage
 
         } else if (action === 'heal') {
-            const amountToHeal = getHealFromMultiplier(attackingGotchi, target, actionMultipler)
+            const amountToHeal = getHealFromMultiplier(attackingGotchi, target, totalMultiplier)
 
             targetActionEffect = {
                 target: target.id,
@@ -588,7 +589,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
             if (specialEffect.target !== 'same_as_attack') {
                 const targets = getTargetsFromCode(specialEffect.target, attackingGotchi, attackingTeam, defendingTeam, rng)
 
-                targets.forEach((target) => {   
+                targets.forEach((target) => {
                     const specialEffectResults = handleSpecialEffects(attackingTeam, attackingGotchi, target, specialEffect, rng)
 
                     additionalEffects.push(specialEffectResults.actionEffect)
@@ -652,7 +653,7 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
         }
         case 'heal': {
             const amountToHeal = getHealFromMultiplier(attackingGotchi, target, specialEffect.actionMultiplier)
-            
+
             // Add another effect for the healing
             additionalEffects.push({
                 target: target.id,
@@ -662,7 +663,7 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
             })
 
             target.health += amountToHeal
-            
+
             break
         }
         case 'remove_buff': {
