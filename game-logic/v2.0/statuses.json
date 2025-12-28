@@ -8,7 +8,7 @@
         "statModifiers": [
             {
                 "statName": "speed",
-                "value": 12,
+                "value": 15,
                 "valueType": "percent"
             }
         ]
@@ -22,7 +22,7 @@
         "statModifiers": [
             {
                 "statName": "attack",
-                "value": 12,
+                "value": 15,
                 "valueType": "percent"
             }
         ]
@@ -36,7 +36,7 @@
         "statModifiers": [
             {
                 "statName": "defense",
-                "value": 16,
+                "value": 20,
                 "valueType": "percent"
             }
         ]
@@ -50,7 +50,7 @@
         "statModifiers": [
             {
                 "statName": "criticalRate",
-                "value": 12,
+                "value": 6,
                 "valueType": "flat"
             }
         ]
@@ -64,7 +64,7 @@
         "statModifiers": [
             {
                 "statName": "criticalDamage",
-                "value": 30,
+                "value": 16,
                 "valueType": "flat"
             }
         ]
@@ -78,7 +78,7 @@
         "statModifiers": [
             {
                 "statName": "resist",
-                "value": 18,
+                "value": 14,
                 "valueType": "flat"
             }
         ]
@@ -92,7 +92,7 @@
         "statModifiers": [
             {
                 "statName": "focus",
-                "value": 15,
+                "value": 12,
                 "valueType": "flat"
             }
         ]
@@ -106,7 +106,7 @@
         "statModifiers": [
             {
                 "statName": "speed",
-                "value": -12,
+                "value": -15,
                 "valueType": "percent"
             }
         ]
@@ -120,7 +120,7 @@
         "statModifiers": [
             {
                 "statName": "attack",
-                "value": -12,
+                "value": -15,
                 "valueType": "percent"
             }
         ]
@@ -134,7 +134,7 @@
         "statModifiers": [
             {
                 "statName": "defense",
-                "value": -16,
+                "value": -20,
                 "valueType": "percent"
             }
         ]
@@ -148,7 +148,7 @@
         "statModifiers": [
             {
                 "statName": "criticalRate",
-                "value": -12,
+                "value": -6,
                 "valueType": "flat"
             }
         ]
@@ -162,7 +162,7 @@
         "statModifiers": [
             {
                 "statName": "criticalDamage",
-                "value": -30,
+                "value": -16,
                 "valueType": "flat"
             }
         ]
@@ -176,7 +176,7 @@
         "statModifiers": [
             {
                 "statName": "resist",
-                "value": -18,
+                "value": -14,
                 "valueType": "flat"
             }
         ]
@@ -190,7 +190,7 @@
         "statModifiers": [
             {
                 "statName": "focus",
-                "value": -15,
+                "value": -12,
                 "valueType": "flat"
             }
         ]
