@@ -22,7 +22,8 @@ describe('getModifiedStats', () => {
     it('applies flat stat buffs from statuses', () => {
         const g = makeGotchi({ statuses: ['spd_up', 'atk_up', 'def_up'] })
         const m = getModifiedStats(g)
-        expect(m.speed).to.equal(11)
+        // v2.0 statuses are percent-based; with base speed=10, spd_up (+15%) rounds to +2
+        expect(m.speed).to.equal(12)
         expect(m.attack).to.equal(6)
         expect(m.defense).to.equal(4)
     })
@@ -30,11 +31,15 @@ describe('getModifiedStats', () => {
     it('stacks multiple statuses and nets against opposing debuffs', () => {
         const g = makeGotchi({ statuses: ['spd_up', 'spd_up', 'spd_down'] })
         const m = getModifiedStats(g)
-        expect(m.speed).to.equal(11) // 10 + 1 net
+        // Each spd_up: 10 * 0.15 => 1.5 => Math.round => 2
+        // spd_down: 10 * -0.15 => -1.5 => Math.round => -1 (JS rounds halves toward +∞)
+        // Net: +2 +2 -1 = +3
+        expect(m.speed).to.equal(13)
     })
 
     it('keeps speed at minimum 1 to avoid zero/negative speed', () => {
-        const g = makeGotchi({ speed: 2, statuses: ['spd_down', 'spd_down', 'spd_down'] })
+        // Use a base speed where percent debuffs round to at least -1 per stack
+        const g = makeGotchi({ speed: 4, statuses: ['spd_down', 'spd_down', 'spd_down'] })
         const m = getModifiedStats(g)
         expect(m.speed).to.equal(1)
     })

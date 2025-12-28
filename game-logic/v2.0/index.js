@@ -379,10 +379,20 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
 
     const actionMultipler = isSpecial ? attackingGotchi.specialExpanded.actionMultiplier : 1
 
+    const specialEffects = isSpecial ? (attackingGotchi.specialExpanded.effects || []) : []
+
     const actionEffects = []
     const additionalEffects = []
     const statusesExpired = []
+
+    // repeat_attack is a meta-effect: roll once per special use (not once per target)
+    const repeatAttackEffect = isSpecial ? specialEffects.find(e => e.effectType === 'repeat_attack') : null
+    const nonRepeatSpecialEffects = isSpecial ? specialEffects.filter(e => e.effectType !== 'repeat_attack') : []
+
     let repeatAttack = false
+    if (isSpecial && repeatAttackEffect) {
+        repeatAttack = rng() <= repeatAttackEffect.chance
+    }
 
     targets.forEach((target) => {
         // The effect for the main action of the attack
@@ -438,7 +448,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
 
         // If it's a special attack then handle the special effects with target 'same_as_attack'
         if (isSpecial) {
-            attackingGotchi.specialExpanded.effects.forEach((specialEffect) => {
+            nonRepeatSpecialEffects.forEach((specialEffect) => {
                 // Only handle special effects here that have a target code of 'same_as_attack'
                 // Handle the rest after the action is done
                 // This is to ensure that these effects are not applied multiple times
@@ -464,10 +474,6 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
                     targetAdditionalEffects.push(...specialEffectResults.additionalEffects)
 
                     statusesExpired.push(...specialEffectResults.statusesExpired)
-
-                    if (specialEffectResults.repeatAttack) {
-                        repeatAttack = true
-                    }
                 }
             })
         } else {
@@ -585,7 +591,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
 
     // Handle specialEffects that are not 'same_as_attack'
     if (isSpecial) {
-        attackingGotchi.specialExpanded.effects.forEach((specialEffect) => {
+        nonRepeatSpecialEffects.forEach((specialEffect) => {
             if (specialEffect.target !== 'same_as_attack') {
                 const targets = getTargetsFromCode(specialEffect.target, attackingGotchi, attackingTeam, defendingTeam, rng)
 
@@ -597,10 +603,6 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
                     additionalEffects.push(...specialEffectResults.additionalEffects)
 
                     statusesExpired.push(...specialEffectResults.statusesExpired)
-
-                    if (specialEffectResults.repeatAttack) {
-                        repeatAttack = true
-                    }
                 })
             }
         })
@@ -623,15 +625,13 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
 
     const additionalEffects = []
     const statusesExpired = []
-    let repeatAttack = false
 
     // Check for chance of the special effect
     if (specialEffect.chance && specialEffect.chance < 1 && rng() > specialEffect.chance) {
         return {
             actionEffect,
             additionalEffects,
-            statusesExpired,
-            repeatAttack
+            statusesExpired
         }
     }
 
@@ -757,10 +757,6 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
 
             break
         }
-        case 'repeat_attack': {
-            repeatAttack = true
-            break
-        }
         default:
             throw new Error(`Invalid special effect type: ${specialEffect.effectType}`)
     }
@@ -768,8 +764,7 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
     return {
         actionEffect,
         additionalEffects,
-        statusesExpired,
-        repeatAttack
+        statusesExpired
     }
 }
 
