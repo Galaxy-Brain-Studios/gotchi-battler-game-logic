@@ -5,6 +5,7 @@
         "description": "+12% SPD per stack",
         "category": "stat_modifier",
         "isBuff": true,
+        "maxStack": null,
         "statModifiers": [
             {
                 "statName": "speed",
@@ -19,6 +20,7 @@
         "description": "+12% ATK per stack",
         "category": "stat_modifier",
         "isBuff": true,
+        "maxStack": null,
         "statModifiers": [
             {
                 "statName": "attack",
@@ -33,6 +35,7 @@
         "description": "+16% DEF per stack",
         "category": "stat_modifier",
         "isBuff": true,
+        "maxStack": null,
         "statModifiers": [
             {
                 "statName": "defense",
@@ -47,6 +50,7 @@
         "description": "+12 CRT per stack",
         "category": "stat_modifier",
         "isBuff": true,
+        "maxStack": null,
         "statModifiers": [
             {
                 "statName": "criticalRate",
@@ -61,6 +65,7 @@
         "description": "+30 CRD per stack",
         "category": "stat_modifier",
         "isBuff": true,
+        "maxStack": null,
         "statModifiers": [
             {
                 "statName": "criticalDamage",
@@ -75,6 +80,7 @@
         "description": "+18 RES per stack",
         "category": "stat_modifier",
         "isBuff": true,
+        "maxStack": null,
         "statModifiers": [
             {
                 "statName": "resist",
@@ -89,6 +95,7 @@
         "description": "+15 FOC per stack",
         "category": "stat_modifier",
         "isBuff": true,
+        "maxStack": null,
         "statModifiers": [
             {
                 "statName": "focus",
@@ -103,6 +110,7 @@
         "description": "-12% SPD per stack",
         "category": "stat_modifier",
         "isBuff": false,
+        "maxStack": null,
         "statModifiers": [
             {
                 "statName": "speed",
@@ -117,6 +125,7 @@
         "description": "-12% ATK per stack",
         "category": "stat_modifier",
         "isBuff": false,
+        "maxStack": null,
         "statModifiers": [
             {
                 "statName": "attack",
@@ -131,6 +140,7 @@
         "description": "-16% DEF per stack",
         "category": "stat_modifier",
         "isBuff": false,
+        "maxStack": null,
         "statModifiers": [
             {
                 "statName": "defense",
@@ -145,6 +155,7 @@
         "description": "-12 CRT per stack",
         "category": "stat_modifier",
         "isBuff": false,
+        "maxStack": null,
         "statModifiers": [
             {
                 "statName": "criticalRate",
@@ -159,6 +170,7 @@
         "description": "-30 CRD per stack",
         "category": "stat_modifier",
         "isBuff": false,
+        "maxStack": null,
         "statModifiers": [
             {
                 "statName": "criticalDamage",
@@ -173,6 +185,7 @@
         "description": "-18 RES per stack",
         "category": "stat_modifier",
         "isBuff": false,
+        "maxStack": null,
         "statModifiers": [
             {
                 "statName": "resist",
@@ -187,6 +200,7 @@
         "description": "-15 FOC per stack",
         "category": "stat_modifier",
         "isBuff": false,
+        "maxStack": null,
         "statModifiers": [
             {
                 "statName": "focus",
@@ -201,10 +215,11 @@
         "description": "Heals a small amount each turn",
         "category": "turn_effect",
         "isBuff": true,
+        "maxStack": 2,
         "turnEffects": [
             {
                 "type": "heal",
-                "value": 10,
+                "value": 15,
                 "valueType": "flat"
             }
         ]
@@ -214,7 +229,8 @@
         "name": "Taunt",
         "description": "Forces enemies to target this Gotchi; enables counter-attack",
         "category": "custom",
-        "isBuff": true
+        "isBuff": true,
+        "maxStack": null
     },
     {
         "code": "fear",
@@ -222,6 +238,7 @@
         "description": "Gotchi skips its next turn",
         "category": "turn_effect",
         "isBuff": false,
+        "maxStack": null,
         "turnEffects": [
             {
                 "type": "skip_turn"
@@ -234,6 +251,7 @@
         "description": "Loses a small amount of HP each turn",
         "category": "turn_effect",
         "isBuff": false,
+        "maxStack": null,
         "turnEffects": [
             {
                 "type": "damage",
@@ -248,6 +266,7 @@
         "description": "Attacks may apply Bleed (30%) to the target",
         "category": "attack_effect",
         "isBuff": true,
+        "maxStack": null,
         "attackEffects": [
             {
                 "type": "apply_status",
@@ -262,6 +281,7 @@
         "description": "Attacks may apply -ATK (30%) to the target",
         "category": "attack_effect",
         "isBuff": true,
+        "maxStack": null,
         "attackEffects": [
             {
                 "type": "apply_status",
@@ -276,6 +296,7 @@
         "description": "Attacks may apply +FOC (30%) to the target",
         "category": "attack_effect",
         "isBuff": false,
+        "maxStack": null,
         "attackEffects": [
             {
                 "type": "apply_status",
@@ -290,6 +311,7 @@
         "description": "Attacks may remove a debuff from the attacker (30%)",
         "category": "attack_effect",
         "isBuff": true,
+        "maxStack": null,
         "attackEffects": [
             {
                 "type": "cleanse_self",
@@ -303,6 +325,7 @@
         "description": "Attacks may apply -DEF (30%) to the target",
         "category": "attack_effect",
         "isBuff": true,
+        "maxStack": null,
         "attackEffects": [
             {
                 "type": "apply_status",
@@ -317,6 +340,7 @@
         "description": "Attacks may apply -FOC (30%) to the target",
         "category": "attack_effect",
         "isBuff": true,
+        "maxStack": null,
         "attackEffects": [
             {
                 "type": "apply_status",
@@ -331,6 +355,7 @@
         "description": "Attacks may apply +CRD (30%) to the target",
         "category": "attack_effect",
         "isBuff": false,
+        "maxStack": null,
         "attackEffects": [
             {
                 "type": "apply_status",
@@ -345,6 +370,7 @@
         "description": "Attacks may apply Fear (25%) to the target",
         "category": "attack_effect",
         "isBuff": true,
+        "maxStack": null,
         "attackEffects": [
             {
                 "type": "apply_status",
@@ -359,6 +385,7 @@
         "description": "Attacks may apply Regeneration (30%) to the target",
         "category": "attack_effect",
         "isBuff": false,
+        "maxStack": null,
         "attackEffects": [
             {
                 "type": "apply_status",
@@ -373,6 +400,7 @@
         "description": "Attacks may apply -SPD (30%) to the target",
         "category": "attack_effect",
         "isBuff": true,
+        "maxStack": null,
         "attackEffects": [
             {
                 "type": "apply_status",
@@ -387,6 +415,7 @@
         "description": "Attacks may apply -CRT (30%) to the target",
         "category": "attack_effect",
         "isBuff": true,
+        "maxStack": null,
         "attackEffects": [
             {
                 "type": "apply_status",
@@ -401,6 +430,7 @@
         "description": "Attacks may apply +ATK (30%) to the attacker",
         "category": "attack_effect",
         "isBuff": true,
+        "maxStack": null,
         "attackEffects": [
             {
                 "type": "gain_status",
@@ -415,6 +445,7 @@
         "description": "Attacks may apply -RES (30%) to the target",
         "category": "attack_effect",
         "isBuff": true,
+        "maxStack": null,
         "attackEffects": [
             {
                 "type": "apply_status",
@@ -429,6 +460,7 @@
         "description": "Attacks may remove a buff (35%) from the target",
         "category": "attack_effect",
         "isBuff": true,
+        "maxStack": null,
         "attackEffects": [
             {
                 "type": "remove_buff",

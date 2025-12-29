@@ -460,11 +460,11 @@ const addStatusToGotchi = (gotchi, statusCode, count) => {
 
     const status = getStatusByCode(statusCode)
 
-    const maxStacks = status.maxStacks || 3
+    const maxStack = status.maxStack || 3
 
-    // Only allow a maximum of maxStacks of the same status
+    // Only allow a maximum of maxStack of the same status
     const currentStacks = gotchi.statuses.filter(x => x === status.code).length
-    if (currentStacks + count > maxStacks) return false
+    if (currentStacks + count > maxStack) return false
 
     // Add the statuses to the gotchi
     gotchi.statuses.push(...Array(count).fill(status.code))
