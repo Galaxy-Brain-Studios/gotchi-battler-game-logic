@@ -682,8 +682,9 @@ const focusCheck = (attackingTeam, attackingGotchi, targetGotchi, rng) => {
     if (attackingTeamGotchis.find(gotchi => gotchi.id === targetGotchi.id)) {
         return true
     } else {
-        // Status apply chance is clamp(0.5 + (FOC - RES) / 200, 0.15, 0.95)
-        const chance = Math.max(Math.min(0.5 + (modifiedAttackingGotchi.focus - modifiedTargetGotchi.resist) / 200, 0.95), 0.15)
+        // Status apply chance is clamp(0.5 + (FOC - RES) / 400, 0.15, 0.95)
+        // This reduces how often we saturate at the clamp endpoints (0.15/0.95) when Focus/Resist grades differ.
+        const chance = Math.max(Math.min(0.5 + (modifiedAttackingGotchi.focus - modifiedTargetGotchi.resist) / 400, 0.95), 0.15)
 
         const result = rng() < chance
 
