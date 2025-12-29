@@ -456,24 +456,29 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
 
                 if (specialEffect.target === 'same_as_attack') {
                     // Handle the effect
-                    const specialEffectResults = handleSpecialEffects(attackingTeam, attackingGotchi, target, specialEffect, rng)
+                    const specialEffectResult = handleSpecialEffect(attackingTeam, attackingGotchi, target, specialEffect, rng)
 
                     // Do we already have an action effect with attack damage or healing?
                     if (targetActionEffect) {
-                        // If target is same as the actionEffect then just add statuses to the actionEffect
-                        if (targetActionEffect.target && targetActionEffect.target === specialEffectResults.actionEffect.target) {
-                            targetActionEffect.statuses.push(...specialEffectResults.actionEffect.statuses)
+                        // If the special effect has statuses and the target is the same as the actionEffect 
+                        // then add the statuses to the actionEffect
+                        if (
+                            specialEffectResult.effect.statuses &&
+                            specialEffectResult.effect.statuses.length > 0 &&
+                            targetActionEffect.target &&
+                            targetActionEffect.target === specialEffectResult.effect.target
+                        ) {
+                            targetActionEffect.statuses.push(...specialEffectResult.effect.statuses)
                         } else {
-                            // If not then add to additionalEffects
-                            targetAdditionalEffects.push(specialEffectResults.actionEffect)
+                            targetAdditionalEffects.push(specialEffectResult.effect)
                         }
                     } else {
-                        targetActionEffect = specialEffectResults.actionEffect
+                        // If the special's actionType is 'none' there is no main actionEffect to merge into,
+                        // so log everything as additionalEffects (avoids turning a status into an actionEffect).
+                        targetAdditionalEffects.push(specialEffectResult.effect)
                     }
 
-                    targetAdditionalEffects.push(...specialEffectResults.additionalEffects)
-
-                    statusesExpired.push(...specialEffectResults.statusesExpired)
+                    statusesExpired.push(...specialEffectResult.statusesExpired)
                 }
             })
         } else {
@@ -596,13 +601,11 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
                 const targets = getTargetsFromCode(specialEffect.target, attackingGotchi, attackingTeam, defendingTeam, rng)
 
                 targets.forEach((target) => {
-                    const specialEffectResults = handleSpecialEffects(attackingTeam, attackingGotchi, target, specialEffect, rng)
+                    const specialEffectResult = handleSpecialEffect(attackingTeam, attackingGotchi, target, specialEffect, rng)
 
-                    additionalEffects.push(specialEffectResults.actionEffect)
+                    additionalEffects.push(specialEffectResult.effect)
 
-                    additionalEffects.push(...specialEffectResults.additionalEffects)
-
-                    statusesExpired.push(...specialEffectResults.statusesExpired)
+                    statusesExpired.push(...specialEffectResult.statusesExpired)
                 })
             }
         })
@@ -616,23 +619,21 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
     }
 }
 
-const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEffect, rng) => {
-    const actionEffect = {
-        target: target.id,
-        statuses: [],
-        outcome: 'failed'
+const handleSpecialEffect = (attackingTeam, attackingGotchi, target, specialEffect, rng) => {
+    const result = {
+        effect: {
+            source: attackingGotchi.id,
+            target: target.id,
+            damage: null,
+            statuses: [],
+            outcome: 'failed'
+        },
+        statusesExpired: []
     }
-
-    const additionalEffects = []
-    const statusesExpired = []
 
     // Check for chance of the special effect
     if (specialEffect.chance && specialEffect.chance < 1 && rng() > specialEffect.chance) {
-        return {
-            actionEffect,
-            additionalEffects,
-            statusesExpired
-        }
+        return result
     }
 
     switch (specialEffect.effectType) {
@@ -640,30 +641,21 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
             // Focus/resistance check if target is not on the same team as the attacking gotchi
             if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
                 if (addStatusToGotchi(target, specialEffect.status)) {
-                    actionEffect.statuses.push(specialEffect.status)
-                    actionEffect.outcome = 'success'
-                } else {
-                    // There's already a maximum of 3 of the same status
-                    actionEffect.outcome = 'failed'
+                    result.effect.statuses.push(specialEffect.status)
+                    result.effect.outcome = 'success'
                 }
             } else {
-                actionEffect.outcome = 'resisted'
+                result.effect.outcome = 'resisted'
             }
             break
         }
         case 'heal': {
-            const amountToHeal = getHealFromMultiplier(attackingGotchi, target, specialEffect.actionMultiplier)
+            const amountToHeal = getHealFromMultiplier(attackingGotchi, target, specialEffect.value)
 
-            // Add another effect for the healing
-            additionalEffects.push({
-                target: target.id,
-                source: attackingGotchi.id,
-                damage: -amountToHeal,
-                outcome: 'success'
-            })
+            result.effect.damage = -amountToHeal
+            result.effect.outcome = 'success'
 
             target.health += amountToHeal
-
             break
         }
         case 'remove_buff': {
@@ -676,7 +668,7 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
 
                 if (buffs.length) {
                     const randomBuff = buffs[Math.floor(rng() * buffs.length)]
-                    statusesExpired.push({
+                    result.statusesExpired.push({
                         target: target.id,
                         status: randomBuff
                     })
@@ -685,6 +677,10 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
                     const index = target.statuses.indexOf(randomBuff)
                     target.statuses.splice(index, 1)
                 }
+
+                result.effect.outcome = 'success'
+            } else {
+                result.effect.outcome = 'resisted'
             }
 
             break
@@ -697,7 +693,7 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
 
             if (debuffs.length) {
                 const randomDebuff = debuffs[Math.floor(rng() * debuffs.length)]
-                statusesExpired.push({
+                result.statusesExpired.push({
                     target: target.id,
                     status: randomDebuff
                 })
@@ -706,6 +702,8 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
                 const index = target.statuses.indexOf(randomDebuff)
                 target.statuses.splice(index, 1)
             }
+
+            result.effect.outcome = 'success'
             break
         }
         case 'remove_all_buffs': {
@@ -717,7 +715,7 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
                 })
 
                 buffsToRemove.forEach((buff) => {
-                    statusesExpired.push({
+                    result.statusesExpired.push({
                         target: target.id,
                         status: buff
                     })
@@ -730,6 +728,10 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
                         return !status.isBuff
                     })
                 }
+
+                result.effect.outcome = 'success'
+            } else {
+                result.effect.outcome = 'resisted'
             }
 
             break
@@ -741,7 +743,7 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
             })
 
             debuffsToRemove.forEach((debuff) => {
-                statusesExpired.push({
+                result.statusesExpired.push({
                     target: target.id,
                     status: debuff
                 })
@@ -755,17 +757,15 @@ const handleSpecialEffects = (attackingTeam, attackingGotchi, target, specialEff
                 })
             }
 
+            result.effect.outcome = 'success'
+
             break
         }
         default:
             throw new Error(`Invalid special effect type: ${specialEffect.effectType}`)
     }
 
-    return {
-        actionEffect,
-        additionalEffects,
-        statusesExpired
-    }
+    return result
 }
 
 module.exports = {

@@ -169,7 +169,7 @@ const getTargetsFromCode = (targetCode, attackingGotchi, attackingTeam, defendin
         ]
     */
 
-    let targets = []    
+    let targets = []
 
     switch (targetCode) {
         case 'self':
@@ -265,8 +265,18 @@ const getDamage = (attackingGotchi, defendingGotchi, multiplier) => {
 }
 
 const getHealFromMultiplier = (healingGotchi, target, multiplier) => {
+    // Guard against invalid multipliers (undefined/NaN/<=0) to avoid poisoning health/stats with NaN.
+    // Returning 0 means "no heal applied".
+    if (typeof multiplier !== 'number' || Number.isNaN(multiplier) || !Number.isFinite(multiplier) || multiplier <= 0) {
+        return 0
+    }
+
     // % of original target health
     let amountToHeal = Math.round(target.fullHealth * multiplier)
+
+    if (typeof amountToHeal !== 'number' || Number.isNaN(amountToHeal) || !Number.isFinite(amountToHeal) || amountToHeal <= 0) {
+        return 0
+    }
 
     // Don't allow amountToHeal to be more than the difference between current health and max health
     if (amountToHeal > target.fullHealth - target.health) {
@@ -441,19 +451,23 @@ const addLeaderToTeam = (team, addStatuses) => {
 /**
  * Add a status to a gotchi
  * @param {Object} gotchi An in-game gotchi object
- * @param {String} status The status to add
+ * @param {String} statusCode The status code to add
  * @param {Integer} count The number of the status to add
  * @returns {Boolean} success A boolean to determine if the status was added
  **/
-const addStatusToGotchi = (gotchi, status, count) => {
+const addStatusToGotchi = (gotchi, statusCode, count) => {
     if (!count) count = 1
 
-    // Only allow a maximum of 3 of the same status
-    if (gotchi.statuses.filter(x => x === status).length >= 3) return false
+    const status = getStatusByCode(statusCode)
 
-    for (let i = 0; i < count; i++) {
-        gotchi.statuses.push(status)
-    }
+    const maxStacks = status.maxStacks || 3
+
+    // Only allow a maximum of maxStacks of the same status
+    const currentStacks = gotchi.statuses.filter(x => x === status.code).length
+    if (currentStacks + count > maxStacks) return false
+
+    // Add the statuses to the gotchi
+    gotchi.statuses.push(...Array(count).fill(status.code))
 
     return true
 }
@@ -516,7 +530,7 @@ const prepareTeams = (allAliveGotchis, team1, team2) => {
         // Set special specialBar
         // gotchi.specialBar is the % the special bar is full. 100% is full. 0% is empty.
         // We split into 6 sections, so the initial specialBar is the number of sections to fill.
-        x.specialBar = Math.round((100/6) * (6 - x.specialExpanded.initialCooldown))
+        x.specialBar = Math.round((100 / 6) * (6 - x.specialExpanded.initialCooldown))
 
         // Handle Health
         // add fullHealth property to all gotchis
@@ -560,7 +574,7 @@ const prepareTeams = (allAliveGotchis, team1, team2) => {
             addLeaderToTeam(team, false)
         } else {
             // Add leader passives to team
-            addLeaderToTeam(team, true) 
+            addLeaderToTeam(team, true)
         }
     })
 }
@@ -626,7 +640,7 @@ const getTeamStats = (team) => {
 
     return {
         ...teamStats,
-        gotchis: gotchis.map(gotchi => { 
+        gotchis: gotchis.map(gotchi => {
             return {
                 id: gotchi.id,
                 name: gotchi.name,
