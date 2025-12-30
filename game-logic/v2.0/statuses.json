@@ -17,14 +17,14 @@
     {
         "code": "atk_up",
         "name": "Attack Buff",
-        "description": "+15% ATK per stack",
+        "description": "+8% ATK per stack",
         "category": "stat_modifier",
         "isBuff": true,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "attack",
-                "value": 15,
+                "value": 8,
                 "valueType": "percent"
             }
         ]
@@ -32,14 +32,14 @@
     {
         "code": "def_up",
         "name": "Defense Buff",
-        "description": "+20% DEF per stack",
+        "description": "+8% DEF per stack",
         "category": "stat_modifier",
         "isBuff": true,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "defense",
-                "value": 20,
+                "value": 8,
                 "valueType": "percent"
             }
         ]
@@ -47,14 +47,14 @@
     {
         "code": "crt_up",
         "name": "Critical-Rate Buff",
-        "description": "+4 CRT per stack",
+        "description": "+2 CRT per stack",
         "category": "stat_modifier",
         "isBuff": true,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "criticalRate",
-                "value": 4,
+                "value": 2,
                 "valueType": "flat"
             }
         ]
@@ -62,14 +62,14 @@
     {
         "code": "crd_up",
         "name": "Critical-Damage Buff",
-        "description": "+12 CRD per stack",
+        "description": "+8 CRD per stack",
         "category": "stat_modifier",
         "isBuff": true,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "criticalDamage",
-                "value": 12,
+                "value": 8,
                 "valueType": "flat"
             }
         ]
@@ -122,14 +122,14 @@
     {
         "code": "atk_down",
         "name": "Attack Debuff",
-        "description": "-15% ATK per stack",
+        "description": "-8% ATK per stack",
         "category": "stat_modifier",
         "isBuff": false,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "attack",
-                "value": -15,
+                "value": -8,
                 "valueType": "percent"
             }
         ]
@@ -137,14 +137,14 @@
     {
         "code": "def_down",
         "name": "Defense Debuff",
-        "description": "-20% DEF per stack",
+        "description": "-8% DEF per stack",
         "category": "stat_modifier",
         "isBuff": false,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "defense",
-                "value": -20,
+                "value": -8,
                 "valueType": "percent"
             }
         ]
@@ -152,14 +152,14 @@
     {
         "code": "crt_down",
         "name": "Critical-Rate Debuff",
-        "description": "-4 CRT per stack",
+        "description": "-2 CRT per stack",
         "category": "stat_modifier",
         "isBuff": false,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "criticalRate",
-                "value": -4,
+                "value": -2,
                 "valueType": "flat"
             }
         ]
@@ -167,14 +167,14 @@
     {
         "code": "crd_down",
         "name": "Critical-Damage Debuff",
-        "description": "-12 CRD per stack",
+        "description": "-8 CRD per stack",
         "category": "stat_modifier",
         "isBuff": false,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "criticalDamage",
-                "value": -12,
+                "value": -8,
                 "valueType": "flat"
             }
         ]
@@ -271,7 +271,7 @@
             {
                 "type": "apply_status",
                 "effectStatus": "bleed",
-                "effectChance": 0.30
+                "effectChance": 0.3
             }
         ]
     },
@@ -286,7 +286,7 @@
             {
                 "type": "apply_status",
                 "effectStatus": "atk_down",
-                "effectChance": 0.30
+                "effectChance": 0.3
             }
         ]
     },
@@ -301,7 +301,7 @@
             {
                 "type": "apply_status",
                 "effectStatus": "foc_up",
-                "effectChance": 0.30
+                "effectChance": 0.3
             }
         ]
     },
@@ -315,7 +315,7 @@
         "attackEffects": [
             {
                 "type": "cleanse_self",
-                "effectChance": 0.30
+                "effectChance": 0.3
             }
         ]
     },
@@ -330,7 +330,7 @@
             {
                 "type": "apply_status",
                 "effectStatus": "def_down",
-                "effectChance": 0.30
+                "effectChance": 0.3
             }
         ]
     },
@@ -345,7 +345,7 @@
             {
                 "type": "apply_status",
                 "effectStatus": "foc_down",
-                "effectChance": 0.30
+                "effectChance": 0.3
             }
         ]
     },
@@ -360,7 +360,7 @@
             {
                 "type": "apply_status",
                 "effectStatus": "crd_up",
-                "effectChance": 0.30
+                "effectChance": 0.3
             }
         ]
     },
@@ -390,7 +390,7 @@
             {
                 "type": "apply_status",
                 "effectStatus": "regenerate",
-                "effectChance": 0.30
+                "effectChance": 0.3
             }
         ]
     },
@@ -405,7 +405,7 @@
             {
                 "type": "apply_status",
                 "effectStatus": "spd_down",
-                "effectChance": 0.30
+                "effectChance": 0.3
             }
         ]
     },
@@ -420,7 +420,7 @@
             {
                 "type": "apply_status",
                 "effectStatus": "crt_down",
-                "effectChance": 0.30
+                "effectChance": 0.3
             }
         ]
     },
@@ -435,7 +435,7 @@
             {
                 "type": "gain_status",
                 "effectStatus": "atk_up",
-                "effectChance": 0.30
+                "effectChance": 0.3
             }
         ]
     },
@@ -450,7 +450,7 @@
             {
                 "type": "apply_status",
                 "effectStatus": "res_down",
-                "effectChance": 0.30
+                "effectChance": 0.3
             }
         ]
     },

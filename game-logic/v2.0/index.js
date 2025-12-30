@@ -3,6 +3,8 @@ const { InGameTeamSchema } = require('../../schemas/ingameteam')
 const { GameError } = require('../../utils/errors')
 
 const STATUSES = require('./statuses.json')
+const AUTO_ATTACK_MULTIPLIER = 0.85
+const COUNTER_ATTACK_MULTIPLIER = 0.5
 
 const {
     getTeamGotchis,
@@ -377,7 +379,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
     const targetCode = isSpecial ? attackingGotchi.specialExpanded.target : 'enemy_random'
     const targets = getTargetsFromCode(targetCode, attackingGotchi, attackingTeam, defendingTeam, rng)
 
-    const actionMultipler = isSpecial ? attackingGotchi.specialExpanded.actionMultiplier : 1
+    const actionMultipler = isSpecial ? attackingGotchi.specialExpanded.actionMultiplier : AUTO_ATTACK_MULTIPLIER
 
     const specialEffects = isSpecial ? (attackingGotchi.specialExpanded.effects || []) : []
 
@@ -568,8 +570,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
 
             // Check for counter attack
             if (target.statuses.includes('taunt') && target.health > 0) {
-                const counterDamageMultiplier = 0.5
-                const counterDamage = getDamage(target, attackingGotchi, counterDamageMultiplier)
+                const counterDamage = getDamage(target, attackingGotchi, COUNTER_ATTACK_MULTIPLIER)
 
                 attackingGotchi.health -= counterDamage
 
