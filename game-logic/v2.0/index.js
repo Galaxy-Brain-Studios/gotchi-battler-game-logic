@@ -640,7 +640,7 @@ const handleSpecialEffect = (attackingTeam, attackingGotchi, target, specialEffe
     switch (specialEffect.effectType) {
         case 'status': {
             // Focus/resistance check if target is not on the same team as the attacking gotchi
-            if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
+            if (specialEffect.skipFocusCheck || focusCheck(attackingTeam, attackingGotchi, target, rng)) {
                 if (addStatusToGotchi(target, specialEffect.status)) {
                     result.effect.statuses.push(specialEffect.status)
                     result.effect.outcome = 'success'
@@ -661,7 +661,7 @@ const handleSpecialEffect = (attackingTeam, attackingGotchi, target, specialEffe
         }
         case 'remove_buff': {
             // Focus/resistance check if target is not on the same team as the attacking gotchi
-            if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
+            if (specialEffect.skipFocusCheck || focusCheck(attackingTeam, attackingGotchi, target, rng)) {
                 const buffs = target.statuses.filter(statusCode => {
                     const status = getStatusByCode(statusCode)
                     return status.isBuff
@@ -709,7 +709,7 @@ const handleSpecialEffect = (attackingTeam, attackingGotchi, target, specialEffe
         }
         case 'remove_all_buffs': {
             // Focus/resistance check if target is not on the same team as the attacking gotchi
-            if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
+            if (specialEffect.skipFocusCheck || focusCheck(attackingTeam, attackingGotchi, target, rng)) {
                 const buffsToRemove = target.statuses.filter(statusCode => {
                     const status = getStatusByCode(statusCode)
                     return status.isBuff
