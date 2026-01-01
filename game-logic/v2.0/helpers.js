@@ -90,14 +90,18 @@ const getNextToAct = (team1, team2, rng) => {
 
     aliveGotchis.sort((a, b) => a.actionDelay - b.actionDelay)
 
-    let toAct = aliveGotchis.filter(gotchi => gotchi.actionDelay === aliveGotchis[0].actionDelay)
+    // actionDelay is stored at 3 decimal precision; compare using scaled ints to avoid float-equality issues.
+    const minActionDelay = Math.round(aliveGotchis[0].actionDelay * 1000)
+    let toAct = aliveGotchis.filter(gotchi => Math.round(gotchi.actionDelay * 1000) === minActionDelay)
 
     // If only one gotchi can act then return it
     if (toAct.length === 1) return getFormationPosition(team1, team2, toAct[0].id)
 
     // Lowest speeds win tiebreaker
     toAct.sort((a, b) => a.speed - b.speed)
-    toAct = toAct.filter(gotchi => gotchi.speed === toAct[0].speed)
+    // speed is stored at 1 decimal precision; compare using scaled ints to avoid float-equality issues.
+    const minSpeed = Math.round(toAct[0].speed * 10)
+    toAct = toAct.filter(gotchi => Math.round(gotchi.speed * 10) === minSpeed)
 
     // If only one gotchi can act then return it
 
@@ -299,8 +303,6 @@ const getHealFromMultiplier = (healingGotchi, target, multiplier) => {
 const getModifiedStats = (gotchi) => {
     const statMods = {}
 
-    const decimalStats = ['criticalRate', 'criticalDamage']
-
     gotchi.statuses.forEach(statusCode => {
         const statusStatMods = {}
         const status = getStatusByCode(statusCode)
@@ -321,10 +323,11 @@ const getModifiedStats = (gotchi) => {
                 throw new Error(`Invalid value type for status ${statusCode}: ${statModifier.valueType}`)
             }
 
-            if (decimalStats.includes(statModifier.statName)) {
-                statChange = Math.round(statChange * 100) / 100
-            } else {
+            // Preserve our stat precision model.
+            if (statModifier.statName === 'health') {
                 statChange = Math.round(statChange)
+            } else {
+                statChange = Math.round(statChange * 10) / 10
             }
 
             if (statusStatMods[statModifier.statName]) {
@@ -352,6 +355,16 @@ const getModifiedStats = (gotchi) => {
             modifiedGotchi[stat] += statMods[stat]
         }
     })
+
+    // Normalize precision after all mods (avoid accumulating float noise).
+    for (const key of ['speed', 'attack', 'defense', 'criticalRate', 'criticalDamage', 'resist', 'focus']) {
+        if (typeof modifiedGotchi[key] === 'number' && Number.isFinite(modifiedGotchi[key])) {
+            modifiedGotchi[key] = Math.round(modifiedGotchi[key] * 10) / 10
+        }
+    }
+    if (typeof modifiedGotchi.health === 'number' && Number.isFinite(modifiedGotchi.health)) {
+        modifiedGotchi.health = Math.round(modifiedGotchi.health)
+    }
 
     // Enforce practical lower bounds for certain stats regardless of whether they were modified by statuses
     if (modifiedGotchi.defense < 1) {
@@ -520,6 +533,8 @@ const prepareTeams = (allAliveGotchis, team1, team2) => {
 
     // Apply stat items
     applyStatItems(allAliveGotchis)
+    // Apply crystals
+    applyCrystals(allAliveGotchis)
 
     allAliveGotchis.forEach(x => {
         // Add statuses property to all gotchis
@@ -607,8 +622,21 @@ const getLogGotchis = (allAliveGotchis) => {
 const applyStatItems = (gotchis) => {
     gotchis.forEach(gotchi => {
         // Apply stat items
-        if (gotchi.item && gotchi.item.stat && gotchi.item.statValue) {
-            gotchi[gotchi.item.stat] += gotchi.item.statValue
+        // Support both shapes:
+        // - gotchi.itemExpanded: full item object (preferred)
+        // - gotchi.item: full item object (legacy)
+        const item = gotchi.itemExpanded || gotchi.item
+        if (item && item.stat && item.statValue != null) {
+            const v = Number(item.statValue)
+            if (!Number.isFinite(v)) return
+            gotchi[item.stat] += v
+
+            // Preserve stat precision model
+            if (item.stat === 'health') {
+                gotchi.health = Math.round(gotchi.health)
+            } else {
+                gotchi[item.stat] = Math.round(gotchi[item.stat] * 10) / 10
+            }
         }
     })
 }
@@ -621,8 +649,64 @@ const applyStatItems = (gotchis) => {
 const removeStatItems = (gotchis) => {
     gotchis.forEach(gotchi => {
         // Remove stat items
-        if (gotchi.item && gotchi.item.stat && gotchi.item.statValue) {
-            gotchi[gotchi.item.stat] -= gotchi.item.statValue
+        const item = gotchi.itemExpanded || gotchi.item
+        if (item && item.stat && item.statValue != null) {
+            const v = Number(item.statValue)
+            if (!Number.isFinite(v)) return
+            gotchi[item.stat] -= v
+
+            if (item.stat === 'health') {
+                gotchi.health = Math.round(gotchi.health)
+            } else {
+                gotchi[item.stat] = Math.round(gotchi[item.stat] * 10) / 10
+            }
+        }
+    })
+}
+
+/**
+ * Apply crystals to gotchis.
+ * Expects crystals to be present as crystalSlot{n}Expanded objects (preferred).
+ */
+const applyCrystals = (gotchis) => {
+    gotchis.forEach((gotchi) => {
+        for (let i = 1; i <= 6; i++) {
+            const crystal = gotchi[`crystalSlot${i}Expanded`]
+            if (!crystal || !crystal.stat || crystal.statValue == null) continue
+
+            const v = Number(crystal.statValue)
+            if (!Number.isFinite(v)) continue
+
+            gotchi[crystal.stat] += v
+
+            if (crystal.stat === 'health') {
+                gotchi.health = Math.round(gotchi.health)
+            } else {
+                gotchi[crystal.stat] = Math.round(gotchi[crystal.stat] * 10) / 10
+            }
+        }
+    })
+}
+
+/**
+ * Remove crystals from gotchis (for log replays if needed).
+ */
+const removeCrystals = (gotchis) => {
+    gotchis.forEach((gotchi) => {
+        for (let i = 1; i <= 6; i++) {
+            const crystal = gotchi[`crystalSlot${i}Expanded`]
+            if (!crystal || !crystal.stat || crystal.statValue == null) continue
+
+            const v = Number(crystal.statValue)
+            if (!Number.isFinite(v)) continue
+
+            gotchi[crystal.stat] -= v
+
+            if (crystal.stat === 'health') {
+                gotchi.health = Math.round(gotchi.health)
+            } else {
+                gotchi[crystal.stat] = Math.round(gotchi[crystal.stat] * 10) / 10
+            }
         }
     })
 }
@@ -683,9 +767,11 @@ const focusCheck = (attackingTeam, attackingGotchi, targetGotchi, rng) => {
     if (attackingTeamGotchis.find(gotchi => gotchi.id === targetGotchi.id)) {
         return true
     } else {
-        // Status apply chance is clamp(0.5 + (FOC - RES) / 400, 0.15, 0.95)
-        // This reduces how often we saturate at the clamp endpoints (0.15/0.95) when Focus/Resist grades differ.
-        const chance = Math.max(Math.min(0.5 + (modifiedAttackingGotchi.focus - modifiedTargetGotchi.resist) / 400, 0.95), 0.15)
+        // Status apply chance is clamp(0.5 + (FOC - RES) / K, 0.15, 0.95)
+        // With the new 0.1-precision stat scale, Focus/Resist are much smaller, so we use a smaller K
+        // to keep FOC/RES impactful. Design target: ±20 should saturate clamps.
+        const K = 40
+        const chance = Math.max(Math.min(0.5 + (modifiedAttackingGotchi.focus - modifiedTargetGotchi.resist) / K, 0.95), 0.15)
 
         const result = rng() < chance
 
@@ -731,6 +817,8 @@ module.exports = {
     getLogGotchis,
     applyStatItems,
     removeStatItems,
+    applyCrystals,
+    removeCrystals,
     getTeamStats,
     getStatusByCode,
     getTeamSpecialBars,

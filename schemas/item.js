@@ -7,7 +7,7 @@ const ItemSchema = z.object({
     image: z.string(),
     rarity: z.enum(['common', 'uncommon', 'rare', 'legendary', 'mythical', 'godlike']),
     stat: z.enum(['speed', 'health', 'attack', 'defense', 'criticalRate', 'criticalDamage', 'resist', 'focus']),
-    statValue: z.number().int()
+    statValue: z.number()
 })
 
 module.exports = { ItemSchema }

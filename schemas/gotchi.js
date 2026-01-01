@@ -6,19 +6,19 @@ const { CrystalSchema } = require('./crystal')
 
 const GotchiSchema = z.object({
     id: z.number().int(),
-    onchainId: z.number().int(),
+    onchainId: z.number().int().nullable().optional(), // monsters don't have onchain ids
     name: z.string(),
     type: z.enum(['gotchi', 'spirit', 'monster']),
     visualCode: z.string(),
     level: z.number().int(),
-    speed: z.number().int(),
+    speed: z.number(),
     health: z.number().int(),
-    attack: z.number().int(),
-    defense: z.number().int(),
+    attack: z.number(),
+    defense: z.number(),
     criticalRate: z.number(),
-    criticalDamage: z.number().int(),
-    resist: z.number().int(),
-    focus: z.number().int(),
+    criticalDamage: z.number(),
+    resist: z.number(),
+    focus: z.number(),
 
     // Foreign keys
     gotchiClass: z.string(),
