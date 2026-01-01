@@ -2,14 +2,14 @@
     {
         "code": "spd_up",
         "name": "Speed Buff",
-        "description": "+15% SPD per stack",
+        "description": "+10% SPD per stack",
         "category": "stat_modifier",
         "isBuff": true,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "speed",
-                "value": 15,
+                "value": 10,
                 "valueType": "percent"
             }
         ]
@@ -17,14 +17,14 @@
     {
         "code": "atk_up",
         "name": "Attack Buff",
-        "description": "+8% ATK per stack",
+        "description": "+10% ATK per stack",
         "category": "stat_modifier",
         "isBuff": true,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "attack",
-                "value": 8,
+                "value": 10,
                 "valueType": "percent"
             }
         ]
@@ -32,14 +32,14 @@
     {
         "code": "def_up",
         "name": "Defense Buff",
-        "description": "+8% DEF per stack",
+        "description": "+10% DEF per stack",
         "category": "stat_modifier",
         "isBuff": true,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "defense",
-                "value": 8,
+                "value": 10,
                 "valueType": "percent"
             }
         ]
@@ -47,74 +47,74 @@
     {
         "code": "crt_up",
         "name": "Critical-Rate Buff",
-        "description": "+2 CRT per stack",
+        "description": "+10% CRT per stack",
         "category": "stat_modifier",
         "isBuff": true,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "criticalRate",
-                "value": 2,
-                "valueType": "flat"
+                "value": 10,
+                "valueType": "percent"
             }
         ]
     },
     {
         "code": "crd_up",
         "name": "Critical-Damage Buff",
-        "description": "+8 CRD per stack",
+        "description": "+10% CRD per stack",
         "category": "stat_modifier",
         "isBuff": true,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "criticalDamage",
-                "value": 8,
-                "valueType": "flat"
+                "value": 10,
+                "valueType": "percent"
             }
         ]
     },
     {
         "code": "res_up",
         "name": "Resistance Buff",
-        "description": "+14 RES per stack",
+        "description": "+10% RES per stack",
         "category": "stat_modifier",
         "isBuff": true,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "resist",
-                "value": 14,
-                "valueType": "flat"
+                "value": 10,
+                "valueType": "percent"
             }
         ]
     },
     {
         "code": "foc_up",
         "name": "Focus Buff",
-        "description": "+12 FOC per stack",
+        "description": "+10% FOC per stack",
         "category": "stat_modifier",
         "isBuff": true,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "focus",
-                "value": 12,
-                "valueType": "flat"
+                "value": 10,
+                "valueType": "percent"
             }
         ]
     },
     {
         "code": "spd_down",
         "name": "Speed Debuff",
-        "description": "-15% SPD per stack",
+        "description": "-10% SPD per stack",
         "category": "stat_modifier",
         "isBuff": false,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "speed",
-                "value": -15,
+                "value": -10,
                 "valueType": "percent"
             }
         ]
@@ -122,14 +122,14 @@
     {
         "code": "atk_down",
         "name": "Attack Debuff",
-        "description": "-8% ATK per stack",
+        "description": "-10% ATK per stack",
         "category": "stat_modifier",
         "isBuff": false,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "attack",
-                "value": -8,
+                "value": -10,
                 "valueType": "percent"
             }
         ]
@@ -137,14 +137,14 @@
     {
         "code": "def_down",
         "name": "Defense Debuff",
-        "description": "-8% DEF per stack",
+        "description": "-10% DEF per stack",
         "category": "stat_modifier",
         "isBuff": false,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "defense",
-                "value": -8,
+                "value": -10,
                 "valueType": "percent"
             }
         ]
@@ -152,60 +152,60 @@
     {
         "code": "crt_down",
         "name": "Critical-Rate Debuff",
-        "description": "-2 CRT per stack",
+        "description": "-10% CRT per stack",
         "category": "stat_modifier",
         "isBuff": false,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "criticalRate",
-                "value": -2,
-                "valueType": "flat"
+                "value": -10,
+                "valueType": "percent"
             }
         ]
     },
     {
         "code": "crd_down",
         "name": "Critical-Damage Debuff",
-        "description": "-8 CRD per stack",
+        "description": "-10% CRD per stack",
         "category": "stat_modifier",
         "isBuff": false,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "criticalDamage",
-                "value": -8,
-                "valueType": "flat"
+                "value": -10,
+                "valueType": "percent"
             }
         ]
     },
     {
         "code": "res_down",
         "name": "Resistance Debuff",
-        "description": "-14 RES per stack",
+        "description": "-10% RES per stack",
         "category": "stat_modifier",
         "isBuff": false,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "resist",
-                "value": -14,
-                "valueType": "flat"
+                "value": -10,
+                "valueType": "percent"
             }
         ]
     },
     {
         "code": "foc_down",
         "name": "Focus Debuff",
-        "description": "-12 FOC per stack",
+        "description": "-10% FOC per stack",
         "category": "stat_modifier",
         "isBuff": false,
         "maxStack": null,
         "statModifiers": [
             {
                 "statName": "focus",
-                "value": -12,
-                "valueType": "flat"
+                "value": -10,
+                "valueType": "percent"
             }
         ]
     },

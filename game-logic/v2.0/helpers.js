@@ -1,4 +1,5 @@
 const STATUSES = require('./statuses.json')
+const { DEFAULT_MAX_STATUSES } = require('./constants')
 
 const getTeamGotchis = (team) => {
     return [...team.formation.front, ...team.formation.back].filter(x => x)
@@ -460,7 +461,7 @@ const addStatusToGotchi = (gotchi, statusCode, count) => {
 
     const status = getStatusByCode(statusCode)
 
-    const maxStack = status.maxStack || 3
+    const maxStack = status.maxStack || DEFAULT_MAX_STATUSES
 
     // Only allow a maximum of maxStack of the same status
     const currentStacks = gotchi.statuses.filter(x => x === status.code).length
