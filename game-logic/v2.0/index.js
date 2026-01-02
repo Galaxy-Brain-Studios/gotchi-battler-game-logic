@@ -1,3 +1,6 @@
+const fs = require('fs')
+const path = require('path')
+
 const seedrandom = require('seedrandom')
 const { InGameTeamSchema } = require('../../schemas/ingameteam')
 const { GameError } = require('../../utils/errors')
@@ -75,6 +78,8 @@ const gameLoop = (team1, team2, seed, options = { debug: false, type: 'training'
 
     try {
         while (getAlive(team1).length && getAlive(team2).length) {
+            if (turnCounter >= 1000) throw new Error('Battle timeout')
+
             // Check if turnCounter is ready for environment effects (99,149,199, etc)
             let isEnvironmentTurn = [
                 99, 149, 199, 249, 299, 349, 399, 449, 499,
@@ -112,6 +117,11 @@ const gameLoop = (team1, team2, seed, options = { debug: false, type: 'training'
         }
     } catch (e) {
         console.error(e)
+        if (options.debug) {
+            // Write logs to file
+            fs.writeFileSync(path.join(__dirname, '..', '..', 'scripts', 'output', `${logs.meta.timestamp}-${Date.now()}.json`), JSON.stringify(logs, null, 4))
+            console.log(`Logs written to ${path.join(__dirname, '..', '..', 'scripts', 'output', `${logs.meta.timestamp}-${Date.now()}.json`)}`)
+        }
         throw new GameError('Game loop failed', logs)
     }
 

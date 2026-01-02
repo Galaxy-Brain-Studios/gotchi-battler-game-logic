@@ -35,7 +35,7 @@
         "description": "+10% DEF per stack",
         "category": "stat_modifier",
         "isBuff": true,
-        "maxStack": null,
+        "maxStack": 3,
         "statModifiers": [
             {
                 "statName": "defense",
@@ -125,7 +125,7 @@
         "description": "-10% ATK per stack",
         "category": "stat_modifier",
         "isBuff": false,
-        "maxStack": null,
+        "maxStack": 3,
         "statModifiers": [
             {
                 "statName": "attack",
@@ -219,7 +219,7 @@
         "turnEffects": [
             {
                 "type": "heal",
-                "value": 15,
+                "value": 10,
                 "valueType": "flat"
             }
         ]
