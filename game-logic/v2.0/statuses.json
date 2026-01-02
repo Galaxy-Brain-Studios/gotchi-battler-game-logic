@@ -251,11 +251,11 @@
         "description": "Loses a small amount of HP each turn",
         "category": "turn_effect",
         "isBuff": false,
-        "maxStack": null,
+        "maxStack": 3,
         "turnEffects": [
             {
                 "type": "damage",
-                "value": 8,
+                "value": 10,
                 "valueType": "flat"
             }
         ]
