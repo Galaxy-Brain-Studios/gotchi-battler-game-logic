@@ -26,7 +26,8 @@ const {
     getTeamSpecialBars,
     focusCheck,
     getCritMultiplier,
-    getModifiedStats
+    getModifiedStats,
+    shouldDoSpecial
 } = require('./helpers')
 
 /**
@@ -198,24 +199,33 @@ const executeTurn = (team1, team2, rng) => {
 
     let actionName = 'auto'
     let repeatAttack = false
+    let specialDone = false
+
     // Check if special attack is ready
     if (attackingGotchi.specialBar === 100) {
-        // Execute special attack
-        actionName = attackingGotchi.specialExpanded.code
-        const specialResults = attack(attackingGotchi, attackingTeam, defendingTeam, rng, true)
+        // Check if special should be done
+        if (shouldDoSpecial(attackingGotchi, attackingTeam, defendingTeam)) {
+            // Execute special attack
+            actionName = attackingGotchi.specialExpanded.code
+            const specialResults = attack(attackingGotchi, attackingTeam, defendingTeam, rng, true)
 
-        actionEffects = specialResults.actionEffects
-        additionalEffects = specialResults.additionalEffects
-        statusesExpired = specialResults.statusesExpired
+            actionEffects = specialResults.actionEffects
+            additionalEffects = specialResults.additionalEffects
+            statusesExpired = specialResults.statusesExpired
 
-        if (specialResults.repeatAttack) {
-            // Don't reset specialBar, just repeat the attack
-            repeatAttack = true
-        } else {
-            // Reset specialBar
-            attackingGotchi.specialBar = Math.round((100 / 6) * (6 - attackingGotchi.specialExpanded.cooldown))
+            if (specialResults.repeatAttack) {
+                // Don't reset specialBar, just repeat the attack
+                repeatAttack = true
+            } else {
+                // Reset specialBar
+                attackingGotchi.specialBar = Math.round((100 / 6) * (6 - attackingGotchi.specialExpanded.cooldown))
+            }
+
+            specialDone = true
         }
-    } else {
+    }
+
+    if (!specialDone) {
         // Do an auto attack
         const attackResults = attack(attackingGotchi, attackingTeam, defendingTeam, rng)
 
@@ -224,8 +234,12 @@ const executeTurn = (team1, team2, rng) => {
         statusesExpired = attackResults.statusesExpired
 
         // Increase specialBar by 1/6th
-        attackingGotchi.specialBar = Math.round(attackingGotchi.specialBar + (100 / 6))
-        if (attackingGotchi.specialBar > 100) attackingGotchi.specialBar = 100
+        if (attackingGotchi.specialBar < 100) {
+            attackingGotchi.specialBar = Math.round(attackingGotchi.specialBar + (100 / 6))
+            if (attackingGotchi.specialBar > 100) attackingGotchi.specialBar = 100
+        } else {
+            // Keep the specialBar at 100 so the special is still available for the next time shouldDoSpecial is true
+        }
     }
 
     // Increase actionDelay

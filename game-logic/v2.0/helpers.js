@@ -814,6 +814,33 @@ const getCritMultiplier = (gotchi, rng) => {
     return 1
 }
 
+// Handles the primitive AI decision of whether to do a special attack
+const shouldDoSpecial = (attackingGotchi, attackingTeam, _defendingTeam) => {
+    const special = attackingGotchi.specialExpanded
+    const specialEffects = special.effects || []
+
+    // If the special grants taunt to self
+    if (specialEffects.find(effect => effect.status === 'taunt' && effect.target === 'self')) {
+        // If there is no action on the special
+        if (special.actionType === 'none') {
+            // If the attacker already has taunt
+            if (attackingGotchi.statuses.includes('taunt')) {
+                return false
+            }
+        }
+    }
+
+    // If actionType is heal
+    if (special.actionType === 'heal') {
+        // If the attackingTeam is already all at full health then skip
+        if (getAlive(attackingTeam).every(gotchi => gotchi.health === gotchi.fullHealth)) {
+            return false
+        }
+    }
+
+    return true
+}
+
 module.exports = {
     getTeamGotchis,
     getAlive,
@@ -842,5 +869,6 @@ module.exports = {
     getStatusByCode,
     getTeamSpecialBars,
     focusCheck,
-    getCritMultiplier
+    getCritMultiplier,
+    shouldDoSpecial
 }
