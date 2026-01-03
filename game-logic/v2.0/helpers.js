@@ -208,21 +208,30 @@ const getTargetsFromCode = (targetCode, attackingGotchi, attackingTeam, defendin
         case 'all_enemies':
             targets = getAlive(defendingTeam)
             break
-        case 'ally_random':
-            targets.push(getTarget(attackingTeam, rng))
+        case 'ally_random': {
+            // "ally_random" should be truly random among *all* alive allies.
+            // Do NOT reuse getTarget() here: getTarget() enforces taunt + row targeting rules meant for enemy attacks.
+            const alive = getAlive(attackingTeam)
+            if (!alive.length) throw new Error('No gotchis to target')
+            targets.push(alive[Math.floor(rng() * alive.length)])
             break
+        }
         case 'ally_back_row':
             if (getAlive(attackingTeam, 'back').length) {
                 targets.push(getAlive(attackingTeam, 'back')[Math.floor(rng() * getAlive(attackingTeam, 'back').length)])
             } else {
-                targets.push(getTarget(attackingTeam, rng))
+                const alive = getAlive(attackingTeam)
+                if (!alive.length) throw new Error('No gotchis to target')
+                targets.push(alive[Math.floor(rng() * alive.length)])
             }
             break
         case 'ally_front_row':
             if (getAlive(attackingTeam, 'front').length) {
                 targets.push(getAlive(attackingTeam, 'front')[Math.floor(rng() * getAlive(attackingTeam, 'front').length)])
             } else {
-                targets.push(getTarget(attackingTeam, rng))
+                const alive = getAlive(attackingTeam)
+                if (!alive.length) throw new Error('No gotchis to target')
+                targets.push(alive[Math.floor(rng() * alive.length)])
             }
             break
         case 'ally_row_largest': {
