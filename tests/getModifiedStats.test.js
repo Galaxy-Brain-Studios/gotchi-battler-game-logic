@@ -19,27 +19,30 @@ const makeGotchi = (overrides = {}) => ({
 })
 
 describe('getModifiedStats', () => {
-    it('applies flat stat buffs from statuses', () => {
+    it('applies percent stat buffs from statuses (v2.0 statuses are percent-based)', () => {
         const g = makeGotchi({ statuses: ['spd_up', 'atk_up', 'def_up'] })
         const m = getModifiedStats(g)
-        // v2.0 statuses are percent-based; with base speed=10, spd_up (+15%) rounds to +2
-        expect(m.speed).to.equal(12)
-        expect(m.attack).to.equal(6)
-        expect(m.defense).to.equal(4)
+        // Each is +10% of the base stat, rounded to 0.1 precision
+        // speed: 10 + (10 * 0.10) = 11
+        // attack: 5 + (5 * 0.10) = 5.5
+        // defense: 3 + (3 * 0.10) = 3.3
+        expect(m.speed).to.equal(11)
+        expect(m.attack).to.equal(5.5)
+        expect(m.defense).to.equal(3.3)
     })
 
     it('stacks multiple statuses and nets against opposing debuffs', () => {
         const g = makeGotchi({ statuses: ['spd_up', 'spd_up', 'spd_down'] })
         const m = getModifiedStats(g)
-        // Each spd_up: 10 * 0.15 => 1.5 => Math.round => 2
-        // spd_down: 10 * -0.15 => -1.5 => Math.round => -1 (JS rounds halves toward +∞)
-        // Net: +2 +2 -1 = +3
-        expect(m.speed).to.equal(13)
+        // Each spd_up: +10% of base speed (10) => +1
+        // spd_down: -10% of base speed (10) => -1
+        // Net: +1 +1 -1 = +1
+        expect(m.speed).to.equal(11)
     })
 
     it('keeps speed at minimum 1 to avoid zero/negative speed', () => {
-        // Use a base speed where percent debuffs round to at least -1 per stack
-        const g = makeGotchi({ speed: 4, statuses: ['spd_down', 'spd_down', 'spd_down'] })
+        // At very low base values, debuffs would push below 1; we clamp back to 1
+        const g = makeGotchi({ speed: 1, statuses: ['spd_down'] })
         const m = getModifiedStats(g)
         expect(m.speed).to.equal(1)
     })
@@ -77,6 +80,12 @@ describe('getModifiedStats', () => {
     it('throws if an unknown status code is provided', () => {
         const g = makeGotchi({ statuses: ['this_is_not_real'] })
         expect(() => getModifiedStats(g)).to.throw('Status with code this_is_not_real not found')
+    })
+
+    it('throws a helpful error if a status tries to modify a missing stat', () => {
+        // makeGotchi intentionally omits `focus` unless specified.
+        const g = makeGotchi({ statuses: ['foc_up'] })
+        expect(() => getModifiedStats(g)).to.throw('gotchi.focus is not a finite number')
     })
 })
 

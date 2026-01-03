@@ -303,7 +303,9 @@ const getHealFromMultiplier = (healingGotchi, target, multiplier) => {
 const getModifiedStats = (gotchi) => {
     const statMods = {}
 
-    gotchi.statuses.forEach(statusCode => {
+    const statuses = Array.isArray(gotchi.statuses) ? gotchi.statuses : []
+
+    statuses.forEach(statusCode => {
         const statusStatMods = {}
         const status = getStatusByCode(statusCode)
 
@@ -316,9 +318,22 @@ const getModifiedStats = (gotchi) => {
             let statChange = 0
 
             if (statModifier.valueType === 'flat') {
+                if (typeof statModifier.value !== 'number' || !Number.isFinite(statModifier.value)) {
+                    throw new Error(`Invalid flat modifier value for status ${statusCode}: ${statModifier.value}`)
+                }
                 statChange = statModifier.value
             } else if (statModifier.valueType === 'percent') {
-                statChange = gotchi[statModifier.statName] * (statModifier.value / 100)
+                const baseStat = gotchi[statModifier.statName]
+                if (typeof baseStat !== 'number' || !Number.isFinite(baseStat)) {
+                    throw new Error(
+                        `Cannot apply status ${statusCode}: gotchi.${statModifier.statName} is not a finite number (gotchiId=${gotchi.id}, name=${gotchi.name})`
+                    )
+                }
+                if (typeof statModifier.value !== 'number' || !Number.isFinite(statModifier.value)) {
+                    throw new Error(`Invalid percent modifier value for status ${statusCode}: ${statModifier.value}`)
+                }
+
+                statChange = baseStat * (statModifier.value / 100)
             } else {
                 throw new Error(`Invalid value type for status ${statusCode}: ${statModifier.valueType}`)
             }
@@ -330,7 +345,7 @@ const getModifiedStats = (gotchi) => {
                 statChange = Math.round(statChange * 10) / 10
             }
 
-            if (statusStatMods[statModifier.statName]) {
+            if (Object.prototype.hasOwnProperty.call(statusStatMods, statModifier.statName)) {
                 statusStatMods[statModifier.statName] = statusStatMods[statModifier.statName] + statChange
             } else {
                 statusStatMods[statModifier.statName] = statChange
@@ -339,7 +354,11 @@ const getModifiedStats = (gotchi) => {
 
         // apply status mods
         Object.keys(statusStatMods).forEach(stat => {
-            statMods[stat] = statMods[stat] ? statMods[stat] + statusStatMods[stat] : statusStatMods[stat]
+            if (Object.prototype.hasOwnProperty.call(statMods, stat)) {
+                statMods[stat] = statMods[stat] + statusStatMods[stat]
+            } else {
+                statMods[stat] = statusStatMods[stat]
+            }
         })
     })
 
