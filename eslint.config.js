@@ -17,7 +17,8 @@ module.exports = [
             semi: ['error', 'never'],
             indent: ['error', 4, { SwitchCase: 1 }],
             'object-curly-spacing': ['error', 'always'],
-            'array-bracket-spacing': ['error', 'never']
+            'array-bracket-spacing': ['error', 'never'],
+            'no-unused-vars': ['error', { args: 'none', argsIgnorePattern: '^_' }]
         }
     },
     {
