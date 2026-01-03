@@ -6,8 +6,10 @@ const { InGameTeamSchema } = require('../../schemas/ingameteam')
 const { GameError } = require('../../utils/errors')
 
 const STATUSES = require('./statuses.json')
-const AUTO_ATTACK_MULTIPLIER = 0.85
-const COUNTER_ATTACK_MULTIPLIER = 0.3
+const {
+    AUTO_ATTACK_MULTIPLIER,
+    COUNTER_ATTACK_MULTIPLIER
+} = require('./constants')
 
 const {
     getTeamGotchis,

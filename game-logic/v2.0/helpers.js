@@ -1,5 +1,8 @@
 const STATUSES = require('./statuses.json')
-const { DEFAULT_MAX_STATUSES } = require('./constants')
+const {
+    DEFAULT_MAX_STATUSES,
+    FOC_RES_COEFFICIENT
+} = require('./constants')
 
 const getTeamGotchis = (team) => {
     return [...team.formation.front, ...team.formation.back].filter(x => x)
@@ -786,11 +789,10 @@ const focusCheck = (attackingTeam, attackingGotchi, targetGotchi, rng) => {
     if (attackingTeamGotchis.find(gotchi => gotchi.id === targetGotchi.id)) {
         return true
     } else {
-        // Status apply chance is clamp(0.5 + (FOC - RES) / K, 0.15, 0.95)
-        // With the new 0.1-precision stat scale, Focus/Resist are much smaller, so we use a smaller K
-        // to keep FOC/RES impactful. Design target: ±20 should saturate clamps.
-        const K = 40
-        const chance = Math.max(Math.min(0.5 + (modifiedAttackingGotchi.focus - modifiedTargetGotchi.resist) / K, 0.95), 0.15)
+        // Status apply chance is clamp(0.5 + (FOC - RES) / FOC_RES_COEFFICIENT, 0.15, 0.95)
+        // With the new 0.1-precision stat scale, Focus/Resist are much smaller, so we use a smaller FOC_RES_COEFFICIENT
+        // to keep FOC/RES impactful. Design target: ±10 should saturate clamps.
+        const chance = Math.max(Math.min(0.5 + (modifiedAttackingGotchi.focus - modifiedTargetGotchi.resist) / FOC_RES_COEFFICIENT, 0.95), 0.15)
 
         const result = rng() < chance
 
