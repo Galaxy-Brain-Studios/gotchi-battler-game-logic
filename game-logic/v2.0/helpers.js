@@ -820,7 +820,10 @@ const shouldDoSpecial = (attackingGotchi, attackingTeam, _defendingTeam) => {
     const specialEffects = special.effects || []
 
     // If the special grants taunt to self
-    if (specialEffects.find(effect => effect.status === 'taunt' && effect.target === 'self')) {
+    if (
+        specialEffects.find(effect => effect.status === 'taunt' && effect.target === 'self') ||
+        special.target === 'self' && specialEffects.find(effect => effect.status === 'taunt' && effect.target === 'same_as_attack')
+    ) {
         // If there is no action on the special
         if (special.actionType === 'none') {
             // If the attacker already has taunt
