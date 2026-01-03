@@ -215,11 +215,11 @@
         "description": "Heals a small amount each turn",
         "category": "turn_effect",
         "isBuff": true,
-        "maxStack": 2,
+        "maxStack": 4,
         "turnEffects": [
             {
                 "type": "heal",
-                "value": 10,
+                "value": 5,
                 "valueType": "flat"
             }
         ]
@@ -251,11 +251,11 @@
         "description": "Loses a small amount of HP each turn",
         "category": "turn_effect",
         "isBuff": false,
-        "maxStack": 3,
+        "maxStack": 4,
         "turnEffects": [
             {
                 "type": "damage",
-                "value": 10,
+                "value": 5,
                 "valueType": "flat"
             }
         ]
