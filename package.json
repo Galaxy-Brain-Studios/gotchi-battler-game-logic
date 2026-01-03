@@ -1,6 +1,6 @@
 {
     "name": "gotchi-battler-game-logic",
-    "version": "4.0.19",
+    "version": "4.0.21",
     "main": "index.js",
     "scripts": {
         "test": "mocha \"tests/**/*.test.js\"",
