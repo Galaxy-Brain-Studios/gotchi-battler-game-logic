@@ -645,9 +645,22 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
         })
     }
 
+    // Combine additionalEffects with the same target and outcome
+    let cleanAdditionalEffects = []
+    additionalEffects.forEach((effect) => {
+        const existingEffect = cleanAdditionalEffects.find(e => e.target === effect.target && e.outcome === effect.outcome)
+
+        if (existingEffect) {
+            existingEffect.damage += effect.damage
+            existingEffect.statuses.push(...effect.statuses)
+        } else {
+            cleanAdditionalEffects.push(effect)
+        }
+    })
+
     return {
         actionEffects,
-        additionalEffects,
+        additionalEffects: cleanAdditionalEffects,
         statusesExpired,
         repeatAttack
     }
