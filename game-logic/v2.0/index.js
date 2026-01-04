@@ -416,6 +416,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
     // repeat_attack is a meta-effect: roll once per special use (not once per target)
     const repeatAttackEffect = isSpecial ? specialEffects.find(e => e.effectType === 'repeat_attack') : null
     const nonRepeatSpecialEffects = isSpecial ? specialEffects.filter(e => e.effectType !== 'repeat_attack') : []
+    const hasSameAsAttackSpecialEffects = isSpecial && nonRepeatSpecialEffects.some(e => e.target === 'same_as_attack')
 
     let repeatAttack = false
     if (isSpecial && repeatAttackEffect) {
@@ -468,7 +469,17 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
             target.health += amountToHeal
 
         } else if (action === 'none') {
-            // Do nothing
+            // No direct action (damage/heal) to log. If the special applies any effects to
+            // `same_as_attack` targets, create a placeholder actionEffect so replayers (e.g. Unity)
+            // can still aim VFX at the intended targets and merge successful statuses into it.
+            if (hasSameAsAttackSpecialEffects) {
+                targetActionEffect = {
+                    target: target.id,
+                    statuses: [],
+                    damage: null,
+                    outcome: 'success'
+                }
+            }
         } else {
             // Check we actually have a valid action
             throw new Error(`Invalid action: ${action}`)
@@ -486,23 +497,19 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
                     // Handle the effect
                     const specialEffectResult = handleSpecialEffect(attackingTeam, attackingGotchi, target, specialEffect, rng)
 
-                    // Do we already have an action effect with attack damage or healing?
-                    if (targetActionEffect) {
-                        // If the special effect has statuses and the target is the same as the actionEffect 
-                        // then add the statuses to the actionEffect
-                        if (
-                            specialEffectResult.effect.statuses &&
-                            specialEffectResult.effect.statuses.length > 0 &&
-                            targetActionEffect.target &&
-                            targetActionEffect.target === specialEffectResult.effect.target
-                        ) {
-                            targetActionEffect.statuses.push(...specialEffectResult.effect.statuses)
-                        } else {
-                            targetAdditionalEffects.push(specialEffectResult.effect)
-                        }
+                    // If the special effect has statuses and the target is the same as the actionEffect,
+                    // then merge the statuses into the actionEffect (so replayers can treat them as the
+                    // "primary" per-target effects). Otherwise, keep it as an additionalEffect.
+                    if (
+                        targetActionEffect &&
+                        specialEffectResult.effect.statuses &&
+                        specialEffectResult.effect.statuses.length > 0 &&
+                        targetActionEffect.target &&
+                        targetActionEffect.target === specialEffectResult.effect.target
+                    ) {
+                        targetActionEffect.statuses.push(...specialEffectResult.effect.statuses)
                     } else {
-                        // If the special's actionType is 'none' there is no main actionEffect to merge into,
-                        // so log everything as additionalEffects (avoids turning a status into an actionEffect).
+                        // Keep resisted/failed effects as additionalEffects so the outcome can be replayed/displayed.
                         targetAdditionalEffects.push(specialEffectResult.effect)
                     }
 
