@@ -5,7 +5,6 @@ const seedrandom = require('seedrandom')
 const { InGameTeamSchema } = require('../../schemas/ingameteam')
 const { GameError } = require('../../utils/errors')
 
-const STATUSES = require('./statuses.json')
 const {
     AUTO_ATTACK_MULTIPLIER,
     COUNTER_ATTACK_MULTIPLIER
@@ -518,9 +517,9 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
             })
         } else {
             // If it's an auto attack then handle all the statuses that have attackEffects
-            const attackEffects = attackingGotchi.statuses.filter(status => {
-                const statusEffect = getStatusByCode(status)
-                return statusEffect.attackEffects
+            const attackEffects = attackingGotchi.statuses.flatMap((statusCode) => {
+                const statusEffect = getStatusByCode(statusCode)
+                return statusEffect.attackEffects || []
             })
 
             attackEffects.forEach((attackEffect) => {
@@ -532,17 +531,17 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
                 switch (attackEffect.type) {
                     case 'apply_status': {
                         if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
-                            if (addStatusToGotchi(target, attackEffect.status)) {
-                                targetActionEffect.statuses.push(attackEffect.status)
+                            if (addStatusToGotchi(target, attackEffect.effectStatus)) {
+                                targetActionEffect.statuses.push(attackEffect.effectStatus)
                             }
                         }
                         break
                     }
                     case 'gain_status': {
-                        if (addStatusToGotchi(attackingGotchi, attackEffect.status)) {
+                        if (addStatusToGotchi(attackingGotchi, attackEffect.effectStatus)) {
                             targetAdditionalEffects.push({
                                 target: attackingGotchi.id,
-                                status: attackEffect.status,
+                                status: attackEffect.effectStatus,
                                 outcome: 'success'
                             })
                         }
@@ -550,7 +549,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
                     }
                     case 'remove_buff': {
                         if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
-                            const buffs = target.statuses.filter(status => STATUSES[status].isBuff)
+                            const buffs = target.statuses.filter(statusCode => getStatusByCode(statusCode).isBuff)
 
                             if (buffs.length) {
                                 const randomBuff = buffs[Math.floor(rng() * buffs.length)]
@@ -567,7 +566,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
                         break
                     }
                     case 'cleanse_target': {
-                        const debuffs = target.statuses.filter(status => STATUSES[status].isDebuff)
+                        const debuffs = target.statuses.filter(statusCode => !getStatusByCode(statusCode).isBuff)
 
                         if (debuffs.length) {
                             const randomDebuff = debuffs[Math.floor(rng() * debuffs.length)]
@@ -583,7 +582,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
                         break
                     }
                     case 'cleanse_self': {
-                        const debuffs = attackingGotchi.statuses.filter(status => STATUSES[status].isDebuff)
+                        const debuffs = attackingGotchi.statuses.filter(statusCode => !getStatusByCode(statusCode).isBuff)
 
                         if (debuffs.length) {
                             const randomDebuff = debuffs[Math.floor(rng() * debuffs.length)]
@@ -648,6 +647,12 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
     // Combine additionalEffects with the same target and outcome
     let cleanAdditionalEffects = []
     additionalEffects.forEach((effect) => {
+        // Only combine "success" effects. Keep resisted/failed attempts separate for UI/replay fidelity.
+        if (effect.outcome !== 'success') {
+            cleanAdditionalEffects.push(effect)
+            return
+        }
+
         const existingEffect = cleanAdditionalEffects.find(e => e.target === effect.target && e.outcome === effect.outcome)
 
         if (existingEffect) {
