@@ -1,7 +1,7 @@
 const { expect } = require('chai')
 const path = require('path')
 
-const { getTargetsFromCode } = require(path.join('..', 'game-logic', 'v2.0', 'helpers'))
+const { getTargetsFromCode } = require(path.join('..', 'game-logic', 'helpers'))
 
 const makeGotchi = (overrides = {}) => ({
     id: 1,

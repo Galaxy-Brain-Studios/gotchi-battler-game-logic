@@ -2,7 +2,7 @@ const { expect } = require('chai')
 const path = require('path')
 
 // Import from helpers
-const { getModifiedStats } = require(path.join('..', 'game-logic', 'v2.0', 'helpers'))
+const { getModifiedStats } = require(path.join('..', 'game-logic', 'helpers'))
 
 const makeGotchi = (overrides = {}) => ({
     id: 1,

@@ -18,18 +18,16 @@ This rule documents the main directory structure of the project and highlights t
 
 ## Main Folders
 
-- `game-logic/`: Core game logic, organized by version (e.g., `v1.4`, `v1.5`, ..., `v2.0`). Each version contains:
-  - `index.js`: Main logic for that version.
-  - `constants.js`: Constants for that version.
-  - `helpers.js`: Helper functions (in later versions).
-- `scripts/`: Utility scripts for running, validating, and simulating battles, as well as data and balancing tools.
-  - `balancing/`: Scripts and data for balancing, with subfolders for different balancing versions (e.g., `v1.7`, `v1.7.1`, ...).
-  - `data/`: JSON data for dungeons, teams, tournaments, etc.
+- `game-logic/`: Core game logic (non-versioned).
+  - `index.js`: Main battle loop (`gameLoop`) and combat helpers (`attack`).
+  - `helpers.js`: Helper functions shared across the loop.
+  - `constants.js`: Core tuning constants.
+  - `statuses.json`: Status definitions.
+- `scripts/`: Local utility scripts for running/simulating battles and campaign/dungeon scenarios.
+  - `data/`: JSON data for dungeons, teams, campaign encounters, etc.
   - `output/`: Output files from scripts.
-  - Various JS scripts for running and validating battles and tournaments.
-- `utils/`: Shared utility modules (e.g., `errors.js`, `transforms.js`, `mapGotchi.js`, `contracts.js`, `validations.js`).
-- `schemas/`: JSON schemas (e.g., `team.json`).
-- `constants/`: Shared constants (e.g., `tournamentManagerAbi.json`).
+- `utils/`: Shared utility modules (e.g., `errors.js`, `transforms.js`, `mapGotchi.js`).
+- `schemas/`: Zod schemas / JSON schemas (e.g., `team.json`).
 - `.cursor/`: Cursor rules and configuration.
   - `rules/`: All cursor rules (e.g., `cursor-rules.mdc`, `directory-structure.mdc`).
 
@@ -42,20 +40,15 @@ This rule documents the main directory structure of the project and highlights t
 ```plaintext
 PROJECT_ROOT/
 ├── game-logic/
-│   ├── v1.4/
-│   ├── v1.5/
-│   ├── ...
-│   └── v2.0/
+│   ├── index.js
+│   ├── helpers.js
+│   ├── constants.js
+│   └── statuses.json
 ├── scripts/
-│   ├── balancing/
-│   │   ├── v1.7/
-│   │   ├── v1.7.1/
-│   │   └── ...
 │   ├── data/
 │   └── ...
 ├── utils/
 ├── schemas/
-├── constants/
 ├── .cursor/
 │   └── rules/
 ├── ... (root files)

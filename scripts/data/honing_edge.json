@@ -1,0 +1,4589 @@
+{
+    "meta": {
+        "seed": "0.28138670238314667",
+        "timestamp": "2026-01-04T11:58:42.439Z",
+        "type": "training",
+        "campaign": {},
+        "isBoss": false
+    },
+    "gotchis": [
+        {
+            "id": 2870219,
+            "onchainId": 165,
+            "name": "C0A0C00C",
+            "type": "spirit",
+            "visualCode": "cleaver_godlike",
+            "level": 70,
+            "speed": 28.7,
+            "health": 744,
+            "attack": 28.7,
+            "defense": 20.5,
+            "criticalRate": 34.2,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 20.5,
+            "gotchiClass": "cleaver",
+            "special": "honing_edge",
+            "leaderSkill": "sharp_wits",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "honing_edge",
+                "name": "Honing Edge",
+                "initialCooldown": 0,
+                "cooldown": 2,
+                "actionType": "attack",
+                "actionMultiplier": 0.85,
+                "monstersOnly": false,
+                "notes": "Light attack on a random enemy and greatly boost your own Attack, Critical Rate and Critical Damage",
+                "gotchiClass": "cleaver",
+                "target": "enemy_random",
+                "effects": [
+                    {
+                        "id": 357,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "atk_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 358,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "atk_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 359,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crt_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 360,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crt_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 361,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crd_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 362,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crd_up",
+                        "skipFocusCheck": false
+                    }
+                ]
+            },
+            "leaderSkillExpanded": {
+                "code": "sharp_wits",
+                "name": "Sharp Wits",
+                "description": "Increases the entire team's Focus stat.",
+                "monstersOnly": false,
+                "gotchiClass": "cleaver",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "sharp_wits",
+                        "status": "foc_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "foc_up"
+            ],
+            "specialBar": 100,
+            "fullHealth": 744
+        },
+        {
+            "id": 1570519,
+            "onchainId": 165,
+            "name": "C0A0C00C",
+            "type": "spirit",
+            "visualCode": "cleaver_godlike",
+            "level": 70,
+            "speed": 28.7,
+            "health": 744,
+            "attack": 28.7,
+            "defense": 20.5,
+            "criticalRate": 34.2,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 20.5,
+            "gotchiClass": "cleaver",
+            "special": "honing_edge",
+            "leaderSkill": "sharp_wits",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "honing_edge",
+                "name": "Honing Edge",
+                "initialCooldown": 0,
+                "cooldown": 2,
+                "actionType": "attack",
+                "actionMultiplier": 0.85,
+                "monstersOnly": false,
+                "notes": "Light attack on a random enemy and greatly boost your own Attack, Critical Rate and Critical Damage",
+                "gotchiClass": "cleaver",
+                "target": "enemy_random",
+                "effects": [
+                    {
+                        "id": 357,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "atk_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 358,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "atk_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 359,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crt_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 360,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crt_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 361,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crd_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 362,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crd_up",
+                        "skipFocusCheck": false
+                    }
+                ]
+            },
+            "leaderSkillExpanded": {
+                "code": "sharp_wits",
+                "name": "Sharp Wits",
+                "description": "Increases the entire team's Focus stat.",
+                "monstersOnly": false,
+                "gotchiClass": "cleaver",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "sharp_wits",
+                        "status": "foc_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "foc_up"
+            ],
+            "specialBar": 100,
+            "fullHealth": 744
+        },
+        {
+            "id": 4336624,
+            "onchainId": 165,
+            "name": "C0A0C00C",
+            "type": "spirit",
+            "visualCode": "cleaver_godlike",
+            "level": 70,
+            "speed": 28.7,
+            "health": 744,
+            "attack": 28.7,
+            "defense": 20.5,
+            "criticalRate": 34.2,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 20.5,
+            "gotchiClass": "cleaver",
+            "special": "honing_edge",
+            "leaderSkill": "sharp_wits",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "honing_edge",
+                "name": "Honing Edge",
+                "initialCooldown": 0,
+                "cooldown": 2,
+                "actionType": "attack",
+                "actionMultiplier": 0.85,
+                "monstersOnly": false,
+                "notes": "Light attack on a random enemy and greatly boost your own Attack, Critical Rate and Critical Damage",
+                "gotchiClass": "cleaver",
+                "target": "enemy_random",
+                "effects": [
+                    {
+                        "id": 357,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "atk_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 358,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "atk_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 359,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crt_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 360,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crt_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 361,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crd_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 362,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crd_up",
+                        "skipFocusCheck": false
+                    }
+                ]
+            },
+            "leaderSkillExpanded": {
+                "code": "sharp_wits",
+                "name": "Sharp Wits",
+                "description": "Increases the entire team's Focus stat.",
+                "monstersOnly": false,
+                "gotchiClass": "cleaver",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "sharp_wits",
+                        "status": "foc_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "foc_up"
+            ],
+            "specialBar": 100,
+            "fullHealth": 744
+        },
+        {
+            "id": 6666228,
+            "onchainId": 165,
+            "name": "C0A0C00C",
+            "type": "spirit",
+            "visualCode": "cleaver_godlike",
+            "level": 70,
+            "speed": 28.7,
+            "health": 744,
+            "attack": 28.7,
+            "defense": 20.5,
+            "criticalRate": 34.2,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 20.5,
+            "gotchiClass": "cleaver",
+            "special": "honing_edge",
+            "leaderSkill": "sharp_wits",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "honing_edge",
+                "name": "Honing Edge",
+                "initialCooldown": 0,
+                "cooldown": 2,
+                "actionType": "attack",
+                "actionMultiplier": 0.85,
+                "monstersOnly": false,
+                "notes": "Light attack on a random enemy and greatly boost your own Attack, Critical Rate and Critical Damage",
+                "gotchiClass": "cleaver",
+                "target": "enemy_random",
+                "effects": [
+                    {
+                        "id": 357,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "atk_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 358,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "atk_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 359,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crt_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 360,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crt_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 361,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crd_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 362,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crd_up",
+                        "skipFocusCheck": false
+                    }
+                ]
+            },
+            "leaderSkillExpanded": {
+                "code": "sharp_wits",
+                "name": "Sharp Wits",
+                "description": "Increases the entire team's Focus stat.",
+                "monstersOnly": false,
+                "gotchiClass": "cleaver",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "sharp_wits",
+                        "status": "foc_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "foc_up"
+            ],
+            "specialBar": 100,
+            "fullHealth": 744
+        },
+        {
+            "id": 9426080,
+            "onchainId": 165,
+            "name": "C0A0C00C",
+            "type": "spirit",
+            "visualCode": "cleaver_godlike",
+            "level": 70,
+            "speed": 28.7,
+            "health": 744,
+            "attack": 28.7,
+            "defense": 20.5,
+            "criticalRate": 34.2,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 20.5,
+            "gotchiClass": "cleaver",
+            "special": "honing_edge",
+            "leaderSkill": "sharp_wits",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "honing_edge",
+                "name": "Honing Edge",
+                "initialCooldown": 0,
+                "cooldown": 2,
+                "actionType": "attack",
+                "actionMultiplier": 0.85,
+                "monstersOnly": false,
+                "notes": "Light attack on a random enemy and greatly boost your own Attack, Critical Rate and Critical Damage",
+                "gotchiClass": "cleaver",
+                "target": "enemy_random",
+                "effects": [
+                    {
+                        "id": 357,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "atk_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 358,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "atk_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 359,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crt_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 360,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crt_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 361,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crd_up",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 362,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "honing_edge",
+                        "target": "self",
+                        "status": "crd_up",
+                        "skipFocusCheck": false
+                    }
+                ]
+            },
+            "leaderSkillExpanded": {
+                "code": "sharp_wits",
+                "name": "Sharp Wits",
+                "description": "Increases the entire team's Focus stat.",
+                "monstersOnly": false,
+                "gotchiClass": "cleaver",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "sharp_wits",
+                        "status": "foc_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "foc_up"
+            ],
+            "specialBar": 100,
+            "fullHealth": 744
+        },
+        {
+            "id": 6523771,
+            "onchainId": 165,
+            "name": "C0A0C00C",
+            "type": "spirit",
+            "visualCode": "cleaver_godlike",
+            "level": 70,
+            "speed": 28.7,
+            "health": 744,
+            "attack": 28.7,
+            "defense": 20.5,
+            "criticalRate": 34.2,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 20.5,
+            "gotchiClass": "cleaver",
+            "special": "infinite_slash",
+            "leaderSkill": "sharp_wits",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "infinite_slash",
+                "name": "Infinite Slash",
+                "initialCooldown": 4,
+                "cooldown": 1,
+                "actionType": "attack",
+                "actionMultiplier": 0.32,
+                "monstersOnly": false,
+                "notes": "Attack all enemies. Chance to immediately repeat the attack.",
+                "gotchiClass": "cleaver",
+                "target": "all_enemies",
+                "effects": [
+                    {
+                        "id": 363,
+                        "effectType": "repeat_attack",
+                        "value": null,
+                        "chance": 0.55,
+                        "special": "infinite_slash",
+                        "target": "same_as_attack",
+                        "status": null,
+                        "skipFocusCheck": false
+                    }
+                ]
+            },
+            "leaderSkillExpanded": {
+                "code": "sharp_wits",
+                "name": "Sharp Wits",
+                "description": "Increases the entire team's Focus stat.",
+                "monstersOnly": false,
+                "gotchiClass": "cleaver",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "sharp_wits",
+                        "status": "foc_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "foc_up"
+            ],
+            "specialBar": 33,
+            "fullHealth": 744
+        },
+        {
+            "id": 4710848,
+            "onchainId": 165,
+            "name": "C0A0C00C",
+            "type": "spirit",
+            "visualCode": "cleaver_godlike",
+            "level": 70,
+            "speed": 28.7,
+            "health": 744,
+            "attack": 28.7,
+            "defense": 20.5,
+            "criticalRate": 34.2,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 20.5,
+            "gotchiClass": "cleaver",
+            "special": "infinite_slash",
+            "leaderSkill": "sharp_wits",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "infinite_slash",
+                "name": "Infinite Slash",
+                "initialCooldown": 4,
+                "cooldown": 1,
+                "actionType": "attack",
+                "actionMultiplier": 0.32,
+                "monstersOnly": false,
+                "notes": "Attack all enemies. Chance to immediately repeat the attack.",
+                "gotchiClass": "cleaver",
+                "target": "all_enemies",
+                "effects": [
+                    {
+                        "id": 363,
+                        "effectType": "repeat_attack",
+                        "value": null,
+                        "chance": 0.55,
+                        "special": "infinite_slash",
+                        "target": "same_as_attack",
+                        "status": null,
+                        "skipFocusCheck": false
+                    }
+                ]
+            },
+            "leaderSkillExpanded": {
+                "code": "sharp_wits",
+                "name": "Sharp Wits",
+                "description": "Increases the entire team's Focus stat.",
+                "monstersOnly": false,
+                "gotchiClass": "cleaver",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "sharp_wits",
+                        "status": "foc_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "foc_up"
+            ],
+            "specialBar": 33,
+            "fullHealth": 744
+        },
+        {
+            "id": 9939451,
+            "onchainId": 165,
+            "name": "C0A0C00C",
+            "type": "spirit",
+            "visualCode": "cleaver_godlike",
+            "level": 70,
+            "speed": 28.7,
+            "health": 744,
+            "attack": 28.7,
+            "defense": 20.5,
+            "criticalRate": 34.2,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 20.5,
+            "gotchiClass": "cleaver",
+            "special": "infinite_slash",
+            "leaderSkill": "sharp_wits",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "infinite_slash",
+                "name": "Infinite Slash",
+                "initialCooldown": 4,
+                "cooldown": 1,
+                "actionType": "attack",
+                "actionMultiplier": 0.32,
+                "monstersOnly": false,
+                "notes": "Attack all enemies. Chance to immediately repeat the attack.",
+                "gotchiClass": "cleaver",
+                "target": "all_enemies",
+                "effects": [
+                    {
+                        "id": 363,
+                        "effectType": "repeat_attack",
+                        "value": null,
+                        "chance": 0.55,
+                        "special": "infinite_slash",
+                        "target": "same_as_attack",
+                        "status": null,
+                        "skipFocusCheck": false
+                    }
+                ]
+            },
+            "leaderSkillExpanded": {
+                "code": "sharp_wits",
+                "name": "Sharp Wits",
+                "description": "Increases the entire team's Focus stat.",
+                "monstersOnly": false,
+                "gotchiClass": "cleaver",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "sharp_wits",
+                        "status": "foc_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "foc_up"
+            ],
+            "specialBar": 33,
+            "fullHealth": 744
+        },
+        {
+            "id": 7819587,
+            "onchainId": 165,
+            "name": "C0A0C00C",
+            "type": "spirit",
+            "visualCode": "cleaver_godlike",
+            "level": 70,
+            "speed": 28.7,
+            "health": 744,
+            "attack": 28.7,
+            "defense": 20.5,
+            "criticalRate": 34.2,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 20.5,
+            "gotchiClass": "cleaver",
+            "special": "infinite_slash",
+            "leaderSkill": "sharp_wits",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "infinite_slash",
+                "name": "Infinite Slash",
+                "initialCooldown": 4,
+                "cooldown": 1,
+                "actionType": "attack",
+                "actionMultiplier": 0.32,
+                "monstersOnly": false,
+                "notes": "Attack all enemies. Chance to immediately repeat the attack.",
+                "gotchiClass": "cleaver",
+                "target": "all_enemies",
+                "effects": [
+                    {
+                        "id": 363,
+                        "effectType": "repeat_attack",
+                        "value": null,
+                        "chance": 0.55,
+                        "special": "infinite_slash",
+                        "target": "same_as_attack",
+                        "status": null,
+                        "skipFocusCheck": false
+                    }
+                ]
+            },
+            "leaderSkillExpanded": {
+                "code": "sharp_wits",
+                "name": "Sharp Wits",
+                "description": "Increases the entire team's Focus stat.",
+                "monstersOnly": false,
+                "gotchiClass": "cleaver",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "sharp_wits",
+                        "status": "foc_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "foc_up"
+            ],
+            "specialBar": 33,
+            "fullHealth": 744
+        },
+        {
+            "id": 3738912,
+            "onchainId": 165,
+            "name": "C0A0C00C",
+            "type": "spirit",
+            "visualCode": "cleaver_godlike",
+            "level": 70,
+            "speed": 28.7,
+            "health": 744,
+            "attack": 28.7,
+            "defense": 20.5,
+            "criticalRate": 34.2,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 20.5,
+            "gotchiClass": "cleaver",
+            "special": "infinite_slash",
+            "leaderSkill": "sharp_wits",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "infinite_slash",
+                "name": "Infinite Slash",
+                "initialCooldown": 4,
+                "cooldown": 1,
+                "actionType": "attack",
+                "actionMultiplier": 0.32,
+                "monstersOnly": false,
+                "notes": "Attack all enemies. Chance to immediately repeat the attack.",
+                "gotchiClass": "cleaver",
+                "target": "all_enemies",
+                "effects": [
+                    {
+                        "id": 363,
+                        "effectType": "repeat_attack",
+                        "value": null,
+                        "chance": 0.55,
+                        "special": "infinite_slash",
+                        "target": "same_as_attack",
+                        "status": null,
+                        "skipFocusCheck": false
+                    }
+                ]
+            },
+            "leaderSkillExpanded": {
+                "code": "sharp_wits",
+                "name": "Sharp Wits",
+                "description": "Increases the entire team's Focus stat.",
+                "monstersOnly": false,
+                "gotchiClass": "cleaver",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "sharp_wits",
+                        "status": "foc_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "foc_up"
+            ],
+            "specialBar": 33,
+            "fullHealth": 744
+        }
+    ],
+    "layout": {
+        "teams": [
+            {
+                "name": "Team 1",
+                "owner": "0x0000000000000000000000000000000000000000",
+                "leaderId": 2870219,
+                "rows": [
+                    {
+                        "slots": [
+                            {
+                                "isActive": true,
+                                "id": 2870219
+                            },
+                            {
+                                "isActive": true,
+                                "id": 1570519
+                            },
+                            {
+                                "isActive": true,
+                                "id": 4336624
+                            },
+                            {
+                                "isActive": true,
+                                "id": 6666228
+                            },
+                            {
+                                "isActive": true,
+                                "id": 9426080
+                            }
+                        ]
+                    },
+                    {
+                        "slots": [
+                            {
+                                "isActive": false,
+                                "id": null
+                            },
+                            {
+                                "isActive": false,
+                                "id": null
+                            },
+                            {
+                                "isActive": false,
+                                "id": null
+                            },
+                            {
+                                "isActive": false,
+                                "id": null
+                            },
+                            {
+                                "isActive": false,
+                                "id": null
+                            }
+                        ]
+                    }
+                ],
+                "uiOrder": [
+                    2870219,
+                    1570519,
+                    4336624,
+                    6666228,
+                    9426080
+                ]
+            },
+            {
+                "name": "Team 2",
+                "owner": "0x0000000000000000000000000000000000000000",
+                "leaderId": 6523771,
+                "rows": [
+                    {
+                        "slots": [
+                            {
+                                "isActive": true,
+                                "id": 6523771
+                            },
+                            {
+                                "isActive": true,
+                                "id": 4710848
+                            },
+                            {
+                                "isActive": true,
+                                "id": 9939451
+                            },
+                            {
+                                "isActive": true,
+                                "id": 7819587
+                            },
+                            {
+                                "isActive": true,
+                                "id": 3738912
+                            }
+                        ]
+                    },
+                    {
+                        "slots": [
+                            {
+                                "isActive": false,
+                                "id": null
+                            },
+                            {
+                                "isActive": false,
+                                "id": null
+                            },
+                            {
+                                "isActive": false,
+                                "id": null
+                            },
+                            {
+                                "isActive": false,
+                                "id": null
+                            },
+                            {
+                                "isActive": false,
+                                "id": null
+                            }
+                        ]
+                    }
+                ],
+                "uiOrder": [
+                    6523771,
+                    4710848,
+                    9939451,
+                    7819587,
+                    3738912
+                ]
+            }
+        ]
+    },
+    "turns": [
+        {
+            "index": 0,
+            "skipTurn": null,
+            "action": {
+                "user": 9426080,
+                "name": "honing_edge",
+                "actionEffects": [
+                    {
+                        "target": 6523771,
+                        "statuses": [],
+                        "damage": 119,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 9426080,
+                        "target": 9426080,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 9426080,
+                        "target": 9426080,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 9426080,
+                        "target": 9426080,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 9426080,
+                        "target": 9426080,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 9426080,
+                        "target": 9426080,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 9426080,
+                        "target": 9426080,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 100
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 100
+                },
+                {
+                    "id": 6666228,
+                    "val": 100
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 33
+                },
+                {
+                    "id": 4710848,
+                    "val": 33
+                },
+                {
+                    "id": 9939451,
+                    "val": 33
+                },
+                {
+                    "id": 7819587,
+                    "val": 33
+                },
+                {
+                    "id": 3738912,
+                    "val": 33
+                }
+            ]
+        },
+        {
+            "index": 1,
+            "skipTurn": null,
+            "action": {
+                "user": 9939451,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 2870219,
+                        "statuses": [],
+                        "damage": 119,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 100
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 100
+                },
+                {
+                    "id": 6666228,
+                    "val": 100
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 33
+                },
+                {
+                    "id": 4710848,
+                    "val": 33
+                },
+                {
+                    "id": 9939451,
+                    "val": 50
+                },
+                {
+                    "id": 7819587,
+                    "val": 33
+                },
+                {
+                    "id": 3738912,
+                    "val": 33
+                }
+            ]
+        },
+        {
+            "index": 2,
+            "skipTurn": null,
+            "action": {
+                "user": 6523771,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 6666228,
+                        "statuses": [],
+                        "damage": 187,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 100
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 100
+                },
+                {
+                    "id": 6666228,
+                    "val": 100
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 50
+                },
+                {
+                    "id": 4710848,
+                    "val": 33
+                },
+                {
+                    "id": 9939451,
+                    "val": 50
+                },
+                {
+                    "id": 7819587,
+                    "val": 33
+                },
+                {
+                    "id": 3738912,
+                    "val": 33
+                }
+            ]
+        },
+        {
+            "index": 3,
+            "skipTurn": null,
+            "action": {
+                "user": 2870219,
+                "name": "honing_edge",
+                "actionEffects": [
+                    {
+                        "target": 7819587,
+                        "statuses": [],
+                        "damage": 187,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 2870219,
+                        "target": 2870219,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 2870219,
+                        "target": 2870219,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 2870219,
+                        "target": 2870219,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 2870219,
+                        "target": 2870219,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 2870219,
+                        "target": 2870219,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 2870219,
+                        "target": 2870219,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 100
+                },
+                {
+                    "id": 6666228,
+                    "val": 100
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 50
+                },
+                {
+                    "id": 4710848,
+                    "val": 33
+                },
+                {
+                    "id": 9939451,
+                    "val": 50
+                },
+                {
+                    "id": 7819587,
+                    "val": 33
+                },
+                {
+                    "id": 3738912,
+                    "val": 33
+                }
+            ]
+        },
+        {
+            "index": 4,
+            "skipTurn": null,
+            "action": {
+                "user": 7819587,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 6666228,
+                        "statuses": [],
+                        "damage": 187,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 100
+                },
+                {
+                    "id": 6666228,
+                    "val": 100
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 50
+                },
+                {
+                    "id": 4710848,
+                    "val": 33
+                },
+                {
+                    "id": 9939451,
+                    "val": 50
+                },
+                {
+                    "id": 7819587,
+                    "val": 50
+                },
+                {
+                    "id": 3738912,
+                    "val": 33
+                }
+            ]
+        },
+        {
+            "index": 5,
+            "skipTurn": null,
+            "action": {
+                "user": 1570519,
+                "name": "honing_edge",
+                "actionEffects": [
+                    {
+                        "target": 6523771,
+                        "statuses": [],
+                        "damage": 119,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 1570519,
+                        "target": 1570519,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 1570519,
+                        "target": 1570519,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 1570519,
+                        "target": 1570519,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 1570519,
+                        "target": 1570519,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 1570519,
+                        "target": 1570519,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 1570519,
+                        "target": 1570519,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 67
+                },
+                {
+                    "id": 4336624,
+                    "val": 100
+                },
+                {
+                    "id": 6666228,
+                    "val": 100
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 50
+                },
+                {
+                    "id": 4710848,
+                    "val": 33
+                },
+                {
+                    "id": 9939451,
+                    "val": 50
+                },
+                {
+                    "id": 7819587,
+                    "val": 50
+                },
+                {
+                    "id": 3738912,
+                    "val": 33
+                }
+            ]
+        },
+        {
+            "index": 6,
+            "skipTurn": null,
+            "action": {
+                "user": 6666228,
+                "name": "honing_edge",
+                "actionEffects": [
+                    {
+                        "target": 9939451,
+                        "statuses": [],
+                        "damage": 119,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 6666228,
+                        "target": 6666228,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 6666228,
+                        "target": 6666228,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 6666228,
+                        "target": 6666228,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 6666228,
+                        "target": 6666228,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 6666228,
+                        "target": 6666228,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 6666228,
+                        "target": 6666228,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 67
+                },
+                {
+                    "id": 4336624,
+                    "val": 100
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 50
+                },
+                {
+                    "id": 4710848,
+                    "val": 33
+                },
+                {
+                    "id": 9939451,
+                    "val": 50
+                },
+                {
+                    "id": 7819587,
+                    "val": 50
+                },
+                {
+                    "id": 3738912,
+                    "val": 33
+                }
+            ]
+        },
+        {
+            "index": 7,
+            "skipTurn": null,
+            "action": {
+                "user": 4710848,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 4336624,
+                        "statuses": [],
+                        "damage": 119,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 67
+                },
+                {
+                    "id": 4336624,
+                    "val": 100
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 50
+                },
+                {
+                    "id": 4710848,
+                    "val": 50
+                },
+                {
+                    "id": 9939451,
+                    "val": 50
+                },
+                {
+                    "id": 7819587,
+                    "val": 50
+                },
+                {
+                    "id": 3738912,
+                    "val": 33
+                }
+            ]
+        },
+        {
+            "index": 8,
+            "skipTurn": null,
+            "action": {
+                "user": 4336624,
+                "name": "honing_edge",
+                "actionEffects": [
+                    {
+                        "target": 9939451,
+                        "statuses": [],
+                        "damage": 187,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 4336624,
+                        "target": 4336624,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 4336624,
+                        "target": 4336624,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 4336624,
+                        "target": 4336624,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 4336624,
+                        "target": 4336624,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 4336624,
+                        "target": 4336624,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 4336624,
+                        "target": 4336624,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 67
+                },
+                {
+                    "id": 4336624,
+                    "val": 67
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 50
+                },
+                {
+                    "id": 4710848,
+                    "val": 50
+                },
+                {
+                    "id": 9939451,
+                    "val": 50
+                },
+                {
+                    "id": 7819587,
+                    "val": 50
+                },
+                {
+                    "id": 3738912,
+                    "val": 33
+                }
+            ]
+        },
+        {
+            "index": 9,
+            "skipTurn": null,
+            "action": {
+                "user": 3738912,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 1570519,
+                        "statuses": [],
+                        "damage": 187,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 67
+                },
+                {
+                    "id": 4336624,
+                    "val": 67
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 50
+                },
+                {
+                    "id": 4710848,
+                    "val": 50
+                },
+                {
+                    "id": 9939451,
+                    "val": 50
+                },
+                {
+                    "id": 7819587,
+                    "val": 50
+                },
+                {
+                    "id": 3738912,
+                    "val": 50
+                }
+            ]
+        },
+        {
+            "index": 10,
+            "skipTurn": null,
+            "action": {
+                "user": 4710848,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 9426080,
+                        "statuses": [],
+                        "damage": 119,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 67
+                },
+                {
+                    "id": 4336624,
+                    "val": 67
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 50
+                },
+                {
+                    "id": 4710848,
+                    "val": 67
+                },
+                {
+                    "id": 9939451,
+                    "val": 50
+                },
+                {
+                    "id": 7819587,
+                    "val": 50
+                },
+                {
+                    "id": 3738912,
+                    "val": 50
+                }
+            ]
+        },
+        {
+            "index": 11,
+            "skipTurn": null,
+            "action": {
+                "user": 4336624,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 9939451,
+                        "statuses": [],
+                        "damage": 241,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 67
+                },
+                {
+                    "id": 4336624,
+                    "val": 84
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 50
+                },
+                {
+                    "id": 4710848,
+                    "val": 67
+                },
+                {
+                    "id": 9939451,
+                    "val": 50
+                },
+                {
+                    "id": 7819587,
+                    "val": 50
+                },
+                {
+                    "id": 3738912,
+                    "val": 50
+                }
+            ]
+        },
+        {
+            "index": 12,
+            "skipTurn": null,
+            "action": {
+                "user": 3738912,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 1570519,
+                        "statuses": [],
+                        "damage": 187,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 67
+                },
+                {
+                    "id": 4336624,
+                    "val": 84
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 50
+                },
+                {
+                    "id": 4710848,
+                    "val": 67
+                },
+                {
+                    "id": 9939451,
+                    "val": 50
+                },
+                {
+                    "id": 7819587,
+                    "val": 50
+                },
+                {
+                    "id": 3738912,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 13,
+            "skipTurn": null,
+            "action": {
+                "user": 6523771,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 1570519,
+                        "statuses": [],
+                        "damage": 119,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 67
+                },
+                {
+                    "id": 4336624,
+                    "val": 84
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 67
+                },
+                {
+                    "id": 9939451,
+                    "val": 50
+                },
+                {
+                    "id": 7819587,
+                    "val": 50
+                },
+                {
+                    "id": 3738912,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 14,
+            "skipTurn": null,
+            "action": {
+                "user": 9426080,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 6523771,
+                        "statuses": [],
+                        "damage": 143,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 67
+                },
+                {
+                    "id": 4336624,
+                    "val": 84
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 84
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 67
+                },
+                {
+                    "id": 9939451,
+                    "val": 50
+                },
+                {
+                    "id": 7819587,
+                    "val": 50
+                },
+                {
+                    "id": 3738912,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 15,
+            "skipTurn": null,
+            "action": {
+                "user": 1570519,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 9939451,
+                        "statuses": [],
+                        "damage": 143,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 84
+                },
+                {
+                    "id": 4336624,
+                    "val": 84
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 84
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 67
+                },
+                {
+                    "id": 9939451,
+                    "val": 50
+                },
+                {
+                    "id": 7819587,
+                    "val": 50
+                },
+                {
+                    "id": 3738912,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 16,
+            "skipTurn": null,
+            "action": {
+                "user": 2870219,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 4710848,
+                        "statuses": [],
+                        "damage": 143,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 84
+                },
+                {
+                    "id": 1570519,
+                    "val": 84
+                },
+                {
+                    "id": 4336624,
+                    "val": 84
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 84
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 67
+                },
+                {
+                    "id": 9939451,
+                    "val": 50
+                },
+                {
+                    "id": 7819587,
+                    "val": 50
+                },
+                {
+                    "id": 3738912,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 17,
+            "skipTurn": null,
+            "action": {
+                "user": 6666228,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 6523771,
+                        "statuses": [],
+                        "damage": 241,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 84
+                },
+                {
+                    "id": 1570519,
+                    "val": 84
+                },
+                {
+                    "id": 4336624,
+                    "val": 84
+                },
+                {
+                    "id": 6666228,
+                    "val": 84
+                },
+                {
+                    "id": 9426080,
+                    "val": 84
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 67
+                },
+                {
+                    "id": 9939451,
+                    "val": 50
+                },
+                {
+                    "id": 7819587,
+                    "val": 50
+                },
+                {
+                    "id": 3738912,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 18,
+            "skipTurn": null,
+            "action": {
+                "user": 9939451,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 6666228,
+                        "statuses": [],
+                        "damage": 119,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 84
+                },
+                {
+                    "id": 1570519,
+                    "val": 84
+                },
+                {
+                    "id": 4336624,
+                    "val": 84
+                },
+                {
+                    "id": 6666228,
+                    "val": 84
+                },
+                {
+                    "id": 9426080,
+                    "val": 84
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 67
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 50
+                },
+                {
+                    "id": 3738912,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 19,
+            "skipTurn": null,
+            "action": {
+                "user": 7819587,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 4336624,
+                        "statuses": [],
+                        "damage": 187,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 84
+                },
+                {
+                    "id": 1570519,
+                    "val": 84
+                },
+                {
+                    "id": 4336624,
+                    "val": 84
+                },
+                {
+                    "id": 6666228,
+                    "val": 84
+                },
+                {
+                    "id": 9426080,
+                    "val": 84
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 67
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 67
+                },
+                {
+                    "id": 3738912,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 20,
+            "skipTurn": null,
+            "action": {
+                "user": 1570519,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 9939451,
+                        "statuses": [],
+                        "damage": 241,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 84
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 84
+                },
+                {
+                    "id": 6666228,
+                    "val": 84
+                },
+                {
+                    "id": 9426080,
+                    "val": 84
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 67
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 67
+                },
+                {
+                    "id": 3738912,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 21,
+            "skipTurn": null,
+            "action": {
+                "user": 7819587,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 1570519,
+                        "statuses": [],
+                        "damage": 187,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 84
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 84
+                },
+                {
+                    "id": 6666228,
+                    "val": 84
+                },
+                {
+                    "id": 9426080,
+                    "val": 84
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 67
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 84
+                },
+                {
+                    "id": 3738912,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 22,
+            "skipTurn": null,
+            "action": {
+                "user": 6666228,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 4710848,
+                        "statuses": [],
+                        "damage": 143,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 84
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 84
+                },
+                {
+                    "id": 6666228,
+                    "val": 100
+                },
+                {
+                    "id": 9426080,
+                    "val": 84
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 67
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 84
+                },
+                {
+                    "id": 3738912,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 23,
+            "skipTurn": null,
+            "action": {
+                "user": 2870219,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 3738912,
+                        "statuses": [],
+                        "damage": 143,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 100
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 84
+                },
+                {
+                    "id": 6666228,
+                    "val": 100
+                },
+                {
+                    "id": 9426080,
+                    "val": 84
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 67
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 84
+                },
+                {
+                    "id": 3738912,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 24,
+            "skipTurn": null,
+            "action": {
+                "user": 4336624,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 6523771,
+                        "statuses": [],
+                        "damage": 143,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 100
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 100
+                },
+                {
+                    "id": 6666228,
+                    "val": 100
+                },
+                {
+                    "id": 9426080,
+                    "val": 84
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 67
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 84
+                },
+                {
+                    "id": 3738912,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 25,
+            "skipTurn": null,
+            "action": {
+                "user": 9426080,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 3738912,
+                        "statuses": [],
+                        "damage": 143,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 100
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 100
+                },
+                {
+                    "id": 6666228,
+                    "val": 100
+                },
+                {
+                    "id": 9426080,
+                    "val": 100
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 67
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 84
+                },
+                {
+                    "id": 3738912,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 26,
+            "skipTurn": null,
+            "action": {
+                "user": 3738912,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 6666228,
+                        "statuses": [],
+                        "damage": 119,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 100
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 100
+                },
+                {
+                    "id": 6666228,
+                    "val": 100
+                },
+                {
+                    "id": 9426080,
+                    "val": 100
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 67
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 84
+                },
+                {
+                    "id": 3738912,
+                    "val": 84
+                }
+            ]
+        },
+        {
+            "index": 27,
+            "skipTurn": null,
+            "action": {
+                "user": 4710848,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 4336624,
+                        "statuses": [],
+                        "damage": 119,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 100
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 100
+                },
+                {
+                    "id": 6666228,
+                    "val": 100
+                },
+                {
+                    "id": 9426080,
+                    "val": 100
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 84
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 84
+                },
+                {
+                    "id": 3738912,
+                    "val": 84
+                }
+            ]
+        },
+        {
+            "index": 28,
+            "skipTurn": null,
+            "action": {
+                "user": 3738912,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 6666228,
+                        "statuses": [],
+                        "damage": 119,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 100
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 100
+                },
+                {
+                    "id": 6666228,
+                    "val": 100
+                },
+                {
+                    "id": 9426080,
+                    "val": 100
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 84
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 84
+                },
+                {
+                    "id": 3738912,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 29,
+            "skipTurn": null,
+            "action": {
+                "user": 9426080,
+                "name": "honing_edge",
+                "actionEffects": [
+                    {
+                        "target": 3738912,
+                        "statuses": [],
+                        "damage": 143,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 9426080,
+                        "target": 9426080,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 9426080,
+                        "target": 9426080,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 9426080,
+                        "target": 9426080,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 9426080,
+                        "target": 9426080,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 9426080,
+                        "target": 9426080,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 9426080,
+                        "target": 9426080,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 100
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 100
+                },
+                {
+                    "id": 6666228,
+                    "val": 100
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 84
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 84
+                },
+                {
+                    "id": 3738912,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 30,
+            "skipTurn": null,
+            "action": {
+                "user": 4336624,
+                "name": "honing_edge",
+                "actionEffects": [
+                    {
+                        "target": 4710848,
+                        "statuses": [],
+                        "damage": 143,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 4336624,
+                        "target": 4336624,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 4336624,
+                        "target": 4336624,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 4336624,
+                        "target": 4336624,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 4336624,
+                        "target": 4336624,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 4336624,
+                        "target": 4336624,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 4336624,
+                        "target": 4336624,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 100
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 67
+                },
+                {
+                    "id": 6666228,
+                    "val": 100
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 84
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 84
+                },
+                {
+                    "id": 3738912,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 31,
+            "skipTurn": null,
+            "action": {
+                "user": 6666228,
+                "name": "honing_edge",
+                "actionEffects": [
+                    {
+                        "target": 7819587,
+                        "statuses": [],
+                        "damage": 143,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 6666228,
+                        "target": 6666228,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 6666228,
+                        "target": 6666228,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 6666228,
+                        "target": 6666228,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 6666228,
+                        "target": 6666228,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 6666228,
+                        "target": 6666228,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 6666228,
+                        "target": 6666228,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 100
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 67
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 84
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 84
+                },
+                {
+                    "id": 3738912,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 32,
+            "skipTurn": null,
+            "action": {
+                "user": 4710848,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 9426080,
+                        "statuses": [],
+                        "damage": 187,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 100
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 67
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 100
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 84
+                },
+                {
+                    "id": 3738912,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 33,
+            "skipTurn": null,
+            "action": {
+                "user": 7819587,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 1570519,
+                        "statuses": [],
+                        "damage": 119,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 100
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 67
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 100
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 100
+                },
+                {
+                    "id": 3738912,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 34,
+            "skipTurn": null,
+            "action": {
+                "user": 2870219,
+                "name": "honing_edge",
+                "actionEffects": [
+                    {
+                        "target": 7819587,
+                        "statuses": [],
+                        "damage": 143,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 2870219,
+                        "target": 2870219,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 2870219,
+                        "target": 2870219,
+                        "damage": null,
+                        "statuses": [
+                            "atk_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 2870219,
+                        "target": 2870219,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 2870219,
+                        "target": 2870219,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 2870219,
+                        "target": 2870219,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 2870219,
+                        "target": 2870219,
+                        "damage": null,
+                        "statuses": [
+                            "crd_up"
+                        ],
+                        "outcome": "success"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 67
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 100
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 100
+                },
+                {
+                    "id": 3738912,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 35,
+            "skipTurn": null,
+            "action": {
+                "user": 4710848,
+                "name": "infinite_slash",
+                "actionEffects": [
+                    {
+                        "target": 2870219,
+                        "statuses": [],
+                        "damage": 71,
+                        "outcome": "critical"
+                    },
+                    {
+                        "target": 4336624,
+                        "statuses": [],
+                        "damage": 71,
+                        "outcome": "critical"
+                    },
+                    {
+                        "target": 6666228,
+                        "statuses": [],
+                        "damage": 71,
+                        "outcome": "critical"
+                    },
+                    {
+                        "target": 9426080,
+                        "statuses": [],
+                        "damage": 45,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 67
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 100
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 100
+                },
+                {
+                    "id": 3738912,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 36,
+            "skipTurn": null,
+            "action": {
+                "user": 3738912,
+                "name": "infinite_slash",
+                "actionEffects": [
+                    {
+                        "target": 2870219,
+                        "statuses": [],
+                        "damage": 71,
+                        "outcome": "critical"
+                    },
+                    {
+                        "target": 4336624,
+                        "statuses": [],
+                        "damage": 45,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 9426080,
+                        "statuses": [],
+                        "damage": 45,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 67
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 100
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 100
+                },
+                {
+                    "id": 3738912,
+                    "val": 83
+                }
+            ]
+        },
+        {
+            "index": 37,
+            "skipTurn": null,
+            "action": {
+                "user": 4710848,
+                "name": "infinite_slash",
+                "actionEffects": [
+                    {
+                        "target": 2870219,
+                        "statuses": [],
+                        "damage": 45,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 4336624,
+                        "statuses": [],
+                        "damage": 45,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 9426080,
+                        "statuses": [],
+                        "damage": 45,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 67
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 83
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 100
+                },
+                {
+                    "id": 3738912,
+                    "val": 83
+                }
+            ]
+        },
+        {
+            "index": 38,
+            "skipTurn": null,
+            "action": {
+                "user": 4336624,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 7819587,
+                        "statuses": [],
+                        "damage": 303,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 67
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 84
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 83
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 100
+                },
+                {
+                    "id": 3738912,
+                    "val": 83
+                }
+            ]
+        },
+        {
+            "index": 39,
+            "skipTurn": null,
+            "action": {
+                "user": 2870219,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 4710848,
+                        "statuses": [],
+                        "damage": 167,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 84
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 84
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 67
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 83
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 100
+                },
+                {
+                    "id": 3738912,
+                    "val": 83
+                }
+            ]
+        },
+        {
+            "index": 40,
+            "skipTurn": null,
+            "action": {
+                "user": 9426080,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 3738912,
+                        "statuses": [],
+                        "damage": 303,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 84
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 84
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 84
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 83
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 100
+                },
+                {
+                    "id": 3738912,
+                    "val": 83
+                }
+            ]
+        },
+        {
+            "index": 41,
+            "skipTurn": null,
+            "action": {
+                "user": 4336624,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 3738912,
+                        "statuses": [],
+                        "damage": 303,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 84
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 100
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 84
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 83
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 100
+                },
+                {
+                    "id": 3738912,
+                    "val": 83
+                }
+            ]
+        },
+        {
+            "index": 42,
+            "skipTurn": null,
+            "action": {
+                "user": 2870219,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 4710848,
+                        "statuses": [],
+                        "damage": 303,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 2870219,
+                    "val": 100
+                },
+                {
+                    "id": 1570519,
+                    "val": 100
+                },
+                {
+                    "id": 4336624,
+                    "val": 100
+                },
+                {
+                    "id": 6666228,
+                    "val": 67
+                },
+                {
+                    "id": 9426080,
+                    "val": 84
+                },
+                {
+                    "id": 6523771,
+                    "val": 67
+                },
+                {
+                    "id": 4710848,
+                    "val": 83
+                },
+                {
+                    "id": 9939451,
+                    "val": 67
+                },
+                {
+                    "id": 7819587,
+                    "val": 100
+                },
+                {
+                    "id": 3738912,
+                    "val": 83
+                }
+            ]
+        }
+    ],
+    "result": {
+        "stats": {
+            "numOfTurns": 43,
+            "team1": {
+                "dmgGiven": 4406,
+                "dmgReceived": 2934,
+                "healGiven": 0,
+                "healReceived": 0,
+                "crits": 9,
+                "resists": 0,
+                "focuses": 0,
+                "counters": 0,
+                "hits": 24,
+                "gotchis": [
+                    {
+                        "id": 2870219,
+                        "name": "C0A0C00C",
+                        "dmgGiven": 1086,
+                        "dmgReceived": 306,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 2,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 6
+                    },
+                    {
+                        "id": 1570519,
+                        "name": "C0A0C00C",
+                        "dmgGiven": 503,
+                        "dmgReceived": 799,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 1,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 3
+                    },
+                    {
+                        "id": 4336624,
+                        "name": "C0A0C00C",
+                        "dmgGiven": 1320,
+                        "dmgReceived": 586,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 4,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 6
+                    },
+                    {
+                        "id": 6666228,
+                        "name": "C0A0C00C",
+                        "dmgGiven": 646,
+                        "dmgReceived": 802,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 1,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 4
+                    },
+                    {
+                        "id": 9426080,
+                        "name": "C0A0C00C",
+                        "dmgGiven": 851,
+                        "dmgReceived": 441,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 1,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 5
+                    }
+                ]
+            },
+            "team2": {
+                "dmgGiven": 2934,
+                "dmgReceived": 4406,
+                "healGiven": 0,
+                "healReceived": 0,
+                "crits": 11,
+                "resists": 0,
+                "focuses": 0,
+                "counters": 0,
+                "hits": 26,
+                "gotchis": [
+                    {
+                        "id": 6523771,
+                        "name": "C0A0C00C",
+                        "dmgGiven": 306,
+                        "dmgReceived": 765,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 1,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 2
+                    },
+                    {
+                        "id": 4710848,
+                        "name": "C0A0C00C",
+                        "dmgGiven": 937,
+                        "dmgReceived": 899,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 4,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 11
+                    },
+                    {
+                        "id": 9939451,
+                        "name": "C0A0C00C",
+                        "dmgGiven": 238,
+                        "dmgReceived": 931,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 0,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 2
+                    },
+                    {
+                        "id": 7819587,
+                        "name": "C0A0C00C",
+                        "dmgGiven": 680,
+                        "dmgReceived": 776,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 3,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 4
+                    },
+                    {
+                        "id": 3738912,
+                        "name": "C0A0C00C",
+                        "dmgGiven": 773,
+                        "dmgReceived": 1035,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 3,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 7
+                    }
+                ]
+            }
+        },
+        "winner": 1,
+        "winningTeam": [
+            {
+                "id": 2870219,
+                "name": "C0A0C00C",
+                "health": 438,
+                "statuses": [
+                    "foc_up",
+                    "atk_up",
+                    "atk_up",
+                    "crt_up",
+                    "crt_up",
+                    "crd_up",
+                    "crd_up",
+                    "atk_up",
+                    "atk_up",
+                    "crt_up",
+                    "crt_up",
+                    "crd_up",
+                    "crd_up"
+                ],
+                "originalStats": {
+                    "speed": 28.7,
+                    "attack": 28.7,
+                    "defense": 20.5,
+                    "criticalRate": 34.2,
+                    "criticalDamage": 57.5,
+                    "resist": 20.5,
+                    "focus": 20.5
+                },
+                "modifiedStats": {
+                    "speed": 28.7,
+                    "attack": 40.3,
+                    "defense": 20.5,
+                    "criticalRate": 47.8,
+                    "criticalDamage": 80.7,
+                    "resist": 20.5,
+                    "focus": 22.6
+                }
+            },
+            {
+                "id": 1570519,
+                "name": "C0A0C00C",
+                "health": -55,
+                "statuses": [
+                    "foc_up",
+                    "atk_up",
+                    "atk_up",
+                    "crt_up",
+                    "crt_up",
+                    "crd_up",
+                    "crd_up"
+                ],
+                "originalStats": {
+                    "speed": 28.7,
+                    "attack": 28.7,
+                    "defense": 20.5,
+                    "criticalRate": 34.2,
+                    "criticalDamage": 57.5,
+                    "resist": 20.5,
+                    "focus": 20.5
+                },
+                "modifiedStats": {
+                    "speed": 28.7,
+                    "attack": 34.5,
+                    "defense": 20.5,
+                    "criticalRate": 41,
+                    "criticalDamage": 69.1,
+                    "resist": 20.5,
+                    "focus": 22.6
+                }
+            },
+            {
+                "id": 4336624,
+                "name": "C0A0C00C",
+                "health": 158,
+                "statuses": [
+                    "foc_up",
+                    "atk_up",
+                    "atk_up",
+                    "crt_up",
+                    "crt_up",
+                    "crd_up",
+                    "crd_up",
+                    "atk_up",
+                    "atk_up",
+                    "crt_up",
+                    "crt_up",
+                    "crd_up",
+                    "crd_up"
+                ],
+                "originalStats": {
+                    "speed": 28.7,
+                    "attack": 28.7,
+                    "defense": 20.5,
+                    "criticalRate": 34.2,
+                    "criticalDamage": 57.5,
+                    "resist": 20.5,
+                    "focus": 20.5
+                },
+                "modifiedStats": {
+                    "speed": 28.7,
+                    "attack": 40.3,
+                    "defense": 20.5,
+                    "criticalRate": 47.8,
+                    "criticalDamage": 80.7,
+                    "resist": 20.5,
+                    "focus": 22.6
+                }
+            },
+            {
+                "id": 6666228,
+                "name": "C0A0C00C",
+                "health": -58,
+                "statuses": [
+                    "foc_up",
+                    "atk_up",
+                    "atk_up",
+                    "crt_up",
+                    "crt_up",
+                    "crd_up",
+                    "crd_up",
+                    "atk_up",
+                    "atk_up",
+                    "crt_up",
+                    "crt_up",
+                    "crd_up",
+                    "crd_up"
+                ],
+                "originalStats": {
+                    "speed": 28.7,
+                    "attack": 28.7,
+                    "defense": 20.5,
+                    "criticalRate": 34.2,
+                    "criticalDamage": 57.5,
+                    "resist": 20.5,
+                    "focus": 20.5
+                },
+                "modifiedStats": {
+                    "speed": 28.7,
+                    "attack": 40.3,
+                    "defense": 20.5,
+                    "criticalRate": 47.8,
+                    "criticalDamage": 80.7,
+                    "resist": 20.5,
+                    "focus": 22.6
+                }
+            },
+            {
+                "id": 9426080,
+                "name": "C0A0C00C",
+                "health": 303,
+                "statuses": [
+                    "foc_up",
+                    "atk_up",
+                    "atk_up",
+                    "crt_up",
+                    "crt_up",
+                    "crd_up",
+                    "crd_up",
+                    "atk_up",
+                    "atk_up",
+                    "crt_up",
+                    "crt_up",
+                    "crd_up",
+                    "crd_up"
+                ],
+                "originalStats": {
+                    "speed": 28.7,
+                    "attack": 28.7,
+                    "defense": 20.5,
+                    "criticalRate": 34.2,
+                    "criticalDamage": 57.5,
+                    "resist": 20.5,
+                    "focus": 20.5
+                },
+                "modifiedStats": {
+                    "speed": 28.7,
+                    "attack": 40.3,
+                    "defense": 20.5,
+                    "criticalRate": 47.8,
+                    "criticalDamage": 80.7,
+                    "resist": 20.5,
+                    "focus": 22.6
+                }
+            }
+        ]
+    }
+}

@@ -421,7 +421,7 @@ const getNewActionDelay = (gotchi) => {
 /**
  * Simplify a team object for storage
  * @param {Object} team An in-game team object
- * @returns {Object} simplifiedTeam A simplified team object 
+ * @returns {Object} simplifiedTeam A simplified team object
  */
 const simplifyTeam = (team) => {
     return {
@@ -453,7 +453,7 @@ const simplifyTeam = (team) => {
 /**
  * Get the UI order of a team (used for the front end)
  * @param {Object} team An in-game team object
- * @returns {Array} uiOrder An array of gotchi ids in the order they should be displayed 
+ * @returns {Array} uiOrder An array of gotchi ids in the order they should be displayed
  **/
 const getUiOrder = (team) => {
     const uiOrder = []
@@ -617,7 +617,7 @@ const prepareTeams = (allAliveGotchis, team1, team2) => {
                 gotchi.statuses = gotchiState.statuses
             })
 
-            // Don't add leader passive statuses if we have a starting state 
+            // Don't add leader passive statuses if we have a starting state
             addLeaderToTeam(team, false)
         } else {
             // Add leader passives to team
@@ -886,3 +886,4 @@ module.exports = {
     getCritMultiplier,
     shouldDoSpecial
 }
+

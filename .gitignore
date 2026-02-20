@@ -3,6 +3,5 @@ node_modules/
 scripts/data/campaign/
 scripts/data/pvp/
 scripts/output/
-scripts/balancing/output/*
 .env
 keyfile.json

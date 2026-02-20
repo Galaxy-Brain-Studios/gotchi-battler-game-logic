@@ -11,3 +11,4 @@ module.exports = {
     DEFAULT_MAX_STATUSES,
     FOC_RES_COEFFICIENT
 }
+

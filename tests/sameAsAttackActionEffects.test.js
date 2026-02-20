@@ -1,7 +1,7 @@
 const { expect } = require('chai')
 const path = require('path')
 
-const { attack } = require(path.join('..', 'game-logic', 'v2.0', 'index'))
+const { attack } = require(path.join('..', 'game-logic', 'index'))
 
 const makeStats = () => ({
     hits: 0,

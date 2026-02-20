@@ -1,0 +1,4917 @@
+{
+    "meta": {
+        "seed": "0.16909627724407783",
+        "timestamp": "2026-01-03T16:19:02.778Z",
+        "type": "training",
+        "campaign": {},
+        "isBoss": false
+    },
+    "gotchis": [
+        {
+            "id": 9864097,
+            "onchainId": 135,
+            "name": "A0C0C0C0",
+            "type": "spirit",
+            "visualCode": "ninja_godlike",
+            "level": 70,
+            "speed": 34.2,
+            "health": 744,
+            "attack": 20.5,
+            "defense": 20.5,
+            "criticalRate": 28.7,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 28.7,
+            "gotchiClass": "ninja",
+            "special": "misleading_throw",
+            "leaderSkill": "known_vulnerability",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "misleading_throw",
+                "name": "Misleading Throw",
+                "initialCooldown": 0,
+                "cooldown": 2,
+                "actionType": "attack",
+                "actionMultiplier": 0.85,
+                "monstersOnly": false,
+                "notes": "Deal damage to one enemy. A random ally gains Taunt and may get +CRT.",
+                "gotchiClass": "ninja",
+                "target": "enemy_random",
+                "effects": [
+                    {
+                        "id": 320,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "misleading_throw",
+                        "target": "ally_random",
+                        "status": "taunt",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 321,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 0.5,
+                        "special": "misleading_throw",
+                        "target": "ally_random",
+                        "status": "crt_up",
+                        "skipFocusCheck": false
+                    }
+                ]
+            },
+            "leaderSkillExpanded": {
+                "code": "known_vulnerability",
+                "name": "Known Vulnerability",
+                "description": "Increases the entire team's Critical Chance.",
+                "monstersOnly": false,
+                "gotchiClass": "ninja",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "known_vulnerability",
+                        "status": "crt_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "crt_up"
+            ],
+            "specialBar": 100,
+            "fullHealth": 744
+        },
+        {
+            "id": 6632518,
+            "onchainId": 135,
+            "name": "A0C0C0C0",
+            "type": "spirit",
+            "visualCode": "ninja_godlike",
+            "level": 70,
+            "speed": 34.2,
+            "health": 744,
+            "attack": 20.5,
+            "defense": 20.5,
+            "criticalRate": 28.7,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 28.7,
+            "gotchiClass": "ninja",
+            "special": "misleading_throw",
+            "leaderSkill": "known_vulnerability",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "misleading_throw",
+                "name": "Misleading Throw",
+                "initialCooldown": 0,
+                "cooldown": 2,
+                "actionType": "attack",
+                "actionMultiplier": 0.85,
+                "monstersOnly": false,
+                "notes": "Deal damage to one enemy. A random ally gains Taunt and may get +CRT.",
+                "gotchiClass": "ninja",
+                "target": "enemy_random",
+                "effects": [
+                    {
+                        "id": 320,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "misleading_throw",
+                        "target": "ally_random",
+                        "status": "taunt",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 321,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 0.5,
+                        "special": "misleading_throw",
+                        "target": "ally_random",
+                        "status": "crt_up",
+                        "skipFocusCheck": false
+                    }
+                ]
+            },
+            "leaderSkillExpanded": {
+                "code": "known_vulnerability",
+                "name": "Known Vulnerability",
+                "description": "Increases the entire team's Critical Chance.",
+                "monstersOnly": false,
+                "gotchiClass": "ninja",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "known_vulnerability",
+                        "status": "crt_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "crt_up"
+            ],
+            "specialBar": 100,
+            "fullHealth": 744
+        },
+        {
+            "id": 2428546,
+            "onchainId": 135,
+            "name": "A0C0C0C0",
+            "type": "spirit",
+            "visualCode": "ninja_godlike",
+            "level": 70,
+            "speed": 34.2,
+            "health": 744,
+            "attack": 20.5,
+            "defense": 20.5,
+            "criticalRate": 28.7,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 28.7,
+            "gotchiClass": "ninja",
+            "special": "misleading_throw",
+            "leaderSkill": "known_vulnerability",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "misleading_throw",
+                "name": "Misleading Throw",
+                "initialCooldown": 0,
+                "cooldown": 2,
+                "actionType": "attack",
+                "actionMultiplier": 0.85,
+                "monstersOnly": false,
+                "notes": "Deal damage to one enemy. A random ally gains Taunt and may get +CRT.",
+                "gotchiClass": "ninja",
+                "target": "enemy_random",
+                "effects": [
+                    {
+                        "id": 320,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "misleading_throw",
+                        "target": "ally_random",
+                        "status": "taunt",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 321,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 0.5,
+                        "special": "misleading_throw",
+                        "target": "ally_random",
+                        "status": "crt_up",
+                        "skipFocusCheck": false
+                    }
+                ]
+            },
+            "leaderSkillExpanded": {
+                "code": "known_vulnerability",
+                "name": "Known Vulnerability",
+                "description": "Increases the entire team's Critical Chance.",
+                "monstersOnly": false,
+                "gotchiClass": "ninja",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "known_vulnerability",
+                        "status": "crt_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "crt_up"
+            ],
+            "specialBar": 100,
+            "fullHealth": 744
+        },
+        {
+            "id": 9068138,
+            "onchainId": 135,
+            "name": "A0C0C0C0",
+            "type": "spirit",
+            "visualCode": "ninja_godlike",
+            "level": 70,
+            "speed": 34.2,
+            "health": 744,
+            "attack": 20.5,
+            "defense": 20.5,
+            "criticalRate": 28.7,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 28.7,
+            "gotchiClass": "ninja",
+            "special": "misleading_throw",
+            "leaderSkill": "known_vulnerability",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "misleading_throw",
+                "name": "Misleading Throw",
+                "initialCooldown": 0,
+                "cooldown": 2,
+                "actionType": "attack",
+                "actionMultiplier": 0.85,
+                "monstersOnly": false,
+                "notes": "Deal damage to one enemy. A random ally gains Taunt and may get +CRT.",
+                "gotchiClass": "ninja",
+                "target": "enemy_random",
+                "effects": [
+                    {
+                        "id": 320,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "misleading_throw",
+                        "target": "ally_random",
+                        "status": "taunt",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 321,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 0.5,
+                        "special": "misleading_throw",
+                        "target": "ally_random",
+                        "status": "crt_up",
+                        "skipFocusCheck": false
+                    }
+                ]
+            },
+            "leaderSkillExpanded": {
+                "code": "known_vulnerability",
+                "name": "Known Vulnerability",
+                "description": "Increases the entire team's Critical Chance.",
+                "monstersOnly": false,
+                "gotchiClass": "ninja",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "known_vulnerability",
+                        "status": "crt_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "crt_up"
+            ],
+            "specialBar": 100,
+            "fullHealth": 744
+        },
+        {
+            "id": 2941923,
+            "onchainId": 135,
+            "name": "A0C0C0C0",
+            "type": "spirit",
+            "visualCode": "ninja_godlike",
+            "level": 70,
+            "speed": 34.2,
+            "health": 744,
+            "attack": 20.5,
+            "defense": 20.5,
+            "criticalRate": 28.7,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 28.7,
+            "gotchiClass": "ninja",
+            "special": "misleading_throw",
+            "leaderSkill": "known_vulnerability",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "misleading_throw",
+                "name": "Misleading Throw",
+                "initialCooldown": 0,
+                "cooldown": 2,
+                "actionType": "attack",
+                "actionMultiplier": 0.85,
+                "monstersOnly": false,
+                "notes": "Deal damage to one enemy. A random ally gains Taunt and may get +CRT.",
+                "gotchiClass": "ninja",
+                "target": "enemy_random",
+                "effects": [
+                    {
+                        "id": 320,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 1,
+                        "special": "misleading_throw",
+                        "target": "ally_random",
+                        "status": "taunt",
+                        "skipFocusCheck": false
+                    },
+                    {
+                        "id": 321,
+                        "effectType": "status",
+                        "value": null,
+                        "chance": 0.5,
+                        "special": "misleading_throw",
+                        "target": "ally_random",
+                        "status": "crt_up",
+                        "skipFocusCheck": false
+                    }
+                ]
+            },
+            "leaderSkillExpanded": {
+                "code": "known_vulnerability",
+                "name": "Known Vulnerability",
+                "description": "Increases the entire team's Critical Chance.",
+                "monstersOnly": false,
+                "gotchiClass": "ninja",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "known_vulnerability",
+                        "status": "crt_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "crt_up"
+            ],
+            "specialBar": 100,
+            "fullHealth": 744
+        },
+        {
+            "id": 6914711,
+            "onchainId": 135,
+            "name": "A0C0C0C0",
+            "type": "spirit",
+            "visualCode": "ninja_godlike",
+            "level": 70,
+            "speed": 34.2,
+            "health": 744,
+            "attack": 20.5,
+            "defense": 20.5,
+            "criticalRate": 28.7,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 28.7,
+            "gotchiClass": "ninja",
+            "special": "shadowblitz",
+            "leaderSkill": "known_vulnerability",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "shadowblitz",
+                "name": "Shadowblitz",
+                "initialCooldown": 1,
+                "cooldown": 2,
+                "actionType": "attack",
+                "actionMultiplier": 0.35,
+                "monstersOnly": false,
+                "notes": "Unleash a swift shadow attack damaging all enemies at once.",
+                "gotchiClass": "ninja",
+                "target": "all_enemies",
+                "effects": []
+            },
+            "leaderSkillExpanded": {
+                "code": "known_vulnerability",
+                "name": "Known Vulnerability",
+                "description": "Increases the entire team's Critical Chance.",
+                "monstersOnly": false,
+                "gotchiClass": "ninja",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "known_vulnerability",
+                        "status": "crt_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "crt_up"
+            ],
+            "specialBar": 83,
+            "fullHealth": 744
+        },
+        {
+            "id": 7678795,
+            "onchainId": 135,
+            "name": "A0C0C0C0",
+            "type": "spirit",
+            "visualCode": "ninja_godlike",
+            "level": 70,
+            "speed": 34.2,
+            "health": 744,
+            "attack": 20.5,
+            "defense": 20.5,
+            "criticalRate": 28.7,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 28.7,
+            "gotchiClass": "ninja",
+            "special": "shadowblitz",
+            "leaderSkill": "known_vulnerability",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "shadowblitz",
+                "name": "Shadowblitz",
+                "initialCooldown": 1,
+                "cooldown": 2,
+                "actionType": "attack",
+                "actionMultiplier": 0.35,
+                "monstersOnly": false,
+                "notes": "Unleash a swift shadow attack damaging all enemies at once.",
+                "gotchiClass": "ninja",
+                "target": "all_enemies",
+                "effects": []
+            },
+            "leaderSkillExpanded": {
+                "code": "known_vulnerability",
+                "name": "Known Vulnerability",
+                "description": "Increases the entire team's Critical Chance.",
+                "monstersOnly": false,
+                "gotchiClass": "ninja",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "known_vulnerability",
+                        "status": "crt_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "crt_up"
+            ],
+            "specialBar": 83,
+            "fullHealth": 744
+        },
+        {
+            "id": 2777130,
+            "onchainId": 135,
+            "name": "A0C0C0C0",
+            "type": "spirit",
+            "visualCode": "ninja_godlike",
+            "level": 70,
+            "speed": 34.2,
+            "health": 744,
+            "attack": 20.5,
+            "defense": 20.5,
+            "criticalRate": 28.7,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 28.7,
+            "gotchiClass": "ninja",
+            "special": "shadowblitz",
+            "leaderSkill": "known_vulnerability",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "shadowblitz",
+                "name": "Shadowblitz",
+                "initialCooldown": 1,
+                "cooldown": 2,
+                "actionType": "attack",
+                "actionMultiplier": 0.35,
+                "monstersOnly": false,
+                "notes": "Unleash a swift shadow attack damaging all enemies at once.",
+                "gotchiClass": "ninja",
+                "target": "all_enemies",
+                "effects": []
+            },
+            "leaderSkillExpanded": {
+                "code": "known_vulnerability",
+                "name": "Known Vulnerability",
+                "description": "Increases the entire team's Critical Chance.",
+                "monstersOnly": false,
+                "gotchiClass": "ninja",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "known_vulnerability",
+                        "status": "crt_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "crt_up"
+            ],
+            "specialBar": 83,
+            "fullHealth": 744
+        },
+        {
+            "id": 8891336,
+            "onchainId": 135,
+            "name": "A0C0C0C0",
+            "type": "spirit",
+            "visualCode": "ninja_godlike",
+            "level": 70,
+            "speed": 34.2,
+            "health": 744,
+            "attack": 20.5,
+            "defense": 20.5,
+            "criticalRate": 28.7,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 28.7,
+            "gotchiClass": "ninja",
+            "special": "shadowblitz",
+            "leaderSkill": "known_vulnerability",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "shadowblitz",
+                "name": "Shadowblitz",
+                "initialCooldown": 1,
+                "cooldown": 2,
+                "actionType": "attack",
+                "actionMultiplier": 0.35,
+                "monstersOnly": false,
+                "notes": "Unleash a swift shadow attack damaging all enemies at once.",
+                "gotchiClass": "ninja",
+                "target": "all_enemies",
+                "effects": []
+            },
+            "leaderSkillExpanded": {
+                "code": "known_vulnerability",
+                "name": "Known Vulnerability",
+                "description": "Increases the entire team's Critical Chance.",
+                "monstersOnly": false,
+                "gotchiClass": "ninja",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "known_vulnerability",
+                        "status": "crt_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "crt_up"
+            ],
+            "specialBar": 83,
+            "fullHealth": 744
+        },
+        {
+            "id": 8547689,
+            "onchainId": 135,
+            "name": "A0C0C0C0",
+            "type": "spirit",
+            "visualCode": "ninja_godlike",
+            "level": 70,
+            "speed": 34.2,
+            "health": 744,
+            "attack": 20.5,
+            "defense": 20.5,
+            "criticalRate": 28.7,
+            "criticalDamage": 57.5,
+            "resist": 20.5,
+            "focus": 28.7,
+            "gotchiClass": "ninja",
+            "special": "shadowblitz",
+            "leaderSkill": "known_vulnerability",
+            "item": null,
+            "crystalSlot1": null,
+            "crystalSlot2": null,
+            "crystalSlot3": null,
+            "crystalSlot4": null,
+            "crystalSlot5": null,
+            "crystalSlot6": null,
+            "specialExpanded": {
+                "code": "shadowblitz",
+                "name": "Shadowblitz",
+                "initialCooldown": 1,
+                "cooldown": 2,
+                "actionType": "attack",
+                "actionMultiplier": 0.35,
+                "monstersOnly": false,
+                "notes": "Unleash a swift shadow attack damaging all enemies at once.",
+                "gotchiClass": "ninja",
+                "target": "all_enemies",
+                "effects": []
+            },
+            "leaderSkillExpanded": {
+                "code": "known_vulnerability",
+                "name": "Known Vulnerability",
+                "description": "Increases the entire team's Critical Chance.",
+                "monstersOnly": false,
+                "gotchiClass": "ninja",
+                "statuses": [
+                    {
+                        "stackCount": 1,
+                        "leaderSkill": "known_vulnerability",
+                        "status": "crt_up"
+                    }
+                ]
+            },
+            "statuses": [
+                "crt_up"
+            ],
+            "specialBar": 83,
+            "fullHealth": 744
+        }
+    ],
+    "layout": {
+        "teams": [
+            {
+                "name": "Team 1",
+                "owner": "0x0000000000000000000000000000000000000000",
+                "leaderId": 9864097,
+                "rows": [
+                    {
+                        "slots": [
+                            {
+                                "isActive": true,
+                                "id": 9864097
+                            },
+                            {
+                                "isActive": true,
+                                "id": 6632518
+                            },
+                            {
+                                "isActive": true,
+                                "id": 2428546
+                            },
+                            {
+                                "isActive": true,
+                                "id": 9068138
+                            },
+                            {
+                                "isActive": true,
+                                "id": 2941923
+                            }
+                        ]
+                    },
+                    {
+                        "slots": [
+                            {
+                                "isActive": false,
+                                "id": null
+                            },
+                            {
+                                "isActive": false,
+                                "id": null
+                            },
+                            {
+                                "isActive": false,
+                                "id": null
+                            },
+                            {
+                                "isActive": false,
+                                "id": null
+                            },
+                            {
+                                "isActive": false,
+                                "id": null
+                            }
+                        ]
+                    }
+                ],
+                "uiOrder": [
+                    9864097,
+                    6632518,
+                    2428546,
+                    9068138,
+                    2941923
+                ]
+            },
+            {
+                "name": "Team 2",
+                "owner": "0x0000000000000000000000000000000000000000",
+                "leaderId": 6914711,
+                "rows": [
+                    {
+                        "slots": [
+                            {
+                                "isActive": true,
+                                "id": 6914711
+                            },
+                            {
+                                "isActive": true,
+                                "id": 7678795
+                            },
+                            {
+                                "isActive": true,
+                                "id": 2777130
+                            },
+                            {
+                                "isActive": true,
+                                "id": 8891336
+                            },
+                            {
+                                "isActive": true,
+                                "id": 8547689
+                            }
+                        ]
+                    },
+                    {
+                        "slots": [
+                            {
+                                "isActive": false,
+                                "id": null
+                            },
+                            {
+                                "isActive": false,
+                                "id": null
+                            },
+                            {
+                                "isActive": false,
+                                "id": null
+                            },
+                            {
+                                "isActive": false,
+                                "id": null
+                            },
+                            {
+                                "isActive": false,
+                                "id": null
+                            }
+                        ]
+                    }
+                ],
+                "uiOrder": [
+                    6914711,
+                    7678795,
+                    2777130,
+                    8891336,
+                    8547689
+                ]
+            }
+        ]
+    },
+    "turns": [
+        {
+            "index": 0,
+            "skipTurn": null,
+            "action": {
+                "user": 9068138,
+                "name": "misleading_throw",
+                "actionEffects": [
+                    {
+                        "target": 8547689,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 9068138,
+                        "target": 2428546,
+                        "damage": null,
+                        "statuses": [
+                            "taunt"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 9068138,
+                        "target": 2428546,
+                        "damage": null,
+                        "statuses": [],
+                        "outcome": "failed"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 100
+                },
+                {
+                    "id": 2428546,
+                    "val": 100
+                },
+                {
+                    "id": 9068138,
+                    "val": 67
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 83
+                },
+                {
+                    "id": 7678795,
+                    "val": 83
+                },
+                {
+                    "id": 2777130,
+                    "val": 83
+                },
+                {
+                    "id": 8891336,
+                    "val": 83
+                },
+                {
+                    "id": 8547689,
+                    "val": 83
+                }
+            ]
+        },
+        {
+            "index": 1,
+            "skipTurn": null,
+            "action": {
+                "user": 8547689,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 2428546,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "target": 8547689,
+                        "source": 2428546,
+                        "damage": 30,
+                        "outcome": "counter"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 100
+                },
+                {
+                    "id": 2428546,
+                    "val": 100
+                },
+                {
+                    "id": 9068138,
+                    "val": 67
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 83
+                },
+                {
+                    "id": 7678795,
+                    "val": 83
+                },
+                {
+                    "id": 2777130,
+                    "val": 83
+                },
+                {
+                    "id": 8891336,
+                    "val": 83
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 2,
+            "skipTurn": null,
+            "action": {
+                "user": 2428546,
+                "name": "misleading_throw",
+                "actionEffects": [
+                    {
+                        "target": 8891336,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 2428546,
+                        "target": 2428546,
+                        "damage": null,
+                        "statuses": [
+                            "taunt"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 2428546,
+                        "target": 2428546,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 100
+                },
+                {
+                    "id": 2428546,
+                    "val": 67
+                },
+                {
+                    "id": 9068138,
+                    "val": 67
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 83
+                },
+                {
+                    "id": 7678795,
+                    "val": 83
+                },
+                {
+                    "id": 2777130,
+                    "val": 83
+                },
+                {
+                    "id": 8891336,
+                    "val": 83
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 3,
+            "skipTurn": null,
+            "action": {
+                "user": 6632518,
+                "name": "misleading_throw",
+                "actionEffects": [
+                    {
+                        "target": 8891336,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 6632518,
+                        "target": 2428546,
+                        "damage": null,
+                        "statuses": [
+                            "taunt"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 6632518,
+                        "target": 2428546,
+                        "damage": null,
+                        "statuses": [],
+                        "outcome": "failed"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 67
+                },
+                {
+                    "id": 9068138,
+                    "val": 67
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 83
+                },
+                {
+                    "id": 7678795,
+                    "val": 83
+                },
+                {
+                    "id": 2777130,
+                    "val": 83
+                },
+                {
+                    "id": 8891336,
+                    "val": 83
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 4,
+            "skipTurn": null,
+            "action": {
+                "user": 7678795,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 2428546,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "target": 7678795,
+                        "source": 2428546,
+                        "damage": 30,
+                        "outcome": "counter"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 67
+                },
+                {
+                    "id": 9068138,
+                    "val": 67
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 83
+                },
+                {
+                    "id": 7678795,
+                    "val": 100
+                },
+                {
+                    "id": 2777130,
+                    "val": 83
+                },
+                {
+                    "id": 8891336,
+                    "val": 83
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 5,
+            "skipTurn": null,
+            "action": {
+                "user": 6914711,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 2428546,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "target": 6914711,
+                        "source": 2428546,
+                        "damage": 30,
+                        "outcome": "counter"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 67
+                },
+                {
+                    "id": 9068138,
+                    "val": 67
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 100
+                },
+                {
+                    "id": 2777130,
+                    "val": 83
+                },
+                {
+                    "id": 8891336,
+                    "val": 83
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 6,
+            "skipTurn": null,
+            "action": {
+                "user": 9864097,
+                "name": "misleading_throw",
+                "actionEffects": [
+                    {
+                        "target": 6914711,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 9864097,
+                        "target": 2428546,
+                        "damage": null,
+                        "statuses": [
+                            "taunt"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 9864097,
+                        "target": 2428546,
+                        "damage": null,
+                        "statuses": [],
+                        "outcome": "failed"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 67
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 67
+                },
+                {
+                    "id": 9068138,
+                    "val": 67
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 100
+                },
+                {
+                    "id": 2777130,
+                    "val": 83
+                },
+                {
+                    "id": 8891336,
+                    "val": 83
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 7,
+            "skipTurn": null,
+            "action": {
+                "user": 2941923,
+                "name": "misleading_throw",
+                "actionEffects": [
+                    {
+                        "target": 8547689,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 2941923,
+                        "target": 2428546,
+                        "damage": null,
+                        "statuses": [
+                            "taunt"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 2941923,
+                        "target": 2428546,
+                        "damage": null,
+                        "statuses": [],
+                        "outcome": "failed"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 67
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 67
+                },
+                {
+                    "id": 9068138,
+                    "val": 67
+                },
+                {
+                    "id": 2941923,
+                    "val": 67
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 100
+                },
+                {
+                    "id": 2777130,
+                    "val": 83
+                },
+                {
+                    "id": 8891336,
+                    "val": 83
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 8,
+            "skipTurn": null,
+            "action": {
+                "user": 8891336,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 2428546,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "target": 8891336,
+                        "source": 2428546,
+                        "damage": 30,
+                        "outcome": "counter"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 67
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 67
+                },
+                {
+                    "id": 9068138,
+                    "val": 67
+                },
+                {
+                    "id": 2941923,
+                    "val": 67
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 100
+                },
+                {
+                    "id": 2777130,
+                    "val": 83
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 9,
+            "skipTurn": null,
+            "action": {
+                "user": 2777130,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 2428546,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "target": 2777130,
+                        "source": 2428546,
+                        "damage": 30,
+                        "outcome": "counter"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 67
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 67
+                },
+                {
+                    "id": 9068138,
+                    "val": 67
+                },
+                {
+                    "id": 2941923,
+                    "val": 67
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 100
+                },
+                {
+                    "id": 2777130,
+                    "val": 100
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 10,
+            "skipTurn": null,
+            "action": {
+                "user": 6632518,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 7678795,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 67
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 67
+                },
+                {
+                    "id": 9068138,
+                    "val": 67
+                },
+                {
+                    "id": 2941923,
+                    "val": 67
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 100
+                },
+                {
+                    "id": 2777130,
+                    "val": 100
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 11,
+            "skipTurn": null,
+            "action": {
+                "user": 2941923,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 8891336,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 67
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 67
+                },
+                {
+                    "id": 9068138,
+                    "val": 67
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 100
+                },
+                {
+                    "id": 2777130,
+                    "val": 100
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 12,
+            "skipTurn": null,
+            "action": {
+                "user": 7678795,
+                "name": "shadowblitz",
+                "actionEffects": [
+                    {
+                        "target": 9864097,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 6632518,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 2428546,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 9068138,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 2941923,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 67
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 67
+                },
+                {
+                    "id": 9068138,
+                    "val": 67
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 67
+                },
+                {
+                    "id": 2777130,
+                    "val": 100
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 13,
+            "skipTurn": null,
+            "action": {
+                "user": 2428546,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 7678795,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 67
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 67
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 67
+                },
+                {
+                    "id": 2777130,
+                    "val": 100
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 14,
+            "skipTurn": null,
+            "action": {
+                "user": 2777130,
+                "name": "shadowblitz",
+                "actionEffects": [
+                    {
+                        "target": 9864097,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 6632518,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 2428546,
+                        "statuses": [],
+                        "damage": 55,
+                        "outcome": "critical"
+                    },
+                    {
+                        "target": 9068138,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 2941923,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 67
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 67
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 67
+                },
+                {
+                    "id": 2777130,
+                    "val": 67
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 15,
+            "skipTurn": null,
+            "action": {
+                "user": 9864097,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 2777130,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 67
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 67
+                },
+                {
+                    "id": 2777130,
+                    "val": 67
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 16,
+            "skipTurn": null,
+            "action": {
+                "user": 9068138,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 8891336,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 84
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 67
+                },
+                {
+                    "id": 2777130,
+                    "val": 67
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 17,
+            "skipTurn": null,
+            "action": {
+                "user": 8547689,
+                "name": "shadowblitz",
+                "actionEffects": [
+                    {
+                        "target": 9864097,
+                        "statuses": [],
+                        "damage": 55,
+                        "outcome": "critical"
+                    },
+                    {
+                        "target": 6632518,
+                        "statuses": [],
+                        "damage": 55,
+                        "outcome": "critical"
+                    },
+                    {
+                        "target": 2428546,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 9068138,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 2941923,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 84
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 67
+                },
+                {
+                    "id": 2777130,
+                    "val": 67
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 18,
+            "skipTurn": null,
+            "action": {
+                "user": 8891336,
+                "name": "shadowblitz",
+                "actionEffects": [
+                    {
+                        "target": 9864097,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 6632518,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 2428546,
+                        "statuses": [],
+                        "damage": 55,
+                        "outcome": "critical"
+                    },
+                    {
+                        "target": 9068138,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 2941923,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 84
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 67
+                },
+                {
+                    "id": 2777130,
+                    "val": 67
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 19,
+            "skipTurn": null,
+            "action": {
+                "user": 6914711,
+                "name": "shadowblitz",
+                "actionEffects": [
+                    {
+                        "target": 9864097,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 6632518,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 2428546,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 9068138,
+                        "statuses": [],
+                        "damage": 55,
+                        "outcome": "critical"
+                    },
+                    {
+                        "target": 2941923,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 84
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 67
+                },
+                {
+                    "id": 7678795,
+                    "val": 67
+                },
+                {
+                    "id": 2777130,
+                    "val": 67
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 20,
+            "skipTurn": null,
+            "action": {
+                "user": 2777130,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 2428546,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 84
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 67
+                },
+                {
+                    "id": 7678795,
+                    "val": 67
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 21,
+            "skipTurn": null,
+            "action": {
+                "user": 2941923,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 7678795,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 84
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 67
+                },
+                {
+                    "id": 7678795,
+                    "val": 67
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 22,
+            "skipTurn": null,
+            "action": {
+                "user": 9068138,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 8891336,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 67
+                },
+                {
+                    "id": 7678795,
+                    "val": 67
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 23,
+            "skipTurn": null,
+            "action": {
+                "user": 7678795,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 9068138,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 67
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 24,
+            "skipTurn": null,
+            "action": {
+                "user": 6914711,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 9864097,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 84
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 25,
+            "skipTurn": null,
+            "action": {
+                "user": 8891336,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 9864097,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 84
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 84
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 26,
+            "skipTurn": null,
+            "action": {
+                "user": 8547689,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 9068138,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 84
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 84
+                },
+                {
+                    "id": 8547689,
+                    "val": 84
+                }
+            ]
+        },
+        {
+            "index": 27,
+            "skipTurn": null,
+            "action": {
+                "user": 9864097,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 8547689,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 84
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 84
+                },
+                {
+                    "id": 8547689,
+                    "val": 84
+                }
+            ]
+        },
+        {
+            "index": 28,
+            "skipTurn": null,
+            "action": {
+                "user": 6632518,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 6914711,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 100
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 84
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 84
+                },
+                {
+                    "id": 8547689,
+                    "val": 84
+                }
+            ]
+        },
+        {
+            "index": 29,
+            "skipTurn": null,
+            "action": {
+                "user": 8547689,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 2941923,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 100
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 84
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 84
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 30,
+            "skipTurn": null,
+            "action": {
+                "user": 6914711,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 9068138,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 100
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 84
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 31,
+            "skipTurn": null,
+            "action": {
+                "user": 6632518,
+                "name": "misleading_throw",
+                "actionEffects": [
+                    {
+                        "target": 8547689,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 6632518,
+                        "target": 9068138,
+                        "damage": null,
+                        "statuses": [
+                            "taunt"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 6632518,
+                        "target": 9068138,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 84
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 32,
+            "skipTurn": null,
+            "action": {
+                "user": 2777130,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 9068138,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "target": 2777130,
+                        "source": 9068138,
+                        "damage": 30,
+                        "outcome": "counter"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 100
+                },
+                {
+                    "id": 8891336,
+                    "val": 84
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 33,
+            "skipTurn": null,
+            "action": {
+                "user": 9864097,
+                "name": "misleading_throw",
+                "actionEffects": [
+                    {
+                        "target": 2777130,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 9864097,
+                        "target": 9068138,
+                        "damage": null,
+                        "statuses": [
+                            "taunt"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 9864097,
+                        "target": 9068138,
+                        "damage": null,
+                        "statuses": [
+                            "crt_up"
+                        ],
+                        "outcome": "success"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 67
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 100
+                },
+                {
+                    "id": 8891336,
+                    "val": 84
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 34,
+            "skipTurn": null,
+            "action": {
+                "user": 8891336,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 9068138,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 67
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 100
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 35,
+            "skipTurn": null,
+            "action": {
+                "user": 7678795,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 9864097,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 67
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 100
+                },
+                {
+                    "id": 2777130,
+                    "val": 100
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 36,
+            "skipTurn": null,
+            "action": {
+                "user": 2941923,
+                "name": "misleading_throw",
+                "actionEffects": [
+                    {
+                        "target": 7678795,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 2941923,
+                        "target": 9864097,
+                        "damage": null,
+                        "statuses": [
+                            "taunt"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 2941923,
+                        "target": 9864097,
+                        "damage": null,
+                        "statuses": [],
+                        "outcome": "failed"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 67
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 67
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 100
+                },
+                {
+                    "id": 2777130,
+                    "val": 100
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 37,
+            "skipTurn": null,
+            "action": {
+                "user": 9864097,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 6914711,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 67
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 100
+                },
+                {
+                    "id": 2777130,
+                    "val": 100
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 38,
+            "skipTurn": null,
+            "action": {
+                "user": 2777130,
+                "name": "shadowblitz",
+                "actionEffects": [
+                    {
+                        "target": 9864097,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 6632518,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 2941923,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 67
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 100
+                },
+                {
+                    "id": 2777130,
+                    "val": 67
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 39,
+            "skipTurn": null,
+            "action": {
+                "user": 2941923,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 8891336,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 100
+                },
+                {
+                    "id": 2777130,
+                    "val": 67
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 40,
+            "skipTurn": null,
+            "action": {
+                "user": 8547689,
+                "name": "shadowblitz",
+                "actionEffects": [
+                    {
+                        "target": 9864097,
+                        "statuses": [],
+                        "damage": 55,
+                        "outcome": "critical"
+                    },
+                    {
+                        "target": 6632518,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 2941923,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 100
+                },
+                {
+                    "id": 2777130,
+                    "val": 67
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 41,
+            "skipTurn": null,
+            "action": {
+                "user": 6632518,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 8547689,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 100
+                },
+                {
+                    "id": 2777130,
+                    "val": 67
+                },
+                {
+                    "id": 8891336,
+                    "val": 100
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 42,
+            "skipTurn": null,
+            "action": {
+                "user": 8891336,
+                "name": "shadowblitz",
+                "actionEffects": [
+                    {
+                        "target": 9864097,
+                        "statuses": [],
+                        "damage": 55,
+                        "outcome": "critical"
+                    },
+                    {
+                        "target": 6632518,
+                        "statuses": [],
+                        "damage": 55,
+                        "outcome": "critical"
+                    },
+                    {
+                        "target": 2941923,
+                        "statuses": [],
+                        "damage": 55,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 100
+                },
+                {
+                    "id": 2777130,
+                    "val": 67
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 43,
+            "skipTurn": null,
+            "action": {
+                "user": 6914711,
+                "name": "shadowblitz",
+                "actionEffects": [
+                    {
+                        "target": 9864097,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 6632518,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 2941923,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 67
+                },
+                {
+                    "id": 7678795,
+                    "val": 100
+                },
+                {
+                    "id": 2777130,
+                    "val": 67
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 44,
+            "skipTurn": null,
+            "action": {
+                "user": 7678795,
+                "name": "shadowblitz",
+                "actionEffects": [
+                    {
+                        "target": 9864097,
+                        "statuses": [],
+                        "damage": 35,
+                        "outcome": "success"
+                    },
+                    {
+                        "target": 6632518,
+                        "statuses": [],
+                        "damage": 55,
+                        "outcome": "critical"
+                    },
+                    {
+                        "target": 2941923,
+                        "statuses": [],
+                        "damage": 55,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 84
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 67
+                },
+                {
+                    "id": 7678795,
+                    "val": 67
+                },
+                {
+                    "id": 2777130,
+                    "val": 67
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 45,
+            "skipTurn": null,
+            "action": {
+                "user": 9864097,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 8891336,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 67
+                },
+                {
+                    "id": 7678795,
+                    "val": 67
+                },
+                {
+                    "id": 2777130,
+                    "val": 67
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 46,
+            "skipTurn": null,
+            "action": {
+                "user": 2777130,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 9864097,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 84
+                },
+                {
+                    "id": 6914711,
+                    "val": 67
+                },
+                {
+                    "id": 7678795,
+                    "val": 67
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 47,
+            "skipTurn": null,
+            "action": {
+                "user": 2941923,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 2777130,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 67
+                },
+                {
+                    "id": 7678795,
+                    "val": 67
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 48,
+            "skipTurn": null,
+            "action": {
+                "user": 6914711,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 6632518,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 84
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 84
+                },
+                {
+                    "id": 7678795,
+                    "val": 67
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 49,
+            "skipTurn": null,
+            "action": {
+                "user": 6632518,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 8547689,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 100
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 84
+                },
+                {
+                    "id": 7678795,
+                    "val": 67
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 50,
+            "skipTurn": null,
+            "action": {
+                "user": 7678795,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 6632518,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 100
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 84
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 67
+                }
+            ]
+        },
+        {
+            "index": 51,
+            "skipTurn": null,
+            "action": {
+                "user": 8547689,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 2941923,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 100
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 84
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 84
+                }
+            ]
+        },
+        {
+            "index": 52,
+            "skipTurn": null,
+            "action": {
+                "user": 8547689,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 2941923,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 100
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 84
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 53,
+            "skipTurn": null,
+            "action": {
+                "user": 6632518,
+                "name": "misleading_throw",
+                "actionEffects": [
+                    {
+                        "target": 2777130,
+                        "statuses": [],
+                        "damage": 134,
+                        "outcome": "critical"
+                    }
+                ],
+                "additionalEffects": [
+                    {
+                        "source": 6632518,
+                        "target": 2941923,
+                        "damage": null,
+                        "statuses": [
+                            "taunt"
+                        ],
+                        "outcome": "success"
+                    },
+                    {
+                        "source": 6632518,
+                        "target": 2941923,
+                        "damage": null,
+                        "statuses": [],
+                        "outcome": "failed"
+                    }
+                ]
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 84
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 84
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 54,
+            "skipTurn": null,
+            "action": {
+                "user": 2777130,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 2941923,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 84
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 100
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        },
+        {
+            "index": 55,
+            "skipTurn": null,
+            "action": {
+                "user": 6914711,
+                "name": "auto",
+                "actionEffects": [
+                    {
+                        "target": 6632518,
+                        "statuses": [],
+                        "damage": 85,
+                        "outcome": "success"
+                    }
+                ],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [],
+            "specialBars": [
+                {
+                    "id": 9864097,
+                    "val": 100
+                },
+                {
+                    "id": 6632518,
+                    "val": 67
+                },
+                {
+                    "id": 2428546,
+                    "val": 84
+                },
+                {
+                    "id": 9068138,
+                    "val": 100
+                },
+                {
+                    "id": 2941923,
+                    "val": 100
+                },
+                {
+                    "id": 6914711,
+                    "val": 100
+                },
+                {
+                    "id": 7678795,
+                    "val": 84
+                },
+                {
+                    "id": 2777130,
+                    "val": 100
+                },
+                {
+                    "id": 8891336,
+                    "val": 67
+                },
+                {
+                    "id": 8547689,
+                    "val": 100
+                }
+            ]
+        }
+    ],
+    "result": {
+        "stats": {
+            "numOfTurns": 56,
+            "team1": {
+                "dmgGiven": 2334,
+                "dmgReceived": 4127,
+                "healGiven": 0,
+                "healReceived": 0,
+                "crits": 6,
+                "resists": 0,
+                "focuses": 0,
+                "counters": 6,
+                "hits": 24,
+                "gotchis": [
+                    {
+                        "id": 9864097,
+                        "name": "A0C0C0C0",
+                        "dmgGiven": 559,
+                        "dmgReceived": 848,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 1,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 6
+                    },
+                    {
+                        "id": 6632518,
+                        "name": "A0C0C0C0",
+                        "dmgGiven": 693,
+                        "dmgReceived": 763,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 2,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 7
+                    },
+                    {
+                        "id": 2428546,
+                        "name": "A0C0C0C0",
+                        "dmgGiven": 219,
+                        "dmgReceived": 872,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 1,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 5,
+                        "hits": 2
+                    },
+                    {
+                        "id": 9068138,
+                        "name": "A0C0C0C0",
+                        "dmgGiven": 304,
+                        "dmgReceived": 816,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 1,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 1,
+                        "hits": 3
+                    },
+                    {
+                        "id": 2941923,
+                        "name": "A0C0C0C0",
+                        "dmgGiven": 559,
+                        "dmgReceived": 828,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 1,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 6
+                    }
+                ]
+            },
+            "team2": {
+                "dmgGiven": 4127,
+                "dmgReceived": 2334,
+                "healGiven": 0,
+                "healReceived": 0,
+                "crits": 24,
+                "resists": 0,
+                "focuses": 0,
+                "counters": 0,
+                "hits": 62,
+                "gotchis": [
+                    {
+                        "id": 6914711,
+                        "name": "A0C0C0C0",
+                        "dmgGiven": 823,
+                        "dmgReceived": 255,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 3,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 13
+                    },
+                    {
+                        "id": 7678795,
+                        "name": "A0C0C0C0",
+                        "dmgGiven": 807,
+                        "dmgReceived": 340,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 5,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 12
+                    },
+                    {
+                        "id": 2777130,
+                        "name": "A0C0C0C0",
+                        "dmgGiven": 921,
+                        "dmgReceived": 389,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 5,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 13
+                    },
+                    {
+                        "id": 8891336,
+                        "name": "A0C0C0C0",
+                        "dmgGiven": 664,
+                        "dmgReceived": 791,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 5,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 11
+                    },
+                    {
+                        "id": 8547689,
+                        "name": "A0C0C0C0",
+                        "dmgGiven": 912,
+                        "dmgReceived": 559,
+                        "healGiven": 0,
+                        "healReceived": 0,
+                        "crits": 6,
+                        "resists": 0,
+                        "focuses": 0,
+                        "counters": 0,
+                        "hits": 13
+                    }
+                ]
+            }
+        },
+        "winner": 2,
+        "winningTeam": [
+            {
+                "id": 6914711,
+                "name": "A0C0C0C0",
+                "health": 459,
+                "statuses": [
+                    "crt_up"
+                ],
+                "originalStats": {
+                    "speed": 34.2,
+                    "attack": 20.5,
+                    "defense": 20.5,
+                    "criticalRate": 28.7,
+                    "criticalDamage": 57.5,
+                    "resist": 20.5,
+                    "focus": 28.7
+                },
+                "modifiedStats": {
+                    "speed": 34.2,
+                    "attack": 20.5,
+                    "defense": 20.5,
+                    "criticalRate": 31.6,
+                    "criticalDamage": 57.5,
+                    "resist": 20.5,
+                    "focus": 28.7
+                }
+            },
+            {
+                "id": 7678795,
+                "name": "A0C0C0C0",
+                "health": 374,
+                "statuses": [
+                    "crt_up"
+                ],
+                "originalStats": {
+                    "speed": 34.2,
+                    "attack": 20.5,
+                    "defense": 20.5,
+                    "criticalRate": 28.7,
+                    "criticalDamage": 57.5,
+                    "resist": 20.5,
+                    "focus": 28.7
+                },
+                "modifiedStats": {
+                    "speed": 34.2,
+                    "attack": 20.5,
+                    "defense": 20.5,
+                    "criticalRate": 31.6,
+                    "criticalDamage": 57.5,
+                    "resist": 20.5,
+                    "focus": 28.7
+                }
+            },
+            {
+                "id": 2777130,
+                "name": "A0C0C0C0",
+                "health": 295,
+                "statuses": [
+                    "crt_up"
+                ],
+                "originalStats": {
+                    "speed": 34.2,
+                    "attack": 20.5,
+                    "defense": 20.5,
+                    "criticalRate": 28.7,
+                    "criticalDamage": 57.5,
+                    "resist": 20.5,
+                    "focus": 28.7
+                },
+                "modifiedStats": {
+                    "speed": 34.2,
+                    "attack": 20.5,
+                    "defense": 20.5,
+                    "criticalRate": 31.6,
+                    "criticalDamage": 57.5,
+                    "resist": 20.5,
+                    "focus": 28.7
+                }
+            },
+            {
+                "id": 8891336,
+                "name": "A0C0C0C0",
+                "health": -77,
+                "statuses": [
+                    "crt_up"
+                ],
+                "originalStats": {
+                    "speed": 34.2,
+                    "attack": 20.5,
+                    "defense": 20.5,
+                    "criticalRate": 28.7,
+                    "criticalDamage": 57.5,
+                    "resist": 20.5,
+                    "focus": 28.7
+                },
+                "modifiedStats": {
+                    "speed": 34.2,
+                    "attack": 20.5,
+                    "defense": 20.5,
+                    "criticalRate": 31.6,
+                    "criticalDamage": 57.5,
+                    "resist": 20.5,
+                    "focus": 28.7
+                }
+            },
+            {
+                "id": 8547689,
+                "name": "A0C0C0C0",
+                "health": 155,
+                "statuses": [
+                    "crt_up"
+                ],
+                "originalStats": {
+                    "speed": 34.2,
+                    "attack": 20.5,
+                    "defense": 20.5,
+                    "criticalRate": 28.7,
+                    "criticalDamage": 57.5,
+                    "resist": 20.5,
+                    "focus": 28.7
+                },
+                "modifiedStats": {
+                    "speed": 34.2,
+                    "attack": 20.5,
+                    "defense": 20.5,
+                    "criticalRate": 31.6,
+                    "criticalDamage": 57.5,
+                    "resist": 20.5,
+                    "focus": 28.7
+                }
+            }
+        ]
+    }
+}

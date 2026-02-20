@@ -1,0 +1,733 @@
+{
+    "meta": {
+        "generatedAt": "2026-01-03T13:29:42.088Z",
+        "teamsFile": "data/teams/specialBalanceTeams_isolation_v1.18.json",
+        "teamAId": 250,
+        "teamBId": 50
+    },
+    "teamA": {
+        "id": 250,
+        "name": "Sim Team 250 (Tempo Breakers | isolate:control | rep:1)",
+        "owner": "sim",
+        "archetypeName": "Tempo Breakers",
+        "archetypeShapeKey": "front{attack:0,control:2,support:0}|back{attack:2,control:0,support:1}",
+        "designMeta": {
+            "design": "isolate",
+            "isolateCategory": "control",
+            "replicate": 1
+        },
+        "categoryToSpecialName": {
+            "attack": "Infinite Slash",
+            "control": "Fortress Stance",
+            "support": "Syphoned Power"
+        },
+        "formation": {
+            "front": [
+                {
+                    "id": 10001245,
+                    "onchainId": 10001245,
+                    "name": "Sim Unit 10001245",
+                    "type": "spirit",
+                    "visualCode": "tank_sim",
+                    "level": 50,
+                    "speed": 16.5,
+                    "health": 1007,
+                    "attack": 26.7,
+                    "defense": 26.7,
+                    "criticalRate": 16.5,
+                    "criticalDamage": 33,
+                    "resist": 26.7,
+                    "focus": 16.5,
+                    "gotchiClass": "tank",
+                    "special": "fortress_stance",
+                    "leaderSkill": "_none",
+                    "item": null,
+                    "crystalSlot1": null,
+                    "crystalSlot2": null,
+                    "crystalSlot3": null,
+                    "crystalSlot4": null,
+                    "crystalSlot5": null,
+                    "crystalSlot6": null,
+                    "specialExpanded": {
+                        "code": "fortress_stance",
+                        "name": "Fortress Stance",
+                        "gotchiClass": "tank",
+                        "initialCooldown": 0,
+                        "cooldown": 0,
+                        "actionType": "none",
+                        "actionMultiplier": null,
+                        "target": "self",
+                        "notes": "Taunt and a chance to increase your own defense but greatly lower your own Speed",
+                        "monstersOnly": false,
+                        "effects": [
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "same_as_attack",
+                                "status": "taunt",
+                                "skipFocusCheck": false
+                            },
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 0.4,
+                                "special": null,
+                                "target": "same_as_attack",
+                                "status": "def_up",
+                                "skipFocusCheck": false
+                            },
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "same_as_attack",
+                                "status": "spd_down",
+                                "skipFocusCheck": false
+                            },
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "same_as_attack",
+                                "status": "spd_down",
+                                "skipFocusCheck": false
+                            },
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "same_as_attack",
+                                "status": "spd_down",
+                                "skipFocusCheck": false
+                            }
+                        ]
+                    },
+                    "leaderSkillExpanded": {
+                        "code": "_none",
+                        "name": "None",
+                        "description": "Neutral leader skill used for simulations.",
+                        "gotchiClass": "tank",
+                        "statuses": []
+                    }
+                },
+                null,
+                null,
+                {
+                    "id": 10001246,
+                    "onchainId": 10001246,
+                    "name": "Sim Unit 10001246",
+                    "type": "spirit",
+                    "visualCode": "tank_sim",
+                    "level": 50,
+                    "speed": 26.7,
+                    "health": 597,
+                    "attack": 16.5,
+                    "defense": 26.7,
+                    "criticalRate": 16.5,
+                    "criticalDamage": 53.5,
+                    "resist": 16.5,
+                    "focus": 26.7,
+                    "gotchiClass": "tank",
+                    "special": "fortress_stance",
+                    "leaderSkill": "_none",
+                    "item": null,
+                    "crystalSlot1": null,
+                    "crystalSlot2": null,
+                    "crystalSlot3": null,
+                    "crystalSlot4": null,
+                    "crystalSlot5": null,
+                    "crystalSlot6": null,
+                    "specialExpanded": {
+                        "code": "fortress_stance",
+                        "name": "Fortress Stance",
+                        "gotchiClass": "tank",
+                        "initialCooldown": 0,
+                        "cooldown": 0,
+                        "actionType": "none",
+                        "actionMultiplier": null,
+                        "target": "self",
+                        "notes": "Taunt and a chance to increase your own defense but greatly lower your own Speed",
+                        "monstersOnly": false,
+                        "effects": [
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "same_as_attack",
+                                "status": "taunt",
+                                "skipFocusCheck": false
+                            },
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 0.4,
+                                "special": null,
+                                "target": "same_as_attack",
+                                "status": "def_up",
+                                "skipFocusCheck": false
+                            },
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "same_as_attack",
+                                "status": "spd_down",
+                                "skipFocusCheck": false
+                            },
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "same_as_attack",
+                                "status": "spd_down",
+                                "skipFocusCheck": false
+                            },
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "same_as_attack",
+                                "status": "spd_down",
+                                "skipFocusCheck": false
+                            }
+                        ]
+                    },
+                    "leaderSkillExpanded": {
+                        "code": "_none",
+                        "name": "None",
+                        "description": "Neutral leader skill used for simulations.",
+                        "gotchiClass": "tank",
+                        "statuses": []
+                    }
+                },
+                null
+            ],
+            "back": [
+                null,
+                {
+                    "id": 10001247,
+                    "onchainId": 10001247,
+                    "name": "Sim Unit 10001247",
+                    "type": "spirit",
+                    "visualCode": "cleaver_sim",
+                    "level": 50,
+                    "speed": 26.7,
+                    "health": 597,
+                    "attack": 16.5,
+                    "defense": 16.5,
+                    "criticalRate": 26.7,
+                    "criticalDamage": 53.5,
+                    "resist": 16.5,
+                    "focus": 26.7,
+                    "gotchiClass": "cleaver",
+                    "special": "infinite_slash",
+                    "leaderSkill": "_none",
+                    "item": null,
+                    "crystalSlot1": null,
+                    "crystalSlot2": null,
+                    "crystalSlot3": null,
+                    "crystalSlot4": null,
+                    "crystalSlot5": null,
+                    "crystalSlot6": null,
+                    "specialExpanded": {
+                        "code": "infinite_slash",
+                        "name": "Infinite Slash",
+                        "gotchiClass": "cleaver",
+                        "initialCooldown": 4,
+                        "cooldown": 1,
+                        "actionType": "attack",
+                        "actionMultiplier": 0.32,
+                        "target": "all_enemies",
+                        "notes": "Attack all enemies. Chance to immediately repeat the attack.",
+                        "monstersOnly": false,
+                        "effects": [
+                            {
+                                "effectType": "repeat_attack",
+                                "value": null,
+                                "chance": 0.55,
+                                "special": null,
+                                "target": "same_as_attack",
+                                "status": null,
+                                "skipFocusCheck": false
+                            }
+                        ]
+                    },
+                    "leaderSkillExpanded": {
+                        "code": "_none",
+                        "name": "None",
+                        "description": "Neutral leader skill used for simulations.",
+                        "gotchiClass": "cleaver",
+                        "statuses": []
+                    }
+                },
+                {
+                    "id": 10001248,
+                    "onchainId": 10001248,
+                    "name": "Sim Unit 10001248",
+                    "type": "spirit",
+                    "visualCode": "cursed_sim",
+                    "level": 50,
+                    "speed": 16.5,
+                    "health": 1007,
+                    "attack": 26.7,
+                    "defense": 26.7,
+                    "criticalRate": 16.5,
+                    "criticalDamage": 53.5,
+                    "resist": 16.5,
+                    "focus": 16.5,
+                    "gotchiClass": "cursed",
+                    "special": "syphoned_power",
+                    "leaderSkill": "_none",
+                    "item": null,
+                    "crystalSlot1": null,
+                    "crystalSlot2": null,
+                    "crystalSlot3": null,
+                    "crystalSlot4": null,
+                    "crystalSlot5": null,
+                    "crystalSlot6": null,
+                    "specialExpanded": {
+                        "code": "syphoned_power",
+                        "name": "Syphoned Power",
+                        "gotchiClass": "cursed",
+                        "initialCooldown": 0,
+                        "cooldown": 3,
+                        "actionType": "none",
+                        "actionMultiplier": null,
+                        "target": "self",
+                        "notes": "Regenerate health and boost your Attack, but lower a random ally's Defense.",
+                        "monstersOnly": false,
+                        "effects": [
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "same_as_attack",
+                                "status": "regenerate",
+                                "skipFocusCheck": false
+                            },
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "same_as_attack",
+                                "status": "atk_up",
+                                "skipFocusCheck": false
+                            },
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "same_as_attack",
+                                "status": "atk_up",
+                                "skipFocusCheck": false
+                            },
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "ally_random",
+                                "status": "def_down",
+                                "skipFocusCheck": false
+                            },
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "ally_random",
+                                "status": "def_down",
+                                "skipFocusCheck": false
+                            }
+                        ]
+                    },
+                    "leaderSkillExpanded": {
+                        "code": "_none",
+                        "name": "None",
+                        "description": "Neutral leader skill used for simulations.",
+                        "gotchiClass": "cursed",
+                        "statuses": []
+                    }
+                },
+                null,
+                {
+                    "id": 10001249,
+                    "onchainId": 10001249,
+                    "name": "Sim Unit 10001249",
+                    "type": "spirit",
+                    "visualCode": "cleaver_sim",
+                    "level": 50,
+                    "speed": 16.5,
+                    "health": 1007,
+                    "attack": 26.7,
+                    "defense": 16.5,
+                    "criticalRate": 26.7,
+                    "criticalDamage": 33,
+                    "resist": 26.7,
+                    "focus": 16.5,
+                    "gotchiClass": "cleaver",
+                    "special": "infinite_slash",
+                    "leaderSkill": "_none",
+                    "item": null,
+                    "crystalSlot1": null,
+                    "crystalSlot2": null,
+                    "crystalSlot3": null,
+                    "crystalSlot4": null,
+                    "crystalSlot5": null,
+                    "crystalSlot6": null,
+                    "specialExpanded": {
+                        "code": "infinite_slash",
+                        "name": "Infinite Slash",
+                        "gotchiClass": "cleaver",
+                        "initialCooldown": 4,
+                        "cooldown": 1,
+                        "actionType": "attack",
+                        "actionMultiplier": 0.32,
+                        "target": "all_enemies",
+                        "notes": "Attack all enemies. Chance to immediately repeat the attack.",
+                        "monstersOnly": false,
+                        "effects": [
+                            {
+                                "effectType": "repeat_attack",
+                                "value": null,
+                                "chance": 0.55,
+                                "special": null,
+                                "target": "same_as_attack",
+                                "status": null,
+                                "skipFocusCheck": false
+                            }
+                        ]
+                    },
+                    "leaderSkillExpanded": {
+                        "code": "_none",
+                        "name": "None",
+                        "description": "Neutral leader skill used for simulations.",
+                        "gotchiClass": "cleaver",
+                        "statuses": []
+                    }
+                }
+            ]
+        },
+        "leader": 10001245
+    },
+    "teamB": {
+        "id": 50,
+        "name": "Sim Team 50 (High-Risk Sustain | isolate:attack | rep:1)",
+        "owner": "sim",
+        "archetypeName": "High-Risk Sustain",
+        "archetypeShapeKey": "front{attack:0,heal:2}|back{attack:3,heal:0}",
+        "designMeta": {
+            "design": "isolate",
+            "isolateCategory": "attack",
+            "replicate": 1
+        },
+        "categoryToSpecialName": {
+            "attack": "Acrobatic Assault",
+            "heal": "Invigorate"
+        },
+        "formation": {
+            "front": [
+                null,
+                {
+                    "id": 10000245,
+                    "onchainId": 10000245,
+                    "name": "Sim Unit 10000245",
+                    "type": "spirit",
+                    "visualCode": "healer_sim",
+                    "level": 50,
+                    "speed": 36.7,
+                    "health": 597,
+                    "attack": 16.5,
+                    "defense": 16.5,
+                    "criticalRate": 26.7,
+                    "criticalDamage": 33,
+                    "resist": 26.7,
+                    "focus": 26.7,
+                    "gotchiClass": "healer",
+                    "special": "invigorate",
+                    "leaderSkill": "_none",
+                    "item": null,
+                    "crystalSlot1": null,
+                    "crystalSlot2": null,
+                    "crystalSlot3": null,
+                    "crystalSlot4": null,
+                    "crystalSlot5": null,
+                    "crystalSlot6": null,
+                    "specialExpanded": {
+                        "code": "invigorate",
+                        "name": "Invigorate",
+                        "gotchiClass": "healer",
+                        "initialCooldown": 0,
+                        "cooldown": 0,
+                        "actionType": "heal",
+                        "actionMultiplier": 0.5,
+                        "target": "ally_random",
+                        "notes": "Heal an ally and boost their Critical Damage.",
+                        "monstersOnly": false,
+                        "effects": [
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "same_as_attack",
+                                "status": "crd_up",
+                                "skipFocusCheck": false
+                            }
+                        ]
+                    },
+                    "leaderSkillExpanded": {
+                        "code": "_none",
+                        "name": "None",
+                        "description": "Neutral leader skill used for simulations.",
+                        "gotchiClass": "healer",
+                        "statuses": []
+                    }
+                },
+                null,
+                null,
+                {
+                    "id": 10000246,
+                    "onchainId": 10000246,
+                    "name": "Sim Unit 10000246",
+                    "type": "spirit",
+                    "visualCode": "healer_sim",
+                    "level": 50,
+                    "speed": 36.5,
+                    "health": 1007,
+                    "attack": 26.7,
+                    "defense": 26.7,
+                    "criticalRate": 16.5,
+                    "criticalDamage": 33,
+                    "resist": 26.7,
+                    "focus": 16.5,
+                    "gotchiClass": "healer",
+                    "special": "invigorate",
+                    "leaderSkill": "_none",
+                    "item": null,
+                    "crystalSlot1": null,
+                    "crystalSlot2": null,
+                    "crystalSlot3": null,
+                    "crystalSlot4": null,
+                    "crystalSlot5": null,
+                    "crystalSlot6": null,
+                    "specialExpanded": {
+                        "code": "invigorate",
+                        "name": "Invigorate",
+                        "gotchiClass": "healer",
+                        "initialCooldown": 0,
+                        "cooldown": 0,
+                        "actionType": "heal",
+                        "actionMultiplier": 0.5,
+                        "target": "ally_random",
+                        "notes": "Heal an ally and boost their Critical Damage.",
+                        "monstersOnly": false,
+                        "effects": [
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "same_as_attack",
+                                "status": "crd_up",
+                                "skipFocusCheck": false
+                            }
+                        ]
+                    },
+                    "leaderSkillExpanded": {
+                        "code": "_none",
+                        "name": "None",
+                        "description": "Neutral leader skill used for simulations.",
+                        "gotchiClass": "healer",
+                        "statuses": []
+                    }
+                }
+            ],
+            "back": [
+                {
+                    "id": 10000247,
+                    "onchainId": 10000247,
+                    "name": "Sim Unit 10000247",
+                    "type": "spirit",
+                    "visualCode": "ninja_sim",
+                    "level": 50,
+                    "speed": 26.7,
+                    "health": 597,
+                    "attack": 26.7,
+                    "defense": 26.7,
+                    "criticalRate": 16.5,
+                    "criticalDamage": 33,
+                    "resist": 26.7,
+                    "focus": 16.5,
+                    "gotchiClass": "ninja",
+                    "special": "acrobatic_assault",
+                    "leaderSkill": "_none",
+                    "item": null,
+                    "crystalSlot1": null,
+                    "crystalSlot2": null,
+                    "crystalSlot3": null,
+                    "crystalSlot4": null,
+                    "crystalSlot5": null,
+                    "crystalSlot6": null,
+                    "specialExpanded": {
+                        "code": "acrobatic_assault",
+                        "name": "Acrobatic Assault",
+                        "gotchiClass": "ninja",
+                        "initialCooldown": 0,
+                        "cooldown": 2,
+                        "actionType": "attack",
+                        "actionMultiplier": 1.5,
+                        "target": "enemy_random",
+                        "notes": "Deal big damage to a random enemy, but lower your own Speed.",
+                        "monstersOnly": false,
+                        "effects": [
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "self",
+                                "status": "spd_down",
+                                "skipFocusCheck": false
+                            }
+                        ]
+                    },
+                    "leaderSkillExpanded": {
+                        "code": "_none",
+                        "name": "None",
+                        "description": "Neutral leader skill used for simulations.",
+                        "gotchiClass": "ninja",
+                        "statuses": []
+                    }
+                },
+                null,
+                {
+                    "id": 10000248,
+                    "onchainId": 10000248,
+                    "name": "Sim Unit 10000248",
+                    "type": "spirit",
+                    "visualCode": "ninja_sim",
+                    "level": 50,
+                    "speed": 26.7,
+                    "health": 597,
+                    "attack": 16.5,
+                    "defense": 16.5,
+                    "criticalRate": 26.7,
+                    "criticalDamage": 53.5,
+                    "resist": 16.5,
+                    "focus": 26.7,
+                    "gotchiClass": "ninja",
+                    "special": "acrobatic_assault",
+                    "leaderSkill": "_none",
+                    "item": null,
+                    "crystalSlot1": null,
+                    "crystalSlot2": null,
+                    "crystalSlot3": null,
+                    "crystalSlot4": null,
+                    "crystalSlot5": null,
+                    "crystalSlot6": null,
+                    "specialExpanded": {
+                        "code": "acrobatic_assault",
+                        "name": "Acrobatic Assault",
+                        "gotchiClass": "ninja",
+                        "initialCooldown": 0,
+                        "cooldown": 2,
+                        "actionType": "attack",
+                        "actionMultiplier": 1.5,
+                        "target": "enemy_random",
+                        "notes": "Deal big damage to a random enemy, but lower your own Speed.",
+                        "monstersOnly": false,
+                        "effects": [
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "self",
+                                "status": "spd_down",
+                                "skipFocusCheck": false
+                            }
+                        ]
+                    },
+                    "leaderSkillExpanded": {
+                        "code": "_none",
+                        "name": "None",
+                        "description": "Neutral leader skill used for simulations.",
+                        "gotchiClass": "ninja",
+                        "statuses": []
+                    }
+                },
+                {
+                    "id": 10000249,
+                    "onchainId": 10000249,
+                    "name": "Sim Unit 10000249",
+                    "type": "spirit",
+                    "visualCode": "ninja_sim",
+                    "level": 50,
+                    "speed": 26.7,
+                    "health": 597,
+                    "attack": 26.7,
+                    "defense": 26.7,
+                    "criticalRate": 16.5,
+                    "criticalDamage": 33,
+                    "resist": 26.7,
+                    "focus": 16.5,
+                    "gotchiClass": "ninja",
+                    "special": "acrobatic_assault",
+                    "leaderSkill": "_none",
+                    "item": null,
+                    "crystalSlot1": null,
+                    "crystalSlot2": null,
+                    "crystalSlot3": null,
+                    "crystalSlot4": null,
+                    "crystalSlot5": null,
+                    "crystalSlot6": null,
+                    "specialExpanded": {
+                        "code": "acrobatic_assault",
+                        "name": "Acrobatic Assault",
+                        "gotchiClass": "ninja",
+                        "initialCooldown": 0,
+                        "cooldown": 2,
+                        "actionType": "attack",
+                        "actionMultiplier": 1.5,
+                        "target": "enemy_random",
+                        "notes": "Deal big damage to a random enemy, but lower your own Speed.",
+                        "monstersOnly": false,
+                        "effects": [
+                            {
+                                "effectType": "status",
+                                "value": null,
+                                "chance": 1,
+                                "special": null,
+                                "target": "self",
+                                "status": "spd_down",
+                                "skipFocusCheck": false
+                            }
+                        ]
+                    },
+                    "leaderSkillExpanded": {
+                        "code": "_none",
+                        "name": "None",
+                        "description": "Neutral leader skill used for simulations.",
+                        "gotchiClass": "ninja",
+                        "statuses": []
+                    }
+                },
+                null
+            ]
+        },
+        "leader": 10000245
+    }
+}
