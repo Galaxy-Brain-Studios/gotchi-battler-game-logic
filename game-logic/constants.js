@@ -19,27 +19,27 @@ const LEADER_STATS = [
 // Leader mechanics (non-status, non-dispellable).
 // Percent values are fractional (e.g. 0.05 = +5%).
 const LEADER_CARRY_PCT_BY_STAT = {
-    speed: 0.1,
-    health: 0.1,
-    criticalRate: 0.1,
-    defense: 0.05,
-    criticalDamage: 0.1,
-    resist: 0.1,
-    focus: 0.1,
-    attack: 0.05
+    speed: 0.03,
+    health: 0.075,
+    criticalRate: 0.03,
+    defense: 0.045,
+    criticalDamage: 0.03,
+    resist: 0.03,
+    focus: 0.03,
+    attack: 0.045
 }
 
 // Used only for the leader's specialty stat.
 // Percent values are fractional (e.g. 0.10 = +10% of leader snapshot stat).
 const LEADER_AURA_PCT_BY_STAT = {
-    speed: 0.1,
-    health: 0.05,
-    criticalRate: 0.1,
-    defense: 0.05,
-    criticalDamage: 0.1,
-    resist: 0.1,
-    focus: 0.1,
-    attack: 0.05
+    speed: 0.03,
+    health: 0.045,
+    criticalRate: 0.6,
+    defense: 0.06,
+    criticalDamage: 0.6,
+    resist: 1.1,
+    focus: 0.95,
+    attack: 0.06
 }
 
 // Class -> specialty stat mapping.

@@ -1,7 +1,7 @@
 [
     {
         "code": "spd_up",
-        "name": "Speed Buff",
+        "name": "Increase SPD",
         "description": "+10% SPD per stack",
         "category": "stat_modifier",
         "isBuff": true,
@@ -16,7 +16,7 @@
     },
     {
         "code": "atk_up",
-        "name": "Attack Buff",
+        "name": "Increase ATK",
         "description": "+10% ATK per stack",
         "category": "stat_modifier",
         "isBuff": true,
@@ -31,7 +31,7 @@
     },
     {
         "code": "def_up",
-        "name": "Defense Buff",
+        "name": "Increase DEF",
         "description": "+10% DEF per stack",
         "category": "stat_modifier",
         "isBuff": true,
@@ -46,7 +46,7 @@
     },
     {
         "code": "crt_up",
-        "name": "Critical-Rate Buff",
+        "name": "Increase CRT",
         "description": "+10% CRT per stack",
         "category": "stat_modifier",
         "isBuff": true,
@@ -61,7 +61,7 @@
     },
     {
         "code": "crd_up",
-        "name": "Critical-Damage Buff",
+        "name": "Increase CRD",
         "description": "+10% CRD per stack",
         "category": "stat_modifier",
         "isBuff": true,
@@ -76,7 +76,7 @@
     },
     {
         "code": "res_up",
-        "name": "Resistance Buff",
+        "name": "Increase RES",
         "description": "+10% RES per stack",
         "category": "stat_modifier",
         "isBuff": true,
@@ -91,7 +91,7 @@
     },
     {
         "code": "foc_up",
-        "name": "Focus Buff",
+        "name": "Increase FOC",
         "description": "+10% FOC per stack",
         "category": "stat_modifier",
         "isBuff": true,
@@ -106,7 +106,7 @@
     },
     {
         "code": "spd_down",
-        "name": "Speed Debuff",
+        "name": "Decrease SPD",
         "description": "-10% SPD per stack",
         "category": "stat_modifier",
         "isBuff": false,
@@ -121,7 +121,7 @@
     },
     {
         "code": "atk_down",
-        "name": "Attack Debuff",
+        "name": "Decrease ATK",
         "description": "-10% ATK per stack",
         "category": "stat_modifier",
         "isBuff": false,
@@ -136,7 +136,7 @@
     },
     {
         "code": "def_down",
-        "name": "Defense Debuff",
+        "name": "Decrease DEF",
         "description": "-10% DEF per stack",
         "category": "stat_modifier",
         "isBuff": false,
@@ -151,7 +151,7 @@
     },
     {
         "code": "crt_down",
-        "name": "Critical-Rate Debuff",
+        "name": "Decrease CRT",
         "description": "-10% CRT per stack",
         "category": "stat_modifier",
         "isBuff": false,
@@ -166,7 +166,7 @@
     },
     {
         "code": "crd_down",
-        "name": "Critical-Damage Debuff",
+        "name": "Decrease CRD",
         "description": "-10% CRD per stack",
         "category": "stat_modifier",
         "isBuff": false,
@@ -181,7 +181,7 @@
     },
     {
         "code": "res_down",
-        "name": "Resistance Debuff",
+        "name": "Decrease RES",
         "description": "-10% RES per stack",
         "category": "stat_modifier",
         "isBuff": false,
@@ -196,7 +196,7 @@
     },
     {
         "code": "foc_down",
-        "name": "Focus Debuff",
+        "name": "Decrease FOC",
         "description": "-10% FOC per stack",
         "category": "stat_modifier",
         "isBuff": false,
@@ -212,7 +212,7 @@
     {
         "code": "regenerate",
         "name": "Regeneration",
-        "description": "Heals a small amount each turn",
+        "description": "Heals 5 HP each turn",
         "category": "turn_effect",
         "isBuff": true,
         "maxStack": 4,
@@ -248,7 +248,7 @@
     {
         "code": "bleed",
         "name": "Bleed",
-        "description": "Loses a small amount of HP each turn",
+        "description": "Loses 5 HP each turn",
         "category": "turn_effect",
         "isBuff": false,
         "maxStack": 4,
@@ -263,7 +263,7 @@
     {
         "code": "wounding_strike",
         "name": "Wounding Strike",
-        "description": "Attacks may apply Bleed (30%) to the target",
+        "description": "Attacks have a 5% chance to apply Bleed to the target",
         "category": "attack_effect",
         "isBuff": true,
         "maxStack": null,
@@ -271,14 +271,14 @@
             {
                 "type": "apply_status",
                 "effectStatus": "bleed",
-                "effectChance": 0.3
+                "effectChance": 0.05
             }
         ]
     },
     {
         "code": "weakening_strike",
         "name": "Weakening Strike",
-        "description": "Attacks may apply -ATK (30%) to the target",
+        "description": "Attacks have a 30% chance to apply -ATK to the target",
         "category": "attack_effect",
         "isBuff": true,
         "maxStack": null,
@@ -293,7 +293,7 @@
     {
         "code": "enlightening_strike",
         "name": "Enlightening Strike",
-        "description": "Attacks may apply +FOC (30%) to the target",
+        "description": "Attacks have a 30% chance to apply +FOC to the target",
         "category": "attack_effect",
         "isBuff": false,
         "maxStack": null,
@@ -308,7 +308,7 @@
     {
         "code": "cleansing_strike",
         "name": "Cleansing Strike",
-        "description": "Attacks may remove a debuff from the attacker (30%)",
+        "description": "Attacks have a 30% chance to remove a debuff from the attacker",
         "category": "attack_effect",
         "isBuff": true,
         "maxStack": null,
@@ -322,7 +322,7 @@
     {
         "code": "piercing_strike",
         "name": "Piercing Strike",
-        "description": "Attacks may apply -DEF (30%) to the target",
+        "description": "Attacks have a 15% chance to apply -DEF to the target",
         "category": "attack_effect",
         "isBuff": true,
         "maxStack": null,
@@ -330,14 +330,14 @@
             {
                 "type": "apply_status",
                 "effectStatus": "def_down",
-                "effectChance": 0.3
+                "effectChance": 0.15
             }
         ]
     },
     {
         "code": "confusing_strike",
         "name": "Confusing Strike",
-        "description": "Attacks may apply -FOC (30%) to the target",
+        "description": "Attacks apply -FOC to the target",
         "category": "attack_effect",
         "isBuff": true,
         "maxStack": null,
@@ -345,14 +345,14 @@
             {
                 "type": "apply_status",
                 "effectStatus": "foc_down",
-                "effectChance": 0.3
+                "effectChance": 1
             }
         ]
     },
     {
         "code": "lucky_strike",
         "name": "Lucky Strike",
-        "description": "Attacks may apply +CRD (30%) to the target",
+        "description": "Attacks have a 30% chance to apply +CRD to the target",
         "category": "attack_effect",
         "isBuff": false,
         "maxStack": null,
@@ -367,7 +367,7 @@
     {
         "code": "terrifying_strike",
         "name": "Terrifying Strike",
-        "description": "Attacks may apply Fear (25%) to the target",
+        "description": "Attacks have a 25% chance to apply Fear to the target",
         "category": "attack_effect",
         "isBuff": true,
         "maxStack": null,
@@ -382,7 +382,7 @@
     {
         "code": "nurturing_strike",
         "name": "Nurturing Strike",
-        "description": "Attacks may apply Regeneration (30%) to the target",
+        "description": "Attacks have a 10% chance to apply Regeneration to the target",
         "category": "attack_effect",
         "isBuff": false,
         "maxStack": null,
@@ -390,14 +390,14 @@
             {
                 "type": "apply_status",
                 "effectStatus": "regenerate",
-                "effectChance": 0.3
+                "effectChance": 0.1
             }
         ]
     },
     {
         "code": "slowing_strike",
         "name": "Slowing Strike",
-        "description": "Attacks may apply -SPD (30%) to the target",
+        "description": "Attacks have a 20% chance to apply -SPD to the target",
         "category": "attack_effect",
         "isBuff": true,
         "maxStack": null,
@@ -405,14 +405,14 @@
             {
                 "type": "apply_status",
                 "effectStatus": "spd_down",
-                "effectChance": 0.3
+                "effectChance": 0.2
             }
         ]
     },
     {
         "code": "blinding_strike",
         "name": "Blinding Strike",
-        "description": "Attacks may apply -CRT (30%) to the target",
+        "description": "Attacks have a 30% chance to apply -CRT to the target",
         "category": "attack_effect",
         "isBuff": true,
         "maxStack": null,
@@ -427,7 +427,7 @@
     {
         "code": "empowering_strike",
         "name": "Empowering Strike",
-        "description": "Attacks may apply +ATK (30%) to the attacker",
+        "description": "Attacks have a 10% chance to apply +ATK to the attacker",
         "category": "attack_effect",
         "isBuff": true,
         "maxStack": null,
@@ -435,14 +435,14 @@
             {
                 "type": "gain_status",
                 "effectStatus": "atk_up",
-                "effectChance": 0.3
+                "effectChance": 0.1
             }
         ]
     },
     {
         "code": "corrosive_strike",
         "name": "Corrosive Strike",
-        "description": "Attacks may apply -RES (30%) to the target",
+        "description": "Attacks have a 50% chance to apply -RES to the target",
         "category": "attack_effect",
         "isBuff": true,
         "maxStack": null,
@@ -450,23 +450,22 @@
             {
                 "type": "apply_status",
                 "effectStatus": "res_down",
-                "effectChance": 0.3
+                "effectChance": 0.5
             }
         ]
     },
     {
         "code": "dispelling_strike",
         "name": "Dispelling Strike",
-        "description": "Attacks may remove a buff (35%) from the target",
+        "description": "Attacks have a 50% chance to remove a buff from the target",
         "category": "attack_effect",
         "isBuff": true,
         "maxStack": null,
         "attackEffects": [
             {
                 "type": "remove_buff",
-                "effectChance": 0.35
+                "effectChance": 0.5
             }
         ]
     }
 ]
-

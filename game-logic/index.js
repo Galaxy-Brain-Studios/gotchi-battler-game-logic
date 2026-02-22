@@ -524,89 +524,105 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
                 }
             })
         } else {
-            // If it's an auto attack then handle all the statuses that have attackEffects
-            const attackEffects = attackingGotchi.statuses.flatMap((statusCode) => {
-                const statusEffect = getStatusByCode(statusCode)
-                return statusEffect.attackEffects || []
+            const attackEffectStatuses = attackingGotchi.statuses.filter(statusCode => {
+                const status = getStatusByCode(statusCode)
+                return status.category === 'attack_effect'
             })
 
-            attackEffects.forEach((attackEffect) => {
-                if (attackEffect.effectChance && attackEffect.effectChance < 1 && rng() > attackEffect.effectChance) {
-                    return
-                }
+            attackEffectStatuses.forEach((attackEffectStatus) => {
+                const status = getStatusByCode(attackEffectStatus)
 
-                // 'apply_status', 'gain_status', 'remove_buff', 'cleanse_target', 'cleanse_self'
-                switch (attackEffect.type) {
-                    case 'apply_status': {
-                        if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
-                            if (addStatusToGotchi(target, attackEffect.effectStatus)) {
-                                targetActionEffect.statuses.push(attackEffect.effectStatus)
+                // If it's an auto attack then handle all the statuses that have attackEffects
+                const attackEffects = status.attackEffects || []
+
+                attackEffects.forEach((attackEffect) => {
+                    if (attackEffect.effectChance && attackEffect.effectChance < 1 && rng() > attackEffect.effectChance) {
+                        return
+                    }
+
+                    // 'apply_status', 'gain_status', 'remove_buff', 'cleanse_target', 'cleanse_self'
+                    switch (attackEffect.type) {
+                        case 'apply_status': {
+                            // Some attack effects are intended to be negative
+                            // For example "Enlightening Strike" which applies +FOC to the target
+                            // Only do a focus check if the status is a buff
+                            if (status.isBuff) {
+                                if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
+                                    if (addStatusToGotchi(target, attackEffect.effectStatus)) {
+                                        targetActionEffect.statuses.push(attackEffect.effectStatus)
+                                    }
+                                }
+                            } else {
+                                if (addStatusToGotchi(target, attackEffect.effectStatus)) {
+                                    targetActionEffect.statuses.push(attackEffect.effectStatus)
+                                }
                             }
+                            break
                         }
-                        break
-                    }
-                    case 'gain_status': {
-                        if (addStatusToGotchi(attackingGotchi, attackEffect.effectStatus)) {
-                            targetAdditionalEffects.push({
-                                target: attackingGotchi.id,
-                                status: attackEffect.effectStatus,
-                                outcome: 'success'
-                            })
+                        case 'gain_status': {
+                            if (addStatusToGotchi(attackingGotchi, attackEffect.effectStatus)) {
+                                targetAdditionalEffects.push({
+                                    target: attackingGotchi.id,
+                                    status: attackEffect.effectStatus,
+                                    outcome: 'success'
+                                })
+                            }
+                            break
                         }
-                        break
-                    }
-                    case 'remove_buff': {
-                        if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
-                            const buffs = target.statuses.filter(statusCode => getStatusByCode(statusCode).isBuff)
+                        case 'remove_buff': {
+                            if (focusCheck(attackingTeam, attackingGotchi, target, rng)) {
+                                const buffs = target.statuses.filter(statusCode => getStatusByCode(statusCode).isBuff)
 
-                            if (buffs.length) {
-                                const randomBuff = buffs[Math.floor(rng() * buffs.length)]
+                                if (buffs.length) {
+                                    const randomBuff = buffs[Math.floor(rng() * buffs.length)]
+                                    statusesExpired.push({
+                                        target: target.id,
+                                        status: randomBuff
+                                    })
+
+                                    // Remove first instance of randomBuff (there may be multiple)
+                                    const index = target.statuses.indexOf(randomBuff)
+                                    target.statuses.splice(index, 1)
+                                }
+                            }
+                            break
+                        }
+                        case 'cleanse_target': {
+                            const debuffs = target.statuses.filter(statusCode => !getStatusByCode(statusCode).isBuff)
+
+                            if (debuffs.length) {
+                                const randomDebuff = debuffs[Math.floor(rng() * debuffs.length)]
                                 statusesExpired.push({
                                     target: target.id,
-                                    status: randomBuff
+                                    status: randomDebuff
                                 })
 
-                                // Remove first instance of randomBuff (there may be multiple)
-                                const index = target.statuses.indexOf(randomBuff)
+                                // Remove first instance of randomDebuff (there may be multiple)
+                                const index = target.statuses.indexOf(randomDebuff)
                                 target.statuses.splice(index, 1)
                             }
+                            break
                         }
-                        break
-                    }
-                    case 'cleanse_target': {
-                        const debuffs = target.statuses.filter(statusCode => !getStatusByCode(statusCode).isBuff)
+                        case 'cleanse_self': {
+                            const debuffs = attackingGotchi.statuses.filter(statusCode => !getStatusByCode(statusCode).isBuff)
 
-                        if (debuffs.length) {
-                            const randomDebuff = debuffs[Math.floor(rng() * debuffs.length)]
-                            statusesExpired.push({
-                                target: target.id,
-                                status: randomDebuff
-                            })
+                            if (debuffs.length) {
+                                const randomDebuff = debuffs[Math.floor(rng() * debuffs.length)]
+                                statusesExpired.push({
+                                    target: attackingGotchi.id,
+                                    status: randomDebuff
+                                })
 
-                            // Remove first instance of randomDebuff (there may be multiple)
-                            const index = target.statuses.indexOf(randomDebuff)
-                            target.statuses.splice(index, 1)
+                                // Remove first instance of randomDebuff (there may be multiple)
+                                const index = attackingGotchi.statuses.indexOf(randomDebuff)
+                                attackingGotchi.statuses.splice(index, 1)
+                            }
+                            break
                         }
-                        break
                     }
-                    case 'cleanse_self': {
-                        const debuffs = attackingGotchi.statuses.filter(statusCode => !getStatusByCode(statusCode).isBuff)
-
-                        if (debuffs.length) {
-                            const randomDebuff = debuffs[Math.floor(rng() * debuffs.length)]
-                            statusesExpired.push({
-                                target: attackingGotchi.id,
-                                status: randomDebuff
-                            })
-
-                            // Remove first instance of randomDebuff (there may be multiple)
-                            const index = attackingGotchi.statuses.indexOf(randomDebuff)
-                            attackingGotchi.statuses.splice(index, 1)
-                        }
-                        break
-                    }
-                }
+                })
             })
+
 
             // Check for counter attack
             if (target.statuses.includes('taunt') && target.health > 0) {
