@@ -1,0 +1,154 @@
+const { expect } = require('chai')
+const path = require('path')
+
+const constants = require(path.join('..', 'game-logic', 'constants'))
+const {
+    initLeaderMechanicsForTeam,
+    syncLeaderAura
+} = require(path.join('..', 'game-logic', 'helpers'))
+
+const makeGotchi = (id, gotchiClass, overrides = {}) => ({
+    id,
+    name: `G${id}`,
+    gotchiClass,
+    // base stats (engine model: health int, others 0.1-precision)
+    speed: 10,
+    health: 100,
+    attack: 10,
+    defense: 5,
+    criticalRate: 10,
+    criticalDamage: 50,
+    resist: 5,
+    focus: 5,
+    ...overrides
+})
+
+const makeTeam = (leaderId, gotchis) => ({
+    name: 'T',
+    owner: '0x0000000000000000000000000000000000000000',
+    leader: leaderId,
+    formation: {
+        front: [gotchis[0] || null, gotchis[1] || null, gotchis[2] || null, gotchis[3] || null, gotchis[4] || null],
+        back: [gotchis[5] || null, gotchis[6] || null, gotchis[7] || null, gotchis[8] || null, gotchis[9] || null],
+    }
+})
+
+describe('Leader mechanics (carry + aura)', () => {
+    const originalCarry = { ...constants.LEADER_CARRY_PCT_BY_STAT }
+    const originalAura = { ...constants.LEADER_AURA_PCT_BY_STAT }
+
+    beforeEach(() => {
+        // Reset tables to a known baseline for deterministic tests.
+        Object.keys(constants.LEADER_CARRY_PCT_BY_STAT).forEach((k) => { delete constants.LEADER_CARRY_PCT_BY_STAT[k] })
+        Object.keys(constants.LEADER_AURA_PCT_BY_STAT).forEach((k) => { delete constants.LEADER_AURA_PCT_BY_STAT[k] })
+    })
+
+    afterEach(() => {
+        // Restore original tables.
+        Object.keys(constants.LEADER_CARRY_PCT_BY_STAT).forEach((k) => { delete constants.LEADER_CARRY_PCT_BY_STAT[k] })
+        Object.assign(constants.LEADER_CARRY_PCT_BY_STAT, originalCarry)
+
+        Object.keys(constants.LEADER_AURA_PCT_BY_STAT).forEach((k) => { delete constants.LEADER_AURA_PCT_BY_STAT[k] })
+        Object.assign(constants.LEADER_AURA_PCT_BY_STAT, originalAura)
+    })
+
+    it('leader identity matters at turn 0 (same units, different leader)', () => {
+        // Make only aura matter, and only for attack stat (troll specialty).
+        constants.LEADER_CARRY_PCT_BY_STAT.attack = 0
+        constants.LEADER_AURA_PCT_BY_STAT.attack = 0.1 // +10% of leader attack snapshot
+
+        const troll = makeGotchi(1, 'troll', { attack: 50 })
+        const ninja = makeGotchi(2, 'ninja', { attack: 20 })
+
+        const teamTrollLeader = makeTeam(1, [troll, ninja])
+        initLeaderMechanicsForTeam(teamTrollLeader)
+        // Ninja (non-leader ally) gets +5 attack
+        expect(ninja.attack).to.equal(25)
+
+        // Reset gotchis for second team (same base units)
+        const troll2 = makeGotchi(1, 'troll', { attack: 50 })
+        const ninja2 = makeGotchi(2, 'ninja', { attack: 20 })
+        const teamNinjaLeader = makeTeam(2, [troll2, ninja2])
+        initLeaderMechanicsForTeam(teamNinjaLeader)
+        // Troll (non-leader ally) does not get attack aura because ninja specialty is speed
+        expect(troll2.attack).to.equal(50)
+    })
+
+    it('uses the pre-carry snapshot for aura amount', () => {
+        // Troll specialty is attack.
+        constants.LEADER_CARRY_PCT_BY_STAT.attack = 0.5 // +50% carry
+        constants.LEADER_AURA_PCT_BY_STAT.attack = 0.1 // +10% aura of snapshot
+
+        const leader = makeGotchi(1, 'troll', { attack: 100 })
+        const ally = makeGotchi(2, 'ninja', { attack: 0 })
+
+        const team = makeTeam(1, [leader, ally])
+        initLeaderMechanicsForTeam(team)
+
+        // Aura should be based on 100, not 150.
+        expect(ally.attack).to.equal(10)
+        // Carry should still apply to leader itself.
+        expect(leader.attack).to.equal(150)
+    })
+
+    it('removes aura immediately when leader dies', () => {
+        constants.LEADER_CARRY_PCT_BY_STAT.attack = 0
+        constants.LEADER_AURA_PCT_BY_STAT.attack = 0.1
+
+        const leader = makeGotchi(1, 'troll', { attack: 40, health: 10 })
+        const ally = makeGotchi(2, 'ninja', { attack: 0 })
+        const team = makeTeam(1, [leader, ally])
+
+        initLeaderMechanicsForTeam(team)
+        expect(ally.attack).to.equal(4)
+
+        leader.health = 0
+        syncLeaderAura(team)
+        expect(ally.attack).to.equal(0)
+    })
+
+    it('health aura (enlightened) is a battle-start blessing and is not removed mid-battle', () => {
+        constants.LEADER_CARRY_PCT_BY_STAT.health = 0
+        constants.LEADER_AURA_PCT_BY_STAT.health = 0.1
+
+        const leader = makeGotchi(1, 'enlightened', { health: 100 })
+        const ally = makeGotchi(2, 'ninja', { health: 100 })
+        const team = makeTeam(1, [leader, ally])
+
+        initLeaderMechanicsForTeam(team)
+
+        // Pre-init, health represents base/max health.
+        expect(ally.health).to.equal(110)
+
+        // Simulate battle init behavior where fullHealth is set.
+        ally.fullHealth = ally.health
+
+        // Lock like prepareTeams() does, then kill leader and sync.
+        team.__leaderMechanics.locked = true
+        leader.health = 0
+        syncLeaderAura(team)
+
+        // No removal mid-battle (no max HP shrink, no HP cap-down).
+        expect(ally.fullHealth).to.equal(110)
+        expect(ally.health).to.equal(110)
+    })
+
+    it('is not dispellable (status removal does not affect carry/aura)', () => {
+        constants.LEADER_CARRY_PCT_BY_STAT.attack = 0
+        constants.LEADER_AURA_PCT_BY_STAT.attack = 0.1
+
+        const leader = makeGotchi(1, 'troll', { attack: 30 })
+        const ally = makeGotchi(2, 'ninja', { attack: 0, statuses: ['atk_up', 'def_up'] })
+        const team = makeTeam(1, [leader, ally])
+
+        initLeaderMechanicsForTeam(team)
+        expect(ally.attack).to.equal(3)
+
+        // Simulate a dispel-like effect that removes buffs by stripping statuses.
+        ally.statuses = []
+
+        // Aura remains because it is not represented as statuses.
+        expect(ally.attack).to.equal(3)
+    })
+})
+

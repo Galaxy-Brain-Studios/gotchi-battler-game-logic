@@ -27,7 +27,8 @@ const {
     focusCheck,
     getCritMultiplier,
     getModifiedStats,
-    shouldDoSpecial
+    shouldDoSpecial,
+    applyDamageAndSyncLeaderAuras
 } = require('./helpers')
 
 const normalizeOptions = (options) => {
@@ -323,8 +324,7 @@ const handleStatusEffects = (attackingGotchi, attackingTeam, defendingTeam) => {
                     case 'damage': {
                         const damage = turnEffect.value
 
-                        gotchi.health -= damage
-                        if (gotchi.health <= 0) gotchi.health = 0
+                        applyDamageAndSyncLeaderAuras(gotchi, damage, attackingTeam, defendingTeam)
 
                         // Add status effect
                         statusEffects.push({
@@ -454,7 +454,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
             }
 
             // Handle damage
-            target.health -= damage
+            applyDamageAndSyncLeaderAuras(target, damage, attackingTeam, defendingTeam)
 
             // Handle stats
             if (isCrit) attackingGotchi.stats.crits++
@@ -612,7 +612,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
             if (target.statuses.includes('taunt') && target.health > 0) {
                 const counterDamage = getDamage(target, attackingGotchi, COUNTER_ATTACK_MULTIPLIER)
 
-                attackingGotchi.health -= counterDamage
+                applyDamageAndSyncLeaderAuras(attackingGotchi, counterDamage, attackingTeam, defendingTeam)
 
                 targetAdditionalEffects.push({
                     target: attackingGotchi.id,

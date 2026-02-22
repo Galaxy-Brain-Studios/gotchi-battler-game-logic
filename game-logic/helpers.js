@@ -1,7 +1,11 @@
 const STATUSES = require('./statuses.json')
 const {
     DEFAULT_MAX_STATUSES,
-    FOC_RES_COEFFICIENT
+    FOC_RES_COEFFICIENT,
+    LEADER_STATS,
+    LEADER_CARRY_PCT_BY_STAT,
+    LEADER_AURA_PCT_BY_STAT,
+    CLASS_SPECIALTY_STAT
 } = require('./constants')
 
 const getTeamGotchis = (team) => {
@@ -79,6 +83,221 @@ const getLeaderGotchi = (team) => {
     if (!leader) throw new Error('Leader not found')
 
     return leader
+}
+
+const findLeaderGotchiOrNull = (team) => {
+    if (!team || !team.formation || !team.formation.front || !team.formation.back) return null
+    return [...team.formation.front, ...team.formation.back].find(x => x && x.id === team.leader) || null
+}
+
+const normalizeClassKey = (gotchiClass) => {
+    if (typeof gotchiClass !== 'string') return ''
+    return gotchiClass.trim().toLowerCase()
+}
+
+const roundStatLikeEngine = (statName, v) => {
+    if (typeof v !== 'number' || !Number.isFinite(v)) return v
+    if (statName === 'health') return Math.round(v)
+    return Math.round(v * 10) / 10
+}
+
+const clampBaseStat = (statName, v) => {
+    if (typeof v !== 'number' || !Number.isFinite(v)) return v
+    if (statName === 'health') return v < 1 ? 1 : v
+    if (statName === 'speed' || statName === 'defense') return v < 1 ? 1 : v
+    return v < 0 ? 0 : v
+}
+
+const setTeamLeaderMechanicsState = (team, state) => {
+    // Avoid adding enumerable fields (these would end up in serialized logs in some flows).
+    Object.defineProperty(team, '__leaderMechanics', {
+        value: state,
+        writable: true,
+        configurable: true,
+        enumerable: false
+    })
+}
+
+const getTeamLeaderMechanicsState = (team) => {
+    return team && team.__leaderMechanics ? team.__leaderMechanics : null
+}
+
+const applyLeaderAuraToTeam = (team, leaderId, statName, amount) => {
+    if (!amount) return
+    getTeamGotchis(team).forEach((gotchi) => {
+        if (!gotchi || gotchi.id === leaderId) return
+        // Health is modeled as current HP, with max HP stored as fullHealth after battle init.
+        // For health aura:
+        // - before fullHealth exists (battle start init), health represents max HP → add to health
+        // - after fullHealth exists (mid-battle), treat aura as max HP increase and also add to current HP
+        if (statName === 'health') {
+            if (typeof gotchi.health !== 'number' || !Number.isFinite(gotchi.health)) return
+
+            gotchi.health = clampBaseStat('health', roundStatLikeEngine('health', gotchi.health + amount))
+
+            if (typeof gotchi.fullHealth === 'number' && Number.isFinite(gotchi.fullHealth)) {
+                gotchi.fullHealth = clampBaseStat('health', roundStatLikeEngine('health', gotchi.fullHealth + amount))
+            }
+
+            return
+        }
+
+        const base = gotchi[statName]
+        if (typeof base !== 'number' || !Number.isFinite(base)) return
+        const next = clampBaseStat(statName, roundStatLikeEngine(statName, base + amount))
+        gotchi[statName] = next
+    })
+}
+
+const removeLeaderAuraFromTeam = (team, leaderId, statName, amount) => {
+    if (!amount) return
+    getTeamGotchis(team).forEach((gotchi) => {
+        if (!gotchi || gotchi.id === leaderId) return
+        if (statName === 'health') {
+            // If fullHealth exists, remove aura from max health and cap current HP.
+            if (typeof gotchi.fullHealth === 'number' && Number.isFinite(gotchi.fullHealth)) {
+                gotchi.fullHealth = clampBaseStat('health', Math.round(gotchi.fullHealth - amount))
+                if (typeof gotchi.health === 'number' && Number.isFinite(gotchi.health) && gotchi.health > gotchi.fullHealth) {
+                    gotchi.health = gotchi.fullHealth
+                }
+                return
+            }
+
+            // Pre-init: health represents max health.
+            if (typeof gotchi.health !== 'number' || !Number.isFinite(gotchi.health)) return
+            gotchi.health = clampBaseStat('health', Math.round(gotchi.health - amount))
+            return
+        }
+
+        const base = gotchi[statName]
+        if (typeof base !== 'number' || !Number.isFinite(base)) return
+        const next = clampBaseStat(statName, roundStatLikeEngine(statName, base - amount))
+        gotchi[statName] = next
+    })
+}
+
+/**
+ * Initialize leader carry + aura for a team (non-status mechanics).
+ * - Snapshot L is taken after items/crystals, before carry.
+ * - Aura applies only when leader is alive, and is removed if leader dies.
+ */
+const initLeaderMechanicsForTeam = (team) => {
+    const leader = findLeaderGotchiOrNull(team)
+
+    if (!leader) {
+        setTeamLeaderMechanicsState(team, { enabled: false, active: false })
+        return
+    }
+
+    const classKey = normalizeClassKey(leader.gotchiClass)
+    const specStat = CLASS_SPECIALTY_STAT[classKey]
+    if (!specStat) {
+        setTeamLeaderMechanicsState(team, { enabled: false, active: false, leaderId: leader.id })
+        return
+    }
+
+    const snapshotL = leader[specStat]
+    if (typeof snapshotL !== 'number' || !Number.isFinite(snapshotL)) {
+        setTeamLeaderMechanicsState(team, { enabled: false, active: false, leaderId: leader.id })
+        return
+    }
+
+    const auraPct = LEADER_AURA_PCT_BY_STAT[specStat] || 0
+    let auraAmount = snapshotL * auraPct
+    auraAmount = roundStatLikeEngine(specStat, auraAmount)
+
+    // Health aura is treated as a battle-start blessing to avoid mid-battle max-HP changes
+    // that replayers/UI would not be aware of.
+    const permanentHealthAura = specStat === 'health'
+
+    // Apply carry buff to leader across all stats (one-time base stat mutation).
+    LEADER_STATS.forEach((statName) => {
+        const pct = LEADER_CARRY_PCT_BY_STAT[statName] || 0
+        if (!pct) return
+        const base = leader[statName]
+        if (typeof base !== 'number' || !Number.isFinite(base)) return
+        const next = clampBaseStat(statName, roundStatLikeEngine(statName, base * (1 + pct)))
+        leader[statName] = next
+    })
+
+    const isLeaderAlive = leader.health > 0
+    const enabled = true
+    const active = Boolean(isLeaderAlive && auraAmount)
+
+    if (active) {
+        applyLeaderAuraToTeam(team, leader.id, specStat, auraAmount)
+    }
+
+    setTeamLeaderMechanicsState(team, {
+        enabled,
+        leaderId: leader.id,
+        specStat,
+        snapshotL,
+        auraAmount,
+        active,
+        permanentHealthAura,
+        locked: false
+    })
+}
+
+/**
+ * Ensure a team's aura is correctly applied/removed given current leader alive state.
+ * Safe to call often; it only mutates stats when a state transition occurs.
+ */
+const syncLeaderAura = (team) => {
+    const state = getTeamLeaderMechanicsState(team)
+    if (!state || !state.enabled) return
+
+    const leader = findLeaderGotchiOrNull(team)
+    if (!leader || leader.id !== state.leaderId) {
+        // If leader disappeared/changed mid-battle (shouldn't happen), disable.
+        state.enabled = false
+        state.active = false
+        return
+    }
+
+    const leaderAlive = leader.health > 0
+
+    // For permanent health aura, allow adjustments only during battle setup (before locked),
+    // then never mutate mid-battle (avoids unlogged max-HP changes in replayers).
+    if (state.permanentHealthAura) {
+        if (state.locked) return
+
+        if (state.active && !leaderAlive) {
+            removeLeaderAuraFromTeam(team, state.leaderId, state.specStat, state.auraAmount)
+            state.active = false
+        }
+
+        // Do not apply mid-battle or on revive; only allow application during setup before lock.
+        return
+    }
+
+    if (state.active && !leaderAlive) {
+        removeLeaderAuraFromTeam(team, state.leaderId, state.specStat, state.auraAmount)
+        state.active = false
+        return
+    }
+
+    if (!state.active && leaderAlive && state.auraAmount) {
+        applyLeaderAuraToTeam(team, state.leaderId, state.specStat, state.auraAmount)
+        state.active = true
+    }
+}
+
+const syncLeaderAuras = (team1, team2) => {
+    syncLeaderAura(team1)
+    syncLeaderAura(team2)
+}
+
+const applyDamageAndSyncLeaderAuras = (targetGotchi, damage, team1, team2) => {
+    if (typeof damage !== 'number' || !Number.isFinite(damage) || damage <= 0) return
+    if (!targetGotchi || typeof targetGotchi.health !== 'number' || !Number.isFinite(targetGotchi.health)) return
+
+    targetGotchi.health -= damage
+    if (targetGotchi.health <= 0) targetGotchi.health = 0
+
+    // Aura is removed immediately if a leader dies from this damage.
+    syncLeaderAuras(team1, team2)
 }
 
 /**
@@ -351,11 +570,7 @@ const getModifiedStats = (gotchi) => {
             }
 
             // Preserve our stat precision model.
-            if (statModifier.statName === 'health') {
-                statChange = Math.round(statChange)
-            } else {
-                statChange = Math.round(statChange * 10) / 10
-            }
+            statChange = roundStatLikeEngine(statModifier.statName, statChange)
 
             if (Object.prototype.hasOwnProperty.call(statusStatMods, statModifier.statName)) {
                 statusStatMods[statModifier.statName] = statusStatMods[statModifier.statName] + statChange
@@ -388,22 +603,18 @@ const getModifiedStats = (gotchi) => {
     })
 
     // Normalize precision after all mods (avoid accumulating float noise).
-    for (const key of ['speed', 'attack', 'defense', 'criticalRate', 'criticalDamage', 'resist', 'focus']) {
+    for (const key of ['speed', 'criticalRate', 'defense', 'criticalDamage', 'resist', 'focus', 'attack']) {
         if (typeof modifiedGotchi[key] === 'number' && Number.isFinite(modifiedGotchi[key])) {
-            modifiedGotchi[key] = Math.round(modifiedGotchi[key] * 10) / 10
+            modifiedGotchi[key] = roundStatLikeEngine(key, modifiedGotchi[key])
         }
     }
     if (typeof modifiedGotchi.health === 'number' && Number.isFinite(modifiedGotchi.health)) {
-        modifiedGotchi.health = Math.round(modifiedGotchi.health)
+        modifiedGotchi.health = roundStatLikeEngine('health', modifiedGotchi.health)
     }
 
     // Enforce practical lower bounds for certain stats regardless of whether they were modified by statuses
-    if (modifiedGotchi.defense < 1) {
-        modifiedGotchi.defense = 1
-    }
-    if (modifiedGotchi.speed < 1) {
-        modifiedGotchi.speed = 1
-    }
+    modifiedGotchi.defense = clampBaseStat('defense', modifiedGotchi.defense)
+    modifiedGotchi.speed = clampBaseStat('speed', modifiedGotchi.speed)
 
     return modifiedGotchi
 }
@@ -481,7 +692,8 @@ const addLeaderToTeam = (team, addStatuses) => {
     if (!addStatuses) return
 
     // Add passive leader abilities
-    const teamLeader = getLeaderGotchi(team)
+    const teamLeader = findLeaderGotchiOrNull(team)
+    if (!teamLeader) return
     const leaderskill = teamLeader.leaderSkillExpanded
 
     if (!leaderskill || !leaderskill.statuses) return
@@ -567,6 +779,10 @@ const prepareTeams = (allAliveGotchis, team1, team2) => {
     // Apply crystals
     applyCrystals(allAliveGotchis)
 
+    // Initialize non-status leader mechanics (carry + aura) after static loadout, before battle init and statuses.
+    initLeaderMechanicsForTeam(team1)
+    initLeaderMechanicsForTeam(team2)
+
     allAliveGotchis.forEach(x => {
         // Add statuses property to all gotchis
         x.statuses = []
@@ -617,11 +833,20 @@ const prepareTeams = (allAliveGotchis, team1, team2) => {
                 gotchi.statuses = gotchiState.statuses
             })
 
+            // Starting state may set leader dead/alive; ensure aura is synced before battle begins.
+            syncLeaderAura(team)
+
             // Don't add leader passive statuses if we have a starting state
             addLeaderToTeam(team, false)
         } else {
             // Add leader passives to team
             addLeaderToTeam(team, true)
+        }
+
+        // Lock permanent health aura after setup so it will not change mid-battle.
+        const state = getTeamLeaderMechanicsState(team)
+        if (state && state.enabled && state.permanentHealthAura) {
+            state.locked = true
         }
     })
 }
@@ -663,11 +888,7 @@ const applyStatItems = (gotchis) => {
             gotchi[item.stat] += v
 
             // Preserve stat precision model
-            if (item.stat === 'health') {
-                gotchi.health = Math.round(gotchi.health)
-            } else {
-                gotchi[item.stat] = Math.round(gotchi[item.stat] * 10) / 10
-            }
+            gotchi[item.stat] = roundStatLikeEngine(item.stat, gotchi[item.stat])
         }
     })
 }
@@ -686,11 +907,7 @@ const removeStatItems = (gotchis) => {
             if (!Number.isFinite(v)) return
             gotchi[item.stat] -= v
 
-            if (item.stat === 'health') {
-                gotchi.health = Math.round(gotchi.health)
-            } else {
-                gotchi[item.stat] = Math.round(gotchi[item.stat] * 10) / 10
-            }
+            gotchi[item.stat] = roundStatLikeEngine(item.stat, gotchi[item.stat])
         }
     })
 }
@@ -710,11 +927,7 @@ const applyCrystals = (gotchis) => {
 
             gotchi[crystal.stat] += v
 
-            if (crystal.stat === 'health') {
-                gotchi.health = Math.round(gotchi.health)
-            } else {
-                gotchi[crystal.stat] = Math.round(gotchi[crystal.stat] * 10) / 10
-            }
+            gotchi[crystal.stat] = roundStatLikeEngine(crystal.stat, gotchi[crystal.stat])
         }
     })
 }
@@ -733,11 +946,7 @@ const removeCrystals = (gotchis) => {
 
             gotchi[crystal.stat] -= v
 
-            if (crystal.stat === 'health') {
-                gotchi.health = Math.round(gotchi.health)
-            } else {
-                gotchi[crystal.stat] = Math.round(gotchi[crystal.stat] * 10) / 10
-            }
+            gotchi[crystal.stat] = roundStatLikeEngine(crystal.stat, gotchi[crystal.stat])
         }
     })
 }
@@ -860,10 +1069,12 @@ module.exports = {
     getAlive,
     getFormationPosition,
     getLeaderGotchi,
+    findLeaderGotchiOrNull,
     getNextToAct,
     getTarget,
     getTargetsFromCode,
     getDamage,
+    applyDamageAndSyncLeaderAuras,
     getHealFromMultiplier,
     getModifiedStats,
     calculateActionDelay,
@@ -884,6 +1095,9 @@ module.exports = {
     getTeamSpecialBars,
     focusCheck,
     getCritMultiplier,
-    shouldDoSpecial
+    shouldDoSpecial,
+    initLeaderMechanicsForTeam,
+    syncLeaderAura,
+    syncLeaderAuras
 }
 
