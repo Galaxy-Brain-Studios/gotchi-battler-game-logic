@@ -1010,7 +1010,7 @@ const focusCheck = (attackingTeam, attackingGotchi, targetGotchi, rng) => {
         // Status apply chance is clamp(0.5 + (FOC - RES) / FOC_RES_COEFFICIENT, 0.15, 0.95)
         // With the new 0.1-precision stat scale, Focus/Resist are much smaller, so we use a smaller FOC_RES_COEFFICIENT
         // to keep FOC/RES impactful. Design target: ±10 should saturate clamps.
-        const chance = Math.max(Math.min(0.5 + (modifiedAttackingGotchi.focus - modifiedTargetGotchi.resist) / FOC_RES_COEFFICIENT, 0.95), 0.15)
+        const chance = Math.max(Math.min(0.5 + (modifiedAttackingGotchi.focus - modifiedTargetGotchi.resist) / FOC_RES_COEFFICIENT, 0.95), 0.05)
 
         const result = rng() < chance
 
@@ -1038,6 +1038,13 @@ const getCritMultiplier = (gotchi, rng) => {
 const shouldDoSpecial = (attackingGotchi, attackingTeam, _defendingTeam) => {
     const special = attackingGotchi.specialExpanded
     const specialEffects = special.effects || []
+    const canApplyStatusToAttacker = (statusCode) => {
+        const status = getStatusByCode(statusCode)
+        const maxStack = status.maxStack || DEFAULT_MAX_STATUSES
+        const currentStacks = attackingGotchi.statuses.filter(x => x === status.code).length
+
+        return currentStacks + 1 <= maxStack
+    }
 
     // If the special grants taunt to self
     if (
@@ -1048,6 +1055,23 @@ const shouldDoSpecial = (attackingGotchi, attackingTeam, _defendingTeam) => {
         if (special.actionType === 'none') {
             // If the attacker already has taunt
             if (attackingGotchi.statuses.includes('taunt')) {
+                return false
+            }
+        }
+    }
+
+    // For self-targeted, no-action specials, skip if every possible status effect
+    // is already at stack cap (e.g. Crashing Tide when DEF up is maxed).
+    if (special.actionType === 'none') {
+        const possibleSelfStatusEffects = specialEffects.filter(effect => {
+            return effect.effectType === 'status' &&
+                (effect.chance === undefined || effect.chance > 0) &&
+                (effect.target === 'self' || (effect.target === 'same_as_attack' && special.target === 'self'))
+        })
+
+        if (possibleSelfStatusEffects.length > 0) {
+            const hasAnyApplicableStatus = possibleSelfStatusEffects.some(effect => canApplyStatusToAttacker(effect.status))
+            if (!hasAnyApplicableStatus) {
                 return false
             }
         }
