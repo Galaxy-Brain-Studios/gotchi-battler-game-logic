@@ -430,9 +430,14 @@ const getTargetsFromCode = (targetCode, attackingGotchi, attackingTeam, defendin
         case 'ally_random': {
             // "ally_random" should be truly random among *all* alive allies.
             // Do NOT reuse getTarget() here: getTarget() enforces taunt + row targeting rules meant for enemy attacks.
+            //
+            // Prefer not to target the caster if any other ally is alive.
             const alive = getAlive(attackingTeam)
             if (!alive.length) throw new Error('No gotchis to target')
-            targets.push(alive[Math.floor(rng() * alive.length)])
+
+            const aliveNonSelf = alive.filter(g => g && g.id !== attackingGotchi.id)
+            const pool = aliveNonSelf.length ? aliveNonSelf : alive
+            targets.push(pool[Math.floor(rng() * pool.length)])
             break
         }
         case 'ally_back_row':
@@ -1038,12 +1043,12 @@ const getCritMultiplier = (gotchi, rng) => {
 const shouldDoSpecial = (attackingGotchi, attackingTeam, _defendingTeam) => {
     const special = attackingGotchi.specialExpanded
     const specialEffects = special.effects || []
-    const canApplyStatusToAttacker = (statusCode) => {
+    const isStatusAtMaxForAttacker = (statusCode) => {
         const status = getStatusByCode(statusCode)
         const maxStack = status.maxStack || DEFAULT_MAX_STATUSES
         const currentStacks = attackingGotchi.statuses.filter(x => x === status.code).length
 
-        return currentStacks + 1 <= maxStack
+        return currentStacks >= maxStack
     }
 
     // If the special grants taunt to self
@@ -1060,8 +1065,8 @@ const shouldDoSpecial = (attackingGotchi, attackingTeam, _defendingTeam) => {
         }
     }
 
-    // For self-targeted, no-action specials, skip if every possible status effect
-    // is already at stack cap (e.g. Crashing Tide when DEF up is maxed).
+    // For self-targeted, no-action specials, skip if any desired status is already
+    // at stack cap (e.g. DEF up capped on a DEF+RES buff special).
     if (special.actionType === 'none') {
         const possibleSelfStatusEffects = specialEffects.filter(effect => {
             return effect.effectType === 'status' &&
@@ -1070,8 +1075,8 @@ const shouldDoSpecial = (attackingGotchi, attackingTeam, _defendingTeam) => {
         })
 
         if (possibleSelfStatusEffects.length > 0) {
-            const hasAnyApplicableStatus = possibleSelfStatusEffects.some(effect => canApplyStatusToAttacker(effect.status))
-            if (!hasAnyApplicableStatus) {
+            const desiredStatusCodes = [...new Set(possibleSelfStatusEffects.map(effect => effect.status))]
+            if (desiredStatusCodes.some(statusCode => isStatusAtMaxForAttacker(statusCode))) {
                 return false
             }
         }

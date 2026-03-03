@@ -62,6 +62,27 @@ describe('shouldDoSpecial', () => {
         expect(shouldDoSpecial(attacker, team, null)).to.equal(true)
     })
 
+    it('skips no-action self status specials when any desired status is already at max stack', () => {
+        const attacker = makeGotchi({
+            statuses: ['def_up', 'def_up', 'def_up', 'res_up'],
+            specialExpanded: {
+                actionType: 'none',
+                target: 'self',
+                effects: [
+                    { effectType: 'status', status: 'def_up', target: 'same_as_attack', chance: 1 },
+                    { effectType: 'status', status: 'def_up', target: 'same_as_attack', chance: 1 },
+                    { effectType: 'status', status: 'def_up', target: 'same_as_attack', chance: 1 },
+                    { effectType: 'status', status: 'res_up', target: 'same_as_attack', chance: 1 },
+                    { effectType: 'status', status: 'res_up', target: 'same_as_attack', chance: 1 },
+                    { effectType: 'status', status: 'res_up', target: 'same_as_attack', chance: 1 },
+                ],
+            },
+        })
+        const team = makeTeam([attacker])
+
+        expect(shouldDoSpecial(attacker, team, null)).to.equal(false)
+    })
+
     it('skips no-action self status specials at max stacks even when effect chance is 0.5', () => {
         const attacker = makeGotchi({
             statuses: ['def_up', 'def_up', 'def_up'],
