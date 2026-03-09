@@ -3,8 +3,9 @@ const {
     DEFAULT_MAX_STATUSES,
     FOC_RES_COEFFICIENT,
     LEADER_STATS,
-    LEADER_CARRY_PCT_BY_STAT,
-    LEADER_AURA_PCT_BY_STAT,
+    LEADER_FLAT_BONUS_STATS,
+    LEADER_CARRY_BONUS_BY_STAT,
+    LEADER_AURA_BONUS_BY_STAT,
     CLASS_SPECIALTY_STAT
 } = require('./constants')
 
@@ -202,8 +203,8 @@ const initLeaderMechanicsForTeam = (team) => {
         return
     }
 
-    const auraPct = LEADER_AURA_PCT_BY_STAT[specStat] || 0
-    let auraAmount = snapshotL * auraPct
+    const auraBonus = LEADER_AURA_BONUS_BY_STAT[specStat] || 0
+    let auraAmount = LEADER_FLAT_BONUS_STATS.includes(specStat) ? auraBonus : snapshotL * auraBonus
     auraAmount = roundStatLikeEngine(specStat, auraAmount)
 
     // Health aura is treated as a battle-start blessing to avoid mid-battle max-HP changes
@@ -212,11 +213,12 @@ const initLeaderMechanicsForTeam = (team) => {
 
     // Apply carry buff to leader across all stats (one-time base stat mutation).
     LEADER_STATS.forEach((statName) => {
-        const pct = LEADER_CARRY_PCT_BY_STAT[statName] || 0
-        if (!pct) return
+        const carryBonus = LEADER_CARRY_BONUS_BY_STAT[statName] || 0
+        if (!carryBonus) return
         const base = leader[statName]
         if (typeof base !== 'number' || !Number.isFinite(base)) return
-        const next = clampBaseStat(statName, roundStatLikeEngine(statName, base * (1 + pct)))
+        const nextValue = LEADER_FLAT_BONUS_STATS.includes(statName) ? base + carryBonus : base * (1 + carryBonus)
+        const next = clampBaseStat(statName, roundStatLikeEngine(statName, nextValue))
         leader[statName] = next
     })
 

@@ -16,30 +16,34 @@ const LEADER_STATS = [
     'attack'
 ]
 
+const LEADER_FLAT_BONUS_STATS = ['criticalRate', 'criticalDamage', 'resist', 'focus']
+
 // Leader mechanics (non-status, non-dispellable).
-// Percent values are fractional (e.g. 0.05 = +5%).
-const LEADER_CARRY_PCT_BY_STAT = {
-    speed: 0.03,
-    health: 0.075,
-    criticalRate: 0.03,
-    defense: 0.045,
-    criticalDamage: 0.03,
-    resist: 0.03,
-    focus: 0.03,
-    attack: 0.045
+// Most values are fractional percents (e.g. 0.05 = +5%).
+// criticalRate, criticalDamage, resist, and focus are flat adds.
+const LEADER_CARRY_BONUS_BY_STAT = {
+    speed: 0.05,
+    health: 0.05,
+    criticalRate: 10,
+    defense: 0.05,
+    criticalDamage: 10,
+    resist: 10,
+    focus: 10,
+    attack: 0.05
 }
 
 // Used only for the leader's specialty stat.
-// Percent values are fractional (e.g. 0.10 = +10% of leader snapshot stat).
-const LEADER_AURA_PCT_BY_STAT = {
-    speed: 0.03,
-    health: 0.045,
-    criticalRate: 0.6,
-    defense: 0.06,
-    criticalDamage: 0.6,
-    resist: 1.1,
-    focus: 0.95,
-    attack: 0.06
+// Most values are fractional percents of leader snapshot stat.
+// criticalRate, criticalDamage, resist, and focus are flat adds.
+const LEADER_AURA_BONUS_BY_STAT = {
+    speed: 0.05,
+    health: 0.05,
+    criticalRate: 5,
+    defense: 0.05,
+    criticalDamage: 5,
+    resist: 5,
+    focus: 5,
+    attack: 0.05
 }
 
 // Class -> specialty stat mapping.
@@ -61,8 +65,9 @@ module.exports = {
     DEFAULT_MAX_STATUSES,
     FOC_RES_COEFFICIENT,
     LEADER_STATS,
-    LEADER_CARRY_PCT_BY_STAT,
-    LEADER_AURA_PCT_BY_STAT,
+    LEADER_FLAT_BONUS_STATS,
+    LEADER_CARRY_BONUS_BY_STAT,
+    LEADER_AURA_BONUS_BY_STAT,
     CLASS_SPECIALTY_STAT
 }
 
