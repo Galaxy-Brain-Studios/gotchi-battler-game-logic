@@ -55,7 +55,7 @@
             {
                 "statName": "criticalRate",
                 "value": 10,
-                "valueType": "percent"
+                "valueType": "flat"
             }
         ]
     },
@@ -70,7 +70,7 @@
             {
                 "statName": "criticalDamage",
                 "value": 10,
-                "valueType": "percent"
+                "valueType": "flat"
             }
         ]
     },
@@ -85,7 +85,7 @@
             {
                 "statName": "resist",
                 "value": 10,
-                "valueType": "percent"
+                "valueType": "flat"
             }
         ]
     },
@@ -100,7 +100,7 @@
             {
                 "statName": "focus",
                 "value": 10,
-                "valueType": "percent"
+                "valueType": "flat"
             }
         ]
     },
@@ -160,7 +160,7 @@
             {
                 "statName": "criticalRate",
                 "value": -10,
-                "valueType": "percent"
+                "valueType": "flat"
             }
         ]
     },
@@ -175,7 +175,7 @@
             {
                 "statName": "criticalDamage",
                 "value": -10,
-                "valueType": "percent"
+                "valueType": "flat"
             }
         ]
     },
@@ -190,7 +190,7 @@
             {
                 "statName": "resist",
                 "value": -10,
-                "valueType": "percent"
+                "valueType": "flat"
             }
         ]
     },
@@ -205,7 +205,7 @@
             {
                 "statName": "focus",
                 "value": -10,
-                "valueType": "percent"
+                "valueType": "flat"
             }
         ]
     },
