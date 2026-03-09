@@ -1012,9 +1012,7 @@ const focusCheck = (attackingTeam, attackingGotchi, targetGotchi, rng) => {
     if (attackingTeamGotchis.find(gotchi => gotchi.id === targetGotchi.id)) {
         return true
     } else {
-        // Status apply chance is clamp(0.5 + (FOC - RES) / FOC_RES_COEFFICIENT, 0.15, 0.95)
-        // With the new 0.1-precision stat scale, Focus/Resist are much smaller, so we use a smaller FOC_RES_COEFFICIENT
-        // to keep FOC/RES impactful. Design target: ±10 should saturate clamps.
+        // Status apply chance is clamp(0.5 + (FOC - RES) / FOC_RES_COEFFICIENT, 0.05, 0.95)
         const chance = Math.max(Math.min(0.5 + (modifiedAttackingGotchi.focus - modifiedTargetGotchi.resist) / FOC_RES_COEFFICIENT, 0.95), 0.05)
 
         const result = rng() < chance
@@ -1032,9 +1030,11 @@ const focusCheck = (attackingTeam, attackingGotchi, targetGotchi, rng) => {
 
 const getCritMultiplier = (gotchi, rng) => {
     const modifiedGotchi = getModifiedStats(gotchi)
-    const isCrit = rng() < Math.max(Math.min(modifiedGotchi.criticalRate / 100, 1), 0.05)
+    const cappedRate = Math.min(modifiedGotchi.criticalRate, 100)
+    const overflowRate = Math.max(modifiedGotchi.criticalRate - 100, 0)
+    const isCrit = rng() < Math.max(cappedRate / 100, 0.05)
     if (isCrit) {
-        return (modifiedGotchi.criticalDamage / 100) + 1
+        return ((modifiedGotchi.criticalDamage + overflowRate) / 100) + 1
     }
     return 1
 }
