@@ -227,10 +227,18 @@
     {
         "code": "taunt",
         "name": "Taunt",
-        "description": "Forces enemies to target this Gotchi; enables counter-attack",
+        "description": "Forces enemies to target this Gotchi",
         "category": "custom",
         "isBuff": true,
-        "maxStack": null
+        "maxStack": 1
+    },
+    {
+        "code": "counter",
+        "name": "Counter",
+        "description": "Grants a chance to counter-attack when hit",
+        "category": "custom",
+        "isBuff": true,
+        "maxStack": 1
     },
     {
         "code": "fear",

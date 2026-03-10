@@ -25,6 +25,7 @@ const {
     getStatusByCode,
     getTeamSpecialBars,
     focusCheck,
+    counterCheck,
     getCritMultiplier,
     getModifiedStats,
     shouldDoSpecial,
@@ -628,7 +629,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
 
 
             // Check for counter attack
-            if (target.statuses.includes('taunt') && target.health > 0) {
+            if (target.health > 0 && target.statuses.includes('counter') && counterCheck(target, attackingGotchi, rng)) {
                 const counterDamage = getDamage(target, attackingGotchi, COUNTER_ATTACK_MULTIPLIER)
 
                 applyDamageAndSyncLeaderAuras(attackingGotchi, counterDamage, attackingTeam, defendingTeam)

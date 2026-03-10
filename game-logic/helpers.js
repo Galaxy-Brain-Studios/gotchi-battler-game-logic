@@ -2,6 +2,7 @@ const STATUSES = require('./statuses.json')
 const {
     DEFAULT_MAX_STATUSES,
     FOC_RES_COEFFICIENT,
+    SPEED_COUNTER_COEFFICIENT,
     LEADER_STATS,
     LEADER_FLAT_BONUS_STATS,
     LEADER_CARRY_BONUS_BY_STAT,
@@ -1035,6 +1036,16 @@ const focusCheck = (attackingTeam, attackingGotchi, targetGotchi, rng) => {
     }
 }
 
+const counterCheck = (counteringGotchi, attackingGotchi, rng) => {
+    const modifiedCounteringGotchi = getModifiedStats(counteringGotchi)
+    const modifiedAttackingGotchi = getModifiedStats(attackingGotchi)
+
+    // Counter chance is clamp(0.5 + (DEFENDER_SPD - ATTACKER_SPD) / SPEED_COUNTER_COEFFICIENT, 0.05, 0.95)
+    const chance = Math.max(Math.min(0.5 + (modifiedCounteringGotchi.speed - modifiedAttackingGotchi.speed) / SPEED_COUNTER_COEFFICIENT, 0.95), 0.05)
+
+    return rng() < chance
+}
+
 const getCritMultiplier = (gotchi, rng) => {
     const modifiedGotchi = getModifiedStats(gotchi)
     const cappedRate = Math.min(modifiedGotchi.criticalRate, 100)
@@ -1130,6 +1141,7 @@ module.exports = {
     getStatusByCode,
     getTeamSpecialBars,
     focusCheck,
+    counterCheck,
     getCritMultiplier,
     shouldDoSpecial,
     initLeaderMechanicsForTeam,
