@@ -51,12 +51,13 @@ const normalizeOptions = (options) => {
  * @param {String} seed A seed for the random number generator
  * @param {Object|Boolean} options An object containing options for the game loop (or legacy boolean debug flag)
  * @param {Boolean} options.debug Whether the logs should include debug information
+ * @param {Boolean} options.disableLeaderMechanics Whether to disable leader carry + aura buffs
  * @param {String} options.type A string to determine the type of the game loop
  * @param {Object} options.campaign An object containing the campaign information
  * @param {String} options.isBoss A boolean to determine if team2 is a boss
  * @returns {Object} logs The battle logs
  */
-const gameLoop = (team1, team2, seed, options = { debug: false, type: 'training', campaign: {}, isBoss: false }) => {
+const gameLoop = (team1, team2, seed, options = { debug: false, disableLeaderMechanics: false, type: 'training', campaign: {}, isBoss: false }) => {
     if (!seed) throw new Error('Seed not found')
 
     options = normalizeOptions(options)
@@ -69,7 +70,9 @@ const gameLoop = (team1, team2, seed, options = { debug: false, type: 'training'
 
     const allAliveGotchis = [...getAlive(team1), ...getAlive(team2)]
 
-    prepareTeams(allAliveGotchis, team1, team2)
+    prepareTeams(allAliveGotchis, team1, team2, {
+        disableLeaderMechanics: Boolean(options.disableLeaderMechanics)
+    })
 
     const logs = {
         meta: {

@@ -3,13 +3,20 @@ const path = require('path')
 
 const constants = require(path.join('..', 'game-logic', 'constants'))
 const {
+    gameLoop
+} = require(path.join('..', 'game-logic', 'index'))
+const {
     initLeaderMechanicsForTeam,
     syncLeaderAura
 } = require(path.join('..', 'game-logic', 'helpers'))
 
 const makeGotchi = (id, gotchiClass, overrides = {}) => ({
     id,
+    onchainId: id,
     name: `G${id}`,
+    type: 'gotchi',
+    visualCode: 'test-visual',
+    level: 1,
     gotchiClass,
     // base stats (engine model: health int, others 0.1-precision)
     speed: 10,
@@ -20,6 +27,35 @@ const makeGotchi = (id, gotchiClass, overrides = {}) => ({
     criticalDamage: 50,
     resist: 5,
     focus: 5,
+    special: 'basic_strike',
+    leaderSkill: 'no_op',
+    item: null,
+    crystalSlot1: null,
+    crystalSlot2: null,
+    crystalSlot3: null,
+    crystalSlot4: null,
+    crystalSlot5: null,
+    crystalSlot6: null,
+    specialExpanded: {
+        code: 'basic_strike',
+        name: 'Basic Strike',
+        initialCooldown: 6,
+        cooldown: 1,
+        actionType: 'attack',
+        actionMultiplier: 1,
+        monstersOnly: false,
+        gotchiClass,
+        target: 'enemy_random',
+        effects: []
+    },
+    leaderSkillExpanded: {
+        code: 'no_op',
+        name: 'No Op',
+        description: 'No passive statuses',
+        monstersOnly: false,
+        gotchiClass,
+        statuses: []
+    },
     ...overrides
 })
 
@@ -184,6 +220,40 @@ describe('Leader mechanics (carry + aura)', () => {
 
         // Aura remains because it is not represented as statuses.
         expect(ally.attack).to.equal(3)
+    })
+
+    it('gameLoop can disable leader carry and aura buffs', () => {
+        constants.LEADER_CARRY_BONUS_BY_STAT.attack = 0.05
+        constants.LEADER_AURA_BONUS_BY_STAT.attack = 0.05
+
+        const makeBattleTeams = () => {
+            const leader = makeGotchi(1, 'troll', { attack: 100, health: 150, speed: 20 })
+            const ally = makeGotchi(2, 'ninja', { attack: 20, health: 150, speed: 15 })
+            const enemy = makeGotchi(3, 'ninja', { attack: 5, health: 25, speed: 1 })
+
+            return [
+                makeTeam(1, [leader, ally]),
+                makeTeam(3, [enemy])
+            ]
+        }
+
+        const [team1WithLeaderBuffs, team2WithLeaderBuffs] = makeBattleTeams()
+        const defaultLogs = gameLoop(team1WithLeaderBuffs, team2WithLeaderBuffs, 'leader-buffs-on')
+
+        const [team1WithoutLeaderBuffs, team2WithoutLeaderBuffs] = makeBattleTeams()
+        const disabledLogs = gameLoop(team1WithoutLeaderBuffs, team2WithoutLeaderBuffs, 'leader-buffs-off', {
+            disableLeaderMechanics: true
+        })
+
+        const defaultLeader = defaultLogs.gotchis.find(gotchi => gotchi.id === 1)
+        const defaultAlly = defaultLogs.gotchis.find(gotchi => gotchi.id === 2)
+        const disabledLeader = disabledLogs.gotchis.find(gotchi => gotchi.id === 1)
+        const disabledAlly = disabledLogs.gotchis.find(gotchi => gotchi.id === 2)
+
+        expect(defaultLeader.attack).to.equal(105)
+        expect(defaultAlly.attack).to.equal(25)
+        expect(disabledLeader.attack).to.equal(100)
+        expect(disabledAlly.attack).to.equal(20)
     })
 })
 

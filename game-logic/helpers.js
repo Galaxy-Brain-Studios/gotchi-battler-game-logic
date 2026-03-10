@@ -777,7 +777,7 @@ const scrambleGotchiIds = (allAliveGotchis, team1, team2) => {
  * @param {Object} team1 An in-game team object
  * @param {Object} team2 An in-game team object
  **/
-const prepareTeams = (allAliveGotchis, team1, team2) => {
+const prepareTeams = (allAliveGotchis, team1, team2, options = {}) => {
     // check there's no duplicate gotchis
     scrambleGotchiIds(allAliveGotchis, team1, team2)
 
@@ -787,8 +787,13 @@ const prepareTeams = (allAliveGotchis, team1, team2) => {
     applyCrystals(allAliveGotchis)
 
     // Initialize non-status leader mechanics (carry + aura) after static loadout, before battle init and statuses.
-    initLeaderMechanicsForTeam(team1)
-    initLeaderMechanicsForTeam(team2)
+    if (options.disableLeaderMechanics) {
+        setTeamLeaderMechanicsState(team1, { enabled: false, active: false })
+        setTeamLeaderMechanicsState(team2, { enabled: false, active: false })
+    } else {
+        initLeaderMechanicsForTeam(team1)
+        initLeaderMechanicsForTeam(team2)
+    }
 
     allAliveGotchis.forEach(x => {
         // Add statuses property to all gotchis
