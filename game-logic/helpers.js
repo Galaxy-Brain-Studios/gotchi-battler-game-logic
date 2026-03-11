@@ -1069,20 +1069,6 @@ const shouldDoSpecial = (attackingGotchi, attackingTeam, _defendingTeam) => {
         return currentStacks >= maxStack
     }
 
-    // If the special grants taunt to self
-    if (
-        specialEffects.find(effect => effect.status === 'taunt' && effect.target === 'self') ||
-        special.target === 'self' && specialEffects.find(effect => effect.status === 'taunt' && effect.target === 'same_as_attack')
-    ) {
-        // If there is no action on the special
-        if (special.actionType === 'none') {
-            // If the attacker already has taunt
-            if (attackingGotchi.statuses.includes('taunt')) {
-                return false
-            }
-        }
-    }
-
     // For self-targeted, no-action specials, skip if any desired status is already
     // at stack cap (e.g. DEF up capped on a DEF+RES buff special).
     if (special.actionType === 'none') {
