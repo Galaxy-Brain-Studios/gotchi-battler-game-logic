@@ -737,6 +737,21 @@ const addStatusToGotchi = (gotchi, statusCode, count) => {
     return true
 }
 
+const removeStatusAndAllCopies = (gotchi, statusCode, statusesExpired) => {
+    const removedStatuses = gotchi.statuses.filter(existingStatus => existingStatus === statusCode)
+
+    if (!removedStatuses.length) return
+
+    removedStatuses.forEach(() => {
+        statusesExpired.push({
+            target: gotchi.id,
+            status: statusCode
+        })
+    })
+
+    gotchi.statuses = gotchi.statuses.filter(existingStatus => existingStatus !== statusCode)
+}
+
 const scrambleGotchiIds = (allAliveGotchis, team1, team2) => {
     // check there's no duplicate gotchis
     const gotchiIds = allAliveGotchis.map(x => x.id)
@@ -1116,6 +1131,7 @@ module.exports = {
     getUiOrder,
     addLeaderToTeam,
     addStatusToGotchi,
+    removeStatusAndAllCopies,
     scrambleGotchiIds,
     prepareTeams,
     getLogGotchis,

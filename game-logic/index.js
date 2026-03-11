@@ -19,6 +19,7 @@ const {
     getNewActionDelay,
     simplifyTeam,
     addStatusToGotchi,
+    removeStatusAndAllCopies,
     prepareTeams,
     getLogGotchis,
     getTeamStats,
@@ -579,14 +580,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
 
                                 if (buffs.length) {
                                     const randomBuff = buffs[Math.floor(rng() * buffs.length)]
-                                    statusesExpired.push({
-                                        target: target.id,
-                                        status: randomBuff
-                                    })
-
-                                    // Remove first instance of randomBuff (there may be multiple)
-                                    const index = target.statuses.indexOf(randomBuff)
-                                    target.statuses.splice(index, 1)
+                                    removeStatusAndAllCopies(target, randomBuff, statusesExpired)
                                 }
                             }
                             break
@@ -748,14 +742,7 @@ const handleSpecialEffect = (attackingTeam, attackingGotchi, target, specialEffe
 
                 if (buffs.length) {
                     const randomBuff = buffs[Math.floor(rng() * buffs.length)]
-                    result.statusesExpired.push({
-                        target: target.id,
-                        status: randomBuff
-                    })
-
-                    // Remove first instance of randomBuff (there may be multiple)
-                    const index = target.statuses.indexOf(randomBuff)
-                    target.statuses.splice(index, 1)
+                    removeStatusAndAllCopies(target, randomBuff, result.statusesExpired)
                 }
 
                 result.effect.outcome = 'success'
@@ -773,14 +760,7 @@ const handleSpecialEffect = (attackingTeam, attackingGotchi, target, specialEffe
 
             if (debuffs.length) {
                 const randomDebuff = debuffs[Math.floor(rng() * debuffs.length)]
-                result.statusesExpired.push({
-                    target: target.id,
-                    status: randomDebuff
-                })
-
-                // Remove first instance of randomDebuff (there may be multiple)
-                const index = target.statuses.indexOf(randomDebuff)
-                target.statuses.splice(index, 1)
+                removeStatusAndAllCopies(target, randomDebuff, result.statusesExpired)
             }
 
             result.effect.outcome = 'success'
