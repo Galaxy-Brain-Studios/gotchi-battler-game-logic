@@ -624,7 +624,8 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
 
             // Check for counter attack
             if (target.health > 0 && target.statuses.includes('counter') && counterCheck(target, attackingGotchi, rng)) {
-                const counterDamage = getDamage(target, attackingGotchi, COUNTER_ATTACK_MULTIPLIER)
+                const counterCritMultiplier = getCritMultiplier(target, rng)
+                const counterDamage = getDamage(target, attackingGotchi, COUNTER_ATTACK_MULTIPLIER * counterCritMultiplier)
 
                 applyDamageAndSyncLeaderAuras(attackingGotchi, counterDamage, attackingTeam, defendingTeam)
 

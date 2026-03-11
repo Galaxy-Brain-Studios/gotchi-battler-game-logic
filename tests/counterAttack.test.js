@@ -92,6 +92,38 @@ describe('counter attacks', () => {
         expect(attacker.health).to.be.lessThan(attacker.fullHealth)
     })
 
+    it('applies crit damage when a counter attack crits', () => {
+        const attacker = makeGotchi({ id: 100, speed: 10 })
+        const defender = makeGotchi({
+            id: 200,
+            speed: 20,
+            criticalRate: 100,
+            criticalDamage: 50,
+            statuses: ['counter']
+        })
+
+        const attackingTeam = makeTeam({ front: [attacker] })
+        const defendingTeam = makeTeam({ front: [defender] })
+
+        const seq = [0.2, 0.9, 0.55, 0.99]
+        let i = 0
+        const rng = () => seq[i++]
+
+        const result = attack(attacker, attackingTeam, defendingTeam, rng, false)
+
+        expect(result.additionalEffects).to.have.length(1)
+        expect(result.additionalEffects[0]).to.include({
+            target: attacker.id,
+            source: defender.id,
+            damage: 90,
+            outcome: 'counter',
+            critical: true,
+        })
+        expect(defender.stats.counters).to.equal(1)
+        expect(defender.stats.crits).to.equal(1)
+        expect(attacker.health).to.equal(910)
+    })
+
     it('fails the counter check when the defender is slower', () => {
         const attacker = makeGotchi({ id: 100, speed: 10 })
         const defender = makeGotchi({ id: 200, speed: 5, statuses: ['counter'] })
