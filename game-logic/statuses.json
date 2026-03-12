@@ -35,7 +35,7 @@
         "description": "+10% DEF per stack",
         "category": "stat_modifier",
         "isBuff": true,
-        "maxStack": 3,
+        "maxStack": null,
         "statModifiers": [
             {
                 "statName": "defense",
@@ -125,7 +125,7 @@
         "description": "-10% ATK per stack",
         "category": "stat_modifier",
         "isBuff": false,
-        "maxStack": 3,
+        "maxStack": null,
         "statModifiers": [
             {
                 "statName": "attack",
@@ -215,7 +215,7 @@
         "description": "Heals 5 HP each turn",
         "category": "turn_effect",
         "isBuff": true,
-        "maxStack": 4,
+        "maxStack": null,
         "turnEffects": [
             {
                 "type": "heal",
@@ -259,7 +259,7 @@
         "description": "Loses 5 HP each turn",
         "category": "turn_effect",
         "isBuff": false,
-        "maxStack": 4,
+        "maxStack": null,
         "turnEffects": [
             {
                 "type": "damage",
