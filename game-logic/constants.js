@@ -24,28 +24,28 @@ const LEADER_FLAT_BONUS_STATS = ['criticalRate', 'criticalDamage', 'resist', 'fo
 // Most values are fractional percents (e.g. 0.05 = +5%).
 // criticalRate, criticalDamage, resist, and focus are flat adds.
 const LEADER_CARRY_BONUS_BY_STAT = {
-    speed: 0.05,
+    speed: 0.02,
     health: 0.05,
     criticalRate: 10,
-    defense: 0.05,
+    defense: 0.04,
     criticalDamage: 10,
     resist: 10,
     focus: 10,
-    attack: 0.05
+    attack: 0.03
 }
 
 // Used only for the leader's specialty stat.
 // Most values are fractional percents of leader snapshot stat.
 // criticalRate, criticalDamage, resist, and focus are flat adds.
 const LEADER_AURA_BONUS_BY_STAT = {
-    speed: 0.05,
+    speed: 0.02,
     health: 0.05,
     criticalRate: 5,
-    defense: 0.05,
+    defense: 0.04,
     criticalDamage: 5,
     resist: 5,
     focus: 5,
-    attack: 0.05
+    attack: 0.03
 }
 
 // Class -> specialty stat mapping.
