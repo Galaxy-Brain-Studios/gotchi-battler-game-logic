@@ -3,6 +3,7 @@ const {
     DEFAULT_MAX_STATUSES,
     FOC_RES_COEFFICIENT,
     SPEED_COUNTER_COEFFICIENT,
+    HEALER_HEAL_PENALTY,
     LEADER_STATS,
     LEADER_FLAT_BONUS_STATS,
     LEADER_CARRY_BONUS_BY_STAT,
@@ -96,6 +97,8 @@ const normalizeClassKey = (gotchiClass) => {
     if (typeof gotchiClass !== 'string') return ''
     return gotchiClass.trim().toLowerCase()
 }
+
+const isHealerClass = (gotchi) => normalizeClassKey(gotchi?.gotchiClass) === 'healer'
 
 const roundStatLikeEngine = (statName, v) => {
     if (typeof v !== 'number' || !Number.isFinite(v)) return v
@@ -515,8 +518,12 @@ const getHealFromMultiplier = (healingGotchi, target, multiplier) => {
         return 0
     }
 
+    const effectiveMultiplier = isHealerClass(target)
+        ? multiplier * HEALER_HEAL_PENALTY
+        : multiplier
+
     // % of original target health
-    let amountToHeal = Math.round(target.fullHealth * multiplier)
+    let amountToHeal = Math.round(target.fullHealth * effectiveMultiplier)
 
     if (typeof amountToHeal !== 'number' || Number.isNaN(amountToHeal) || !Number.isFinite(amountToHeal) || amountToHeal <= 0) {
         return 0
