@@ -20,7 +20,7 @@ const {
     simplifyTeam,
     addStatusToGotchi,
     removeStatusAndAllCopies,
-    prepareTeams,
+    prepareBattle,
     getLogGotchis,
     getTeamStats,
     getStatusByCode,
@@ -70,9 +70,7 @@ const gameLoop = (team1, team2, seed, options = { debug: false, disableLeaderMec
 
     const rng = seedrandom(seed)
 
-    const allAliveGotchis = [...getAlive(team1), ...getAlive(team2)]
-
-    prepareTeams(allAliveGotchis, team1, team2, {
+    const setup = prepareBattle(team1, team2, {
         disableLeaderMechanics: Boolean(options.disableLeaderMechanics)
     })
 
@@ -85,7 +83,8 @@ const gameLoop = (team1, team2, seed, options = { debug: false, disableLeaderMec
             isBoss: options.isBoss || false,
             gameLogicVersion
         },
-        gotchis: getLogGotchis(allAliveGotchis),
+        ...(setup.statAdjustments.length ? { setup: { statAdjustments: setup.statAdjustments } } : {}),
+        gotchis: getLogGotchis(setup.gotchisForLogs),
         layout: {
             teams: [
                 simplifyTeam(team1),
@@ -110,7 +109,8 @@ const gameLoop = (team1, team2, seed, options = { debug: false, disableLeaderMec
             ].includes(turnCounter)
 
             if (isEnvironmentTurn) {
-                allAliveGotchis.forEach(x => {
+                const aliveGotchis = [...getAlive(team1), ...getAlive(team2)]
+                aliveGotchis.forEach(x => {
                     x.environmentEffects.push('damage_up')
                 })
             }
@@ -155,11 +155,14 @@ const gameLoop = (team1, team2, seed, options = { debug: false, disableLeaderMec
     logs.result.winner = getAlive(team1).length ? 1 : 2
     logs.result.winningTeam = logs.result.winner === 1 ? getTeamGotchis(team1) : getTeamGotchis(team2)
     logs.result.winningTeam = logs.result.winningTeam.map((gotchi) => {
+        const modifiedStats = getModifiedStats(gotchi)
+
         return {
             id: gotchi.id,
             name: gotchi.name,
             health: gotchi.health,
             statuses: gotchi.statuses,
+            specialBar: gotchi.specialBar,
             originalStats: {
                 speed: gotchi.speed,
                 attack: gotchi.attack,
@@ -170,13 +173,13 @@ const gameLoop = (team1, team2, seed, options = { debug: false, disableLeaderMec
                 focus: gotchi.focus
             },
             modifiedStats: {
-                speed: getModifiedStats(gotchi).speed,
-                attack: getModifiedStats(gotchi).attack,
-                defense: getModifiedStats(gotchi).defense,
-                criticalRate: getModifiedStats(gotchi).criticalRate,
-                criticalDamage: getModifiedStats(gotchi).criticalDamage,
-                resist: getModifiedStats(gotchi).resist,
-                focus: getModifiedStats(gotchi).focus
+                speed: modifiedStats.speed,
+                attack: modifiedStats.attack,
+                defense: modifiedStats.defense,
+                criticalRate: modifiedStats.criticalRate,
+                criticalDamage: modifiedStats.criticalDamage,
+                resist: modifiedStats.resist,
+                focus: modifiedStats.focus
             }
         }
     })
@@ -220,6 +223,7 @@ const executeTurn = (team1, team2, rng) => {
     let repeatAttack = false
     let specialDone = false
 
+    // specialBar is stored as a UI/log percentage (0..100), while cooldown values are 0..6 segment counts.
     // Check if special attack is ready
     if (attackingGotchi.specialBar === 100) {
         // Check if special should be done

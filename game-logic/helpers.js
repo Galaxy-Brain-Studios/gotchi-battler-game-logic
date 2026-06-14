@@ -113,6 +113,23 @@ const clampBaseStat = (statName, v) => {
     return v < 0 ? 0 : v
 }
 
+const recordStatAdjustment = (statAdjustments, gotchi, src, stat, before, after, extra = {}) => {
+    if (!statAdjustments) return
+    if (typeof before !== 'number' || !Number.isFinite(before)) return
+    if (typeof after !== 'number' || !Number.isFinite(after)) return
+
+    const value = roundStatLikeEngine(stat, after - before)
+    if (!value) return
+
+    statAdjustments.push({
+        id: gotchi.id,
+        src,
+        ...extra,
+        stat,
+        value
+    })
+}
+
 const setTeamLeaderMechanicsState = (team, state) => {
     // Avoid adding enumerable fields (these would end up in serialized logs in some flows).
     Object.defineProperty(team, '__leaderMechanics', {
@@ -127,10 +144,11 @@ const getTeamLeaderMechanicsState = (team) => {
     return team && team.__leaderMechanics ? team.__leaderMechanics : null
 }
 
-const applyLeaderAuraToTeam = (team, leaderId, statName, amount) => {
+const applyLeaderAuraToTeam = (team, leaderId, statName, amount, statAdjustments) => {
     if (!amount) return
     getTeamGotchis(team).forEach((gotchi) => {
         if (!gotchi || gotchi.id === leaderId) return
+        if (typeof gotchi.health === 'number' && gotchi.health <= 0) return
         // Health is modeled as current HP, with max HP stored as fullHealth after battle init.
         // For health aura:
         // - before fullHealth exists (battle start init), health represents max HP → add to health
@@ -138,12 +156,14 @@ const applyLeaderAuraToTeam = (team, leaderId, statName, amount) => {
         if (statName === 'health') {
             if (typeof gotchi.health !== 'number' || !Number.isFinite(gotchi.health)) return
 
+            const before = gotchi.health
             gotchi.health = clampBaseStat('health', roundStatLikeEngine('health', gotchi.health + amount))
 
             if (typeof gotchi.fullHealth === 'number' && Number.isFinite(gotchi.fullHealth)) {
                 gotchi.fullHealth = clampBaseStat('health', roundStatLikeEngine('health', gotchi.fullHealth + amount))
             }
 
+            recordStatAdjustment(statAdjustments, gotchi, 'leader:aura', statName, before, gotchi.health, { from: leaderId })
             return
         }
 
@@ -151,6 +171,7 @@ const applyLeaderAuraToTeam = (team, leaderId, statName, amount) => {
         if (typeof base !== 'number' || !Number.isFinite(base)) return
         const next = clampBaseStat(statName, roundStatLikeEngine(statName, base + amount))
         gotchi[statName] = next
+        recordStatAdjustment(statAdjustments, gotchi, 'leader:aura', statName, base, next, { from: leaderId })
     })
 }
 
@@ -186,11 +207,16 @@ const removeLeaderAuraFromTeam = (team, leaderId, statName, amount) => {
  * - Snapshot L is taken after items/crystals, before carry.
  * - Aura applies only when leader is alive, and is removed if leader dies.
  */
-const initLeaderMechanicsForTeam = (team) => {
+const initLeaderMechanicsForTeam = (team, statAdjustments) => {
     const leader = findLeaderGotchiOrNull(team)
 
     if (!leader) {
         setTeamLeaderMechanicsState(team, { enabled: false, active: false })
+        return
+    }
+
+    if (leader.health <= 0) {
+        setTeamLeaderMechanicsState(team, { enabled: false, active: false, leaderId: leader.id })
         return
     }
 
@@ -224,6 +250,12 @@ const initLeaderMechanicsForTeam = (team) => {
         const nextValue = LEADER_FLAT_BONUS_STATS.includes(statName) ? base + carryBonus : base * (1 + carryBonus)
         const next = clampBaseStat(statName, roundStatLikeEngine(statName, nextValue))
         leader[statName] = next
+
+        if (statName === 'health' && typeof leader.fullHealth === 'number' && Number.isFinite(leader.fullHealth)) {
+            leader.fullHealth = next
+        }
+
+        recordStatAdjustment(statAdjustments, leader, 'leader:carry', statName, base, next)
     })
 
     const isLeaderAlive = leader.health > 0
@@ -231,7 +263,7 @@ const initLeaderMechanicsForTeam = (team) => {
     const active = Boolean(isLeaderAlive && auraAmount)
 
     if (active) {
-        applyLeaderAuraToTeam(team, leader.id, specStat, auraAmount)
+        applyLeaderAuraToTeam(team, leader.id, specStat, auraAmount, statAdjustments)
     }
 
     setTeamLeaderMechanicsState(team, {
@@ -759,13 +791,13 @@ const removeStatusAndAllCopies = (gotchi, statusCode, statusesExpired) => {
     gotchi.statuses = gotchi.statuses.filter(existingStatus => existingStatus !== statusCode)
 }
 
-const scrambleGotchiIds = (allAliveGotchis, team1, team2) => {
+const scrambleGotchiIds = (gotchis, team1, team2) => {
     // check there's no duplicate gotchis
-    const gotchiIds = allAliveGotchis.map(x => x.id)
+    const gotchiIds = gotchis.map(x => x.id)
 
     if (gotchiIds.length !== new Set(gotchiIds).size) {
         // scramble gotchi ids
-        allAliveGotchis.forEach(x => {
+        gotchis.forEach(x => {
             const newId = Math.floor(Math.random() * 10000000)
 
             // find gotchi in team1 or team2
@@ -786,48 +818,57 @@ const scrambleGotchiIds = (allAliveGotchis, team1, team2) => {
         })
 
         // check again
-        const newGotchiIds = allAliveGotchis.map(x => x.id)
+        const newGotchiIds = gotchis.map(x => x.id)
         if (newGotchiIds.length !== new Set(newGotchiIds).size) {
             // Scramble again
-            scrambleGotchiIds(allAliveGotchis, team1, team2)
+            scrambleGotchiIds(gotchis, team1, team2)
         }
     }
 }
 
 /**
  * Prepare teams for battle
- * @param {Array} allAliveGotchis An array of all alive gotchis
  * @param {Object} team1 An in-game team object
  * @param {Object} team2 An in-game team object
+ * @returns {Object} setup The setup data needed by gameLoop logs
  **/
-const prepareTeams = (allAliveGotchis, team1, team2, options = {}) => {
+const prepareBattle = (team1, team2, options = {}) => {
+    const teams = [team1, team2]
+    const allTeamGotchis = teams.flatMap(team => getTeamGotchis(team))
+    const carriedStateByGotchi = new Map()
+    const statAdjustments = []
+
+    teams.forEach(team => {
+        if (!team.startingState || !team.startingState.length) return
+
+        const teamGotchis = getTeamGotchis(team)
+        team.startingState.forEach(gotchiState => {
+            const gotchi = teamGotchis.find(x => x.id === gotchiState.id)
+
+            if (!gotchi) {
+                throw new Error(`Gotchi with id ${gotchiState.id} not found in team startingState`)
+            }
+
+            carriedStateByGotchi.set(gotchi, { team, gotchi, gotchiState })
+        })
+    })
+
+    const carriedStateEntries = Array.from(carriedStateByGotchi.values())
+    const gotchisForSetupAndLogs = allTeamGotchis.filter(gotchi => gotchi.health > 0 || carriedStateByGotchi.has(gotchi))
+
     // check there's no duplicate gotchis
-    scrambleGotchiIds(allAliveGotchis, team1, team2)
+    scrambleGotchiIds(gotchisForSetupAndLogs, team1, team2)
 
     // Apply stat items
-    applyStatItems(allAliveGotchis)
+    applyStatItems(gotchisForSetupAndLogs, statAdjustments)
     // Apply crystals
-    applyCrystals(allAliveGotchis)
+    applyCrystals(gotchisForSetupAndLogs, statAdjustments)
 
-    // Initialize non-status leader mechanics (carry + aura) after static loadout, before battle init and statuses.
-    if (options.disableLeaderMechanics) {
-        setTeamLeaderMechanicsState(team1, { enabled: false, active: false })
-        setTeamLeaderMechanicsState(team2, { enabled: false, active: false })
-    } else {
-        initLeaderMechanicsForTeam(team1)
-        initLeaderMechanicsForTeam(team2)
-    }
-
-    allAliveGotchis.forEach(x => {
+    allTeamGotchis.forEach(x => {
         // Add statuses property to all gotchis
         x.statuses = []
 
-        // Calculate initial action delay for all gotchis
-        x.actionDelay = calculateActionDelay(x)
-
-        // Set special specialBar
-        // gotchi.specialBar is the % the special bar is full. 100% is full. 0% is empty.
-        // We split into 6 sections, so the initial specialBar is the number of sections to fill.
+        // specialBar is stored as a UI/log percentage (0..100), while cooldown values are 0..6 segment counts.
         x.specialBar = Math.round((100 / 6) * (6 - x.specialExpanded.initialCooldown))
 
         // Handle Health
@@ -851,21 +892,37 @@ const prepareTeams = (allAliveGotchis, team1, team2, options = {}) => {
         }
     })
 
-    const teams = [team1, team2]
+    carriedStateEntries.forEach(({ gotchi, gotchiState }) => {
+        if (gotchiState.health > 0) return
+        gotchi.health = gotchiState.health
+    })
+
+    // Initialize non-status leader mechanics (carry + aura) after static loadout, before battle init and statuses.
+    if (options.disableLeaderMechanics) {
+        setTeamLeaderMechanicsState(team1, { enabled: false, active: false })
+        setTeamLeaderMechanicsState(team2, { enabled: false, active: false })
+    } else {
+        initLeaderMechanicsForTeam(team1, statAdjustments)
+        initLeaderMechanicsForTeam(team2, statAdjustments)
+    }
+
+    allTeamGotchis.forEach(x => {
+        // Calculate initial action delay for all gotchis
+        x.actionDelay = calculateActionDelay(x)
+    })
 
     teams.forEach(team => {
-        if (team.startingState && team.startingState.length) {
-            team.startingState.forEach(gotchiState => {
-                // Find gotchi in allAliveGotchis
-                const gotchi = allAliveGotchis.find(x => x.id === gotchiState.id)
+        const teamCarriedStateEntries = carriedStateEntries.filter(entry => entry.team === team)
 
-                if (!gotchi) {
-                    throw new Error(`Gotchi with id ${gotchiState.id} not found in allAliveGotchis`)
-                }
-
-                // Set Health and statuses
+        if (teamCarriedStateEntries.length) {
+            teamCarriedStateEntries.forEach(({ gotchi, gotchiState }) => {
                 gotchi.health = gotchiState.health
-                gotchi.statuses = gotchiState.statuses
+                gotchi.statuses = Array.isArray(gotchiState.statuses) ? [...gotchiState.statuses] : []
+
+                if (Object.prototype.hasOwnProperty.call(gotchiState, 'specialBar')) {
+                    const specialBar = Number(gotchiState.specialBar)
+                    gotchi.specialBar = Number.isFinite(specialBar) ? Math.max(0, Math.min(100, specialBar)) : 0
+                }
             })
 
             // Starting state may set leader dead/alive; ensure aura is synced before battle begins.
@@ -884,15 +941,21 @@ const prepareTeams = (allAliveGotchis, team1, team2, options = {}) => {
             state.locked = true
         }
     })
+
+    return {
+        gotchisForLogs: gotchisForSetupAndLogs,
+        statAdjustments
+    }
 }
 
 /**
  * Get log gotchi object for battle logs
- * @param {Array} allAliveGotchis An array of all alive gotchis
+ * @param {Array} gotchis An array of prepared battle-start gotchis to include in logs.
+ * `logs.gotchis` is intentionally post-initialisation, after static setup like items/crystals/leader stat bonuses.
  * @returns {Array} logGotchis An array of gotchi objects for logs
  */
-const getLogGotchis = (allAliveGotchis) => {
-    const logGotchis = JSON.parse(JSON.stringify(allAliveGotchis))
+const getLogGotchis = (gotchis) => {
+    const logGotchis = JSON.parse(JSON.stringify(gotchis))
 
     logGotchis.forEach(x => {
         // Remove unnecessary properties to reduce log size
@@ -910,7 +973,7 @@ const getLogGotchis = (allAliveGotchis) => {
  * Apply stat items to gotchis
  * @param {Array} gotchis An array of gotchis
  */
-const applyStatItems = (gotchis) => {
+const applyStatItems = (gotchis, statAdjustments) => {
     gotchis.forEach(gotchi => {
         // Apply stat items
         // Support both shapes:
@@ -920,10 +983,12 @@ const applyStatItems = (gotchis) => {
         if (item && item.stat && item.statValue != null) {
             const v = Number(item.statValue)
             if (!Number.isFinite(v)) return
+            const before = gotchi[item.stat]
             gotchi[item.stat] += v
 
             // Preserve stat precision model
             gotchi[item.stat] = roundStatLikeEngine(item.stat, gotchi[item.stat])
+            recordStatAdjustment(statAdjustments, gotchi, 'item', item.stat, before, gotchi[item.stat])
         }
     })
 }
@@ -951,7 +1016,7 @@ const removeStatItems = (gotchis) => {
  * Apply crystals to gotchis.
  * Expects crystals to be present as crystalSlot{n}Expanded objects (preferred).
  */
-const applyCrystals = (gotchis) => {
+const applyCrystals = (gotchis, statAdjustments) => {
     gotchis.forEach((gotchi) => {
         for (let i = 1; i <= 6; i++) {
             const crystal = gotchi[`crystalSlot${i}Expanded`]
@@ -960,9 +1025,11 @@ const applyCrystals = (gotchis) => {
             const v = Number(crystal.statValue)
             if (!Number.isFinite(v)) continue
 
+            const before = gotchi[crystal.stat]
             gotchi[crystal.stat] += v
 
             gotchi[crystal.stat] = roundStatLikeEngine(crystal.stat, gotchi[crystal.stat])
+            recordStatAdjustment(statAdjustments, gotchi, `crystal:${i}`, crystal.stat, before, gotchi[crystal.stat])
         }
     })
 }
@@ -1140,7 +1207,7 @@ module.exports = {
     addStatusToGotchi,
     removeStatusAndAllCopies,
     scrambleGotchiIds,
-    prepareTeams,
+    prepareBattle,
     getLogGotchis,
     applyStatItems,
     removeStatItems,
@@ -1157,4 +1224,3 @@ module.exports = {
     syncLeaderAura,
     syncLeaderAuras
 }
-

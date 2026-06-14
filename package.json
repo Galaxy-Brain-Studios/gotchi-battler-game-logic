@@ -1,7 +1,14 @@
 {
     "name": "gotchi-battler-game-logic",
-    "version": "4.0.39",
+    "version": "4.0.40",
     "main": "index.js",
+    "files": [
+        "index.js",
+        "game-logic/",
+        "schemas/",
+        "utils/",
+        "README.md"
+    ],
     "scripts": {
         "test": "mocha \"tests/**/*.test.js\"",
         "test:watch": "mocha --watch \"tests/**/*.test.js\"",

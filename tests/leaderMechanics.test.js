@@ -194,7 +194,7 @@ describe('Leader mechanics (carry + aura)', () => {
         // Simulate battle init behavior where fullHealth is set.
         ally.fullHealth = ally.health
 
-        // Lock like prepareTeams() does, then kill leader and sync.
+        // Lock like prepareBattle() does, then kill leader and sync.
         team.__leaderMechanics.locked = true
         leader.health = 0
         syncLeaderAura(team)
@@ -256,4 +256,3 @@ describe('Leader mechanics (carry + aura)', () => {
         expect(disabledAlly.attack).to.equal(20)
     })
 })
-
