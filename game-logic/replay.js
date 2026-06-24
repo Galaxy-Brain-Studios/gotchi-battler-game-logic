@@ -106,10 +106,18 @@ const getStartingStateForTeam = (team, startingStateById) => {
         .filter(Boolean)
         .map((gotchi) => {
             const stateSource = startingStateById.get(gotchi.id) || gotchi
+            const richStatusInstances = Array.isArray(stateSource.statusInstances)
+                ? stateSource.statusInstances.map(statusInstance => ({
+                    code: statusInstance.code,
+                    source: { ...statusInstance.source },
+                    removable: statusInstance.removable,
+                    remainingSubjectTurns: statusInstance.remainingSubjectTurns
+                }))
+                : null
             const state = {
                 id: gotchi.id,
                 health: stateSource.health,
-                statuses: Array.isArray(stateSource.statuses) ? [...stateSource.statuses] : []
+                statuses: richStatusInstances || (Array.isArray(stateSource.statuses) ? [...stateSource.statuses] : [])
             }
 
             if (Object.prototype.hasOwnProperty.call(stateSource, 'specialBar')) {

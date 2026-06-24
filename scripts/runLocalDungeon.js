@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const { battle } = require('..')
+const { battle, buildStartingStateFromLog } = require('..')
 
 // Edit these json files to test different battles
 // NOTE: Only the in-game stats (speed, health, crit etc..) are used in the game logic
@@ -37,7 +37,7 @@ for (let i = 0; i < scenario.battles.length; i++) {
     scenarioBattle.logs = logs
     
     if (logs.result.winner === 1) {
-        team1.startingState = logs.result.winningTeam
+        team1.startingState = buildStartingStateFromLog(logs)
     } else {
         break
     }

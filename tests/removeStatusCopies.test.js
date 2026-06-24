@@ -131,4 +131,25 @@ describe('status removal clears all copies of the chosen status', () => {
             { target: defender.id, status: 'fear' },
         ])
     })
+
+    it('removes every stack of a chosen debuff from cleanse-self attack effects', () => {
+        const attacker = makeGotchi({
+            id: 100,
+            statuses: ['cleansing_strike', 'fear', 'fear', 'bleed'],
+        })
+        const defender = makeGotchi({ id: 200, stats: makeStats() })
+
+        const result = attack(
+            attacker,
+            makeTeam({ front: [attacker] }),
+            makeTeam({ front: [defender] }),
+            () => 0
+        )
+
+        expect(attacker.statuses).to.deep.equal(['cleansing_strike', 'bleed'])
+        expect(result.statusesExpired).to.deep.equal([
+            { target: attacker.id, status: 'fear' },
+            { target: attacker.id, status: 'fear' },
+        ])
+    })
 })

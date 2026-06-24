@@ -1,0 +1,178 @@
+{
+    "meta": {
+        "seed": "status-system-v3-unity-fixture",
+        "timestamp": "2026-06-23T12:00:00.000Z",
+        "type": "training",
+        "campaign": {},
+        "isBoss": false,
+        "gameLogicVersion": "5.0.0"
+    },
+    "gotchis": [
+        {
+            "id": 1,
+            "onchainId": 1,
+            "name": "Status Carrier",
+            "type": "gotchi",
+            "visualCode": "Polygon-POLYGON-Uncommon_High-310-216-262-309-312-311-261",
+            "level": 1,
+            "speed": 20,
+            "health": 100,
+            "attack": 20,
+            "defense": 10,
+            "criticalRate": 0,
+            "criticalDamage": 50,
+            "resist": 0,
+            "focus": 0,
+            "gotchiClass": "tank",
+            "special": "basic_strike",
+            "leaderSkill": "brilliant_soul",
+            "item": null,
+            "specialExpanded": {
+                "code": "basic_strike",
+                "name": "Basic Strike",
+                "initialCooldown": 6,
+                "cooldown": 1,
+                "actionType": "attack",
+                "actionMultiplier": 1,
+                "monstersOnly": false,
+                "gotchiClass": "tank",
+                "target": "enemy_random"
+            },
+            "leaderSkillExpanded": {
+                "code": "brilliant_soul",
+                "name": "Brilliant Soul",
+                "description": "Fixture only",
+                "monstersOnly": false,
+                "gotchiClass": "tank"
+            },
+            "statuses": ["atk_down", "atk_down", "regenerate"],
+            "statusInstances": [
+                {
+                    "code": "atk_down",
+                    "source": { "kind": "leader_skill", "code": "brilliant_soul", "gotchiId": 1 },
+                    "removable": false,
+                    "remainingSubjectTurns": null
+                },
+                {
+                    "code": "atk_down",
+                    "source": { "kind": "leader_skill", "code": "brilliant_soul", "gotchiId": 1 },
+                    "removable": false,
+                    "remainingSubjectTurns": null
+                },
+                {
+                    "code": "regenerate",
+                    "source": { "kind": "special", "code": "renew", "gotchiId": 1 },
+                    "removable": true,
+                    "remainingSubjectTurns": 2
+                }
+            ],
+            "specialBar": 0,
+            "fullHealth": 100
+        },
+        {
+            "id": 2,
+            "onchainId": 2,
+            "name": "Fixture Enemy",
+            "type": "gotchi",
+            "visualCode": "Polygon-POLYGON-Uncommon_High-310-216-262-309-312-311-261",
+            "level": 1,
+            "speed": 10,
+            "health": 0,
+            "attack": 1,
+            "defense": 1,
+            "criticalRate": 0,
+            "criticalDamage": 50,
+            "resist": 0,
+            "focus": 0,
+            "gotchiClass": "tank",
+            "special": "basic_strike",
+            "leaderSkill": "no_op",
+            "item": null,
+            "specialExpanded": {
+                "code": "basic_strike",
+                "name": "Basic Strike",
+                "initialCooldown": 6,
+                "cooldown": 1,
+                "actionType": "attack",
+                "actionMultiplier": 1,
+                "monstersOnly": false,
+                "gotchiClass": "tank",
+                "target": "enemy_random"
+            },
+            "leaderSkillExpanded": {
+                "code": "no_op",
+                "name": "No Op",
+                "description": "Fixture only",
+                "monstersOnly": false,
+                "gotchiClass": "tank"
+            },
+            "statuses": [],
+            "statusInstances": [],
+            "specialBar": 0,
+            "fullHealth": 100
+        }
+    ],
+    "layout": {
+        "teams": [
+            {
+                "name": "Fixture Team",
+                "owner": "fixture",
+                "leaderId": 1,
+                "rows": [
+                    { "slots": [{ "isActive": true, "id": 1 }] },
+                    { "slots": [] }
+                ],
+                "uiOrder": [1]
+            },
+            {
+                "name": "Fixture Enemy Team",
+                "owner": "fixture",
+                "leaderId": 2,
+                "rows": [
+                    { "slots": [{ "isActive": true, "id": 2 }] },
+                    { "slots": [] }
+                ],
+                "uiOrder": [2]
+            }
+        ]
+    },
+    "turns": [
+        {
+            "index": 0,
+            "skipTurn": null,
+            "action": {
+                "user": 1,
+                "name": "auto",
+                "actionEffects": [{ "target": 2, "statuses": [], "damage": 100, "outcome": "success" }],
+                "additionalEffects": []
+            },
+            "statusEffects": [],
+            "statusesExpired": [{ "target": 1, "status": "regenerate" }],
+            "specialBars": [{ "id": 1, "value": 17 }, { "id": 2, "value": 0 }]
+        }
+    ],
+    "result": {
+        "winner": 1,
+        "winningTeam": [{
+            "id": 1,
+            "name": "Status Carrier",
+            "health": 100,
+            "statuses": ["atk_down", "atk_down"],
+            "statusInstances": [
+                {
+                    "code": "atk_down",
+                    "source": { "kind": "leader_skill", "code": "brilliant_soul", "gotchiId": 1 },
+                    "removable": false,
+                    "remainingSubjectTurns": null
+                },
+                {
+                    "code": "atk_down",
+                    "source": { "kind": "leader_skill", "code": "brilliant_soul", "gotchiId": 1 },
+                    "removable": false,
+                    "remainingSubjectTurns": null
+                }
+            ],
+            "specialBar": 17
+        }]
+    }
+}

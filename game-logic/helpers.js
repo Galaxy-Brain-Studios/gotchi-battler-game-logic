@@ -1,4 +1,3 @@
-const STATUSES = require('./statuses.json')
 const {
     DEFAULT_MAX_STATUSES,
     FOC_RES_COEFFICIENT,
@@ -10,6 +9,14 @@ const {
     LEADER_AURA_BONUS_BY_STAT,
     CLASS_SPECIALTY_STAT
 } = require('./constants')
+const {
+    getStatusByCode,
+    initializeStatusInstances,
+    getStatusCodes,
+    hasStatus,
+    countStatus,
+    applyStatus
+} = require('./status-store')
 
 const getTeamGotchis = (team) => {
     return [...team.formation.front, ...team.formation.back].filter(x => x)
@@ -22,6 +29,16 @@ const getAlive = (team, row) => {
     }
 
     return [...team.formation.front, ...team.formation.back].filter(x => x).filter(x => x.health > 0)
+}
+
+const applyEffectStatus = (target, statusRequest, actingGotchi, turnContext) => {
+    const application = applyStatus(target, statusRequest)
+
+    if (application.applied && target === actingGotchi && turnContext) {
+        application.instances.forEach(instance => turnContext.appliedThisSubjectTurnInstances.add(instance))
+    }
+
+    return application.applied
 }
 
 /**
@@ -378,7 +395,7 @@ const getNextToAct = (team1, team2, rng) => {
 
 const getTarget = (defendingTeam, rng) => {
     // Check for taunt gotchis
-    const taunt = [...getAlive(defendingTeam, 'front'), ...getAlive(defendingTeam, 'back')].filter(gotchi => gotchi.statuses && gotchi.statuses.includes('taunt'))
+    const taunt = [...getAlive(defendingTeam, 'front'), ...getAlive(defendingTeam, 'back')].filter(gotchi => hasStatus(gotchi, 'taunt'))
 
     if (taunt.length) {
         if (taunt.length === 1) return taunt[0]
@@ -581,7 +598,7 @@ const getHealFromMultiplier = (healingGotchi, target, multiplier) => {
 const getModifiedStats = (gotchi) => {
     const statMods = {}
 
-    const statuses = Array.isArray(gotchi.statuses) ? gotchi.statuses : []
+    const statuses = getStatusCodes(gotchi)
 
     statuses.forEach(statusCode => {
         const statusStatMods = {}
@@ -594,6 +611,13 @@ const getModifiedStats = (gotchi) => {
 
         status.statModifiers.forEach(statModifier => {
             let statChange = 0
+            const baseStat = gotchi[statModifier.statName]
+
+            if (typeof baseStat !== 'number' || !Number.isFinite(baseStat)) {
+                throw new Error(
+                    `Cannot apply status ${statusCode}: gotchi.${statModifier.statName} is not a finite number (gotchiId=${gotchi.id}, name=${gotchi.name})`
+                )
+            }
 
             if (statModifier.valueType === 'flat') {
                 if (typeof statModifier.value !== 'number' || !Number.isFinite(statModifier.value)) {
@@ -601,12 +625,6 @@ const getModifiedStats = (gotchi) => {
                 }
                 statChange = statModifier.value
             } else if (statModifier.valueType === 'percent') {
-                const baseStat = gotchi[statModifier.statName]
-                if (typeof baseStat !== 'number' || !Number.isFinite(baseStat)) {
-                    throw new Error(
-                        `Cannot apply status ${statusCode}: gotchi.${statModifier.statName} is not a finite number (gotchiId=${gotchi.id}, name=${gotchi.name})`
-                    )
-                }
                 if (typeof statModifier.value !== 'number' || !Number.isFinite(statModifier.value)) {
                     throw new Error(`Invalid percent modifier value for status ${statusCode}: ${statModifier.value}`)
                 }
@@ -747,48 +765,18 @@ const addLeaderToTeam = (team, addStatuses) => {
 
     leaderskill.statuses.forEach(leaderSkillStatus => {
         getAlive(team).forEach(x => {
-            addStatusToGotchi(x, leaderSkillStatus.status, leaderSkillStatus.stackCount)
+            applyStatus(x, {
+                code: leaderSkillStatus.status,
+                count: leaderSkillStatus.stackCount,
+                source: {
+                    kind: 'leader_skill',
+                    code: leaderskill.code,
+                    gotchiId: teamLeader.id
+                },
+                removable: false
+            })
         })
     })
-}
-
-/**
- * Add a status to a gotchi
- * @param {Object} gotchi An in-game gotchi object
- * @param {String} statusCode The status code to add
- * @param {Integer} count The number of the status to add
- * @returns {Boolean} success A boolean to determine if the status was added
- **/
-const addStatusToGotchi = (gotchi, statusCode, count) => {
-    if (!count) count = 1
-
-    const status = getStatusByCode(statusCode)
-
-    const maxStack = status.maxStack || DEFAULT_MAX_STATUSES
-
-    // Only allow a maximum of maxStack of the same status
-    const currentStacks = gotchi.statuses.filter(x => x === status.code).length
-    if (currentStacks + count > maxStack) return false
-
-    // Add the statuses to the gotchi
-    gotchi.statuses.push(...Array(count).fill(status.code))
-
-    return true
-}
-
-const removeStatusAndAllCopies = (gotchi, statusCode, statusesExpired) => {
-    const removedStatuses = gotchi.statuses.filter(existingStatus => existingStatus === statusCode)
-
-    if (!removedStatuses.length) return
-
-    removedStatuses.forEach(() => {
-        statusesExpired.push({
-            target: gotchi.id,
-            status: statusCode
-        })
-    })
-
-    gotchi.statuses = gotchi.statuses.filter(existingStatus => existingStatus !== statusCode)
 }
 
 const scrambleGotchiIds = (gotchis, team1, team2) => {
@@ -865,8 +853,8 @@ const prepareBattle = (team1, team2, options = {}) => {
     applyCrystals(gotchisForSetupAndLogs, statAdjustments)
 
     allTeamGotchis.forEach(x => {
-        // Add statuses property to all gotchis
-        x.statuses = []
+        // statusInstances is the canonical store; statuses remains a legacy projection.
+        initializeStatusInstances(x)
 
         // specialBar is stored as a UI/log percentage (0..100), while cooldown values are 0..6 segment counts.
         x.specialBar = Math.round((100 / 6) * (6 - x.specialExpanded.initialCooldown))
@@ -917,7 +905,7 @@ const prepareBattle = (team1, team2, options = {}) => {
         if (teamCarriedStateEntries.length) {
             teamCarriedStateEntries.forEach(({ gotchi, gotchiState }) => {
                 gotchi.health = gotchiState.health
-                gotchi.statuses = Array.isArray(gotchiState.statuses) ? [...gotchiState.statuses] : []
+                initializeStatusInstances(gotchi, Array.isArray(gotchiState.statuses) ? gotchiState.statuses : [])
 
                 if (Object.prototype.hasOwnProperty.call(gotchiState, 'specialBar')) {
                     const specialBar = Number(gotchiState.specialBar)
@@ -1077,16 +1065,6 @@ const getTeamStats = (team) => {
     }
 }
 
-const getStatusByCode = (statusCode) => {
-    const status = STATUSES.find(status => status.code === statusCode)
-
-    if (!status) {
-        throw new Error(`Status with code ${statusCode} not found`)
-    }
-
-    return status
-}
-
 const getTeamSpecialBars = (team1, team2) => {
     const specialBars = []
 
@@ -1153,9 +1131,7 @@ const shouldDoSpecial = (attackingGotchi, attackingTeam, _defendingTeam) => {
     const isStatusAtMaxForAttacker = (statusCode) => {
         const status = getStatusByCode(statusCode)
         const maxStack = status.maxStack || DEFAULT_MAX_STATUSES
-        const currentStacks = attackingGotchi.statuses.filter(x => x === status.code).length
-
-        return currentStacks >= maxStack
+        return countStatus(attackingGotchi, status.code) >= maxStack
     }
 
     // For self-targeted, no-action specials, skip if any desired status is already
@@ -1204,8 +1180,6 @@ module.exports = {
     simplifyTeam,
     getUiOrder,
     addLeaderToTeam,
-    addStatusToGotchi,
-    removeStatusAndAllCopies,
     scrambleGotchiIds,
     prepareBattle,
     getLogGotchis,
@@ -1215,6 +1189,7 @@ module.exports = {
     removeCrystals,
     getTeamStats,
     getStatusByCode,
+    applyEffectStatus,
     getTeamSpecialBars,
     focusCheck,
     counterCheck,

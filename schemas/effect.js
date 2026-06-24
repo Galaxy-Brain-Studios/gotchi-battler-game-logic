@@ -18,9 +18,9 @@ const EffectSchema = z.object({
     special: z.string().nullable(),
     target: z.string().nullable(),
     status: z.string().nullable(),
+    durationTurns: z.number().int().positive().nullable().optional(),
     skipFocusCheck: z.boolean().default(false).optional()
 })
 
 module.exports = { EffectSchema, EffectTypeEnum }
-
 

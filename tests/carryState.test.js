@@ -4,6 +4,8 @@ const path = require('path')
 const { InGameTeamSchema } = require(path.join('..', 'schemas', 'ingameteam'))
 const { gameLoop } = require(path.join('..', 'game-logic', 'index'))
 const { prepareBattle } = require(path.join('..', 'game-logic', 'helpers'))
+const createBattleInputFromLog = require(path.join('..', 'game-logic', 'replay'))
+const { buildStartingStateFromLog } = require('..')
 
 const makeGotchi = (id, overrides = {}) => {
     const gotchiClass = overrides.gotchiClass || 'ninja'
@@ -98,15 +100,6 @@ const makeCrystal = (slot, stat, statValue) => ({
     stat,
     statValue
 })
-
-const toStartingState = (logs) => {
-    return logs.result.winningTeam.map((gotchi) => ({
-        id: gotchi.id,
-        health: gotchi.health,
-        statuses: Array.isArray(gotchi.statuses) ? gotchi.statuses : [],
-        specialBar: Number.isFinite(Number(gotchi.specialBar)) ? Number(gotchi.specialBar) : 0
-    }))
-}
 
 describe('carry-state battle preparation', () => {
     it('defaults omitted statuses and keeps normal initial specialBar when omitted', () => {
@@ -326,7 +319,7 @@ describe('carry-state battle preparation', () => {
         const secondLogs = gameLoop(
             {
                 ...playerTeamSnapshot,
-                startingState: toStartingState(firstLogs)
+                startingState: buildStartingStateFromLog(firstLogs)
             },
             makeTeam(4, [makeGotchi(4, { health: 20, attack: 1, speed: 100 })]),
             'dungeon-flow-2'
@@ -370,5 +363,237 @@ describe('carry-state battle preparation', () => {
 
         expect(logs.gotchis.find(gotchi => gotchi.id === 1).statuses).to.deep.equal([])
         expect(logs.gotchis.find(gotchi => gotchi.id === 2).statuses).to.deep.equal([])
+    })
+
+    it('emits rich status instances in battle-start and winning-team state', () => {
+        const leader = makeGotchi(1, {
+            attack: 100,
+            leaderSkill: 'test_passive',
+            leaderSkillExpanded: {
+                code: 'test_passive',
+                name: 'Test Passive',
+                description: 'Protected team buff',
+                monstersOnly: false,
+                gotchiClass: 'ninja',
+                statuses: [{ leaderSkill: 'test_passive', status: 'atk_up', stackCount: 1 }]
+            }
+        })
+        const enemy = makeGotchi(2, { health: 10, attack: 1, speed: 100 })
+
+        const logs = gameLoop(makeTeam(1, [leader]), makeTeam(2, [enemy]), 'rich-status-log')
+        const startLeader = logs.gotchis.find(gotchi => gotchi.id === 1)
+        const winningLeader = logs.result.winningTeam.find(gotchi => gotchi.id === 1)
+
+        expect(startLeader.statuses).to.deep.equal(['atk_up'])
+        expect(startLeader.statusInstances[0]).to.include({
+            code: 'atk_up',
+            removable: false,
+            remainingSubjectTurns: null
+        })
+        expect(startLeader.statusInstances[0].source).to.deep.equal({ kind: 'leader_skill', code: 'test_passive', gotchiId: 1 })
+        expect(winningLeader.statuses).to.deep.equal(['atk_up'])
+        expect(winningLeader.statusInstances[0]).to.include({
+            code: 'atk_up',
+            removable: false,
+            remainingSubjectTurns: null
+        })
+        expect(winningLeader.statusInstances[0].source).to.deep.equal({ kind: 'leader_skill', code: 'test_passive', gotchiId: 1 })
+
+        const replayInput = createBattleInputFromLog(logs, { mode: 'prepared' })
+        expect(replayInput.team1.startingState[0].statuses[0]).to.include({
+            code: 'atk_up',
+            removable: false,
+            remainingSubjectTurns: null
+        })
+        expect(replayInput.team1.startingState[0].statuses[0].source).to.deep.equal({
+            kind: 'leader_skill',
+            code: 'test_passive',
+            gotchiId: 1
+        })
+
+        const sequentialState = buildStartingStateFromLog(logs)
+        expect(sequentialState[0].statuses[0].source).to.deep.equal({
+            kind: 'leader_skill',
+            code: 'test_passive',
+            gotchiId: 1
+        })
+
+        sequentialState[0].statuses[0].source.kind = 'legacy'
+        expect(winningLeader.statusInstances[0].source.kind).to.equal('leader_skill')
+    })
+
+    it('requires rich v5 status instances when building sequential starting state', () => {
+        expect(() => buildStartingStateFromLog({
+            result: {
+                winningTeam: [{ id: 1, health: 100, statuses: ['atk_up'], specialBar: 0 }]
+            }
+        })).to.throw('requires v5 statusInstances')
+    })
+
+    it('expires a duration-one self buff after the caster completes its next turn', () => {
+        const caster = makeGotchi(1, {
+            speed: 100,
+            attack: 100,
+            specialExpanded: {
+                code: 'timed_guard',
+                name: 'Timed Guard',
+                initialCooldown: 0,
+                cooldown: 6,
+                actionType: 'none',
+                actionMultiplier: null,
+                monstersOnly: false,
+                gotchiClass: 'ninja',
+                target: 'self',
+                effects: [{
+                    effectType: 'status',
+                    value: null,
+                    chance: 1,
+                    special: null,
+                    target: 'same_as_attack',
+                    status: 'def_up',
+                    durationTurns: 1
+                }]
+            }
+        })
+        const enemy = makeGotchi(2, { health: 50, attack: 1, speed: 1 })
+
+        const logs = gameLoop(makeTeam(1, [caster]), makeTeam(2, [enemy]), 'timed-self-buff')
+        const casterTurns = logs.turns.filter(turn => turn.action.user === 1)
+
+        expect(casterTurns[0].action.name).to.equal('timed_guard')
+        expect(casterTurns[0].action.actionEffects[0].statuses).to.deep.equal(['def_up'])
+        expect(casterTurns[0].statusesExpired).to.deep.equal([])
+        expect(casterTurns[1].statusesExpired).to.deep.equal([{ target: 1, status: 'def_up' }])
+    })
+
+    it('advances a timed status after a status-caused skipped turn', () => {
+        const caster = makeGotchi(1, { speed: 100, attack: 100 })
+        const enemy = makeGotchi(2, { health: 50, attack: 1, speed: 1 })
+
+        const logs = gameLoop(
+            makeTeam(1, [caster], {
+                startingState: [{
+                    id: 1,
+                    health: 100,
+                    statuses: [{
+                        code: 'def_up',
+                        source: { kind: 'special', code: 'timed_guard', gotchiId: 1 },
+                        removable: true,
+                        remainingSubjectTurns: 1
+                    }, {
+                        code: 'fear',
+                        source: { kind: 'special', code: 'terror', gotchiId: 2 },
+                        removable: true,
+                        remainingSubjectTurns: null
+                    }]
+                }]
+            }),
+            makeTeam(2, [enemy]),
+            'timed-skip-turn'
+        )
+
+        const skippedTurn = logs.turns.find(turn => turn.action.user === 1)
+        expect(skippedTurn.skipTurn).to.equal('fear')
+        expect(skippedTurn.statusesExpired).to.deep.equal([{ target: 1, status: 'def_up' }])
+    })
+
+    it('does not advance a timed status when its subject dies during start-of-turn effects', () => {
+        const subject = makeGotchi(1, { health: 5, speed: 100, attack: 1 })
+        const ally = makeGotchi(2, { health: 100, speed: 10, attack: 100 })
+        const enemy = makeGotchi(3, { health: 10, speed: 1, attack: 1 })
+
+        const logs = gameLoop(
+            makeTeam(1, [subject, ally], {
+                startingState: [{
+                    id: 1,
+                    health: 5,
+                    statuses: [{
+                        code: 'bleed',
+                        source: { kind: 'special', code: 'wounding_strike', gotchiId: 3 },
+                        removable: true,
+                        remainingSubjectTurns: null
+                    }, {
+                        code: 'def_up',
+                        source: { kind: 'special', code: 'timed_guard', gotchiId: 1 },
+                        removable: true,
+                        remainingSubjectTurns: 1
+                    }]
+                }]
+            }),
+            makeTeam(3, [enemy]),
+            'timed-status-subject-dies-pre-action'
+        )
+
+        const deathTurn = logs.turns.find(turn => turn.action.user === 1)
+        const carriedSubject = logs.result.winningTeam.find(gotchi => gotchi.id === 1)
+
+        expect(deathTurn.skipTurn).to.equal('attacker_dead')
+        expect(deathTurn.statusesExpired).to.deep.equal([])
+        expect(carriedSubject.statusInstances.find(instance => instance.code === 'def_up').remainingSubjectTurns).to.equal(1)
+    })
+
+    it('does not advance a timed status when pre-action effects defeat the opposing team', () => {
+        const subject = makeGotchi(1, { speed: 100, attack: 100 })
+        const enemy = makeGotchi(2, { health: 5, speed: 1, attack: 1 })
+
+        const logs = gameLoop(
+            makeTeam(1, [subject], {
+                startingState: [{
+                    id: 1,
+                    health: 100,
+                    statuses: [{
+                        code: 'def_up',
+                        source: { kind: 'special', code: 'timed_guard', gotchiId: 1 },
+                        removable: true,
+                        remainingSubjectTurns: 1
+                    }]
+                }]
+            }),
+            makeTeam(2, [enemy], {
+                startingState: [{
+                    id: 2,
+                    health: 5,
+                    statuses: [{
+                        code: 'bleed',
+                        source: { kind: 'special', code: 'wounding_strike', gotchiId: 1 },
+                        removable: true,
+                        remainingSubjectTurns: null
+                    }]
+                }]
+            }),
+            'timed-status-opponent-dies-pre-action'
+        )
+
+        const preActionWinTurn = logs.turns.find(turn => turn.action.user === 1)
+        const winner = logs.result.winningTeam.find(gotchi => gotchi.id === 1)
+
+        expect(preActionWinTurn.skipTurn).to.equal('team_dead')
+        expect(preActionWinTurn.statusesExpired).to.deep.equal([])
+        expect(winner.statusInstances.find(instance => instance.code === 'def_up').remainingSubjectTurns).to.equal(1)
+    })
+
+    it('keeps status-instance ordering deterministic for the same seed, excluding the log timestamp', () => {
+        const run = () => {
+            const leader = makeGotchi(1, {
+                attack: 100,
+                leaderSkill: 'test_passive',
+                leaderSkillExpanded: {
+                    code: 'test_passive',
+                    name: 'Test Passive',
+                    description: 'Protected team buff',
+                    monstersOnly: false,
+                    gotchiClass: 'ninja',
+                    statuses: [{ leaderSkill: 'test_passive', status: 'atk_up', stackCount: 1 }]
+                }
+            })
+            const enemy = makeGotchi(2, { health: 10, attack: 1, speed: 100 })
+            const logs = gameLoop(makeTeam(1, [leader]), makeTeam(2, [enemy]), 'status-order-stable')
+            const meta = { ...logs.meta }
+            delete meta.timestamp
+
+            return { ...logs, meta }
+        }
+
+        expect(run()).to.deep.equal(run())
     })
 })

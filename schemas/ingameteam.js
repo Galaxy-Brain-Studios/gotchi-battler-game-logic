@@ -1,10 +1,17 @@
 const { z } = require('zod')
 const { GotchiSchema } = require('./gotchi')
+const { StatusInstanceSchema } = require('./statusinstance')
+
+const StartingStateStatusesSchema = z.union([
+    z.array(z.string()),
+    z.array(StatusInstanceSchema)
+])
 
 const StartingStateSchema = z.object({
     id: z.number().int(),
     health: z.number(),
-    statuses: z.array(z.string()).default([]),
+    // Old callers may still provide status-code strings. Rich instances are the v3 carry-state contract.
+    statuses: StartingStateStatusesSchema.default([]),
     specialBar: z.number().optional()
 })
 
@@ -19,4 +26,4 @@ const InGameTeamSchema = z.object({
     startingState: z.array(StartingStateSchema).optional()
 })
 
-module.exports = { InGameTeamSchema }
+module.exports = { InGameTeamSchema, StartingStateSchema }
