@@ -6,6 +6,7 @@ const { version: gameLogicVersion } = require('../package.json')
 
 const {
     AUTO_ATTACK_MULTIPLIER,
+    COUNTER_DAMAGE_REDUCTION,
     COUNTER_ATTACK_MULTIPLIER
 } = require('./constants')
 
@@ -461,6 +462,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
 
         // For an additional effects that come for the special attack e.g. heals
         const targetAdditionalEffects = []
+        let counterSucceeded = false
 
         // Roll for crit multiplier
         const critMultiplier = getCritMultiplier(attackingGotchi, rng)
@@ -469,7 +471,13 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
 
         // Handle action first
         if (action === 'attack') {
-            const damage = getDamage(attackingGotchi, target, totalMultiplier)
+            const incomingDamage = getDamage(attackingGotchi, target, totalMultiplier)
+            let damage = incomingDamage
+
+            if (!isSpecial && incomingDamage > 0 && target.health > 0 && hasStatus(target, 'counter') && counterCheck(target, rng)) {
+                counterSucceeded = true
+                damage = Math.round(incomingDamage * (1 - COUNTER_DAMAGE_REDUCTION))
+            }
 
             targetActionEffect = {
                 target: target.id,
@@ -641,7 +649,7 @@ const attack = (attackingGotchi, attackingTeam, defendingTeam, rng, isSpecial = 
 
 
             // Check for counter attack
-            if (target.health > 0 && hasStatus(target, 'counter') && counterCheck(target, attackingGotchi, rng)) {
+            if (counterSucceeded && target.health > 0) {
                 const counterCritMultiplier = getCritMultiplier(target, rng)
                 const isCounterCrit = counterCritMultiplier > 1
                 const counterDamage = getDamage(target, attackingGotchi, COUNTER_ATTACK_MULTIPLIER * counterCritMultiplier)

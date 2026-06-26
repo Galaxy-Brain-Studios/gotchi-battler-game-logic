@@ -1,8 +1,12 @@
 const {
     DEFAULT_MAX_STATUSES,
     FOC_RES_COEFFICIENT,
-    SPEED_COUNTER_COEFFICIENT,
     HEALER_HEAL_PENALTY,
+    COUNTER_HEALTH_TO_SPEED_RATIO,
+    COUNTER_SCORE_THRESHOLD,
+    COUNTER_CHANCE_SCALE,
+    COUNTER_CHANCE_MIN,
+    COUNTER_CHANCE_MAX,
     LEADER_STATS,
     LEADER_FLAT_BONUS_STATS,
     LEADER_CARRY_BONUS_BY_STAT,
@@ -1103,14 +1107,36 @@ const focusCheck = (attackingTeam, attackingGotchi, targetGotchi, rng) => {
     }
 }
 
-const counterCheck = (counteringGotchi, attackingGotchi, rng) => {
-    const modifiedCounteringGotchi = getModifiedStats(counteringGotchi)
-    const modifiedAttackingGotchi = getModifiedStats(attackingGotchi)
+const getCounterChance = (counteringGotchi) => {
+    if (!counteringGotchi || typeof counteringGotchi !== 'object') {
+        return COUNTER_CHANCE_MIN
+    }
 
-    // Counter chance is clamp(0.5 + (DEFENDER_SPD - ATTACKER_SPD) / SPEED_COUNTER_COEFFICIENT, 0.05, 0.95)
-    const chance = Math.max(Math.min(0.5 + (modifiedCounteringGotchi.speed - modifiedAttackingGotchi.speed) / SPEED_COUNTER_COEFFICIENT, 0.95), 0.05)
+    const baseSpeed = counteringGotchi.speed
+    const baseMaxHealth = counteringGotchi.fullHealth ?? counteringGotchi.health
 
-    return rng() < chance
+    if (
+        typeof baseSpeed !== 'number' ||
+        !Number.isFinite(baseSpeed) ||
+        typeof baseMaxHealth !== 'number' ||
+        !Number.isFinite(baseMaxHealth) ||
+        baseMaxHealth <= 0
+    ) {
+        return COUNTER_CHANCE_MIN
+    }
+
+    const counterScore = (baseSpeed * COUNTER_HEALTH_TO_SPEED_RATIO) / baseMaxHealth
+    return Math.max(
+        Math.min(
+            (counterScore - COUNTER_SCORE_THRESHOLD) * COUNTER_CHANCE_SCALE,
+            COUNTER_CHANCE_MAX
+        ),
+        COUNTER_CHANCE_MIN
+    )
+}
+
+const counterCheck = (counteringGotchi, rng) => {
+    return rng() < getCounterChance(counteringGotchi)
 }
 
 const getCritMultiplier = (gotchi, rng) => {
@@ -1192,6 +1218,7 @@ module.exports = {
     applyEffectStatus,
     getTeamSpecialBars,
     focusCheck,
+    getCounterChance,
     counterCheck,
     getCritMultiplier,
     shouldDoSpecial,
