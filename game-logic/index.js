@@ -17,6 +17,7 @@ const {
     getTargetsFromCode,
     getDamage,
     getHealFromMultiplier,
+    getEffectiveTurnEffectValue,
     getNewActionDelay,
     simplifyTeam,
     prepareBattle,
@@ -30,12 +31,15 @@ const {
     getModifiedStats,
     shouldDoSpecial,
     applyDamageAndSyncLeaderAuras,
-    applyEffectStatus
+    applyEffectStatus,
+    applyEffectStatusResult,
+    getStatusPotencyResult
 } = require('./helpers')
 const {
     getStatusInstances,
     getStatusCodes,
     hasStatus,
+    canApplyStatus,
     consumeStatusInstance,
     removeRandomRemovableStatusCode,
     removeAllRemovableStatuses,
@@ -321,10 +325,11 @@ const handleStatusEffects = (attackingGotchi, attackingTeam, defendingTeam) => {
             turnEffects.forEach((turnEffect) => {
                 switch (turnEffect.type) {
                     case 'heal': {
-                        let amountToHeal = turnEffect.value
+                        const effectiveValue = getEffectiveTurnEffectValue(status, turnEffectInstance, turnEffect)
+                        let amountToHeal = Math.round(effectiveValue)
 
                         if (turnEffect.valueType === 'percent') {
-                            amountToHeal = Math.round(gotchi.fullHealth * (amountToHeal / 100))
+                            amountToHeal = Math.round(gotchi.fullHealth * (effectiveValue / 100))
                         }
 
                         // Don't allow amountToHeal to be more than the difference between current health and max health
@@ -347,7 +352,10 @@ const handleStatusEffects = (attackingGotchi, attackingTeam, defendingTeam) => {
                         break
                     }
                     case 'damage': {
-                        const damage = turnEffect.value
+                        const effectiveValue = getEffectiveTurnEffectValue(status, turnEffectInstance, turnEffect)
+                        const damage = Math.round(turnEffect.valueType === 'percent'
+                            ? gotchi.fullHealth * (effectiveValue / 100)
+                            : effectiveValue)
 
                         applyDamageAndSyncLeaderAuras(gotchi, damage, attackingTeam, defendingTeam)
 
@@ -744,7 +752,8 @@ const handleSpecialEffect = (attackingTeam, attackingGotchi, target, specialEffe
         case 'status': {
             // Focus/resistance check if target is not on the same team as the attacking gotchi
             if (specialEffect.skipFocusCheck || focusCheck(attackingTeam, attackingGotchi, target, rng)) {
-                if (applyEffectStatus(target, {
+                const status = getStatusByCode(specialEffect.status)
+                const statusRequest = {
                     code: specialEffect.status,
                     source: {
                         kind: 'special',
@@ -752,7 +761,18 @@ const handleSpecialEffect = (attackingTeam, attackingGotchi, target, specialEffe
                         gotchiId: attackingGotchi.id
                     },
                     durationTurns: specialEffect.durationTurns
-                }, attackingGotchi, turnContext)) {
+                }
+
+                let potencyResult = null
+                if (status.potencyEnabled === true) {
+                    if (!canApplyStatus(target, { code: specialEffect.status })) break
+                    potencyResult = getStatusPotencyResult(attackingGotchi, target, rng)
+                    statusRequest.potency = potencyResult.potency
+                }
+
+                const application = applyEffectStatusResult(target, statusRequest, attackingGotchi, turnContext)
+                if (application.applied) {
+                    if (potencyResult?.statusCrit) attackingGotchi.stats.crits++
                     result.effect.statuses.push(specialEffect.status)
                     result.effect.outcome = 'success'
                 }

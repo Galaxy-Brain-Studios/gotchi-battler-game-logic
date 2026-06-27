@@ -11,12 +11,20 @@ const {
     LEADER_FLAT_BONUS_STATS,
     LEADER_CARRY_BONUS_BY_STAT,
     LEADER_AURA_BONUS_BY_STAT,
-    CLASS_SPECIALTY_STAT
+    CLASS_SPECIALTY_STAT,
+    STATUS_FOCUS_COEFFICIENT,
+    STATUS_CRIT_DAMAGE_COEFFICIENT,
+    STATUS_POTENCY_MIN,
+    STATUS_POTENCY_MAX,
+    STATUS_CRIT_RATE_MIN,
+    STATUS_CRIT_RATE_MAX
 } = require('./constants')
 const {
     getStatusByCode,
+    clamp,
+    getStatusInstancePotency,
     initializeStatusInstances,
-    getStatusCodes,
+    getStatusInstances,
     hasStatus,
     countStatus,
     applyStatus
@@ -35,14 +43,18 @@ const getAlive = (team, row) => {
     return [...team.formation.front, ...team.formation.back].filter(x => x).filter(x => x.health > 0)
 }
 
-const applyEffectStatus = (target, statusRequest, actingGotchi, turnContext) => {
+const applyEffectStatusResult = (target, statusRequest, actingGotchi, turnContext) => {
     const application = applyStatus(target, statusRequest)
 
     if (application.applied && target === actingGotchi && turnContext) {
         application.instances.forEach(instance => turnContext.appliedThisSubjectTurnInstances.add(instance))
     }
 
-    return application.applied
+    return application
+}
+
+const applyEffectStatus = (target, statusRequest, actingGotchi, turnContext) => {
+    return applyEffectStatusResult(target, statusRequest, actingGotchi, turnContext).applied
 }
 
 /**
@@ -594,6 +606,14 @@ const getHealFromMultiplier = (healingGotchi, target, multiplier) => {
     return amountToHeal
 }
 
+const getEffectiveTurnEffectValue = (status, statusInstance, turnEffect) => {
+    if (typeof turnEffect.value !== 'number' || !Number.isFinite(turnEffect.value)) {
+        return turnEffect.value
+    }
+
+    return turnEffect.value * getStatusInstancePotency(status, statusInstance)
+}
+
 /**
  * Apply status effects to a gotchi
  * @param {Object} gotchi An in-game gotchi object
@@ -602,11 +622,13 @@ const getHealFromMultiplier = (healingGotchi, target, multiplier) => {
 const getModifiedStats = (gotchi) => {
     const statMods = {}
 
-    const statuses = getStatusCodes(gotchi)
+    const statusInstances = getStatusInstances(gotchi)
 
-    statuses.forEach(statusCode => {
+    statusInstances.forEach(statusInstance => {
+        const statusCode = statusInstance.code
         const statusStatMods = {}
         const status = getStatusByCode(statusCode)
+        const potency = getStatusInstancePotency(status, statusInstance)
 
         // Check if status is a stat modifier
         if (status.category !== 'stat_modifier') {
@@ -627,13 +649,13 @@ const getModifiedStats = (gotchi) => {
                 if (typeof statModifier.value !== 'number' || !Number.isFinite(statModifier.value)) {
                     throw new Error(`Invalid flat modifier value for status ${statusCode}: ${statModifier.value}`)
                 }
-                statChange = statModifier.value
+                statChange = statModifier.value * potency
             } else if (statModifier.valueType === 'percent') {
                 if (typeof statModifier.value !== 'number' || !Number.isFinite(statModifier.value)) {
                     throw new Error(`Invalid percent modifier value for status ${statusCode}: ${statModifier.value}`)
                 }
 
-                statChange = baseStat * (statModifier.value / 100)
+                statChange = baseStat * ((statModifier.value * potency) / 100)
             } else {
                 throw new Error(`Invalid value type for status ${statusCode}: ${statModifier.valueType}`)
             }
@@ -1107,6 +1129,25 @@ const focusCheck = (attackingTeam, attackingGotchi, targetGotchi, rng) => {
     }
 }
 
+const getStatusPotencyResult = (caster, target, rng) => {
+    const casterStats = getModifiedStats(caster)
+    const targetStats = getModifiedStats(target)
+
+    const focusBonus = Math.max(0, casterStats.focus - targetStats.resist) / STATUS_FOCUS_COEFFICIENT
+    const statusCritChance = clamp(casterStats.criticalRate, STATUS_CRIT_RATE_MIN, STATUS_CRIT_RATE_MAX) / 100
+    const statusCrit = rng() < statusCritChance
+    const critBonus = statusCrit ? casterStats.criticalDamage / STATUS_CRIT_DAMAGE_COEFFICIENT : 0
+
+    return {
+        potency: clamp(1 + focusBonus + critBonus, STATUS_POTENCY_MIN, STATUS_POTENCY_MAX),
+        statusCrit
+    }
+}
+
+const getStatusPotencyMultiplier = (caster, target, rng) => {
+    return getStatusPotencyResult(caster, target, rng).potency
+}
+
 const getCounterChance = (counteringGotchi) => {
     if (!counteringGotchi || typeof counteringGotchi !== 'object') {
         return COUNTER_CHANCE_MIN
@@ -1200,6 +1241,7 @@ module.exports = {
     getDamage,
     applyDamageAndSyncLeaderAuras,
     getHealFromMultiplier,
+    getEffectiveTurnEffectValue,
     getModifiedStats,
     calculateActionDelay,
     getNewActionDelay,
@@ -1216,8 +1258,11 @@ module.exports = {
     getTeamStats,
     getStatusByCode,
     applyEffectStatus,
+    applyEffectStatusResult,
     getTeamSpecialBars,
     focusCheck,
+    getStatusPotencyResult,
+    getStatusPotencyMultiplier,
     getCounterChance,
     counterCheck,
     getCritMultiplier,

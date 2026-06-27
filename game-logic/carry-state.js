@@ -16,12 +16,16 @@ const buildStartingStateFromWinningTeam = (winningTeam) => {
                 throw new Error(`buildStartingStateFromLog found an invalid statusInstance at index ${index} for gotchi ${gotchi.id}`)
             }
 
-            return {
+            const statusInstance = {
                 code: parsed.data.code,
                 source: { ...parsed.data.source },
                 removable: parsed.data.removable,
                 remainingSubjectTurns: parsed.data.remainingSubjectTurns
             }
+
+            if (parsed.data.potency !== undefined) statusInstance.potency = parsed.data.potency
+
+            return statusInstance
         })
 
         return {

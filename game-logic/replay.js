@@ -107,12 +107,18 @@ const getStartingStateForTeam = (team, startingStateById) => {
         .map((gotchi) => {
             const stateSource = startingStateById.get(gotchi.id) || gotchi
             const richStatusInstances = Array.isArray(stateSource.statusInstances)
-                ? stateSource.statusInstances.map(statusInstance => ({
-                    code: statusInstance.code,
-                    source: { ...statusInstance.source },
-                    removable: statusInstance.removable,
-                    remainingSubjectTurns: statusInstance.remainingSubjectTurns
-                }))
+                ? stateSource.statusInstances.map(statusInstance => {
+                    const richStatusInstance = {
+                        code: statusInstance.code,
+                        source: { ...statusInstance.source },
+                        removable: statusInstance.removable,
+                        remainingSubjectTurns: statusInstance.remainingSubjectTurns
+                    }
+
+                    if (statusInstance.potency !== undefined) richStatusInstance.potency = statusInstance.potency
+
+                    return richStatusInstance
+                })
                 : null
             const state = {
                 id: gotchi.id,

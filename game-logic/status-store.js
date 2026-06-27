@@ -1,5 +1,9 @@
 const STATUSES = require('./statuses.json')
-const { DEFAULT_MAX_STATUSES } = require('./constants')
+const {
+    DEFAULT_MAX_STATUSES,
+    STATUS_POTENCY_MIN,
+    STATUS_POTENCY_MAX
+} = require('./constants')
 
 const STATUS_BY_CODE = new Map(STATUSES.map(status => [status.code, status]))
 
@@ -17,6 +21,23 @@ const cloneSource = (source = LEGACY_SOURCE) => {
         code: normalizedSource.code ?? null,
         gotchiId: normalizedSource.gotchiId ?? null
     }
+}
+
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
+
+const normalizeStatusPotency = (potency) => {
+    if (typeof potency !== 'number' || Number.isNaN(potency) || !Number.isFinite(potency)) {
+        return 1
+    }
+
+    return clamp(potency, STATUS_POTENCY_MIN, STATUS_POTENCY_MAX)
+}
+
+const shouldSerializePotency = (potency) => normalizeStatusPotency(potency) !== 1
+
+const getStatusInstancePotency = (status, instance) => {
+    if (!status || status.potencyEnabled !== true) return 1
+    return normalizeStatusPotency(instance?.potency)
 }
 
 const getStatusByCode = (statusCode) => {
@@ -69,12 +90,17 @@ const normalizeInstance = (instance) => {
         throw new Error(`Status instance ${instance.code} has invalid remainingSubjectTurns`)
     }
 
-    return {
+    const normalized = {
         code: instance.code,
         source: cloneSource(instance.source),
         removable: instance.removable,
         remainingSubjectTurns: duration
     }
+
+    const potency = normalizeStatusPotency(instance.potency)
+    if (potency !== 1) normalized.potency = potency
+
+    return normalized
 }
 
 const initializeStatusInstances = (gotchi, statuses = []) => {
@@ -119,12 +145,27 @@ const validateDurationTurns = (durationTurns) => {
     return durationTurns
 }
 
+const canApplyStatus = (gotchi, { code, count = 1 }) => {
+    const status = getStatusByCode(code)
+    const instances = ensureStatusInstances(gotchi)
+
+    if (!Number.isInteger(count) || count <= 0) {
+        throw new Error(`Status ${code} count must be a positive integer`)
+    }
+
+    const maxStack = status.maxStack || DEFAULT_MAX_STATUSES
+    const currentStacks = instances.filter(instance => instance.code === code).length
+
+    return currentStacks + count <= maxStack
+}
+
 const applyStatus = (gotchi, {
     code,
     count = 1,
     source = LEGACY_SOURCE,
     removable = true,
-    durationTurns = null
+    durationTurns = null,
+    potency = 1
 }) => {
     const status = getStatusByCode(code)
     const instances = ensureStatusInstances(gotchi)
@@ -144,12 +185,19 @@ const applyStatus = (gotchi, {
     // Preserve the existing all-or-nothing stack-cap behaviour.
     if (currentStacks + count > maxStack) return { applied: false, instances: [] }
 
-    const appliedInstances = Array.from({ length: count }, () => ({
-        code,
-        source: cloneSource(source),
-        removable,
-        remainingSubjectTurns
-    }))
+    const normalizedPotency = normalizeStatusPotency(potency)
+    const appliedInstances = Array.from({ length: count }, () => {
+        const instance = {
+            code,
+            source: cloneSource(source),
+            removable,
+            remainingSubjectTurns
+        }
+
+        if (normalizedPotency !== 1) instance.potency = normalizedPotency
+
+        return instance
+    })
 
     instances.push(...appliedInstances)
     projectStatuses(gotchi)
@@ -234,20 +282,32 @@ const expireStatusDurationsAfterTurn = (gotchi, { appliedThisSubjectTurnInstance
     }
 }
 
-const getSerializableStatusInstances = (gotchi) => getStatusInstances(gotchi).map(instance => ({
-    code: instance.code,
-    source: cloneSource(instance.source),
-    removable: instance.removable,
-    remainingSubjectTurns: instance.remainingSubjectTurns
-}))
+const getSerializableStatusInstances = (gotchi) => getStatusInstances(gotchi).map(instance => {
+    const serialized = {
+        code: instance.code,
+        source: cloneSource(instance.source),
+        removable: instance.removable,
+        remainingSubjectTurns: instance.remainingSubjectTurns
+    }
+
+    if (shouldSerializePotency(instance.potency)) {
+        serialized.potency = normalizeStatusPotency(instance.potency)
+    }
+
+    return serialized
+})
 
 module.exports = {
     getStatusByCode,
+    clamp,
+    normalizeStatusPotency,
+    getStatusInstancePotency,
     initializeStatusInstances,
     getStatusInstances,
     getStatusCodes,
     hasStatus,
     countStatus,
+    canApplyStatus,
     applyStatus,
     removeStatusInstances,
     removeOneStatusInstance,
