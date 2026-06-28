@@ -13,6 +13,8 @@ const {
     LEADER_AURA_BONUS_BY_STAT,
     CLASS_SPECIALTY_STAT,
     STATUS_FOCUS_COEFFICIENT,
+    STATUS_FRIENDLY_FOCUS_COEFFICIENT,
+    STATUS_FRIENDLY_FOCUS_MAX_BONUS,
     STATUS_CRIT_DAMAGE_COEFFICIENT,
     STATUS_POTENCY_MIN,
     STATUS_POTENCY_MAX,
@@ -1129,11 +1131,20 @@ const focusCheck = (attackingTeam, attackingGotchi, targetGotchi, rng) => {
     }
 }
 
-const getStatusPotencyResult = (caster, target, rng) => {
+const getStatusPotencyResult = (caster, target, rng, options = {}) => {
+    if (options.fixedPotency) {
+        return {
+            potency: 1,
+            statusCrit: false
+        }
+    }
+
     const casterStats = getModifiedStats(caster)
     const targetStats = getModifiedStats(target)
 
-    const focusBonus = Math.max(0, casterStats.focus - targetStats.resist) / STATUS_FOCUS_COEFFICIENT
+    const focusBonus = options.friendlyBeneficial
+        ? Math.min(casterStats.focus / STATUS_FRIENDLY_FOCUS_COEFFICIENT, STATUS_FRIENDLY_FOCUS_MAX_BONUS)
+        : Math.max(0, casterStats.focus - targetStats.resist) / STATUS_FOCUS_COEFFICIENT
     const statusCritChance = clamp(casterStats.criticalRate, STATUS_CRIT_RATE_MIN, STATUS_CRIT_RATE_MAX) / 100
     const statusCrit = rng() < statusCritChance
     const critBonus = statusCrit ? casterStats.criticalDamage / STATUS_CRIT_DAMAGE_COEFFICIENT : 0
@@ -1144,8 +1155,8 @@ const getStatusPotencyResult = (caster, target, rng) => {
     }
 }
 
-const getStatusPotencyMultiplier = (caster, target, rng) => {
-    return getStatusPotencyResult(caster, target, rng).potency
+const getStatusPotencyMultiplier = (caster, target, rng, options = {}) => {
+    return getStatusPotencyResult(caster, target, rng, options).potency
 }
 
 const getCounterChance = (counteringGotchi) => {

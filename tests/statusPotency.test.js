@@ -1,8 +1,10 @@
 const { expect } = require('chai')
 const path = require('path')
 
+const constants = require(path.join('..', 'game-logic', 'constants'))
 const statuses = require(path.join('..', 'game-logic', 'statuses.json'))
 const { attack, gameLoop } = require(path.join('..', 'game-logic', 'index'))
+const createBattleInputFromLog = require(path.join('..', 'game-logic', 'replay'))
 const { StartingStateSchema } = require(path.join('..', 'schemas', 'ingameteam'))
 const { buildStartingStateFromLog } = require(path.join('..', 'game-logic', 'carry-state'))
 const {
@@ -150,7 +152,7 @@ const sequenceRng = (values) => {
     return rng
 }
 
-describe('status potency v1', () => {
+describe('status potency v2', () => {
     it('marks every authored status with explicit potency eligibility', () => {
         const enabledCodes = [
             'spd_up',
@@ -264,9 +266,9 @@ describe('status potency v1', () => {
         })
     })
 
-    it('applies friendly status potency at baseline when Focus does not beat Resistance', () => {
+    it('keeps zero-Focus friendly buffs at baseline regardless of target Resistance', () => {
         const caster = makeGotchi({
-            resist: 10,
+            resist: 100,
             specialExpanded: {
                 code: 'guard',
                 actionType: 'none',
@@ -283,23 +285,36 @@ describe('status potency v1', () => {
         expect(getModifiedStats(caster).defense).to.equal(11)
     })
 
-    it('applies friendly Focus potency when Focus beats Resistance', () => {
+    it('uses caster Focus only for friendly buff potency', () => {
+        const ally = makeGotchi({ id: 2, resist: 999 })
         const caster = makeGotchi({
-            focus: 10,
+            focus: 30,
             specialExpanded: {
                 code: 'guard',
                 actionType: 'none',
-                target: 'self',
+                target: 'ally_random',
                 actionMultiplier: null,
                 effects: [{ effectType: 'status', status: 'def_up', target: 'same_as_attack', chance: 1 }]
             }
         })
-        const rng = sequenceRng([0.9, 0.9])
+        const rng = sequenceRng([0, 0.9, 0.9])
 
-        attack(caster, makeTeam({ front: [caster] }), makeTeam({ front: [makeGotchi({ id: 2 })] }), rng, true)
+        attack(caster, makeTeam({ front: [caster, ally] }), makeTeam({ front: [makeGotchi({ id: 3 })] }), rng, true)
 
-        expect(caster.statusInstances[0].potency).to.equal(1.2)
-        expect(getModifiedStats(caster).defense).to.equal(11.2)
+        expect(ally.statusInstances[0].potency).to.equal(1.2)
+        expect(getModifiedStats(ally).defense).to.equal(11.2)
+    })
+
+    it('keeps hostile status potency on the v1 Focus/Resistance formula', () => {
+        const caster = makeGotchi({ focus: 30 })
+        const target = makeGotchi({ id: 2, resist: 10 })
+
+        const result = getStatusPotencyResult(caster, target, () => 0.9)
+
+        expect(result).to.deep.equal({
+            potency: 1.4,
+            statusCrit: false
+        })
     })
 
     it('preserves hostile Focus/Resistance application before rolling potency', () => {
@@ -366,8 +381,32 @@ describe('status potency v1', () => {
 
         attack(caster, makeTeam({ front: [caster] }), makeTeam({ front: [makeGotchi({ id: 2 })] }), rng, true)
 
-        expect(caster.statusInstances[0].potency).to.equal(1.25)
+        expect(caster.statusInstances[0].potency).to.equal(1 + (50 / constants.STATUS_CRIT_DAMAGE_COEFFICIENT))
         expect(caster.stats.crits).to.equal(1)
+    })
+
+    it('uses fixed baseline potency for friendly harmful statuses without rolling status crits', () => {
+        const caster = makeGotchi({
+            id: 1,
+            focus: 100,
+            criticalRate: 100,
+            criticalDamage: 200,
+            specialExpanded: {
+                code: 'risky_guard',
+                actionType: 'none',
+                target: 'self',
+                actionMultiplier: null,
+                effects: [{ effectType: 'status', status: 'spd_down', target: 'same_as_attack', chance: 1 }]
+            }
+        })
+        const rng = sequenceRng([0.9])
+
+        attack(caster, makeTeam({ front: [caster] }), makeTeam({ front: [makeGotchi({ id: 2 })] }), rng, true)
+
+        expect(rng.calls()).to.equal(1)
+        expect(caster.statusInstances[0]).not.to.have.property('potency')
+        expect(getModifiedStats(caster).speed).to.equal(9)
+        expect(caster.stats.crits).to.equal(0)
     })
 
     it('caps status potency at the maximum', () => {
@@ -457,6 +496,35 @@ describe('status potency v1', () => {
         })
 
         expect(startingState[0].statuses[0].potency).to.equal(1.32)
+    })
+
+    it('preserves potency when preparing replay input from an existing battle log', () => {
+        const subject = makeBattleGotchi(1, { attack: 100 })
+        const enemy = makeBattleGotchi(2, { health: 10 })
+        const logs = gameLoop(
+            makeBattleTeam(1, [subject], {
+                startingState: [{
+                    id: 1,
+                    health: 100,
+                    statuses: [{
+                        code: 'def_up',
+                        source: { kind: 'special', code: 'guard', gotchiId: 1 },
+                        removable: true,
+                        remainingSubjectTurns: null,
+                        potency: 1.32
+                    }]
+                }]
+            }),
+            makeBattleTeam(2, [enemy]),
+            'status-potency-replay',
+            { disableLeaderMechanics: true }
+        )
+
+        const replayInput = createBattleInputFromLog(logs, { mode: 'prepared' })
+        const replayLogs = gameLoop(replayInput.team1, replayInput.team2, replayInput.seed, replayInput.options)
+
+        expect(replayInput.team1.startingState[0].statuses[0].potency).to.equal(1.32)
+        expect(replayLogs.gotchis.find(gotchi => gotchi.id === 1).statusInstances[0].potency).to.equal(1.32)
     })
 
     it('defaults omitted potencyEnabled to false at runtime', () => {

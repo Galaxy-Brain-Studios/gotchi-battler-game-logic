@@ -766,7 +766,12 @@ const handleSpecialEffect = (attackingTeam, attackingGotchi, target, specialEffe
                 let potencyResult = null
                 if (status.potencyEnabled === true) {
                     if (!canApplyStatus(target, { code: specialEffect.status })) break
-                    potencyResult = getStatusPotencyResult(attackingGotchi, target, rng)
+                    const targetIsFriendly = getTeamGotchis(attackingTeam).some(gotchi => gotchi.id === target.id)
+                    const potencyOptions = {
+                        friendlyBeneficial: targetIsFriendly && status.isBuff === true,
+                        fixedPotency: targetIsFriendly && status.isBuff === false
+                    }
+                    potencyResult = getStatusPotencyResult(attackingGotchi, target, rng, potencyOptions)
                     statusRequest.potency = potencyResult.potency
                 }
 
