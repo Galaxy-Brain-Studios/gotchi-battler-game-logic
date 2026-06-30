@@ -152,6 +152,17 @@ const sequenceRng = (values) => {
     return rng
 }
 
+const getStatusMaxStack = (statusCode) => getStatusByCode(statusCode).maxStack || constants.DEFAULT_MAX_STATUSES
+
+const makeStatusRequests = (statusCode, count) => {
+    return Array.from({ length: count }, () => ({
+        code: statusCode,
+        source: { kind: 'special', code: 'old', gotchiId: 1 },
+        removable: true,
+        remainingSubjectTurns: null
+    }))
+}
+
 describe('status potency v2', () => {
     it('marks every authored status with explicit potency eligibility', () => {
         const enabledCodes = [
@@ -224,15 +235,15 @@ describe('status potency v2', () => {
         }])
         expect(getModifiedStats(debuffed).defense).to.equal(8.5)
 
-        const flat = makeGotchi({ criticalRate: 10 })
+        const flat = makeGotchi({ resist: 10 })
         initializeStatusInstances(flat, [{
-            code: 'crt_up',
+            code: 'res_up',
             source: { kind: 'special', code: 'aim', gotchiId: 1 },
             removable: true,
             remainingSubjectTurns: null,
             potency: 1.5
         }])
-        expect(getModifiedStats(flat).criticalRate).to.equal(25)
+        expect(getModifiedStats(flat).resist).to.equal(25)
     })
 
     it('rounds potency-adjusted turn effects to the nearest integer', () => {
@@ -439,25 +450,11 @@ describe('status potency v2', () => {
                 effects: [{ effectType: 'status', status: 'def_up', target: 'same_as_attack', chance: 1 }]
             }
         })
-        initializeStatusInstances(capped, [{
-            code: 'def_up',
-            source: { kind: 'special', code: 'old', gotchiId: 1 },
-            removable: true,
-            remainingSubjectTurns: null
-        }, {
-            code: 'def_up',
-            source: { kind: 'special', code: 'old', gotchiId: 1 },
-            removable: true,
-            remainingSubjectTurns: null
-        }, {
-            code: 'def_up',
-            source: { kind: 'special', code: 'old', gotchiId: 1 },
-            removable: true,
-            remainingSubjectTurns: null
-        }])
+        const maxStack = getStatusMaxStack('def_up')
+        initializeStatusInstances(capped, makeStatusRequests('def_up', maxStack))
         const cappedRng = sequenceRng([0.9])
         attack(capped, makeTeam({ front: [capped] }), makeTeam({ front: [makeGotchi({ id: 2 })] }), cappedRng, true)
-        expect(capped.statusInstances).to.have.length(3)
+        expect(capped.statusInstances).to.have.length(maxStack)
     })
 
     it('keeps auto-attack proc-applied statuses at baseline potency', () => {

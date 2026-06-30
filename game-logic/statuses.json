@@ -38,7 +38,7 @@
         "category": "stat_modifier",
         "isBuff": true,
         "potencyEnabled": true,
-        "maxStack": null,
+        "maxStack": 5,
         "statModifiers": [
             {
                 "statName": "defense",
@@ -59,7 +59,7 @@
             {
                 "statName": "criticalRate",
                 "value": 10,
-                "valueType": "flat"
+                "valueType": "percent"
             }
         ]
     },
@@ -75,7 +75,7 @@
             {
                 "statName": "criticalDamage",
                 "value": 10,
-                "valueType": "flat"
+                "valueType": "percent"
             }
         ]
     },
@@ -134,7 +134,7 @@
         "category": "stat_modifier",
         "isBuff": false,
         "potencyEnabled": true,
-        "maxStack": null,
+        "maxStack": 5,
         "statModifiers": [
             {
                 "statName": "attack",
@@ -171,7 +171,7 @@
             {
                 "statName": "criticalRate",
                 "value": -10,
-                "valueType": "flat"
+                "valueType": "percent"
             }
         ]
     },
@@ -187,7 +187,7 @@
             {
                 "statName": "criticalDamage",
                 "value": -10,
-                "valueType": "flat"
+                "valueType": "percent"
             }
         ]
     },
@@ -226,7 +226,7 @@
     {
         "code": "regenerate",
         "name": "Regeneration",
-        "description": "Heals 5 HP each turn",
+        "description": "Heals 3 HP each turn",
         "category": "turn_effect",
         "isBuff": true,
         "potencyEnabled": true,
@@ -234,7 +234,7 @@
         "turnEffects": [
             {
                 "type": "heal",
-                "value": 5,
+                "value": 3,
                 "valueType": "flat"
             }
         ]
@@ -426,7 +426,7 @@
             {
                 "type": "apply_status",
                 "effectStatus": "regenerate",
-                "effectChance": 0.1
+                "effectChance": 0.2
             }
         ]
     },
@@ -458,7 +458,7 @@
             {
                 "type": "apply_status",
                 "effectStatus": "crt_down",
-                "effectChance": 0.3
+                "effectChance": 0.5
             }
         ]
     },

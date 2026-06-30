@@ -2,6 +2,7 @@ const { expect } = require('chai')
 const path = require('path')
 const unityCompatibilityFixture = require(path.join(__dirname, 'fixtures', 'status-system-v3-unity-compatibility.json'))
 
+const { DEFAULT_MAX_STATUSES } = require(path.join('..', 'game-logic', 'constants'))
 const { StartingStateSchema } = require(path.join('..', 'schemas', 'ingameteam'))
 const { EffectSchema } = require(path.join('..', 'schemas', 'effect'))
 const { addLeaderToTeam } = require(path.join('..', 'game-logic', 'helpers'))
@@ -66,6 +67,8 @@ const makeTeam = (gotchis) => ({
     formation: { front: gotchis, back: [] }
 })
 
+const getStatusMaxStack = (statusCode) => getStatusByCode(statusCode).maxStack || DEFAULT_MAX_STATUSES
+
 describe('status system v3', () => {
     it('projects canonical instances in insertion order, including duplicate stacks', () => {
         const gotchi = makeGotchi(1)
@@ -83,10 +86,12 @@ describe('status system v3', () => {
     it('keeps stack applications atomic at the cap and does not refresh existing durations', () => {
         const gotchi = makeGotchi(1)
         initializeStatusInstances(gotchi)
+        const maxStack = getStatusMaxStack('def_up')
+        const existingCount = maxStack - 1
 
         expect(applyStatus(gotchi, {
             code: 'def_up',
-            count: 2,
+            count: existingCount,
             durationTurns: 2,
             source: { kind: 'special', code: 'enchant_armor', gotchiId: 1 }
         }).applied).to.equal(true)
@@ -98,7 +103,8 @@ describe('status system v3', () => {
             source: { kind: 'special', code: 'enchant_armor', gotchiId: 1 }
         }).applied).to.equal(false)
 
-        expect(getStatusInstances(gotchi).map(instance => instance.remainingSubjectTurns)).to.deep.equal([2, 2])
+        expect(getStatusInstances(gotchi).map(instance => instance.remainingSubjectTurns))
+            .to.deep.equal(Array.from({ length: existingCount }, () => 2))
     })
 
     it('normalizes legacy carry strings and validates rich carry instances', () => {

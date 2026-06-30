@@ -39,7 +39,9 @@ const getTeamGotchis = (team) => {
 // Get only alive gotchis in a team
 const getAlive = (team, row) => {
     if (row) {
-        return team.formation[row].filter(x => x).filter(x => x.health > 0)
+        const rowGotchis = team?.formation?.[row]
+        if (!Array.isArray(rowGotchis)) return []
+        return rowGotchis.filter(x => x).filter(x => x.health > 0)
     }
 
     return [...team.formation.front, ...team.formation.back].filter(x => x).filter(x => x.health > 0)
@@ -1203,7 +1205,7 @@ const getCritMultiplier = (gotchi, rng) => {
 }
 
 // Handles the primitive AI decision of whether to do a special attack
-const shouldDoSpecial = (attackingGotchi, attackingTeam, _defendingTeam) => {
+const shouldDoSpecial = (attackingGotchi, attackingTeam, defendingTeam) => {
     const special = attackingGotchi.specialExpanded
     const specialEffects = special.effects || []
     const isStatusAtMaxForAttacker = (statusCode) => {
@@ -1235,6 +1237,11 @@ const shouldDoSpecial = (attackingGotchi, attackingTeam, _defendingTeam) => {
         if (getAlive(attackingTeam).every(gotchi => gotchi.health === gotchi.fullHealth)) {
             return false
         }
+    }
+
+    // If target is "enemy_back_row" and there are no enemies in the back row
+    if (special.target === 'enemy_back_row' && getAlive(defendingTeam, 'back').length === 0) {
+        return false
     }
 
     return true

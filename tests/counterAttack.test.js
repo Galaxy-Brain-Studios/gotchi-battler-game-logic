@@ -2,11 +2,13 @@ const { expect } = require('chai')
 const path = require('path')
 
 const { attack } = require(path.join('..', 'game-logic', 'index'))
-const { counterCheck, getCounterChance } = require(path.join('..', 'game-logic', 'helpers'))
+const { counterCheck, getCounterChance, getDamage } = require(path.join('..', 'game-logic', 'helpers'))
 const {
+    AUTO_ATTACK_MULTIPLIER,
     COUNTER_ATTACK_MULTIPLIER,
     COUNTER_CHANCE_MAX,
     COUNTER_CHANCE_MIN,
+    COUNTER_DAMAGE_REDUCTION,
 } = require(path.join('..', 'game-logic', 'constants'))
 
 const makeStats = () => ({
@@ -48,6 +50,10 @@ const makeTeam = ({ front = [], back = [] } = {}) => ({
 const makeRng = (values, fallback = 0.99) => {
     let i = 0
     return () => (i < values.length ? values[i++] : fallback)
+}
+
+const getCounterReducedAutoDamage = (attacker, defender) => {
+    return Math.round(getDamage(attacker, defender, AUTO_ATTACK_MULTIPLIER) * (1 - COUNTER_DAMAGE_REDUCTION))
 }
 
 describe('counter chance', () => {
@@ -131,12 +137,13 @@ describe('counter attacks', () => {
 
     it('reduces auto-attack damage before applying it and lets a would-be-lethal target counter', () => {
         const attacker = makeGotchi({ id: 100, attack: 100, defense: 10 })
+        const defenderStartingHealth = 500
         const defender = makeGotchi({
             id: 200,
             speed: 20,
             attack: 100,
             defense: 10,
-            health: 300,
+            health: defenderStartingHealth,
             fullHealth: 500,
             statuses: ['counter'],
         })
@@ -150,16 +157,17 @@ describe('counter attacks', () => {
             0.9, // counter attack is not a crit
         ])
 
+        const expectedDamage = getCounterReducedAutoDamage(attacker, defender)
         const result = attack(attacker, attackingTeam, defendingTeam, rng, false)
 
         expect(result.actionEffects[0]).to.include({
             target: defender.id,
-            damage: 213,
+            damage: expectedDamage,
             outcome: 'success',
         })
-        expect(defender.health).to.equal(87)
-        expect(attacker.stats.dmgGiven).to.equal(213)
-        expect(defender.stats.dmgReceived).to.equal(213)
+        expect(defender.health).to.equal(defenderStartingHealth - expectedDamage)
+        expect(attacker.stats.dmgGiven).to.equal(expectedDamage)
+        expect(defender.stats.dmgReceived).to.equal(expectedDamage)
         expect(result.additionalEffects).to.have.length(1)
         expect(result.additionalEffects[0]).to.include({
             target: attacker.id,
@@ -191,9 +199,10 @@ describe('counter attacks', () => {
             0.5, // counter succeeds and reduces damage
         ])
 
+        const expectedDamage = getCounterReducedAutoDamage(attacker, defender)
         const result = attack(attacker, attackingTeam, defendingTeam, rng, false)
 
-        expect(result.actionEffects[0].damage).to.equal(425)
+        expect(result.actionEffects[0].damage).to.equal(expectedDamage)
         expect(defender.health).to.equal(0)
         expect(result.additionalEffects).to.deep.equal([])
         expect(defender.stats.counters).to.equal(0)
@@ -320,9 +329,10 @@ describe('counter attacks', () => {
             0.9, // counter attack is not a crit
         ])
 
+        const expectedDamage = getCounterReducedAutoDamage(attacker, defender)
         const result = attack(attacker, attackingTeam, defendingTeam, rng, false)
 
-        expect(result.actionEffects[0].damage).to.equal(213)
+        expect(result.actionEffects[0].damage).to.equal(expectedDamage)
         expect(result.actionEffects[0].statuses).to.deep.equal(['spd_down'])
         expect(defender.statuses).to.deep.equal(['counter', 'spd_down'])
         expect(result.additionalEffects[0].outcome).to.equal('counter')
